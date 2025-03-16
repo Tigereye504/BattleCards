@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "battlecards",
+  "version": "${version}",
+  "name": "BattleCards",
+  "description": "Build a deck and fight with it!",
+  "authors": [],
+  "contact": {},
+  "license": "MPL-2.0",
+  "icon": "assets/battlecards/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "net.tigereye.mods.battlecards.client.BattlecardsClient"
+    ],
+    "main": [
+      "net.tigereye.mods.battlecards.Battlecards"
+    ]
+  },
+  "mixins": [
+    "battlecards.mixins.json",
+    {
+      "config": "battlecards.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
