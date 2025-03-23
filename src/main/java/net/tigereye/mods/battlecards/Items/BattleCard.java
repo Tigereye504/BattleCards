@@ -4,7 +4,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public interface Card {
+public interface BattleCard {
 
 
     //on non-crouch use, perform the card's basic effect
