@@ -1,0 +1,68 @@
+package net.tigereye.mods.battlecards.Cards;
+
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
+import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
+import net.tigereye.mods.battlecards.Cards.Json.BattleCard;
+
+import java.util.List;
+
+public class BlankBattleCard implements BattleCard {
+    static Identifier BACKGROUND = Identifier.of("battlecards","battlecard");
+
+    @Override
+    public Identifier getArt() {return BACKGROUND;}
+
+    @Override
+    public void setArt(Identifier texture) {}
+
+    @Override
+    public Identifier getIcon() {return BACKGROUND;}
+
+    @Override
+    public void setIcon(Identifier texture) {}
+
+    @Override
+    public Identifier getBackground() {return BACKGROUND;}
+
+    @Override
+    public void setBackground(Identifier texture) {}
+
+    @Override
+    public int getChargeEffectCost() {
+        return 0;
+    }
+
+    @Override
+    public Text getBasicDescription() {
+        return Text.empty();
+    }
+
+    @Override
+    public Text getChargeDescription() {
+        return Text.empty();
+    }
+
+    @Override
+    public List<CardEffect> getBasicEffects() {
+        return List.of();
+    }
+
+    @Override
+    public List<CardEffect> getChargeEffects() {
+        return List.of();
+    }
+
+    @Override
+    public boolean performBasicEffect(LivingEntity user, ItemStack itemStack) {
+        return false;
+    }
+
+    @Override
+    public boolean performChargeEffect(LivingEntity user, ItemStack itemStack) {
+        return false;
+    }
+}

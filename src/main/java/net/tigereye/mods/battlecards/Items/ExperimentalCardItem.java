@@ -9,10 +9,11 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 
-public abstract class BasicCardItem extends Item implements BattleCard {
+public abstract class ExperimentalCardItem extends Item implements BattleCardItem {
 
-    private static final int COOLDOWN = 100;
-    public BasicCardItem(Settings settings) {
+    private static final int BASIC_COOLDOWN = 20;
+    private static final int ADVANCED_COOLDOWN = 100;
+    public ExperimentalCardItem(Settings settings) {
         super(settings);
     }
 
@@ -27,17 +28,21 @@ public abstract class BasicCardItem extends Item implements BattleCard {
     }
 
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        boolean goOnCooldown;
+        int cooldownTime = 0;
 
         if(this.getMaxUseTime(stack) - remainingUseTicks > 20){
             //TODO: extract energy cost
-            goOnCooldown = performAdvancedEffect(stack, user, world);
+            if(performAdvancedEffect(stack, user, world)){
+                cooldownTime = ADVANCED_COOLDOWN;
+            }
         }
         else{
-            goOnCooldown = performBasicEffect(stack,user,world);
+            if(performBasicEffect(stack,user,world)){
+                cooldownTime = BASIC_COOLDOWN;
+            }
         }
-        if(goOnCooldown && user instanceof PlayerEntity playerEntity) {
-            playerEntity.getItemCooldownManager().set(stack.getItem(),COOLDOWN);
+        if(cooldownTime > 0 && user instanceof PlayerEntity playerEntity) {
+            playerEntity.getItemCooldownManager().set(stack.getItem(),cooldownTime);
         }
     }
 

@@ -1,0 +1,50 @@
+{
+  "id": "battlecards:cannibalism",
+  "art": "battlecards:item/hoards_of_rot/cannibalism.png",
+  "icon": "battlecards:item/card_icons/melee.png",
+  "background": "battlecards:item/hoards_of_rot/background.png",
+  "rarity": 0,
+  "quickDescription": "Weak melee attack with 1 mana and 50% lifesteal.",
+  "chargeDescription": "Strong melee attack with 50% lifesteal.",
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 5,
+          "damageType": "minecraft:generic",
+          "afterDamage": [
+            {
+              "effect": "lifesteal",
+              "amount": 0.5
+            }
+          ]
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 1
+        }
+      ]
+    }
+  ],
+  "cost": 2,
+  "advancedEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 12,
+          "damageType": "minecraft:generic",
+          "afterDamage": [
+            {
+              "effect": "lifesteal",
+              "amount": 0.5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

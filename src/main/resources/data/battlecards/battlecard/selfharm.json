@@ -1,0 +1,29 @@
+{
+  "id": "battlecards:papercut",
+  "texture": "battlecards:item/papercut.png",
+  "quickEffects": [
+    {
+      "effect": "damage",
+      "amount": 4,
+      "damageType": "minecraft:generic"
+    },
+    {
+      "effect": "gain_mana",
+      "amount": 2,
+      "damageType": "minecraft:generic"
+    }
+  ],
+  "cost": 1,
+  "advancedEffects": [
+    {
+      "effect": "throw_card",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 12,
+          "damageType": "minecraft:generic"
+        }
+      ]
+    }
+  ]
+}
