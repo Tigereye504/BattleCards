@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.resource.ResourceType;
 import net.tigereye.mods.battlecards.Cards.Json.CardManager;
+import net.tigereye.mods.battlecards.client.Cards.json.ClientCardManager;
 import net.tigereye.mods.battlecards.client.Projectiles.CardProjectileRenderer;
 import net.tigereye.mods.battlecards.registration.BCEntities;
 import net.tigereye.mods.battlecards.registration.BCItems;
@@ -17,6 +18,6 @@ public class BattlecardsClient implements ClientModInitializer {
     public void onInitializeClient() {
         EntityRendererRegistry.register(BCEntities.CardProjectileEntityType, CardProjectileRenderer::new);
         //BuiltinItemRendererRegistry.INSTANCE.register(BCItems.BATTLECARD,new CardRenderer());
-        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new CardManager());
+        ResourceManagerHelper.get(ResourceType.CLIENT_RESOURCES).registerReloadListener(new ClientCardManager());
     }
 }

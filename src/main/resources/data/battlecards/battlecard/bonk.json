@@ -1,6 +1,7 @@
 {
   "id": "battlecards:bonk",
-  "texture": "battlecards:item/bonk.png",
+  "quickDescription": "Bonk.",
+  "chargeDescription": "Smash.",
   "quickEffects": [
     {
       "effect": "melee",

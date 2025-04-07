@@ -1,8 +1,5 @@
 {
   "id": "battlecards:cannibalism",
-  "art": "battlecards:item/hoards_of_rot/cannibalism.png",
-  "icon": "battlecards:item/card_icons/melee.png",
-  "background": "battlecards:item/hoards_of_rot/background.png",
   "rarity": 0,
   "quickDescription": "Weak melee attack with 1 mana and 50% lifesteal.",
   "chargeDescription": "Strong melee attack with 50% lifesteal.",

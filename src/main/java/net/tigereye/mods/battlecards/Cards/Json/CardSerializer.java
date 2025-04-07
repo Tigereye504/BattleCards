@@ -30,25 +30,6 @@ public class CardSerializer {
         }
         cardID = new Identifier(cardJson.id);
 
-        //set texture paths
-        if (cardJson.art == null) {
-            Battlecards.LOGGER.warn("Card {} is missing art texture!", id);
-            cardJson.art = DEFAULT_TEXTURE;
-        }
-        generatedBattleCard.setArt(new Identifier(cardJson.art));
-
-        if (cardJson.icon == null) {
-            Battlecards.LOGGER.warn("Card {} is missing icon texture!", id);
-            cardJson.icon = DEFAULT_TEXTURE;
-        }
-        generatedBattleCard.setIcon(new Identifier(cardJson.icon));
-
-        if (cardJson.background == null) {
-            Battlecards.LOGGER.warn("Card {} is missing background texture!", id);
-            cardJson.background = DEFAULT_TEXTURE;
-        }
-        generatedBattleCard.setBackground(new Identifier(cardJson.background));
-
         //set effect cost
         generatedBattleCard.setChargeEffectCost(cardJson.cost);
 

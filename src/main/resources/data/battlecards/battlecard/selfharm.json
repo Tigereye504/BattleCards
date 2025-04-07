@@ -1,6 +1,7 @@
 {
   "id": "battlecards:papercut",
-  "texture": "battlecards:item/papercut.png",
+  "quickDescription": "Cut yourself.",
+  "chargeDescription": "Throw Card Hard.",
   "quickEffects": [
     {
       "effect": "damage",

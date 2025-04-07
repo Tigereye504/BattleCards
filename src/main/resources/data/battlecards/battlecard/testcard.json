@@ -1,6 +1,7 @@
 {
   "id": "battlecards:testcard",
-  "texture": "battlecards:item/basic_card.png",
+  "quickDescription": "Weak Throw.",
+  "chargeDescription": "Spew Cards.",
   "quickEffects": [
     {
       "effect": "throw_card",
