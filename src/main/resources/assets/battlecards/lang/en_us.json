@@ -17,8 +17,16 @@
   "card.battlecards.tooltip.after_damage": "On Damage:",
   "card.battlecards.blank": "Blank Card",
   "card.battlecards.bonk": "Bonk",
-  "card.battlecards.cannibalism": "Cannibalism",
+  "card.battlecards.hoards_of_rot/cannibalism": "Cannibalism",
   "card.battlecards.drag_down": "Drag Down",
   "card.battlecards.papercut": "Papercut",
-  "card.battlecards.testcard": "Test Card"
+  "card.battlecards.testcard": "Test Card",
+  "card.battlecards.tooltip.push": "Push %d",
+  "card.battlecards.tooltip.delay_entity": "Wait %d ticks",
+  "card.battlecards.tooltip.breath": "%d breath",
+  "card.battlecards.tooltip.hunger": "%d hunger and %d saturation",
+  "card.battlecards.tooltip.clear_status_count": "Clear %d Status Effects",
+  "card.battlecards.tooltip.clear_status": "Remove %s Status",
+  "card.battlecards.tooltip.transfer_status": "Transfer %s Effect",
+  "card.battlecards.tooltip.transfer_status_count": "Transfer %d status effect"
 }

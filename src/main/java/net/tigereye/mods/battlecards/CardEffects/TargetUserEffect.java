@@ -12,7 +12,7 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
-import net.tigereye.mods.battlecards.CardEffects.interfaces.CardOnCollisionEffect;
+import net.tigereye.mods.battlecards.CardEffects.interfaces.OnCollisionCardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTargetEntityEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.Json.BattleCard;
@@ -22,7 +22,7 @@ import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TargetUserEffect implements CardEffect, CardTargetEntityEffect, CardOnCollisionEffect, CardTooltipNester {
+public class TargetUserEffect implements CardEffect, CardTargetEntityEffect, OnCollisionCardEffect, CardTooltipNester {
 
     List<CardEffect> effects = new ArrayList<>();
 

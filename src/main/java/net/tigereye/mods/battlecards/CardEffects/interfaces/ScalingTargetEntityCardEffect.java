@@ -4,6 +4,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.tigereye.mods.battlecards.Cards.Json.BattleCard;
 
-public interface CardAfterDamageEffect {
-    void apply(Entity user, Entity target, float damageDealt, ItemStack item, BattleCard battleCard);
+public interface ScalingTargetEntityCardEffect {
+    void apply(Entity user, Entity target, float scalar, ItemStack item, BattleCard battleCard);
 }

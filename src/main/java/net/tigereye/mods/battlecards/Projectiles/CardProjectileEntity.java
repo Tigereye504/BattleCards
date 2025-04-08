@@ -10,10 +10,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
-import net.tigereye.mods.battlecards.CardEffects.interfaces.CardOnCollisionEffect;
+import net.tigereye.mods.battlecards.CardEffects.interfaces.OnCollisionCardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTargetEntityEffect;
 import net.tigereye.mods.battlecards.Cards.Json.BattleCard;
-import net.tigereye.mods.battlecards.Items.BattleCardItem;
 import net.tigereye.mods.battlecards.registration.BCEntities;
 import net.tigereye.mods.battlecards.registration.BCItems;
 
@@ -25,7 +24,7 @@ public class CardProjectileEntity extends ThrownItemEntity {
     ItemStack item;
     BattleCard battleCard;
     List<CardTargetEntityEffect> onEntityHitEffects = new ArrayList<>();
-    List<CardOnCollisionEffect> onCollisionEffects = new ArrayList<>();
+    List<OnCollisionCardEffect> onCollisionEffects = new ArrayList<>();
     List<CardTargetEntityEffect> onTickEffects = new ArrayList<>();
 
     //TODO: custom nbt data to save effects
@@ -67,10 +66,10 @@ public class CardProjectileEntity extends ThrownItemEntity {
         onEntityHitEffects.addAll(effects);
     }
 
-    public void addEffectOnCollision(CardOnCollisionEffect effect){
+    public void addEffectOnCollision(OnCollisionCardEffect effect){
         onCollisionEffects.add(effect);
     }
-    public void addEffectsOnCollision(List<CardOnCollisionEffect> effects){
+    public void addEffectsOnCollision(List<OnCollisionCardEffect> effects){
         onCollisionEffects.addAll(effects);
     }
 
@@ -94,7 +93,7 @@ public class CardProjectileEntity extends ThrownItemEntity {
     @Override
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
-        for(CardOnCollisionEffect effect : onCollisionEffects){
+        for(OnCollisionCardEffect effect : onCollisionEffects){
             //TODO: this is clearly incomplete!
             effect.apply(getOwner(),null, item, battleCard);
         }

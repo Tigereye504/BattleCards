@@ -1,10 +1,7 @@
 {
-  "id": "battlecards:drag_down",
-  "art": "battlecards:item/hoards_of_rot/drag_down.png",
-  "icon": "battlecards:item/card_icons/melee.png",
-  "background": "battlecards:item/hoards_of_rot/background.png",
+  "id": "battlecards:mighty_blow",
   "quickDescription": "Weak melee attack generates 2 mana.",
-  "chargeDescription": "Strong melee attack inflicts Slow 2 for 5 seconds.",
+  "chargeDescription": "Melee attack drowns foes.",
   "quickEffects": [
     {
       "effect": "melee",
@@ -28,14 +25,12 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 12,
-          "damageType": "minecraft:generic"
+          "amount": 8,
+          "damageType": "minecraft:drown"
         },
         {
-          "effect": "apply_status",
-          "type": "minecraft:slowness",
-          "duration": 100,
-          "magnitude": 1
+          "effect": "breath",
+          "amount": -20
         }
       ]
     }

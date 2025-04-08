@@ -4,7 +4,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.tigereye.mods.battlecards.Cards.Json.BattleCard;
 import net.tigereye.mods.battlecards.Projectiles.BCProjectileEntity;
-import net.tigereye.mods.battlecards.Projectiles.CardProjectileEntity;
 
 import java.util.List;
 
@@ -13,8 +12,8 @@ public interface BCProjectileEffect {
     public void addEffectOnEntityHit(CardTargetEntityEffect effect);
     public void addEffectsOnEntityHit(List<CardTargetEntityEffect> effects);
 
-    public void addEffectOnCollision(CardOnCollisionEffect effect);
-    public void addEffectsOnCollision(List<CardOnCollisionEffect> effects);
+    public void addEffectOnCollision(OnCollisionCardEffect effect);
+    public void addEffectsOnCollision(List<OnCollisionCardEffect> effects);
 
     public void addEffectOnTick(CardTargetEntityEffect effect);
     public void addEffectsOnTick(List<CardTargetEntityEffect> effects);

@@ -1,0 +1,51 @@
+{
+  "id": "battlecards:infectious_blow",
+  "quickDescription": "Weak melee attack generates 3 mana, user suffers hunger.",
+  "chargeDescription": "Strong melee attack transfers 2 debuffs.",
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 5,
+          "damageType": "minecraft:generic"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 3
+        },
+        {
+          "effect": "target_user",
+          "effects": [
+            {
+              "effect": "apply_status",
+              "type": "minecraft:hunger",
+              "duration": 200,
+              "magnitude": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "advancedEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 12,
+          "damageType": "minecraft:generic"
+        },
+        {
+          "effect": "transfer_status",
+          "count": 2,
+          "targetPositive": false,
+          "targetNegative": true
+        }
+      ]
+    }
+  ]
+}

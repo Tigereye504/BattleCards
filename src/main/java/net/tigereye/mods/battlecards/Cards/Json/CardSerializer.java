@@ -28,7 +28,9 @@ public class CardSerializer {
             Battlecards.LOGGER.warn("Card {} is missing an id! Defaulting to directory path.", id);
             cardID = id;
         }
-        cardID = new Identifier(cardJson.id);
+        else {
+            cardID = new Identifier(cardJson.id);
+        }
 
         //set effect cost
         generatedBattleCard.setChargeEffectCost(cardJson.cost);
@@ -61,7 +63,6 @@ public class CardSerializer {
         else{
             generatedBattleCard.setChargeEffects(readCardEffects(id,cardJson.advancedEffects));
         }
-        Battlecards.LOGGER.warn(id.toTranslationKey());
         return new Pair<>(cardID,generatedBattleCard);
     }
 

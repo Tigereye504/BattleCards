@@ -11,14 +11,18 @@ for good and ill. I'd like snowballs to extinguish targets. I don't want arrows 
 Perhaps I can just overwrite the 'on hit' functions entirely, and reimplement the parts I want.
 Specifically, put hooks at the start of the various trigger functions.
 Actually, PersistantProjectileEntities have easily customized damage. so just set that to zero and handle it myself.
+Or I could say 'fuck it', have all projectile cards throw cards, and just upgrade the snot out of the card projectile
 
+TODO: determine why thrown cards hide from me
+TODO: determine why knockback acts funny
 
 Cards will drop in Booster Packs, which will usually be related to the dropping mob.
 Likely, any mob can drop a generic pack. That way killing modded critters is still worth something.
 
 This mod is problably just going to be the core mechanics and projectiles and such. Content will be provided in Sets
 
-TODO:Make CardEffects and BattleCardProjectiles NBT serializable. bleh... gonna put this off, see if its actually a problem.
+If stuff starts acting strange, consider:
+Make CardEffects and BattleCardProjectiles NBT serializable.
 
 TODO: Make Cards!
 TODO: Put them in booster packs!
@@ -28,21 +32,21 @@ TODO: Implement decks!
 Horrors of the Night Series (Nighttime Mobs)
   Lords of Rot (Zombies, Husks, Drowned)
     --Common--
-    Mighty Blow - Q: Weak Melee Attack, 2 Mana on hit - A(3): Strong Melee Attack with Knockback 2.
-    Pummel - Q: Weak Melee Attack, 2 Mana on hit - A(3): Three Moderate Melee Attacks back to back.
-    Drag Down - Q: Weak Melee Attack, 2 Mana on hit - A(3): Strong Melee Attack, on hit Slow 2 for 5 seconds.
-    Choke - Q: Weak Melee Attack, 2 Mana on hit - A(3): Moderate Melee Attack, does drowning damage, depletes breath meter on hit.
-    Infectious Blow - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger for 5 seconds. - A(3): Strong Melee Attack, transfer one debuff to target
-    Ravenous Hunger - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger for 5 seconds. - A(3): (2 + missing hunger) Melee Attack, gain 2 hunger on hit.
+E   Mighty Blow - Q: Weak Melee Attack, 2 Mana on hit - A(3): Strong Melee Attack with Knockback 3.
+ET  Pummel - Q: Weak Melee Attack, 2 Mana on hit - A(3): Three Moderate Melee Attacks back to back.
+ET  Drag Down - Q: Weak Melee Attack, 2 Mana on hit - A(3): Strong Melee Attack, on hit Slow 2 for 5 seconds.
+E   Choke - Q: Weak Melee Attack, 2 Mana on hit - A(3): Moderate Melee Attack, does drowning damage, depletes breath meter on hit.
+ET  Infectious Blow - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger 2 for 5 seconds. - A(3): Strong Melee Attack, transfer one debuff to target
+    Ravenous Hunger - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger 2 for 5 seconds. - A(3): (2 + missing hunger) Melee Attack, gain 2 hunger on hit.
     Aura of Hunger - Q: Weak Melee Attack, 1 Mana on hit, 1 Mana on Hit - A(?): Aura of Hunger
-    Feast or Famine - Q: Randomly restore hunger or suffer Hunger 2 for 10 seconds. Gain 2 Mana. A(?) - ???
+    Feast or Famine - Q: Randomly restore hunger or suffer Hunger 3 for 10 seconds. Gain 2 Mana. A(?) - ???
     Persistence - Q: Recover 20% of missing HP, 1 Mana if healed - A(3): Gain Undying for 30 seconds.
     Endurance - Q: Gain Armored for 5 seconds, 1 Mana if wasn't Armored - A(3): Gain Armored for 30 seconds.
     Leadership - Q: Gain Zombie Lord for 5 seconds, 1 Mana if wasn't Zombie Lord - A(2): Gain Zombie Lord for 30 seconds.
     Undeath - Q: Gain Undead for 5 seconds, 1 Mana if wasn't Undead  - A(2): Gain Undead for 30 seconds.
     Breathless - Q: Gain 3 breath bubbles, 1 Mana if breath recovered - A(2): Gain Water Breathing for 30 seconds.
     --Rare--
-    Cannibalism - Weak Melee Attack, 1 Mana on hit, 50% lifesteal - A(3): Strong Melee Attack, 50% lifesteal
+C   Cannibalism - Weak Melee Attack, 1 Mana on hit, 50% lifesteal - A(3): Strong Melee Attack, 50% lifesteal
     Impale - Q: Moderate Melee Attack, 1 Mana on hit - A(5): Throw trident, Huge Damage on hit.
     Famine - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger for 5 seconds. - A(5): 8 block burst: Inflict Instant Damage 2, Hunger 2 for 30 seconds.
     Feast of Famine - Q: A: Dispel Hunger from nearby targets, gain hunger for each dispelled.

@@ -15,7 +15,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
-import net.tigereye.mods.battlecards.CardEffects.interfaces.CardAfterDamageEffect;
+import net.tigereye.mods.battlecards.CardEffects.interfaces.ScalingTargetEntityCardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTargetEntityEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
@@ -30,7 +30,7 @@ public class DamageEntityEffect implements CardEffect, CardTargetEntityEffect, C
 
     private float damage;
     private RegistryKey<DamageType> damageType;
-    private List<CardAfterDamageEffect> afterDamageEffects = new ArrayList<>();
+    private List<ScalingTargetEntityCardEffect> afterDamageEffects = new ArrayList<>();
 
     public DamageEntityEffect(float damage, RegistryKey<DamageType> damageType){
         this.damage = damage;
@@ -76,7 +76,7 @@ public class DamageEntityEffect implements CardEffect, CardTargetEntityEffect, C
         if(!afterDamageEffects.isEmpty()){
             tooltip.add(Text.literal(" ".repeat(depth)).append(
                     Text.translatable("card.battlecards.tooltip.after_damage")));
-            for(CardAfterDamageEffect effect : afterDamageEffects){
+            for(ScalingTargetEntityCardEffect effect : afterDamageEffects){
                 if(effect instanceof CardTooltipNester nester){
                     nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);
                 }
@@ -84,14 +84,14 @@ public class DamageEntityEffect implements CardEffect, CardTargetEntityEffect, C
         }
     }
 
-    public List<CardAfterDamageEffect> getAfterDamageEffects() {
+    public List<ScalingTargetEntityCardEffect> getAfterDamageEffects() {
         return afterDamageEffects;
     }
 
-    public void addAfterDamageEffect(CardAfterDamageEffect afterDamageEffect) {
+    public void addAfterDamageEffect(ScalingTargetEntityCardEffect afterDamageEffect) {
         afterDamageEffects.add(afterDamageEffect);
     }
-    public void setAfterDamageEffects(List<CardAfterDamageEffect> afterDamageEffects) {
+    public void setAfterDamageEffects(List<ScalingTargetEntityCardEffect> afterDamageEffects) {
         this.afterDamageEffects = afterDamageEffects;
     }
 
@@ -119,7 +119,7 @@ public class DamageEntityEffect implements CardEffect, CardTargetEntityEffect, C
                     JsonArray onHitJson = obj.get("afterDamage").getAsJsonArray();
                     List<CardEffect> afterDamageEffectsRaw = CardSerializer.readCardEffects(id, onHitJson);
                     for(CardEffect effect : afterDamageEffectsRaw){
-                        if(effect instanceof CardAfterDamageEffect cadEffect){
+                        if(effect instanceof ScalingTargetEntityCardEffect cadEffect){
                             output.addAfterDamageEffect(cadEffect);
                         }
                         else{

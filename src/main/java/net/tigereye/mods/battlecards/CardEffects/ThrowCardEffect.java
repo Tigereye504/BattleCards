@@ -12,13 +12,12 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
-import net.tigereye.mods.battlecards.CardEffects.interfaces.CardOnCollisionEffect;
+import net.tigereye.mods.battlecards.CardEffects.interfaces.OnCollisionCardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTargetEntityEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.Json.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
-import net.tigereye.mods.battlecards.Items.BattleCardItem;
 import net.tigereye.mods.battlecards.Projectiles.CardProjectileEntity;
 
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ import java.util.List;
 public class ThrowCardEffect implements CardEffect, CardTargetEntityEffect, CardTooltipNester {
 
     List<CardTargetEntityEffect> onEntityHitEffects = new ArrayList<>();
-    List<CardOnCollisionEffect> onCollisionEffects = new ArrayList<>();
+    List<OnCollisionCardEffect> onCollisionEffects = new ArrayList<>();
     List<CardTargetEntityEffect> onTickEffects = new ArrayList<>();
     public Vec3d originOffset;
     public boolean originRelativeToUserElseTarget;
@@ -61,10 +60,10 @@ public class ThrowCardEffect implements CardEffect, CardTargetEntityEffect, Card
         onEntityHitEffects.addAll(effects);
     }
 
-    public void addEffectOnCollision(CardOnCollisionEffect effect){
+    public void addEffectOnCollision(OnCollisionCardEffect effect){
         onCollisionEffects.add(effect);
     }
-    public void addEffectsOnCollision(List<CardOnCollisionEffect> effects){
+    public void addEffectsOnCollision(List<OnCollisionCardEffect> effects){
         onCollisionEffects.addAll(effects);
     }
 
@@ -132,7 +131,7 @@ public class ThrowCardEffect implements CardEffect, CardTargetEntityEffect, Card
         if(!onCollisionEffects.isEmpty()){
             tooltip.add(Text.literal(" ".repeat(depth)).append(
                     Text.translatable("card.battlecards.tooltip.on_collision")));
-            for(CardOnCollisionEffect effect : onCollisionEffects){
+            for(OnCollisionCardEffect effect : onCollisionEffects){
                 if(effect instanceof CardTooltipNester nester){
                     nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);
                 }
@@ -200,7 +199,7 @@ public class ThrowCardEffect implements CardEffect, CardTargetEntityEffect, Card
                     JsonArray onHitJson = obj.get("onCollision").getAsJsonArray();
                     List<CardEffect> onHitEffectsRaw = CardSerializer.readCardEffects(id, onHitJson);
                     for(CardEffect effect : onHitEffectsRaw){
-                        if(effect instanceof CardOnCollisionEffect cocEffect){
+                        if(effect instanceof OnCollisionCardEffect cocEffect){
                             output.addEffectOnCollision(cocEffect);
                         }
                         else{

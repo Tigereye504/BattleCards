@@ -1,10 +1,9 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.tigereye.mods.battlecards.client.mixin",
+  "package": "net.tigereye.mods.battlecards.client.Mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "ItemRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
