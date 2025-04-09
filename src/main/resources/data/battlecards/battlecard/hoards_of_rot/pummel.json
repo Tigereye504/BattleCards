@@ -1,7 +1,5 @@
 {
   "id": "battlecards:pummel",
-  "quickDescription": "Weak melee attack generates 2 mana.",
-  "chargeDescription": "Make 3 consecutive melee attacks.",
   "quickEffects": [
     {
       "effect": "melee",

@@ -1,7 +1,5 @@
 {
   "id": "battlecards:mighty_blow",
-  "quickDescription": "Weak melee attack generates 2 mana.",
-  "chargeDescription": "Strong melee attack knocks back foes.",
   "quickEffects": [
     {
       "effect": "melee",

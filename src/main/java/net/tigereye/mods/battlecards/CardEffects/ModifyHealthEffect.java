@@ -18,39 +18,43 @@ import java.util.List;
 
 public class ModifyHealthEffect implements CardEffect, CardTooltipNester {
 
-    float delta;
+    float amount;
+    float scalingAmount;
 
     @Override
     public void apply(Entity user, ItemStack item, BattleCard battleCard, CardEffectContext context) {
         if(context.target != null){
-            apply(user,context.target,item,battleCard);
+            apply(user,context.target,item,battleCard,context);
         }
         else {
-            apply(user, user, item, battleCard);
+            apply(user, user, item, battleCard,context);
         }
     }
 
-    private void apply(Entity user, Entity target, ItemStack item, BattleCard battleCard) {
+    private void apply(Entity user, Entity target, ItemStack item, BattleCard battleCard, CardEffectContext context) {
         if(target instanceof LivingEntity livingEntity) {
-            if(delta > 0) {
-                livingEntity.heal(delta);
+            float totalAmount = amount + (scalingAmount*context.scalar);
+            if(totalAmount > 0) {
+                livingEntity.heal(totalAmount);
             }
-            else if(delta < 0){
-                livingEntity.setHealth((float)Math.max(0.01,livingEntity.getHealth() + delta));
+            else if(totalAmount < 0){
+                livingEntity.setHealth((float)Math.max(0.01,livingEntity.getHealth() + totalAmount));
             }
         }
     }
 
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         tooltip.add(Text.literal(" ".repeat(depth)).append(
-                Text.translatable("card.battlecards.tooltip.heal", delta)));
+                Text.translatable("card.battlecards.tooltip.modify_health", amount,
+                        scalingAmount > 0 ? " + "+scalingAmount+"X" : "")));
     }
 
     public static class Serializer implements CardEffectSerializer {
         @Override
         public CardEffect readFromJson(Identifier id, JsonElement entry) {
             ModifyHealthEffect output = new ModifyHealthEffect();
-            output.delta = CardSerializer.readOrDefaultFloat(id, "amount",entry,0);
+            output.amount = CardSerializer.readOrDefaultFloat(id, "amount",entry,0);
+            output.scalingAmount = CardSerializer.readOrDefaultFloat(id, "scalingAmount",entry,0);
             return output;
         }
     }

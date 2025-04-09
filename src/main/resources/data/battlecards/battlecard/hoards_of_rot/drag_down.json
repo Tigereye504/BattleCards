@@ -1,10 +1,5 @@
 {
-  "id": "battlecards:drag_down",
-  "art": "battlecards:item/hoards_of_rot/drag_down.png",
-  "icon": "battlecards:item/card_icons/melee.png",
-  "background": "battlecards:item/hoards_of_rot/background.png",
-  "quickDescription": "Weak melee attack generates 2 mana.",
-  "chargeDescription": "Strong melee attack inflicts Slow 2 for 5 seconds.",
+  "id": "battlecards:hoards_of_rot/drag_down",
   "quickEffects": [
     {
       "effect": "melee",

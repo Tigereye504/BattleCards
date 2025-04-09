@@ -29,6 +29,16 @@ TODO: Put them in booster packs!
 TODO: Make mobs drop packs!
 TODO: Implement decks!
 
+Balance musings for quick card effects:
+2 mana-equivalent budget for cards with a trivial delivery method (target block, any ally-targeting effect)
+3 mana-equivalent budget for cards with a simple delivery method (sweeping melee, basic projectile)
+4 mana-equivalent budget for cards with a minor drawback (like cumbersome delivery or a brief self-debuff)
+cards *must* require delivery or have a significant cost to pay out mana, and should do something to targets.
+ (something like Life Tap: Lose 5 life, gain 2 mana would be acceptable. Mana Tap: melee, gain 3 mana would not.)
+
+Costs for charge effects:
+more than now, that's for sure.
+
 Horrors of the Night Series (Nighttime Mobs)
   Lords of Rot (Zombies, Husks, Drowned)
     --Common--

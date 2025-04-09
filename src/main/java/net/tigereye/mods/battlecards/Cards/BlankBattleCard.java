@@ -11,29 +11,20 @@ import net.tigereye.mods.battlecards.Cards.Json.BattleCard;
 import java.util.List;
 
 public class BlankBattleCard implements BattleCard {
-    static Identifier BACKGROUND = Identifier.of("battlecards","battlecard");
 
     @Override
-    public Identifier getArt() {return BACKGROUND;}
-
-    @Override
-    public void setArt(Identifier texture) {}
-
-    @Override
-    public Identifier getIcon() {return BACKGROUND;}
-
-    @Override
-    public void setIcon(Identifier texture) {}
-
-    @Override
-    public Identifier getBackground() {return BACKGROUND;}
-
-    @Override
-    public void setBackground(Identifier texture) {}
+    public Identifier getID() {
+        return new Identifier("");
+    }
 
     @Override
     public int getChargeEffectCost() {
         return 0;
+    }
+
+    @Override
+    public Text getName() {
+        return Text.empty();
     }
 
     @Override
@@ -47,7 +38,7 @@ public class BlankBattleCard implements BattleCard {
     }
 
     @Override
-    public List<CardEffect> getBasicEffects() {
+    public List<CardEffect> getQuickEffects() {
         return List.of();
     }
 

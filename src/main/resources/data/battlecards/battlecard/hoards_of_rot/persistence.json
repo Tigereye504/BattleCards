@@ -1,0 +1,25 @@
+{
+  "id": "battlecards:hoards_of_rot/persistence",
+  "quickEffects": [
+    {
+      "effect": "health_scaler",
+      "missingElseCurrent": true,
+      "effects": [
+        {
+          "effect": "modify_health",
+          "scalingAmount": 0.25,
+          "damageType": "minecraft:generic"
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "advancedEffects": [
+    {
+      "effect": "apply_status",
+      "type": "battlecards:undying",
+      "duration": 600,
+      "magnitude": 0
+    }
+  ]
+}

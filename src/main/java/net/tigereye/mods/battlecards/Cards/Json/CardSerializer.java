@@ -31,30 +31,17 @@ public class CardSerializer {
         else {
             cardID = new Identifier(cardJson.id);
         }
+        generatedBattleCard.setID(cardID);
 
         //set effect cost
         generatedBattleCard.setChargeEffectCost(cardJson.cost);
-
-        //get descriptions
-        if(cardJson.quickDescription == null) {
-            Battlecards.LOGGER.warn("Card {} is missing quick description!", id);
-        }
-        else{
-            generatedBattleCard.setBasicDescription(cardJson.quickDescription);
-        }
-        if(cardJson.chargeDescription == null) {
-            Battlecards.LOGGER.warn("Card {} is missing charge description!", id);
-        }
-        else {
-            generatedBattleCard.setChargeDescription(cardJson.chargeDescription);
-        }
 
         //set quick effects
         if (cardJson.quickEffects == null) {
             Battlecards.LOGGER.warn("Card {} is missing quick effects!", id);
         }
         else{
-            generatedBattleCard.setBasicEffects(readCardEffects(id,cardJson.quickEffects));
+            generatedBattleCard.setQuickEffects(readCardEffects(id,cardJson.quickEffects));
         }
         //set advanced effects
         if (cardJson.advancedEffects == null) {

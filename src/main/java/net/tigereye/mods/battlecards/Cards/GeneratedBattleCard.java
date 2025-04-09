@@ -11,48 +11,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GeneratedBattleCard implements BattleCard {
-    Identifier art;
-    Identifier icon;
-    Identifier background;
+    Identifier id;
     int cost;
-    List<CardEffect> basicEffects = new ArrayList<>();
-    List<CardEffect> advancedEffects = new ArrayList<>();
-    String basicDescription = "";
-    String chargeDescription = "";
+    List<CardEffect> quickEffects = new ArrayList<>();
+    List<CardEffect> chargeEffects = new ArrayList<>();
 
-    public Identifier getArt() {
-        return art;
+    public Identifier getID() {
+        return id;
     }
-    public void setArt(Identifier texture) {
-        this.art = texture;
-    }
-    public Identifier getIcon() {
-        return icon;
-    }
-    public void setIcon(Identifier texture) {
-        this.icon = texture;
-    }
-    public Identifier getBackground() {
-        return background;
-    }
-    public void setBackground(Identifier texture) {
-        this.background = texture;
+    public void setID(Identifier id) {
+        this.id = id;
     }
 
     @Override
+    public Text getName() {
+        return Text.translatable("card."+getID().toTranslationKey());
+    }
+    @Override
     public Text getBasicDescription() {
-        return Text.translatable(basicDescription);
+        return Text.translatable("card."+getID().toTranslationKey()+".quick");
     }
     @Override
     public Text getChargeDescription() {
-        return Text.translatable(chargeDescription);
-    }
-
-    public void setBasicDescription(String translationKey) {
-       this.basicDescription = translationKey;
-    }
-    public void setChargeDescription(String translationKey) {
-        this.chargeDescription = translationKey;
+        return Text.translatable("card."+getID().toTranslationKey()+".charge");
     }
 
     @Override
@@ -65,40 +46,40 @@ public class GeneratedBattleCard implements BattleCard {
     }
 
     @Override
-    public List<CardEffect> getBasicEffects() {
-        return basicEffects;
+    public List<CardEffect> getQuickEffects() {
+        return quickEffects;
     }
 
     @Override
     public List<CardEffect> getChargeEffects() {
-        return advancedEffects;
+        return chargeEffects;
     }
 
-    public void setBasicEffects(List<CardEffect> effects) {
-        basicEffects = effects;
+    public void setQuickEffects(List<CardEffect> effects) {
+        quickEffects = effects;
     }
 
     public void setChargeEffects(List<CardEffect> effects) {
-        advancedEffects = effects;
+        chargeEffects = effects;
     }
 
     public void addBasicEffects(CardEffect effect) {
-        basicEffects.add(effect);
+        quickEffects.add(effect);
     }
 
     public void addChargeEffects(CardEffect effect) {
-        advancedEffects.add(effect);
+        chargeEffects.add(effect);
     }
 
     @Override
     public boolean performBasicEffect(LivingEntity user, ItemStack stack) {
-        basicEffects.forEach((cardEffect -> cardEffect.apply(user, stack, this)));
+        quickEffects.forEach((cardEffect -> cardEffect.apply(user, stack, this)));
         return true;
     }
 
     @Override
     public boolean performChargeEffect(LivingEntity user, ItemStack stack) {
-        advancedEffects.forEach((cardEffect -> cardEffect.apply(user, stack, this)));
+        chargeEffects.forEach((cardEffect -> cardEffect.apply(user, stack, this)));
         return false;
     }
 }

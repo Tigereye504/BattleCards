@@ -1,7 +1,5 @@
 {
-  "id": "battlecards:infectious_blow",
-  "quickDescription": "Weak melee attack generates 3 mana, user suffers hunger.",
-  "chargeDescription": "Strong melee attack transfers 2 debuffs.",
+  "id": "battlecards:hoards_of_rot/infectious_blow",
   "quickEffects": [
     {
       "effect": "melee",

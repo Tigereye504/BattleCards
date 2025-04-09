@@ -38,11 +38,14 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
     @Override
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
         performBasicEffect(stack,user,world);
+        if(user instanceof PlayerEntity playerEntity) {
+            playerEntity.getItemCooldownManager().set(stack.getItem(), 10);
+        }
     }
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        if(performChargeEffect(stack, user, world) && user instanceof PlayerEntity playerEntity){
+        if(user instanceof PlayerEntity playerEntity){
             playerEntity.getItemCooldownManager().set(stack.getItem(),10);
         }
         return stack;

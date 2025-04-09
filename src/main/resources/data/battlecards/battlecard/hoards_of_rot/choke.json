@@ -1,7 +1,5 @@
 {
-  "id": "battlecards:mighty_blow",
-  "quickDescription": "Weak melee attack generates 2 mana.",
-  "chargeDescription": "Melee attack drowns foes.",
+  "id": "battlecards:hoards_of_rot/choke",
   "quickEffects": [
     {
       "effect": "melee",
