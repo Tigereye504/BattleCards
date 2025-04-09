@@ -1,29 +1,24 @@
 package net.tigereye.mods.battlecards.CardEffects;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
-import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTargetEntityEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.Json.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
+import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 
 import java.util.List;
 
-public class PushEntityEffect implements CardEffect, CardTargetEntityEffect, CardTooltipNester {
+public class PushEffect implements CardEffect, CardTooltipNester {
 
     public float pitch = 0;
     public float yaw = 0;
@@ -32,12 +27,16 @@ public class PushEntityEffect implements CardEffect, CardTargetEntityEffect, Car
     public boolean applyKnockbackRes = true;
 
     @Override
-    public void apply(Entity user, ItemStack item, BattleCard battleCard) {
-        apply(user,user,item,battleCard);
+    public void apply(Entity user, ItemStack item, BattleCard battleCard, CardEffectContext context) {
+        if(context.target != null){
+            apply(user,context.target,item,battleCard);
+        }
+        else {
+            apply(user, user, item, battleCard);
+        }
     }
 
-    @Override
-    public void apply(Entity user, Entity target, ItemStack item, BattleCard battleCard) {
+    private void apply(Entity user, Entity target, ItemStack item, BattleCard battleCard) {
         Entity relativeEntity = pushRelativeToUserElseTarget ? user : target;
         Vec3d pushVector = relativeEntity.getCameraPosVec(1).normalize().multiply(magnitude)
                 .rotateX(pitch)
@@ -56,31 +55,16 @@ public class PushEntityEffect implements CardEffect, CardTargetEntityEffect, Car
 
     public static class Serializer implements CardEffectSerializer {
         @Override
-        public PushEntityEffect readFromJson(Identifier id, JsonElement entry) {
-            try {
-                JsonObject obj = entry.getAsJsonObject();
-                PushEntityEffect output = new PushEntityEffect();
-                if (obj.has("pitch")) {
-                    output.pitch = obj.get("pitch").getAsFloat();
-                }
-                if (obj.has("yaw")) {
-                    output.yaw = obj.get("yaw").getAsFloat();
-                }
-                if (obj.has("magnitude")) {
-                    output.magnitude = obj.get("magnitude").getAsFloat();
-                }
-                if (obj.has("angleRelativeToUser")) {
-                    output.pushRelativeToUserElseTarget = obj.get("angleRelativeToUser").getAsBoolean();
-                }
-                if (obj.has("applyKnockback")) {
-                    output.applyKnockbackRes = obj.get("applyKnockback").getAsBoolean();
-                }
+        public PushEffect readFromJson(Identifier id, JsonElement entry) {
+            PushEffect output = new PushEffect();
 
-                return output;
-            } catch (Exception e) {
-                Battlecards.LOGGER.error("Error parsing knockback effect!");
-                return new PushEntityEffect();
-            }
+            output.pitch = CardSerializer.readOrDefaultInt(id, "pitch",entry,0);
+            output.yaw = CardSerializer.readOrDefaultInt(id, "yaw",entry,0);
+            output.magnitude = CardSerializer.readOrDefaultFloat(id, "magnitude",entry,0.3f);
+            output.pushRelativeToUserElseTarget = CardSerializer.readOrDefaultBoolean(id, "angleRelativeToUser",entry,true);
+            output.applyKnockbackRes = CardSerializer.readOrDefaultBoolean(id, "applyKnockback",entry,true);
+
+            return output;
         }
     }
 }

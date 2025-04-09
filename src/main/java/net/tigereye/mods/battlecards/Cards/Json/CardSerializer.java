@@ -66,6 +66,19 @@ public class CardSerializer {
         return new Pair<>(cardID,generatedBattleCard);
     }
 
+    public static List<CardEffect> readCardEffects(Identifier id, String name, JsonElement element){
+        try {
+            JsonObject obj = element.getAsJsonObject();
+            if (obj.has(name)){
+                JsonArray jsonArray = obj.get(name).getAsJsonArray();
+                return readCardEffects(id, jsonArray);
+            }
+        } catch (Exception e) {
+            Battlecards.LOGGER.error("Error reading element {} in {}",name,id);
+        }
+        return List.of();
+    }
+
     public static List<CardEffect> readCardEffects(Identifier id, JsonArray json){
         List<CardEffect> cardEffects = new ArrayList<>();
         for (JsonElement entry:
@@ -90,6 +103,54 @@ public class CardSerializer {
             }
         }
         return cardEffects;
+    }
+
+    public static int readOrDefaultInt(Identifier id, String name, JsonElement entry, int defaultValue) {
+        try {
+            JsonObject obj = entry.getAsJsonObject();
+            if (obj.has(name)) {
+                return obj.get(name).getAsInt();
+            }
+        } catch (Exception e) {
+            Battlecards.LOGGER.error("Error reading integer in entry {} in {}!",name,id);
+        }
+        return defaultValue;
+    }
+
+    public static float readOrDefaultFloat(Identifier id, String name, JsonElement entry, float defaultValue) {
+        try{
+            JsonObject obj = entry.getAsJsonObject();
+            if (obj.has(name)) {
+                return obj.get(name).getAsFloat();
+            }
+        } catch (Exception e) {
+            Battlecards.LOGGER.error("Error reading float in entry {} in {}!",name,id);
+        }
+        return defaultValue;
+    }
+
+    public static boolean readOrDefaultBoolean(Identifier id, String name, JsonElement entry, boolean defaultValue) {
+        try{
+            JsonObject obj = entry.getAsJsonObject();
+            if (obj.has(name)) {
+                return obj.get(name).getAsBoolean();
+            }
+        } catch (Exception e) {
+            Battlecards.LOGGER.error("Error reading boolean in entry {} in {}!",name,id);
+        }
+        return defaultValue;
+    }
+
+    public static String readOrDefaultString(Identifier id, String name, JsonElement entry, String defaultValue) {
+        try{
+            JsonObject obj = entry.getAsJsonObject();
+            if (obj.has(name)) {
+                return obj.get(name).getAsString();
+            }
+        } catch (Exception e) {
+            Battlecards.LOGGER.error("Error reading boolean in entry {} in {}!",name,id);
+        }
+        return defaultValue;
     }
 
     public static void registerCardEffectSerializer(String id, CardEffectSerializer serializer){

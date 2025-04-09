@@ -32,7 +32,7 @@ public abstract class ExperimentalCardItem extends Item implements BattleCardIte
 
         if(this.getMaxUseTime(stack) - remainingUseTicks > 20){
             //TODO: extract energy cost
-            if(performAdvancedEffect(stack, user, world)){
+            if(performChargeEffect(stack, user, world)){
                 cooldownTime = ADVANCED_COOLDOWN;
             }
         }

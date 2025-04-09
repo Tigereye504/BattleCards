@@ -29,7 +29,7 @@
           "damageType": "minecraft:player_attack"
         },
         {
-          "effect": "delay_entity",
+          "effect": "delay",
           "delay": 10,
           "after_delay": [
             {
@@ -40,7 +40,7 @@
           ]
         },
         {
-          "effect": "delay_entity",
+          "effect": "delay",
           "delay": 20,
           "after_delay": [
             {

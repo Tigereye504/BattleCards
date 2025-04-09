@@ -9,14 +9,14 @@ import java.util.List;
 
 public interface BCProjectileEffect {
 
-    public void addEffectOnEntityHit(CardTargetEntityEffect effect);
-    public void addEffectsOnEntityHit(List<CardTargetEntityEffect> effects);
+    public void addEffectOnEntityHit(CardEffect effect);
+    public void addEffectsOnEntityHit(List<CardEffect> effects);
 
-    public void addEffectOnCollision(OnCollisionCardEffect effect);
-    public void addEffectsOnCollision(List<OnCollisionCardEffect> effects);
+    public void addEffectOnCollision(CardEffect effect);
+    public void addEffectsOnCollision(List<CardEffect> effects);
 
-    public void addEffectOnTick(CardTargetEntityEffect effect);
-    public void addEffectsOnTick(List<CardTargetEntityEffect> effects);
+    public void addEffectOnTick(CardEffect effect);
+    public void addEffectsOnTick(List<CardEffect> effects);
 
     default public BCProjectileEntity createProjectile(Entity user, ItemStack item, BattleCard battleCard) {
         return createProjectile(user,user,item,battleCard);

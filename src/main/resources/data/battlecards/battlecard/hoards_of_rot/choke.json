@@ -29,7 +29,7 @@
           "damageType": "minecraft:drown"
         },
         {
-          "effect": "breath",
+          "effect": "modify_breath",
           "amount": -20
         }
       ]

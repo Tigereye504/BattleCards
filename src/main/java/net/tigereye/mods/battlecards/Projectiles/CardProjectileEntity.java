@@ -10,8 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
-import net.tigereye.mods.battlecards.CardEffects.interfaces.OnCollisionCardEffect;
-import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTargetEntityEffect;
+import net.tigereye.mods.battlecards.CardEffects.CardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.Cards.Json.BattleCard;
 import net.tigereye.mods.battlecards.registration.BCEntities;
 import net.tigereye.mods.battlecards.registration.BCItems;
@@ -23,9 +23,9 @@ public class CardProjectileEntity extends ThrownItemEntity {
 
     ItemStack item;
     BattleCard battleCard;
-    List<CardTargetEntityEffect> onEntityHitEffects = new ArrayList<>();
-    List<OnCollisionCardEffect> onCollisionEffects = new ArrayList<>();
-    List<CardTargetEntityEffect> onTickEffects = new ArrayList<>();
+    List<CardEffect> onEntityHitEffects = new ArrayList<>();
+    List<CardEffect> onCollisionEffects = new ArrayList<>();
+    List<CardEffect> onTickEffects = new ArrayList<>();
 
     //TODO: custom nbt data to save effects
 
@@ -59,24 +59,24 @@ public class CardProjectileEntity extends ThrownItemEntity {
         return BCItems.BATTLECARD;
     }
 
-    public void addEffectOnEntityHit(CardTargetEntityEffect effect){
+    public void addEffectOnEntityHit(CardEffect effect){
         onEntityHitEffects.add(effect);
     }
-    public void addEffectsOnEntityHit(List<CardTargetEntityEffect> effects){
+    public void addEffectsOnEntityHit(List<CardEffect> effects){
         onEntityHitEffects.addAll(effects);
     }
 
-    public void addEffectOnCollision(OnCollisionCardEffect effect){
+    public void addEffectOnCollision(CardEffect effect){
         onCollisionEffects.add(effect);
     }
-    public void addEffectsOnCollision(List<OnCollisionCardEffect> effects){
+    public void addEffectsOnCollision(List<CardEffect> effects){
         onCollisionEffects.addAll(effects);
     }
 
-    public void addEffectOnTick(CardTargetEntityEffect effect){
+    public void addEffectOnTick(CardEffect effect){
         onTickEffects.add(effect);
     }
-    public void addEffectsOnTick(List<CardTargetEntityEffect> effects){
+    public void addEffectsOnTick(List<CardEffect> effects){
         onTickEffects.addAll(effects);
     }
 
@@ -84,19 +84,22 @@ public class CardProjectileEntity extends ThrownItemEntity {
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) { // called on entity hit.
         super.onEntityHit(entityHitResult);
-        Entity entity = entityHitResult.getEntity();
-        for(CardTargetEntityEffect effect : onEntityHitEffects){
-            effect.apply(getOwner(),entity, item, battleCard);
+        CardEffectContext context = new CardEffectContext();
+        context.target = entityHitResult.getEntity();
+        for(CardEffect effect : onEntityHitEffects){
+            effect.apply(getOwner(),item,battleCard,context);
         }
     }
 
     @Override
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
-        for(OnCollisionCardEffect effect : onCollisionEffects){
-            //TODO: this is clearly incomplete!
-            effect.apply(getOwner(),null, item, battleCard);
+        for(CardEffect effect : onCollisionEffects){
+            CardEffectContext context = new CardEffectContext();
+            context.hitResult = hitResult;
+            effect.apply(getOwner(),item, battleCard,context);
         }
+
         if (!this.getWorld().isClient) {
             this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_DEATH_SOUND_OR_ADD_PROJECTILE_HIT_PARTICLES);
             this.discard();
@@ -106,8 +109,10 @@ public class CardProjectileEntity extends ThrownItemEntity {
     @Override
     public void tick(){
         super.tick();
-        for(CardTargetEntityEffect effect : onTickEffects){
-            effect.apply(getOwner(),this, item, battleCard);
+        CardEffectContext context = new CardEffectContext();
+        context.target = this;
+        for(CardEffect effect : onTickEffects){
+            effect.apply(getOwner(),item,battleCard,context);
         }
     }
 }

@@ -1,0 +1,61 @@
+{
+  "id": "battlecards:hoards_of_rot/ravenous_hunger",
+  "quickDescription": "Weak melee attack generates 3 mana, user suffers hunger.",
+  "chargeDescription": "Damage scales with missing hunger, gain 2 hunger on hit.",
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 5,
+          "damageType": "minecraft:generic"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 3
+        },
+        {
+          "effect": "target_user",
+          "effects": [
+            {
+              "effect": "apply_status",
+              "type": "minecraft:hunger",
+              "duration": 200,
+              "magnitude": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "advancedEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "hunger_scaler",
+          "effects": [
+            {
+              "effect": "damage",
+              "amount": 6,
+              "scalingAmount": 2,
+              "damageType": "minecraft:player_attack"
+            }
+          ]
+        },
+        {
+          "effect": "target_user",
+          "effects": [
+            {
+              "effect": "modify_hunger",
+              "hunger": 2,
+              "saturation": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

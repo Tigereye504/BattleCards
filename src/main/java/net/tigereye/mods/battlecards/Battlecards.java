@@ -4,9 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resource.ResourceType;
 import net.tigereye.mods.battlecards.Cards.Json.CardManager;
-import net.tigereye.mods.battlecards.registration.BCEffectSerializers;
-import net.tigereye.mods.battlecards.registration.BCEntities;
-import net.tigereye.mods.battlecards.registration.BCItems;
+import net.tigereye.mods.battlecards.registration.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,6 +19,8 @@ public class Battlecards implements ModInitializer {
         BCEffectSerializers.register();
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new CardManager());
         BCItems.register();
+        BCListeners.register();
+        BCStatusEffects.register();
     }
 }
 

@@ -1,8 +1,6 @@
-package net.tigereye.mods.battlecards.CardEffects;
+package net.tigereye.mods.battlecards.CardEffects.delivery;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
@@ -10,9 +8,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
+import net.tigereye.mods.battlecards.CardEffects.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
-import net.tigereye.mods.battlecards.CardEffects.interfaces.OnCollisionCardEffect;
-import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTargetEntityEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.Json.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
@@ -23,13 +20,13 @@ import net.tigereye.mods.battlecards.Projectiles.CardProjectileEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ThrowCardsEffect implements CardEffect, CardTargetEntityEffect, CardTooltipNester {
+public class ThrowCardsEffect implements CardEffect, CardTooltipNester {
 
     BattleCardItem card;
     List<ThrowCardEffect> throwCardEffects = new ArrayList<>();
-    List<CardTargetEntityEffect> onEntityHitEffects = new ArrayList<>();
-    List<OnCollisionCardEffect> onCollisionEffects = new ArrayList<>();
-    List<CardTargetEntityEffect> onTickEffects = new ArrayList<>();
+    List<CardEffect> onEntityHitEffects = new ArrayList<>();
+    List<CardEffect> onCollisionEffects = new ArrayList<>();
+    List<CardEffect> onTickEffects = new ArrayList<>();
 
     public ThrowCardsEffect(){
     }
@@ -41,34 +38,37 @@ public class ThrowCardsEffect implements CardEffect, CardTargetEntityEffect, Car
         throwCardEffects.addAll(effects);
     }
 
-    public void addEffectOnEntityHit(CardTargetEntityEffect effect){
+    public void addEffectOnEntityHit(CardEffect effect){
         onEntityHitEffects.add(effect);
     }
-    public void addEffectsOnEntityHit(List<CardTargetEntityEffect> effects){
+    public void addEffectsOnEntityHit(List<CardEffect> effects){
         onEntityHitEffects.addAll(effects);
     }
 
-    public void addEffectOnCollision(OnCollisionCardEffect effect){
+    public void addEffectOnCollision(CardEffect effect){
         onCollisionEffects.add(effect);
     }
-    public void addEffectsOnCollision(List<OnCollisionCardEffect> effects){
+    public void addEffectsOnCollision(List<CardEffect> effects){
         onCollisionEffects.addAll(effects);
     }
 
-    public void addEffectOnTick(CardTargetEntityEffect effect){
+    public void addEffectOnTick(CardEffect effect){
         onTickEffects.add(effect);
     }
-    public void addEffectsOnTick(List<CardTargetEntityEffect> effects){
+    public void addEffectsOnTick(List<CardEffect> effects){
         onTickEffects.addAll(effects);
     }
 
     @Override
-    public void apply(Entity user, ItemStack item, BattleCard battleCard) {
-        apply(user,user, item,battleCard);
+    public void apply(Entity user, ItemStack item, BattleCard battleCard, CardEffectContext context) {
+        if (context.target != null) {
+            apply(user, context.target, item, battleCard);
+        } else {
+            apply(user, user, item, battleCard);
+        }
     }
 
-    @Override
-    public void apply(Entity user, Entity target, ItemStack item, BattleCard battleCard) {
+    private void apply(Entity user, Entity target, ItemStack item, BattleCard battleCard) {
         World world = user.getWorld();
         if(!world.isClient()) {
             for (ThrowCardEffect effect : throwCardEffects) {
@@ -90,7 +90,7 @@ public class ThrowCardsEffect implements CardEffect, CardTargetEntityEffect, Car
         if(!onEntityHitEffects.isEmpty()){
             tooltip.add(Text.literal(" ".repeat(depth)).append(
                     Text.translatable("card.battlecards.tooltip.on_hit")));
-            for(CardTargetEntityEffect effect : onEntityHitEffects){
+            for(CardEffect effect : onEntityHitEffects){
                 if(effect instanceof CardTooltipNester nester){
                     nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);
                 }
@@ -99,7 +99,7 @@ public class ThrowCardsEffect implements CardEffect, CardTargetEntityEffect, Car
         if(!onCollisionEffects.isEmpty()){
             tooltip.add(Text.literal(" ".repeat(depth)).append(
                     Text.translatable("card.battlecards.tooltip.on_collision")));
-            for(OnCollisionCardEffect effect : onCollisionEffects){
+            for(CardEffect effect : onCollisionEffects){
                 if(effect instanceof CardTooltipNester nester){
                     nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);
                 }
@@ -108,7 +108,7 @@ public class ThrowCardsEffect implements CardEffect, CardTargetEntityEffect, Car
         if(!onTickEffects.isEmpty()){
             tooltip.add(Text.literal(" ".repeat(depth)).append(
                     Text.translatable("card.battlecards.tooltip.on_tick")));
-            for(CardTargetEntityEffect effect : onTickEffects){
+            for(CardEffect effect : onTickEffects){
                 if(effect instanceof CardTooltipNester nester){
                     nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);
                 }
@@ -121,55 +121,19 @@ public class ThrowCardsEffect implements CardEffect, CardTargetEntityEffect, Car
         public ThrowCardsEffect readFromJson(Identifier id, JsonElement entry) {
             try {
                 ThrowCardsEffect output = new ThrowCardsEffect();
-                JsonObject obj = entry.getAsJsonObject();
-                if (obj.has("projectiles")) {
-                    JsonArray onHitJson = obj.get("projectiles").getAsJsonArray();
-                    List<CardEffect> projectileEffectsRaw = CardSerializer.readCardEffects(id, onHitJson);
-                    for(CardEffect effect : projectileEffectsRaw){
-                        if(effect instanceof ThrowCardEffect throwEffect){
-                            output.addThrownCard(throwEffect);
-                        }
-                        else{
-                            Battlecards.LOGGER.error("An projectile CardEffect in {} is not a thrown card!",id);
-                        }
+                List<CardEffect> projectileEffectsRaw = CardSerializer.readCardEffects(id, "projectiles", entry);
+                for(CardEffect effect : projectileEffectsRaw){
+                    if(effect instanceof ThrowCardEffect throwEffect){
+                        output.addThrownCard(throwEffect);
+                    }
+                    else{
+                        Battlecards.LOGGER.error("An projectile CardEffect in {} is not a thrown card!",id);
                     }
                 }
-                if (obj.has("onHit")) {
-                    JsonArray onHitJson = obj.get("onHit").getAsJsonArray();
-                    List<CardEffect> onHitEffectsRaw = CardSerializer.readCardEffects(id, onHitJson);
-                    for(CardEffect effect : onHitEffectsRaw){
-                        if(effect instanceof CardTargetEntityEffect cteEffect){
-                            output.addEffectOnEntityHit(cteEffect);
-                        }
-                        else{
-                            Battlecards.LOGGER.error("An onHit CardEffect in {} cannot target entity!",id);
-                        }
-                    }
-                }
-                if (obj.has("onCollision")) {
-                    JsonArray onHitJson = obj.get("onCollision").getAsJsonArray();
-                    List<CardEffect> onHitEffectsRaw = CardSerializer.readCardEffects(id, onHitJson);
-                    for(CardEffect effect : onHitEffectsRaw){
-                        if(effect instanceof OnCollisionCardEffect cocEffect){
-                            output.addEffectOnCollision(cocEffect);
-                        }
-                        else{
-                            Battlecards.LOGGER.error("An onCollision CardEffect in {} cannot trigger on collision!",id);
-                        }
-                    }
-                }
-                if (obj.has("onTick")) {
-                    JsonArray onHitJson = obj.get("onTick").getAsJsonArray();
-                    List<CardEffect> onHitEffectsRaw = CardSerializer.readCardEffects(id, onHitJson);
-                    for(CardEffect effect : onHitEffectsRaw){
-                        if(effect instanceof CardTargetEntityEffect cteEffect){
-                            output.addEffectOnTick(cteEffect);
-                        }
-                        else{
-                            Battlecards.LOGGER.error("An onTick CardEffect in {} cannot target entity!",id);
-                        }
-                    }
-                }
+
+                output.addEffectsOnEntityHit(CardSerializer.readCardEffects(id, "onHit",entry));
+                output.addEffectsOnCollision(CardSerializer.readCardEffects(id, "onCollision",entry));
+                output.addEffectsOnTick(CardSerializer.readCardEffects(id, "onTick",entry));
                 return output;
             } catch (Exception e) {
                 Battlecards.LOGGER.error("Error parsing throw card effect!");

@@ -3,7 +3,6 @@ package net.tigereye.mods.battlecards.Items;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -43,7 +42,9 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        performAdvancedEffect(stack, user, world);
+        if(performChargeEffect(stack, user, world) && user instanceof PlayerEntity playerEntity){
+            playerEntity.getItemCooldownManager().set(stack.getItem(),10);
+        }
         return stack;
     }
 
@@ -63,12 +64,13 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
     }
 
     @Override
-    public boolean performAdvancedEffect(ItemStack stack, LivingEntity user, World world) {
+    public boolean performChargeEffect(ItemStack stack, LivingEntity user, World world) {
         if(stack.hasNbt()){
             Identifier cardID = new Identifier(stack.getNbt().getString(CardManager.NBT_KEY));
             BattleCard card = CardManager.getEntry(cardID);
             if(payManaCost(user,stack,card.getChargeEffectCost())){
                 card.performChargeEffect(user,stack);
+                return true;
             }
         }
         return false;

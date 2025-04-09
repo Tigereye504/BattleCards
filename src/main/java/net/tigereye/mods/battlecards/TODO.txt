@@ -37,7 +37,7 @@ ET  Pummel - Q: Weak Melee Attack, 2 Mana on hit - A(3): Three Moderate Melee At
 ET  Drag Down - Q: Weak Melee Attack, 2 Mana on hit - A(3): Strong Melee Attack, on hit Slow 2 for 5 seconds.
 E   Choke - Q: Weak Melee Attack, 2 Mana on hit - A(3): Moderate Melee Attack, does drowning damage, depletes breath meter on hit.
 ET  Infectious Blow - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger 2 for 5 seconds. - A(3): Strong Melee Attack, transfer one debuff to target
-    Ravenous Hunger - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger 2 for 5 seconds. - A(3): (2 + missing hunger) Melee Attack, gain 2 hunger on hit.
+ET  Ravenous Hunger - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger 2 for 5 seconds. - A(3): (2 + missing hunger) Melee Attack, gain 2 hunger on hit.
     Aura of Hunger - Q: Weak Melee Attack, 1 Mana on hit, 1 Mana on Hit - A(?): Aura of Hunger
     Feast or Famine - Q: Randomly restore hunger or suffer Hunger 3 for 10 seconds. Gain 2 Mana. A(?) - ???
     Persistence - Q: Recover 20% of missing HP, 1 Mana if healed - A(3): Gain Undying for 30 seconds.
@@ -55,7 +55,7 @@ C   Cannibalism - Weak Melee Attack, 1 Mana on hit, 50% lifesteal - A(3): Strong
     Ignore Wounds - Q: Recover 20% of missing HP, 1 Mana if healed - A(5): Recover 75% of missing HP.
   Status Effects
     --Buffs--
-    Undying X: Next lethal hit leaves user at X*10%hp.
+E   Undying X: Next lethal hit leaves user at X*10%hp.
     Armored X: +(4*X) Armor.
     Reinforced X: +(2*X) Armor Toughness.
     Zombie Lord X: X*10% chance to summon zombie support when injured.

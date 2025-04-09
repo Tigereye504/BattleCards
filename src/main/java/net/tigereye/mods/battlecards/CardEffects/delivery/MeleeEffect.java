@@ -1,8 +1,6 @@
-package net.tigereye.mods.battlecards.CardEffects;
+package net.tigereye.mods.battlecards.CardEffects.delivery;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,8 +12,8 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
+import net.tigereye.mods.battlecards.CardEffects.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
-import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTargetEntityEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.Json.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
@@ -26,18 +24,18 @@ import java.util.List;
 
 public class MeleeEffect implements CardEffect, CardTooltipNester {
 
-    List<CardTargetEntityEffect> onEntityHitEffects = new ArrayList<>();
+    List<CardEffect> onEntityHitEffects = new ArrayList<>();
     double reach = 3.5;
 
-    public void addEffectOnEntityHit(CardTargetEntityEffect effect){
+    public void addEffectOnEntityHit(CardEffect effect){
         onEntityHitEffects.add(effect);
     }
-    public void addEffectsOnEntityHit(List<CardTargetEntityEffect> effects){
+    public void addEffectsOnEntityHit(List<CardEffect> effects){
         onEntityHitEffects.addAll(effects);
     }
 
     @Override
-    public void apply(Entity user, ItemStack item, BattleCard battleCard) {
+    public void apply(Entity user, ItemStack item, BattleCard battleCard, CardEffectContext context) {
         //TODO: raycast out to reach (configured, by default use the user's reach)
         Vec3d boxMin = user.getEyePos().add(-reach,-reach,-reach);
         Vec3d boxMax = user.getEyePos().add(reach,reach,reach);
@@ -50,8 +48,10 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
             if(user instanceof PlayerEntity pEntity){
                 pEntity.swingHand(pEntity.getActiveHand());
             }
-            for (CardTargetEntityEffect effect : onEntityHitEffects){
-                effect.apply(user,ehr.getEntity(),item,battleCard);
+            CardEffectContext onHitContext = new CardEffectContext();
+            onHitContext.target = ehr.getEntity();
+            for (CardEffect effect : onEntityHitEffects){
+                effect.apply(user,item,battleCard,onHitContext);
             }
         }
         //TODO: block targeting stuff could be a different 'onTouch' event. Or not.
@@ -63,7 +63,7 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
         if(!onEntityHitEffects.isEmpty()){
             tooltip.add(Text.literal(" ".repeat(depth)).append(
                     Text.translatable("card.battlecards.tooltip.on_hit")));
-            for(CardTargetEntityEffect effect : onEntityHitEffects){
+            for(CardEffect effect : onEntityHitEffects){
                 if(effect instanceof CardTooltipNester nester){
                     nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);
                 }
@@ -74,29 +74,13 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
     public static class Serializer implements CardEffectSerializer {
         @Override
         public MeleeEffect readFromJson(Identifier id, JsonElement entry) {
-            try {
-                MeleeEffect output = new MeleeEffect();
-                JsonObject obj = entry.getAsJsonObject();
-                if (obj.has("reach")){
-                    output.reach = obj.get("reach").getAsFloat();
-                }
-                if (obj.has("onHit")) {
-                    JsonArray onHitJson = obj.get("onHit").getAsJsonArray();
-                    List<CardEffect> onHitEffectsRaw = CardSerializer.readCardEffects(id, onHitJson);
-                    for(CardEffect effect : onHitEffectsRaw){
-                        if(effect instanceof CardTargetEntityEffect cteEffect){
-                            output.addEffectOnEntityHit(cteEffect);
-                        }
-                        else{
-                            Battlecards.LOGGER.error("An onHit CardEffect in {} cannot target entity!",id);
-                        }
-                    }
-                }
-                return output;
-            } catch (Exception e) {
-                Battlecards.LOGGER.error("Error parsing melee effect!");
-                return new MeleeEffect();
+            MeleeEffect output = new MeleeEffect();
+            output.reach = CardSerializer.readOrDefaultFloat(id,"reach",entry,3.5f);
+            output.addEffectsOnEntityHit(CardSerializer.readCardEffects(id, "onHit",entry));
+            if (output.onEntityHitEffects.isEmpty()) {
+                Battlecards.LOGGER.error("no effects on melee hit in {}!",id);
             }
+            return output;
         }
     }
 }

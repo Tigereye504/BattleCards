@@ -1,25 +1,26 @@
 package net.tigereye.mods.battlecards.Projectiles;
 
 import net.minecraft.util.hit.EntityHitResult;
-import net.tigereye.mods.battlecards.CardEffects.interfaces.OnCollisionCardEffect;
-import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTargetEntityEffect;
+import net.minecraft.util.hit.HitResult;
+import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 
 import java.util.List;
 
 public interface BCProjectileEntity {
 
-    public void getEffectsOnEntityHit();
-    public void addEffectOnEntityHit(CardTargetEntityEffect effect);
-    public void addEffectsOnEntityHit(List<CardTargetEntityEffect> effects);
+    void getEffectsOnEntityHit();
+    void addEffectOnEntityHit(CardEffect effect);
+    void addEffectsOnEntityHit(List<CardEffect> effects);
 
-    public void getEffectsOnCollision();
-    public void addEffectOnCollision(OnCollisionCardEffect effect);
-    public void addEffectsOnCollision(List<OnCollisionCardEffect> effects);
+    void getEffectsOnCollision();
+    void addEffectOnCollision(CardEffect effect);
+    void addEffectsOnCollision(List<CardEffect> effects);
 
-    public void getEffectsOnTick();
-    public void addEffectOnTick(CardTargetEntityEffect effect);
-    public void addEffectsOnTick(List<CardTargetEntityEffect> effects);
+    void getEffectsOnTick();
+    void addEffectOnTick(CardEffect effect);
+    void addEffectsOnTick(List<CardEffect> effects);
 
-    public void applyOnEntityHitEffects(EntityHitResult entityHitResult);
-    public void applyOnTickEffects(EntityHitResult entityHitResult);
+    void applyOnEntityHitEffects(EntityHitResult entityHitResult);
+    void applyOnCollisionEffects(HitResult hitResult);
+    void applyOnTickEffects(EntityHitResult entityHitResult);
 }
