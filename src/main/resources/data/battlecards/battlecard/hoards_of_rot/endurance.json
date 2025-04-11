@@ -1,0 +1,20 @@
+{
+  "id": "battlecards:hoards_of_rot/endurance",
+  "quickEffects": [
+    {
+      "effect": "apply_status",
+      "type": "battlecards:armored",
+      "duration": 200,
+      "magnitude": 0
+    }
+  ],
+  "cost": 2,
+  "advancedEffects": [
+    {
+      "effect": "apply_status",
+      "type": "battlecards:armored",
+      "duration": 600,
+      "magnitude": 0
+    }
+  ]
+}

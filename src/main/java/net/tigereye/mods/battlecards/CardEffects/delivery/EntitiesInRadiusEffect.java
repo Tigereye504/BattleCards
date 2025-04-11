@@ -98,6 +98,8 @@ public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
         public EntitiesInRadiusEffect readFromJson(Identifier id, JsonElement entry) {
             EntitiesInRadiusEffect output = new EntitiesInRadiusEffect();
             output.radius = CardSerializer.readOrDefaultFloat(id,"radius",entry,1f);
+            output.targetUser = CardSerializer.readOrDefaultBoolean(id,"targetUser",entry,false);
+            output.sphereElseCylinder = CardSerializer.readOrDefaultBoolean(id,"sphereElseCylinder",entry,false);
             output.addEffectsOnEntityInRange(CardSerializer.readCardEffects(id, "effects",entry));
             if (output.effects.isEmpty()) {
                 Battlecards.LOGGER.error("no effects on entities in radius in {}!",id);

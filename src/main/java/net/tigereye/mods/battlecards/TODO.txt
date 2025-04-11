@@ -28,49 +28,109 @@ TODO: Make Cards!
 TODO: Put them in booster packs!
 TODO: Make mobs drop packs!
 TODO: Implement decks!
+TODO: Implement card sleeves!
 
-Balance musings for quick card effects:
-2 mana-equivalent budget for cards with a trivial delivery method (target block, any ally-targeting effect)
-3 mana-equivalent budget for cards with a simple delivery method (sweeping melee, basic projectile)
-4 mana-equivalent budget for cards with a minor drawback (like cumbersome delivery or a brief self-debuff)
-cards *must* require delivery or have a significant cost to pay out mana, and should do something to targets.
- (something like Life Tap: Lose 5 life, gain 2 mana would be acceptable. Mana Tap: melee, gain 3 mana would not.)
+--Card Sleeves and Damage Values--
+sleeveless cards should be akin to stone weapons, while netherite-sleeved cards should be akin to enchanted netherite weapons
+quick effects should be somewhat weaker than the balance point, and charge effects better (based on mana cost)
+stone swords do 5 damage, enchanted netherite does 11.
+leather cards should have some advantage; the material is sub-iron damage, but is less available.
+damage becomes more effective point-for-point as it bypasses more armor, but you also need more
+to reach new breakpoints where you kill in fewer hits.
+
+*Kills common mobs(20)*, ~*Kills Witches (26)*~, **Kills Hoglin and Endermen(40)**, ~**Kills Brutes(50)**~
+                  value                 base (+0%)  iron (+50%) diamond(x2) netherite (+125%)
+'very weak'       -0.5- shovel.         3 dmg       3.75 dmg    6 dmg       6.75 dmg
+'weak'            - 1 - pickaxe.        4 dmg       6 dmg       8 dmg       9 dmg
+'moderate'        - 2 - a sword swipe.  5 dmg       7.5 dmg     10 dmg      11.25 dmg
+'strong'          - 3 - an axe chop.    7 dmg       10.5 dmg    14 dmg      15.75 dmg
+'very strong'     - 4 - a trident stab. 9           13.5        18          *20.25* dmg
+'extremely strong'- 5 - critical axe.   11          16.5        *22*        24.75 dmg
+'deadly'          - 6 - crit str axe.   14          *21*        ~*28*~      ~*31.5*~ dmg
+'very deadly'     - 7 - crit str II,axe 17          25.5        30          33.75  dmg
+'terminal'        - 8 - iron golem      *20*        ~*30*~      **40**      **45** dmg
+
+Leather: +25% damage, shuffled into deck twice at start of match
+Gold: +25% damage, half mana cost (round up)
+Emerald: +25% damage, +1 mana gain
+Glowstone: +25% damage, +1 mana cost, +1 effect magnitude
+Redstone: +25% damage, +1 mana cost, x2 effect duration
+
+--Balance Considerations: Quick Actions--
+
+(1 point = 1 mana gain equivalent)
+1 point budget for cards with no or a trivial delivery method (target self, block, any ally-targeting effect)
+3 point budget for cards with a simple delivery method (sweeping melee, basic projectile)
+4 point budget for cards with a minor drawback (cumbersome delivery, simple delivery + a brief self-debuff)
+cards *must* require non-trivial delivery or have a significant cost to pay out mana, and should do something to targets.
+ (something like Life Tap: lose life, gain mana could be acceptable. Mana Tap: melee, just gain mana would not.)
+similarly, cards generally should produce at least 1 mana if they require delivery.
+
+--Balance Considerations: Charge Actions--
+Charge actions just likely won't come up against a single average mob; they just aren't tanky enough.
+So charge effects are for multi-mob fights, consecutive fights, or major fights.
+Attack charges should a minor foe outright, maim a major foe, or maim multiple minor foes to feel impactful.
+As such, charge attacks generally shouldn't do less damage than a Strong, single hit.
+Charge actions, naturally, are better than quick actions due to costing mana.
+So a 1 cost charge action should be worth at least 3 points, plus 0-2 for targeting as with quicks.
+should payout be 1-1 mana for points? Maybe.
+  That would mean a 5-mana simple delivery skill has 8 points to spend.
+  'Kill' designed for diamond spends 5 mana on 'extremely strong' damage, with 3 for secondary effects.
+  'Kill' designed for iron instead spends 6 on 'deadly' damage with 2 for effects.
 
 Costs for charge effects:
-more than now, that's for sure.
+With 2 'weak and 2' attacks on a mob at iron or diamond, that leaves 3-4 mana to spend on a 'Strong and effect' finisher,
+  like Cannibalism.
+With 3 'weak and 2' attacks killing a mob at diamond, that leaves 5-6 mana to spend on a second kill.
+  So 5-6 mana single targets will want 'very strong' or 'devastating' damage, if intended to just kill.
+With 4 'weak and 2' attacks killing a mob at iron, that leaves 7-8 mana to spend on a second kill.
+  So 7-8 mana single targets will want 'apocalyptic' damage, if intended to just kill.
+With 5-6 'weak and 2' attacks killing a mob at paper...
+  get out of paper, or specialize with 'mid and 1's or 'weak and 3 and cost's!
+
+A cap of 10 mana would fit this system, encouraging players to spend once they have enough for payout
+  while leaving room for combos of lesser charge attack or using 'setup' charge attacks
+
+E - effect implemented
+T - effect successfully tested
+! - known bug
+A - art added
+C - complete
 
 Horrors of the Night Series (Nighttime Mobs)
   Lords of Rot (Zombies, Husks, Drowned)
     --Common--
-E   Mighty Blow - Q: Weak Melee Attack, 2 Mana on hit - A(3): Strong Melee Attack with Knockback 3.
+E!  Mighty Blow - Q: Weak Melee Attack, 2 Mana on hit - A(3): Strong Melee Attack with Knockback 3.
+        knockback acting funny, angles are strange
 ET  Pummel - Q: Weak Melee Attack, 2 Mana on hit - A(3): Three Moderate Melee Attacks back to back.
 ET  Drag Down - Q: Weak Melee Attack, 2 Mana on hit - A(3): Strong Melee Attack, on hit Slow 2 for 5 seconds.
 E   Choke - Q: Weak Melee Attack, 2 Mana on hit - A(3): Moderate Melee Attack, does drowning damage, depletes breath meter on hit.
+        Perhaps make this 'very weak' drowning damage?
 ET  Infectious Blow - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger 2 for 5 seconds. - A(3): Strong Melee Attack, transfer one debuff to target
 ET  Ravenous Hunger - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger 2 for 5 seconds. - A(3): (2 + missing hunger) Melee Attack, gain 2 hunger on hit.
     Aura of Hunger - Q: Weak Melee Attack, 1 Mana on hit, 1 Mana on Hit - A(?): Aura of Hunger
     Feast or Famine - Q: Randomly restore hunger or suffer Hunger 3 for 10 seconds. Gain 2 Mana. A(?) - ???
-    Persistence - Q: Recover 20% of missing HP, 1 Mana if healed - A(3): Gain Undying for 30 seconds.
-    Endurance - Q: Gain Armored for 5 seconds, 1 Mana if wasn't Armored - A(3): Gain Armored for 30 seconds.
+ET  Persistence - Q: Recover 20% of missing HP, 1 Mana if healed - A(3): Gain Undying for 30 seconds.
+E   Endurance - Q: Gain Armored for 5 seconds, 1 Mana if wasn't Armored - A(3): Gain Armored for 30 seconds.
     Leadership - Q: Gain Zombie Lord for 5 seconds, 1 Mana if wasn't Zombie Lord - A(2): Gain Zombie Lord for 30 seconds.
-    Undeath - Q: Gain Undead for 5 seconds, 1 Mana if wasn't Undead  - A(2): Gain Undead for 30 seconds.
-    Breathless - Q: Gain 3 breath bubbles, 1 Mana if breath recovered - A(2): Gain Water Breathing for 30 seconds.
+E   Undeath - Q: Gain Undead for 5 seconds, 1 Mana if wasn't Undead  - A(2): Gain Undead for 30 seconds.
+E   Breathless - Q: Gain 3 breath bubbles, 1 Mana if breath recovered - A(2): Gain Water Breathing for 30 seconds.
     --Rare--
 C   Cannibalism - Weak Melee Attack, 1 Mana on hit, 50% lifesteal - A(3): Strong Melee Attack, 50% lifesteal
-    Impale - Q: Moderate Melee Attack, 1 Mana on hit - A(5): Throw trident, Huge Damage on hit.
-    Famine - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger for 5 seconds. - A(5): 8 block burst: Inflict Instant Damage 2, Hunger 2 for 30 seconds.
-    Feast of Famine - Q: A: Dispel Hunger from nearby targets, gain hunger for each dispelled.
-    Worthless Flesh - Q: Gain Armored for 5 seconds, 1 Mana if wasn't Armored - A(3): Gain Armored 3, Reinforced 3 for 5 seconds.
-    Necromantic Surge - Q: Recover 20% of missing HP, 1 Mana if healed - A(5): Gain Undying 5 for 5 seconds.
-    Ignore Wounds - Q: Recover 20% of missing HP, 1 Mana if healed - A(5): Recover 75% of missing HP.
+E   Impale - Q: Moderate Melee Attack, no sweeping, more range, 1 Mana on hit - A(5): Throw very strong trident.
+E   Famine - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger for 5 seconds. - A(5): 8 block burst: Inflict Instant Damage 2, Hunger 2 for 30 seconds.
+    Feast of Famine - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger for 5 seconds. A: Dispel Hunger from nearby targets, gain hunger for each dispelled.
+E   Worthless Flesh - Q: Gain Armored for 5 seconds, 1 Mana if wasn't Armored - A(3): Gain Armored 3, Reinforced 3 for 5 seconds.
+E   Necromantic Surge - Q: Recover 20% of missing HP, 1 Mana if healed - A(5): Gain Undying 5 for 5 seconds.
+E   Ignore Wounds - Q: Recover 20% of missing HP, 1 Mana if healed - A(5): Recover 75% of missing HP.
   Status Effects
     --Buffs--
 E   Undying X: Next lethal hit leaves user at X*10%hp.
-    Armored X: +(4*X) Armor.
-    Reinforced X: +(2*X) Armor Toughness.
+E   Armored X: +(4*X) Armor.
+E   Reinforced X: +(2*X) Armor Toughness.
     Zombie Lord X: X*10% chance to summon zombie support when injured.
     --Debuffs--
-    Undead: Healed by Instant Harm, Harmed by Instant Health. Burn In Sunlight.
+E   Undead: Healed by Instant Harm, Harmed by Instant Health. Burn In Sunlight.
 
 Secrets of the Deep
 

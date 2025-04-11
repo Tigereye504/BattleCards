@@ -45,6 +45,7 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
+        performChargeEffect(stack, user, world);
         if(user instanceof PlayerEntity playerEntity){
             playerEntity.getItemCooldownManager().set(stack.getItem(),10);
         }

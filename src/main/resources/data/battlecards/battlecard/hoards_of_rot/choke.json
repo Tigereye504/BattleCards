@@ -6,8 +6,8 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 5,
-          "damageType": "minecraft:generic"
+          "amount": 3,
+          "damageType": "minecraft:drown"
         },
         {
           "effect": "gain_mana",
@@ -23,7 +23,7 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 8,
+          "amount": 5,
           "damageType": "minecraft:drown"
         },
         {

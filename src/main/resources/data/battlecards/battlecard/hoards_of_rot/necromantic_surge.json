@@ -1,5 +1,5 @@
 {
-  "id": "battlecards:hoards_of_rot/persistence",
+  "id": "battlecards:hoards_of_rot/necromantic_surge",
   "quickEffects": [
     {
       "effect": "health_scaler",
@@ -13,13 +13,13 @@
       ]
     }
   ],
-  "cost": 2,
+  "cost": 5,
   "advancedEffects": [
     {
       "effect": "apply_status",
       "type": "battlecards:undying",
-      "duration": 600,
-      "magnitude": 0
+      "duration": 100,
+      "magnitude": 4
     }
   ]
 }

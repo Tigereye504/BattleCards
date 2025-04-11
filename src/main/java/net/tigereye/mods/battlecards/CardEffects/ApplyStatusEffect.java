@@ -24,7 +24,7 @@ import java.util.List;
 public class ApplyStatusEffect implements CardEffect, CardTooltipNester {
 
     StatusEffect type = null;
-    int duration = 0;
+    int duration = 1;
     int magnitude = 0;
 
     @Override
@@ -64,7 +64,7 @@ public class ApplyStatusEffect implements CardEffect, CardTooltipNester {
                 Battlecards.LOGGER.error("Could not find status effect {}!", statusEffectID);
             }
 
-            output.duration = CardSerializer.readOrDefaultInt(id,"duration",entry,0);
+            output.duration = CardSerializer.readOrDefaultInt(id,"duration",entry,1);
             output.magnitude = CardSerializer.readOrDefaultInt(id,"magnitude",entry,0);
 
             return output;

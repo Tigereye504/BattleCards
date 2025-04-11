@@ -1,0 +1,20 @@
+{
+  "id": "battlecards:hoards_of_rot/undeath",
+  "quickEffects": [
+    {
+      "effect": "apply_status",
+      "type": "battlecards:undeath",
+      "duration": 100,
+      "magnitude": 0
+    }
+  ],
+  "cost": 2,
+  "advancedEffects": [
+    {
+      "effect": "apply_status",
+      "type": "battlecards:undeath",
+      "duration": 600,
+      "magnitude": 0
+    }
+  ]
+}

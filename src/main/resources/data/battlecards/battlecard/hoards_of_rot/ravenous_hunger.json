@@ -6,7 +6,7 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 5,
+          "amount": 4,
           "damageType": "minecraft:generic"
         },
         {
@@ -37,8 +37,8 @@
           "effects": [
             {
               "effect": "damage",
-              "amount": 6,
-              "scalingAmount": 2,
+              "amount": 3,
+              "scalingAmount": 1,
               "damageType": "minecraft:player_attack"
             }
           ]

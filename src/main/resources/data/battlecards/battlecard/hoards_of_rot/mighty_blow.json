@@ -1,5 +1,5 @@
 {
-  "id": "battlecards:mighty_blow",
+  "id": "battlecards:hoards_of_rot/mighty_blow",
   "quickEffects": [
     {
       "effect": "melee",
@@ -23,7 +23,7 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 12,
+          "amount": 11,
           "damageType": "minecraft:generic"
         },
         {

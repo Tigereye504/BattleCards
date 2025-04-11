@@ -6,7 +6,7 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 5,
+          "amount": 4,
           "damageType": "minecraft:generic",
           "afterDamage": [
             {
@@ -29,7 +29,7 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 12,
+          "amount": 7,
           "damageType": "minecraft:generic",
           "afterDamage": [
             {

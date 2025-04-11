@@ -1,0 +1,18 @@
+{
+  "id": "battlecards:hoards_of_rot/breathless",
+  "quickEffects": [
+    {
+      "effect": "modify_breath",
+      "amount": 3
+    }
+  ],
+  "cost": 2,
+  "advancedEffects": [
+    {
+      "effect": "apply_status",
+      "type": "minecraft:water_breathing",
+      "duration": 1800,
+      "magnitude": 0
+    }
+  ]
+}

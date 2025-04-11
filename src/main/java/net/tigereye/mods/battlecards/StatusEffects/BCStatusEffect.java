@@ -22,6 +22,10 @@ public class BCStatusEffect extends StatusEffect {
         return true;
     }
 
+    public boolean forceUndeath(LivingEntity entity, StatusEffectInstance instance, List<StatusEffect> effectsToRemove) {
+        return false;
+    }
+
     /*****Utilities*****/
 
     public static void forEachBCStatusEffect(LivingEntity entity, BCStatusEffect.Consumer consumer){
