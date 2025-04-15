@@ -27,7 +27,12 @@
   "card.battlecards.tooltip.health_scaler": "X = %s%s %s%s health",
   "card.battlecards.tooltip.if_status": "If %s has %s effect:",
   "card.battlecards.tooltip.radius": "Entities within a %d block radius %s:",
+  "card.battlecards.tooltip.retain": "Retain this card",
   "card.battlecards.blank": "Blank Card",
+  "item.battlecards.deck": "Battlecards Deck",
+  "item.battlecards.deck.decksize": "Contains %d cards",
+
+
   "card.battlecards.hoards_of_rot/breathless": "Breathless",
   "card.battlecards.hoards_of_rot/breathless.quick": "Recover 3 breath.",
   "card.battlecards.hoards_of_rot/breathless.charge": "Gain Water Breathing for 90 seconds.",
@@ -75,5 +80,6 @@
   "card.battlecards.hoards_of_rot/undeath.charge": "Gain Undeath for 30 seconds.",
   "card.battlecards.hoards_of_rot/ignore_wounds": "Worthless Flesh",
   "card.battlecards.hoards_of_rot/ignore_wounds.quick": "Gain Armored I for 5 seconds.",
-  "card.battlecards.hoards_of_rot/ignore_wounds.charge": "Gain Armored III and Reinforced III for 5 seconds."
+  "card.battlecards.hoards_of_rot/ignore_wounds.charge": "Gain Armored III and Reinforced III for 5 seconds.",
+  "boosterpack.battlecards.blank": "Empty Boosterpack"
 }

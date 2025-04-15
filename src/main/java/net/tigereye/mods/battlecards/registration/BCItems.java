@@ -8,27 +8,52 @@ import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.tigereye.mods.battlecards.Battlecards;
+import net.tigereye.mods.battlecards.BoosterPacks.Json.BoosterPackManager;
 import net.tigereye.mods.battlecards.Cards.Json.CardManager;
+import net.tigereye.mods.battlecards.Items.BattlecardsDeckItem;
+import net.tigereye.mods.battlecards.Items.BoosterPackItem;
 import net.tigereye.mods.battlecards.Items.GeneratedCardItem;
-
-import java.util.EnumSet;
-import java.util.Set;
+import net.tigereye.mods.battlecards.Items.sleeves.DiamondCardSleeve;
+import net.tigereye.mods.battlecards.Items.sleeves.GoldCardSleeve;
+import net.tigereye.mods.battlecards.Items.sleeves.IronCardSleeve;
+import net.tigereye.mods.battlecards.Items.sleeves.NetheriteCardSleeve;
 
 public class BCItems {
     public static final Item BATTLECARD = new GeneratedCardItem(new FabricItemSettings().maxCount(64));
+    public static final Item BOOSTER_PACK = new BoosterPackItem(new FabricItemSettings().maxCount(64));
+    public static final Item DECK = new BattlecardsDeckItem(new FabricItemSettings().maxCount(1));
+
+    public static final Item SLEEVE_IRON = new IronCardSleeve(new FabricItemSettings().maxCount(64));
+    public static final Item SLEEVE_GOLD = new GoldCardSleeve(new FabricItemSettings().maxCount(64));
+    public static final Item SLEEVE_DIAMOND = new DiamondCardSleeve(new FabricItemSettings().maxCount(64));
+    public static final Item SLEEVE_NETHERITE = new NetheriteCardSleeve(new FabricItemSettings().maxCount(64));
 
     public static final ItemGroup BATTLECARDS_ITEM_GROUP = FabricItemGroup.builder()
-            .icon(() -> new ItemStack(BATTLECARD))
+            .icon(() -> new ItemStack(DECK))
             .displayName(Text.translatable("itemgroup.battlecards.battlecards"))
             .entries(((displayContext, entries) -> {
+                entries.add(DECK);
+                entries.add(SLEEVE_IRON);
+                entries.add(SLEEVE_GOLD);
+                entries.add(SLEEVE_DIAMOND);
+                entries.add(SLEEVE_NETHERITE);
                 CardManager.GeneratedCards.forEach((id,battlecard) -> {
                     entries.add(CardManager.generateCardItemstack(id));
+                });
+                BoosterPackManager.BoosterPacks.forEach((id) -> {
+                    entries.add(BoosterPackManager.generateBoosterPackItemstack(id));
                 });
             }))
             .build();
 
     public static void register() {
         Registry.register(Registries.ITEM, new Identifier(Battlecards.MODID, "battlecard"), BATTLECARD);
+        Registry.register(Registries.ITEM, new Identifier(Battlecards.MODID, "booster_pack"), BOOSTER_PACK);
+        Registry.register(Registries.ITEM, new Identifier(Battlecards.MODID, "deck"), DECK);
+        Registry.register(Registries.ITEM, new Identifier(Battlecards.MODID, "sleeve/iron"), SLEEVE_IRON);
+        Registry.register(Registries.ITEM, new Identifier(Battlecards.MODID, "sleeve/gold"), SLEEVE_GOLD);
+        Registry.register(Registries.ITEM, new Identifier(Battlecards.MODID, "sleeve/diamond"), SLEEVE_DIAMOND);
+        Registry.register(Registries.ITEM, new Identifier(Battlecards.MODID, "sleeve/netherite"), SLEEVE_NETHERITE);
         Registry.register(Registries.ITEM_GROUP, Identifier.of(Battlecards.MODID,"battlecards_item_group"), BATTLECARDS_ITEM_GROUP);
     }
 }

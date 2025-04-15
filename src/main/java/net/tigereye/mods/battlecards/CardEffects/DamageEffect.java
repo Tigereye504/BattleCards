@@ -13,11 +13,13 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
+import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
-import net.tigereye.mods.battlecards.Cards.Json.BattleCard;
+import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
+import net.tigereye.mods.battlecards.Events.ModifyDamageCardEffectCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +42,6 @@ public class DamageEffect implements CardEffect, CardTooltipNester {
     }
 
     private void apply(Entity user, Entity target, ItemStack item, BattleCard battleCard, CardEffectContext context) {
-        //TODO: apply enchantments (perhaps with a hook or event for better compatibility?)
-        //TODO: apply sleeve modifiers (using an event for this sounds better and better)
         if(target != null) {
             if(damageType == null){
                 Battlecards.LOGGER.warn("Missing damage type on {} damage effect. Replacing null with 'generic' damage type.",item.getName());
@@ -49,8 +49,11 @@ public class DamageEffect implements CardEffect, CardTooltipNester {
             }
             if(target instanceof LivingEntity lEntity) {
                 float targetHealth = lEntity.getHealth() + lEntity.getAbsorptionAmount();
-                target.damage(target.getDamageSources().create(damageType, user), damage+(scalingDamage*context.scalar));
+                float modifiedDamage = ModifyDamageCardEffectCallback.EVENT.invoker()
+                        .modifyDamage(user,target,item,battleCard,context,damage+(scalingDamage*context.scalar));
+                target.damage(target.getDamageSources().create(damageType, user), modifiedDamage);
                 float damageDealt = targetHealth - (lEntity.getHealth() + lEntity.getAbsorptionAmount());
+                //TODO: call post damage event
                 CardEffectContext postDamageContext = new CardEffectContext();
                 postDamageContext.target = target;
                 postDamageContext.scalar = damageDealt;

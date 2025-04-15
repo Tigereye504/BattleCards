@@ -1,4 +1,4 @@
-package net.tigereye.mods.battlecards.CardEffects;
+package net.tigereye.mods.battlecards.CardEffects.context;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.hit.HitResult;

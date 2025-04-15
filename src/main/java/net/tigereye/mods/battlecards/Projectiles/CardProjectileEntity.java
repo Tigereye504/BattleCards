@@ -10,9 +10,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
-import net.tigereye.mods.battlecards.CardEffects.CardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
-import net.tigereye.mods.battlecards.Cards.Json.BattleCard;
+import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.registration.BCEntities;
 import net.tigereye.mods.battlecards.registration.BCItems;
 

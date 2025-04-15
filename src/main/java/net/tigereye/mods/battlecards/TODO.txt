@@ -15,6 +15,8 @@ Or I could say 'fuck it', have all projectile cards throw cards, and just upgrad
 
 TODO: determine why thrown cards hide from me
 TODO: determine why knockback acts funny
+TODO: make sweeping melee attacks less jank
+TODO: make melee attacks less jank (probably by making them lesser sweeps)
 
 Cards will drop in Booster Packs, which will usually be related to the dropping mob.
 Likely, any mob can drop a generic pack. That way killing modded critters is still worth something.
@@ -24,10 +26,9 @@ This mod is problably just going to be the core mechanics and projectiles and su
 If stuff starts acting strange, consider:
 Make CardEffects and BattleCardProjectiles NBT serializable.
 
-TODO: Make Cards!
+TODO: Make Cards (Mostly card art, now)!
 TODO: Put them in booster packs!
 TODO: Make mobs drop packs!
-TODO: Implement decks!
 TODO: Implement card sleeves!
 
 --Card Sleeves and Damage Values--
@@ -62,7 +63,8 @@ Redstone: +25% damage, +1 mana cost, x2 effect duration
 1 point budget for cards with no or a trivial delivery method (target self, block, any ally-targeting effect)
 3 point budget for cards with a simple delivery method (sweeping melee, basic projectile)
 4 point budget for cards with a minor drawback (cumbersome delivery, simple delivery + a brief self-debuff)
-cards *must* require non-trivial delivery or have a significant cost to pay out mana, and should do something to targets.
+cards *must* require non-trivial delivery or have a significant cost to pay out mana,
+ and should do something to targets.
  (something like Life Tap: lose life, gain mana could be acceptable. Mana Tap: melee, just gain mana would not.)
 similarly, cards generally should produce at least 1 mana if they require delivery.
 
@@ -132,7 +134,12 @@ E   Reinforced X: +(2*X) Armor Toughness.
     --Debuffs--
 E   Undead: Healed by Instant Harm, Harmed by Instant Health. Burn In Sunlight.
 
-Secrets of the Deep
+
+
+On events:
+I think I want two types of event listener: 'persistant' listeners and 'instanced' listeners.
+persistent listeners would listen to every card played
+instanced listeners would be created at the start of, only listen for, at die at the end of a card play
 
 
 

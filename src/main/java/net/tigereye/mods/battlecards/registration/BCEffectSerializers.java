@@ -32,6 +32,7 @@ public class BCEffectSerializers {
         CardSerializer.registerCardEffectSerializer("modify_health",new ModifyHealthEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("modify_hunger",new ModifyHungerEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("push",new PushEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("retain",new RetainCardEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("transfer_status",new TransferStatusEffect.Serializer());
     }
 }

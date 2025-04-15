@@ -8,11 +8,9 @@ import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.tigereye.mods.battlecards.Battlecards;
+import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.BlankBattleCard;
-import net.tigereye.mods.battlecards.Cards.GeneratedBattleCard;
-import net.tigereye.mods.battlecards.Items.BattleCardItem;
 import net.tigereye.mods.battlecards.registration.BCItems;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;

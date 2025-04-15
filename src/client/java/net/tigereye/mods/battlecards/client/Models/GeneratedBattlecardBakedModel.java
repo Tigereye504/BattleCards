@@ -4,7 +4,9 @@ import net.fabricmc.fabric.api.renderer.v1.model.FabricBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.item.ItemModels;
 import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.BakedModelManager;
 import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.render.model.json.ModelOverrideList;
 import net.minecraft.client.render.model.json.ModelTransformation;
@@ -19,6 +21,7 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockRenderView;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.Cards.Json.CardManager;
+import net.tigereye.mods.battlecards.Items.interfaces.BattleCardItem;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -34,15 +37,23 @@ public class GeneratedBattlecardBakedModel implements FabricBakedModel, BakedMod
 
     @Override
     public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
+        ItemModels models = MinecraftClient.getInstance().getItemRenderer().getModels();
+        BakedModelManager manager = models.getModelManager();
         if(stack.hasNbt()) {
             Identifier cardID = new Identifier(stack.getNbt().getString(CardManager.NBT_KEY));
             Identifier modifiedCardID = new Identifier(cardID.getNamespace(),"battlecard/"+cardID.getPath());
-            BakedModel model = MinecraftClient.getInstance().getItemRenderer().getModels().getModelManager().getModel(modifiedCardID);
+            BakedModel model = manager.getModel(modifiedCardID);
             if (model == null) {
-                model = MinecraftClient.getInstance().getItemRenderer().getModels().getModelManager().getModel(DEFAULT_MODEL_ID);
+                model = manager.getModel(DEFAULT_MODEL_ID);
             }
             if (model != null) {
                 model.emitItemQuads(stack, randomSupplier, context);
+            }
+        }
+        if(stack.getItem() instanceof BattleCardItem bci){
+            ItemStack sleeve = bci.getSleeve(stack);
+            if(sleeve != ItemStack.EMPTY){
+                models.getModel(sleeve).emitItemQuads(sleeve,randomSupplier,context);
             }
         }
     }

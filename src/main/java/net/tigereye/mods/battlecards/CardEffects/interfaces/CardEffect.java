@@ -2,8 +2,8 @@ package net.tigereye.mods.battlecards.CardEffects.interfaces;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
-import net.tigereye.mods.battlecards.CardEffects.CardEffectContext;
-import net.tigereye.mods.battlecards.Cards.Json.BattleCard;
+import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
+import net.tigereye.mods.battlecards.Cards.BattleCard;
 
 public interface CardEffect {
 

@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class GeneratedBattlecardModelLoadingPlugin implements ModelLoadingPlugin {
     public static final Identifier GENERATED_BATTLECARD_MODEL = Identifier.of(Battlecards.MODID,"battlecard");
+    public static final Identifier GENERATED_BOOSTER_PACK_MODEL = Identifier.of(Battlecards.MODID,"booster_pack");
     public static final String GENERATED_BATTLECARD_MODEL_LOCATION = "models/battlecard";
     public static Map<Identifier, Resource> loadedCardModels;
     @Override
@@ -23,6 +24,12 @@ public class GeneratedBattlecardModelLoadingPlugin implements ModelLoadingPlugin
         pluginContext.modifyModelAfterBake().register((original, context) -> {
             if (GENERATED_BATTLECARD_MODEL.equals(context.id())) {
                 return new GeneratedBattlecardBakedModel();
+            }
+            return original;
+        });
+        pluginContext.modifyModelAfterBake().register((original, context) -> {
+            if (GENERATED_BOOSTER_PACK_MODEL.equals(context.id())) {
+                return new GeneratedBoosterPackBakedModel();
             }
             return original;
         });

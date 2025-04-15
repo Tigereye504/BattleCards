@@ -3,6 +3,7 @@ package net.tigereye.mods.battlecards.Items;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -13,8 +14,11 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
-import net.tigereye.mods.battlecards.Cards.Json.BattleCard;
+import net.tigereye.mods.battlecards.CardEffects.RetainCardEffect;
+import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardManager;
+import net.tigereye.mods.battlecards.Items.interfaces.BattleCardItem;
+import net.tigereye.mods.battlecards.Items.interfaces.CardOwningItem;
 
 import java.util.List;
 
@@ -37,19 +41,25 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
 
     @Override
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        performBasicEffect(stack,user,world);
-        if(user instanceof PlayerEntity playerEntity) {
-            playerEntity.getItemCooldownManager().set(stack.getItem(), 10);
-        }
+        performQuickEffect(stack,user,world);
     }
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
         performChargeEffect(stack, user, world);
-        if(user instanceof PlayerEntity playerEntity){
-            playerEntity.getItemCooldownManager().set(stack.getItem(),10);
-        }
         return stack;
+    }
+
+    private void afterCardEffects(ItemStack stack, World world, LivingEntity user) {
+        //if owned, call the owner's afterOwnedCardPlayed function.
+        if(user instanceof PlayerEntity pEntity) {
+            pEntity.getItemCooldownManager().set(stack.getItem(),10);
+            CardOwningItem.findOwningItem(stack, pEntity,(coi,owner) -> {
+                coi.afterOwnedCardPlayed(world,pEntity,owner,stack);
+            });
+        }
+        //remove lingering 'retain' tag'. Consider moving this to a general 'aftercardplay' event
+        stack.removeSubNbt(RetainCardEffect.RETAIN_NBTKEY);
     }
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
@@ -59,10 +69,12 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
     }
 
     @Override
-    public boolean performBasicEffect(ItemStack stack, LivingEntity user, World world) {
+    public boolean performQuickEffect(ItemStack stack, LivingEntity user, World world) {
         if(stack.hasNbt()){
             Identifier cardID = new Identifier(stack.getNbt().getString(CardManager.NBT_KEY));
-            return CardManager.getEntry(cardID).performBasicEffect(user,stack);
+            CardManager.getEntry(cardID).performBasicEffect(user,stack);
+            afterCardEffects(stack, world, user);
+            return true;
         }
         return false;
     }
@@ -74,10 +86,35 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
             BattleCard card = CardManager.getEntry(cardID);
             if(payManaCost(user,stack,card.getChargeEffectCost())){
                 card.performChargeEffect(user,stack);
+                afterCardEffects(stack, world, user);
                 return true;
             }
         }
         return false;
+    }
+
+    @Override
+    public void gainMana(Entity user, ItemStack item, int amount){
+        //TODO: check for deck in user's inventory
+        //if found, forward this to the deck
+        //else, use the default method
+        BattleCardItem.super.gainMana(user,item,amount);
+    }
+
+    @Override
+    public int getCurrentMana(Entity user, ItemStack item){
+        //TODO: check for owning deck in user's inventory
+        //if found, forward this to the deck
+        //else, use the default method
+        return BattleCardItem.super.getCurrentMana(user,item);
+    }
+
+    @Override
+    public boolean payManaCost(Entity user, ItemStack item, int cost){
+        //TODO: check for deck in user's inventory
+        //if found, forward this to the deck
+        //else, use the default method
+        return BattleCardItem.super.payManaCost(user,item,cost);
     }
 
     @Override
@@ -97,7 +134,13 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
     @Override
     @Environment(EnvType.CLIENT)
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        Identifier cardID = new Identifier(itemStack.getNbt().getString(CardManager.NBT_KEY));
+        Identifier cardID;
+        if(itemStack.hasNbt()) {
+            cardID = new Identifier(itemStack.getNbt().getString(CardManager.NBT_KEY));
+        }
+        else{
+            cardID = null;
+        }
         BattleCard card = CardManager.getEntry(cardID);
         card.appendTooltip(itemStack,world,tooltip,tooltipContext);
     }

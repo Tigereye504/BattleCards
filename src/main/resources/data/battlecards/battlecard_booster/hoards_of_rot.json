@@ -1,0 +1,9 @@
+{
+  "id": "battlecards:hoards_of_rot/booster_pack",
+  "dropRate": 0.5,
+  "sourceLootTables": [
+    "minecraft:entities/zombie",
+    "minecraft:entities/husk",
+    "minecraft:entities/drowned"
+  ]
+}

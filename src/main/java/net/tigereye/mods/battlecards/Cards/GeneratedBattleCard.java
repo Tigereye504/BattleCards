@@ -5,7 +5,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
-import net.tigereye.mods.battlecards.Cards.Json.BattleCard;
 
 import java.util.ArrayList;
 import java.util.List;

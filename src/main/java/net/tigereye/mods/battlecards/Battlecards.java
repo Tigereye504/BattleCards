@@ -3,6 +3,7 @@ package net.tigereye.mods.battlecards;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.minecraft.resource.ResourceType;
+import net.tigereye.mods.battlecards.BoosterPacks.Json.BoosterPackManager;
 import net.tigereye.mods.battlecards.Cards.Json.CardManager;
 import net.tigereye.mods.battlecards.registration.*;
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +19,7 @@ public class Battlecards implements ModInitializer {
         BCEntities.register();
         BCEffectSerializers.register();
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new CardManager());
+        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(BoosterPackManager.INSTANCE);
         BCItems.register();
         BCListeners.register();
         BCStatusEffects.register();

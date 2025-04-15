@@ -1,4 +1,4 @@
-package net.tigereye.mods.battlecards.Cards.Json;
+package net.tigereye.mods.battlecards.Cards;
 
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
