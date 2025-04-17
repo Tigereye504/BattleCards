@@ -5,14 +5,10 @@ import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 import net.tigereye.mods.battlecards.Battlecards;
-import net.tigereye.mods.battlecards.Cards.BattleCard;
-import net.tigereye.mods.battlecards.Cards.Json.CardManager;
 import net.tigereye.mods.battlecards.Items.interfaces.BattleCardItem;
 import net.tigereye.mods.battlecards.registration.BCStatusEffects;
 
@@ -49,8 +45,8 @@ public class BCGUI {
                 int scaledWidth = client.getWindow().getScaledWidth();
                 int scaledHeight = client.getWindow().getScaledHeight();
 
-                int mana = player.hasStatusEffect(BCStatusEffects.UNBOUND_MANA)
-                        ? player.getStatusEffect(BCStatusEffects.UNBOUND_MANA).getAmplifier() + 1 : 0;
+                int mana = player.hasStatusEffect(BCStatusEffects.MANA)
+                        ? player.getStatusEffect(BCStatusEffects.MANA).getAmplifier() + 1 : 0;
 
                 //middle of the screen, offset left by half of max mana pips (40 pixels)
                 int x = scaledWidth / 2 - (MAX_MANA * 4);

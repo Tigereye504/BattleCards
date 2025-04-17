@@ -13,7 +13,7 @@ import net.tigereye.mods.battlecards.StatusEffects.Undying;
 
 public class BCStatusEffects {
 
-    public static StatusEffect UNBOUND_MANA = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 0x008080);
+    public static StatusEffect MANA = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 0x008080);
     public static StatusEffect UNDEATH = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 0xAAAAAA);
     public static StatusEffect UNDYING = new Undying();
     public static StatusEffect ARMORED = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 3402751)
@@ -24,7 +24,7 @@ public class BCStatusEffects {
                     2F, EntityAttributeModifier.Operation.ADDITION);
 
     public static void register(){
-        Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "unbound_mana"), UNBOUND_MANA);
+        Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "mana"), MANA);
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "undeath"), UNDEATH);
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "undying"), UNDYING);
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "armored"), ARMORED);

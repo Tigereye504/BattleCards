@@ -79,7 +79,7 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
         nbt.remove(DECK_ACTIVE_NBTKEY);
         //destroy all deck-owned BattleCardItems
         PlayerInventory inv = user.getInventory();
-        UUID deckUUID = nbt.getUuid(CARD_OWNER_UUID_NBTKEY);
+        UUID deckUUID = getOrCreateUUID(deck);
         for (int i = 0; i < inv.size(); i++) {
             ItemStack stack = inv.getStack(i);
             if(stack != deck && stack.getItem() instanceof BattleCardItem){
@@ -96,25 +96,38 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
         user.getItemCooldownManager().set(deck.getItem(),600);
     }
 
+    private UUID getOrCreateUUID(ItemStack deck){
+        NbtCompound nbt = deck.getOrCreateNbt();
+        UUID deck_UUID;
+        if(nbt.containsUuid(CARD_OWNER_UUID_NBTKEY)){
+            deck_UUID = nbt.getUuid(CARD_OWNER_UUID_NBTKEY);
+        }
+        else{
+            deck_UUID = UUID.randomUUID();
+            nbt.putUuid(CARD_OWNER_UUID_NBTKEY,deck_UUID);
+        }
+        return deck_UUID;
+    }
+
     public boolean drawCardToHotbar(World world, PlayerEntity user, ItemStack deck){
         //find an empty slot. return false if cant
         PlayerInventory inv = user.getInventory();
         int emptySlot = inv.getEmptySlot();
-        if(emptySlot >= 9){
+        if(emptySlot == -1 || emptySlot >= 9){
             return false;
         }
         //drawCard
         ItemStack card = drawCard(deck);
+        UUID deckUUID = getOrCreateUUID(deck);
         //if draw card returned null, return false.
         // also, check if any owned cards are left on the hotbar. If not, deactivate the deck.
         if(card == null){
             boolean deactivate = true;
             for (int i = 0; i < 9; i++) {
                 ItemStack item = inv.getStack(i);
-                UUID deckUUID = deck.getOrCreateNbt().getUuid(CARD_OWNER_UUID_NBTKEY);
                 if(item.getItem() instanceof BattleCardItem) {
                     NbtCompound nbt = inv.getStack(i).getNbt();
-                    if (nbt != null && nbt.getUuid(CARD_OWNER_UUID_NBTKEY).compareTo(deckUUID) == 0){
+                    if (nbt != null && nbt.containsUuid(CARD_OWNER_UUID_NBTKEY) && nbt.getUuid(CARD_OWNER_UUID_NBTKEY).compareTo(deckUUID) == 0){
                         deactivate = false;
                         break;
                     }

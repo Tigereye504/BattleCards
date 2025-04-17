@@ -22,10 +22,6 @@ public class BCStatusEffect extends StatusEffect {
         return true;
     }
 
-    public boolean forceUndeath(LivingEntity entity, StatusEffectInstance instance, List<StatusEffect> effectsToRemove) {
-        return false;
-    }
-
     /*****Utilities*****/
 
     public static void forEachBCStatusEffect(LivingEntity entity, BCStatusEffect.Consumer consumer){
@@ -47,5 +43,13 @@ public class BCStatusEffect extends StatusEffect {
     @FunctionalInterface
     public interface Consumer {
         void accept(BCStatusEffect effect, StatusEffectInstance instance, List<StatusEffect> effectsToRemove, AtomicBoolean stopEarly);
+    }
+
+    public static StatusEffectInstance buildGradualFalloffStatusEffectInstance(StatusEffect effect, int fullStrengthDuration, int falloffInterval,int magnitude, boolean ambient, boolean showParticles, boolean showIcon){
+        StatusEffectInstance instance = new StatusEffectInstance(effect,fullStrengthDuration,magnitude,ambient,showParticles,showIcon);
+        for (int i = 1; i <= magnitude; i++) {
+            instance.upgrade(new StatusEffectInstance(effect,fullStrengthDuration+(falloffInterval*i),magnitude-i,ambient,showParticles,showIcon));
+        }
+        return instance;
     }
 }

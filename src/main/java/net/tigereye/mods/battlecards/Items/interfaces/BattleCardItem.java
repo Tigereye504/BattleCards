@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Items.sleeves.CardSleeve;
+import net.tigereye.mods.battlecards.StatusEffects.BCStatusEffect;
 import net.tigereye.mods.battlecards.registration.BCStatusEffects;
 
 public interface BattleCardItem {
@@ -35,15 +36,16 @@ public interface BattleCardItem {
     default void gainMana(Entity user, ItemStack item, int amount){
         if(user instanceof LivingEntity livingEntity){
             int curMana = getCurrentMana(user,item);
-            livingEntity.removeStatusEffect(BCStatusEffects.UNBOUND_MANA);
-            livingEntity.addStatusEffect(new StatusEffectInstance(BCStatusEffects.UNBOUND_MANA,600,curMana+amount-1,false,false,false));
+            livingEntity.removeStatusEffect(BCStatusEffects.MANA);
+            livingEntity.addStatusEffect(BCStatusEffect.buildGradualFalloffStatusEffectInstance(BCStatusEffects.MANA, 600, 200, curMana + amount - 1, false, false, false));
+            //livingEntity.addStatusEffect(new StatusEffectInstance(BCStatusEffects.MANA,600,curMana+amount-1,false,false,false));
         }
     }
 
     default int getCurrentMana(Entity user, ItemStack item){
         if(user instanceof LivingEntity livingEntity) {
-            return livingEntity.hasStatusEffect(BCStatusEffects.UNBOUND_MANA) ?
-                    livingEntity.getStatusEffect(BCStatusEffects.UNBOUND_MANA).getAmplifier() + 1 : 0;
+            return livingEntity.hasStatusEffect(BCStatusEffects.MANA) ?
+                    livingEntity.getStatusEffect(BCStatusEffects.MANA).getAmplifier() + 1 : 0;
         }
         return 0;
     }
@@ -54,12 +56,13 @@ public interface BattleCardItem {
         if(user instanceof LivingEntity livingEntity){
             int curMana = getCurrentMana(user,item);
             if(curMana == cost){
-                livingEntity.removeStatusEffect(BCStatusEffects.UNBOUND_MANA);
+                livingEntity.removeStatusEffect(BCStatusEffects.MANA);
                 return true;
             }
             else if (curMana > cost){
-                livingEntity.removeStatusEffect(BCStatusEffects.UNBOUND_MANA);
-                livingEntity.addStatusEffect(new StatusEffectInstance(BCStatusEffects.UNBOUND_MANA,600,curMana-cost-1,false,false,false));
+                livingEntity.removeStatusEffect(BCStatusEffects.MANA);
+                livingEntity.addStatusEffect(BCStatusEffect.buildGradualFalloffStatusEffectInstance(BCStatusEffects.MANA, 600, 200, curMana - cost - 1, false, false, false));
+                //livingEntity.addStatusEffect(new StatusEffectInstance(BCStatusEffects.MANA,600,curMana-cost-1,false,false,false));
                 return true;
             }
             return false;

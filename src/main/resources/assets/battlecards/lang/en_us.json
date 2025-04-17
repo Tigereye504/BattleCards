@@ -1,5 +1,15 @@
 {
   "itemgroup.battlecards.battlecards": "Battlecards",
+  "item.battlecards.deck": "Battlecards Deck",
+  "item.battlecards.deck.decksize": "Contains %d cards",
+  "item.battlecards.sleeve.iron": "Iron Sleeve",
+  "item.battlecards.sleeve.diamond": "Diamond Sleeve",
+  "item.battlecards.sleeve.netherite": "Netherite Sleeve",
+  "item.battlecards.sleeve.gold": "Gold Sleeve",
+  "item.battlecards.sleeve.simple.desc": "Sleeve Effect: +%d%% damage",
+
+  "effect.battlecards.mana": "Mana",
+
   "card.battlecards.tooltip.quick_header": "---Quick Effect---",
   "card.battlecards.tooltip.charge_header": "---Charge Effect: %d Mana---",
   "card.battlecards.tooltip.throw_card": "Throw a card",
@@ -29,13 +39,6 @@
   "card.battlecards.tooltip.radius": "Entities within a %d block radius %s:",
   "card.battlecards.tooltip.retain": "Retain this card",
   "card.battlecards.blank": "Blank Card",
-  "item.battlecards.deck": "Battlecards Deck",
-  "item.battlecards.deck.decksize": "Contains %d cards",
-  "item.battlecards.sleeve.iron": "Iron Sleeve",
-  "item.battlecards.sleeve.diamond": "Diamond Sleeve",
-  "item.battlecards.sleeve.netherite": "Netherite Sleeve",
-  "item.battlecards.sleeve.gold": "Gold Sleeve",
-  "item.battlecards.sleeve.simple.desc": "Sleeve Effect: +%d%% damage",
 
   "card.battlecards.hoards_of_rot/breathless": "Breathless",
   "card.battlecards.hoards_of_rot/breathless.quick": "Recover 3 breath.",

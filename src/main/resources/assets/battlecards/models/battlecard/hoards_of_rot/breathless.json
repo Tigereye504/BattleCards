@@ -1,7 +1,7 @@
 {
     "parent": "item/handheld",
     "textures": {
-        "layer2": "battlecards:item/card_icons/defense",
+        "layer2": "battlecards:item/card_icons/exotic",
         "layer1": "battlecards:item/unknown_card_art",
         "layer0": "battlecards:item/hoards_of_rot/background"
     }
