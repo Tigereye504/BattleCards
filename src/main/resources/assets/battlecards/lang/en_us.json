@@ -31,7 +31,11 @@
   "card.battlecards.blank": "Blank Card",
   "item.battlecards.deck": "Battlecards Deck",
   "item.battlecards.deck.decksize": "Contains %d cards",
-
+  "item.battlecards.sleeve.iron": "Iron Sleeve",
+  "item.battlecards.sleeve.diamond": "Diamond Sleeve",
+  "item.battlecards.sleeve.netherite": "Netherite Sleeve",
+  "item.battlecards.sleeve.gold": "Gold Sleeve",
+  "item.battlecards.sleeve.simple.desc": "Sleeve Effect: +%d%% damage",
 
   "card.battlecards.hoards_of_rot/breathless": "Breathless",
   "card.battlecards.hoards_of_rot/breathless.quick": "Recover 3 breath.",

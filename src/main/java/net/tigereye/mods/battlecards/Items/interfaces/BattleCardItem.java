@@ -36,7 +36,7 @@ public interface BattleCardItem {
         if(user instanceof LivingEntity livingEntity){
             int curMana = getCurrentMana(user,item);
             livingEntity.removeStatusEffect(BCStatusEffects.UNBOUND_MANA);
-            livingEntity.addStatusEffect(new StatusEffectInstance(BCStatusEffects.UNBOUND_MANA,600,curMana+amount-1,false,false,true));
+            livingEntity.addStatusEffect(new StatusEffectInstance(BCStatusEffects.UNBOUND_MANA,600,curMana+amount-1,false,false,false));
         }
     }
 
@@ -48,6 +48,8 @@ public interface BattleCardItem {
         return 0;
     }
 
+    int getChargeEffectCost(Entity user, ItemStack item);
+
     default boolean payManaCost(Entity user, ItemStack item, int cost){
         if(user instanceof LivingEntity livingEntity){
             int curMana = getCurrentMana(user,item);
@@ -57,7 +59,7 @@ public interface BattleCardItem {
             }
             else if (curMana > cost){
                 livingEntity.removeStatusEffect(BCStatusEffects.UNBOUND_MANA);
-                livingEntity.addStatusEffect(new StatusEffectInstance(BCStatusEffects.UNBOUND_MANA,600,curMana-cost-1,false,false,true));
+                livingEntity.addStatusEffect(new StatusEffectInstance(BCStatusEffects.UNBOUND_MANA,600,curMana-cost-1,false,false,false));
                 return true;
             }
             return false;

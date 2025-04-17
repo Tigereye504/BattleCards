@@ -15,7 +15,7 @@ import net.tigereye.mods.battlecards.Items.BoosterPackItem;
 import net.tigereye.mods.battlecards.Items.GeneratedCardItem;
 import net.tigereye.mods.battlecards.Items.sleeves.DiamondCardSleeve;
 import net.tigereye.mods.battlecards.Items.sleeves.GoldCardSleeve;
-import net.tigereye.mods.battlecards.Items.sleeves.IronCardSleeve;
+import net.tigereye.mods.battlecards.Items.sleeves.SimpleCardSleeve;
 import net.tigereye.mods.battlecards.Items.sleeves.NetheriteCardSleeve;
 
 public class BCItems {
@@ -23,10 +23,10 @@ public class BCItems {
     public static final Item BOOSTER_PACK = new BoosterPackItem(new FabricItemSettings().maxCount(64));
     public static final Item DECK = new BattlecardsDeckItem(new FabricItemSettings().maxCount(1));
 
-    public static final Item SLEEVE_IRON = new IronCardSleeve(new FabricItemSettings().maxCount(64));
-    public static final Item SLEEVE_GOLD = new GoldCardSleeve(new FabricItemSettings().maxCount(64));
-    public static final Item SLEEVE_DIAMOND = new DiamondCardSleeve(new FabricItemSettings().maxCount(64));
-    public static final Item SLEEVE_NETHERITE = new NetheriteCardSleeve(new FabricItemSettings().maxCount(64));
+    public static final Item SLEEVE_IRON = new SimpleCardSleeve(new FabricItemSettings().maxCount(64),1.5f);
+    public static final Item SLEEVE_GOLD = new SimpleCardSleeve(new FabricItemSettings().maxCount(64),1.25f);
+    public static final Item SLEEVE_DIAMOND = new SimpleCardSleeve(new FabricItemSettings().maxCount(64),2f);
+    public static final Item SLEEVE_NETHERITE = new SimpleCardSleeve(new FabricItemSettings().maxCount(64),2.25f);
 
     public static final ItemGroup BATTLECARDS_ITEM_GROUP = FabricItemGroup.builder()
             .icon(() -> new ItemStack(DECK))

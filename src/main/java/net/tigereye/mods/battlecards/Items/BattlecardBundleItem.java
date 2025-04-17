@@ -34,16 +34,16 @@ public class BattlecardBundleItem extends Item{
     /*********Deckbuilding Functions**********/
 
     @Override
-    public boolean onStackClicked(ItemStack stack, Slot slot, ClickType clickType, PlayerEntity player) {
+    public boolean onStackClicked(ItemStack bundleItemStack, Slot slot, ClickType clickType, PlayerEntity player) {
         if (clickType != ClickType.RIGHT) {
             return false;
         } else {
-            ItemStack itemStack = slot.getStack();
-            if (itemStack.isEmpty()) {
+            ItemStack cardStack = slot.getStack();
+            if (cardStack.isEmpty()) {
                 this.playRemoveOneSound(player);
-                removeFirstCard(stack).ifPresent(removedStack -> addToBundle(stack, slot.insertStack(removedStack)));
-            } else if (itemStack.getItem().canBeNested()) {
-                int j = addToBundle(stack, slot.takeStackRange(itemStack.getCount(), 64, player));
+                removeFirstCard(bundleItemStack).ifPresent(removedStack -> addToBundle(bundleItemStack, slot.insertStack(removedStack)));
+            } else if (cardStack.getItem() instanceof BattleCardItem) {
+                int j = addToBundle(bundleItemStack, slot.takeStackRange(cardStack.getCount(), 64, player));
                 if (j > 0) {
                     this.playInsertSound(player);
                 }
@@ -131,22 +131,22 @@ public class BattlecardBundleItem extends Item{
             if (nbtList.isEmpty()) {
                 return Optional.empty();
             } else {
-                int i = 0;
                 NbtCompound nbtCompound2 = nbtList.getCompound(0);
                 ItemStack cardStack = ItemStack.fromNbt(nbtCompound2);
-                ItemStack singleCard = cardStack.copyWithCount(1);
-                if(cardStack.getCount() == 1) {
+                //ItemStack singleCard = cardStack.copyWithCount(1);
+                //if(cardStack.getCount() == 1) {
                     nbtList.remove(0);
-                }
-                else{
-                    cardStack.decrement(1);
-                    nbtList.setElement(0,cardStack.writeNbt(new NbtCompound()));
-                }
+                //}
+                //else{
+                //    cardStack.decrement(1);
+                //    nbtList.setElement(0,cardStack.writeNbt(new NbtCompound()));
+                //}
                 if (nbtList.isEmpty()) {
                     stack.removeSubNbt("Items");
                 }
 
-                return Optional.of(singleCard);
+                //return Optional.of(singleCard);
+                return Optional.of(cardStack);
             }
         }
     }

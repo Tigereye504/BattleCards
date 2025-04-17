@@ -110,6 +110,19 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
     }
 
     @Override
+    public int getChargeEffectCost(Entity user, ItemStack item){
+        //TODO: check for owning deck in user's inventory
+        //if found, proceed as normal
+        //else, double the cost
+        if(item.hasNbt()) {
+            Identifier cardID = new Identifier(item.getNbt().getString(CardManager.NBT_KEY));
+            BattleCard card = CardManager.getEntry(cardID);
+            return card.getChargeEffectCost();
+        }
+        return 0;
+    }
+
+    @Override
     public boolean payManaCost(Entity user, ItemStack item, int cost){
         //TODO: check for deck in user's inventory
         //if found, forward this to the deck
@@ -134,6 +147,9 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
     @Override
     @Environment(EnvType.CLIENT)
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        ItemStack sleeve = getSleeve(itemStack);
+        sleeve.getItem().appendTooltip(sleeve,world,tooltip,tooltipContext);
+
         Identifier cardID;
         if(itemStack.hasNbt()) {
             cardID = new Identifier(itemStack.getNbt().getString(CardManager.NBT_KEY));
