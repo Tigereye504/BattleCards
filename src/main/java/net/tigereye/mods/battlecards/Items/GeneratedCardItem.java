@@ -24,6 +24,8 @@ import java.util.List;
 
 public class GeneratedCardItem extends Item implements BattleCardItem {
 
+    public static final int UNOWNED_COOLDOWN = 100;
+    public static final int OWNED_COOLDOWN = 10;
 
     public GeneratedCardItem(Item.Settings settings) {
         super(settings);
@@ -53,10 +55,14 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
     private void afterCardEffects(ItemStack stack, World world, LivingEntity user) {
         //if owned, call the owner's afterOwnedCardPlayed function.
         if(user instanceof PlayerEntity pEntity) {
-            pEntity.getItemCooldownManager().set(stack.getItem(),10);
-            CardOwningItem.findOwningItem(stack, pEntity,(coi,owner) -> {
+            if(CardOwningItem.findOwningItem(stack, pEntity,(coi,owner) -> {
                 coi.afterOwnedCardPlayed(world,pEntity,owner,stack);
-            });
+            })){
+                pEntity.getItemCooldownManager().set(stack.getItem(),OWNED_COOLDOWN);
+            }
+            else{
+                pEntity.getItemCooldownManager().set(stack.getItem(),UNOWNED_COOLDOWN);
+            }
         }
         //remove lingering 'retain' tag'. Consider moving this to a general 'aftercardplay' event
         stack.removeSubNbt(RetainCardEffect.RETAIN_NBTKEY);
@@ -84,7 +90,7 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
         if(stack.hasNbt()){
             Identifier cardID = new Identifier(stack.getNbt().getString(CardManager.NBT_KEY));
             BattleCard card = CardManager.getEntry(cardID);
-            if(payManaCost(user,stack,card.getChargeEffectCost())){
+            if(payManaCost(user,stack,getChargeEffectCost(user,stack))){
                 card.performChargeEffect(user,stack);
                 afterCardEffects(stack, world, user);
                 return true;
@@ -111,13 +117,13 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
 
     @Override
     public int getChargeEffectCost(Entity user, ItemStack item){
-        //TODO: check for owning deck in user's inventory
-        //if found, proceed as normal
+        //TODO: check if owned
+        //if has owner, proceed as normal
         //else, double the cost
         if(item.hasNbt()) {
             Identifier cardID = new Identifier(item.getNbt().getString(CardManager.NBT_KEY));
             BattleCard card = CardManager.getEntry(cardID);
-            return card.getChargeEffectCost();
+            return item.getNbt().containsUuid(CardOwningItem.CARD_OWNER_UUID_NBTKEY) ? card.getChargeEffectCost() : card.getChargeEffectCost()*2;
         }
         return 0;
     }

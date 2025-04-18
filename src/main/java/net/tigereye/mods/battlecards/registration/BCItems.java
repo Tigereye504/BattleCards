@@ -29,7 +29,7 @@ public class BCItems {
     public static final Item SLEEVE_NETHERITE = new SimpleCardSleeve(new FabricItemSettings().maxCount(64),2.25f);
 
     public static final ItemGroup BATTLECARDS_ITEM_GROUP = FabricItemGroup.builder()
-            .icon(() -> new ItemStack(DECK))
+            .icon(() -> new ItemStack(BATTLECARD))
             .displayName(Text.translatable("itemgroup.battlecards.battlecards"))
             .entries(((displayContext, entries) -> {
                 entries.add(DECK);

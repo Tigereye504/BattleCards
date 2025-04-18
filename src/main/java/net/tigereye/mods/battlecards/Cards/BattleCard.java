@@ -1,5 +1,6 @@
 package net.tigereye.mods.battlecards.Cards;
 
+import com.mojang.authlib.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -8,6 +9,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
+import net.tigereye.mods.battlecards.Items.interfaces.BattleCardItem;
 
 import java.util.List;
 
@@ -30,7 +32,13 @@ public interface BattleCard {
                     tooltipNester.appendNestedTooltip(world, tooltip, tooltipContext, 1);
                 }
             }
-            tooltip.add(Text.translatable("card.battlecards.tooltip.charge_header", this.getChargeEffectCost()));
+            int cost = this.getChargeEffectCost();
+            int modifiedCost = cost;
+            if(itemStack.getItem() instanceof BattleCardItem bci){
+                modifiedCost = bci.getChargeEffectCost(null,itemStack);
+            }
+            tooltip.add(Text.translatable("card.battlecards.tooltip.charge_header", this.getChargeEffectCost(),
+                    cost != modifiedCost ? " ("+modifiedCost+")" : ""));
             for (CardEffect effect : this.getChargeEffects()) {
                 if (effect instanceof CardTooltipNester tooltipNester) {
                     tooltipNester.appendNestedTooltip(world, tooltip, tooltipContext, 1);
@@ -40,7 +48,13 @@ public interface BattleCard {
         else{
             tooltip.add(Text.translatable("card.battlecards.tooltip.quick_header"));
             tooltip.add(getBasicDescription());
-            tooltip.add(Text.translatable("card.battlecards.tooltip.charge_header", this.getChargeEffectCost()));
+            int cost = this.getChargeEffectCost();
+            int modifiedCost = cost;
+            if(itemStack.getItem() instanceof BattleCardItem bci){
+                modifiedCost = bci.getChargeEffectCost(null,itemStack);
+            }
+            tooltip.add(Text.translatable("card.battlecards.tooltip.charge_header", this.getChargeEffectCost(),
+                    cost != modifiedCost ? " ("+modifiedCost+")" : ""));
             tooltip.add(getChargeDescription());
         }
     }

@@ -15,8 +15,7 @@ Or I could say 'fuck it', have all projectile cards throw cards, and just upgrad
 
 TODO: determine why thrown cards hide from me
 TODO: determine why knockback acts funny
-TODO: make sweeping melee attacks less jank
-TODO: make melee attacks less jank (probably by making them lesser sweeps)
+TODO: allow non-sweeping attacks
 
 Cards will drop in Booster Packs, which will usually be related to the dropping mob.
 Likely, any mob can drop a generic pack. That way killing modded critters is still worth something.
@@ -27,9 +26,6 @@ If stuff starts acting strange, consider:
 Make CardEffects and BattleCardProjectiles NBT serializable.
 
 TODO: Make Cards (Mostly card art, now)!
-TODO: Put them in booster packs!
-TODO: Make mobs drop packs!
-TODO: Implement card sleeves!
 
 --Card Sleeves and Damage Values--
 sleeveless cards should be akin to stone weapons, while netherite-sleeved cards should be akin to enchanted netherite weapons
@@ -60,9 +56,9 @@ Redstone: +25% damage, +1 mana cost, x2 effect duration
 --Balance Considerations: Quick Actions--
 
 (1 point = 1 mana gain equivalent)
-1 point budget for cards with no or a trivial delivery method (target self, block, any ally-targeting effect)
-3 point budget for cards with a simple delivery method (sweeping melee, basic projectile)
-4 point budget for cards with a minor drawback (cumbersome delivery, simple delivery + a brief self-debuff)
+2-1 point budget for cards with no or a trivial delivery method (target self, block, any ally-targeting effect)
+2+1 point budget for cards with a simple delivery method (sweeping melee, basic projectile)
+2+2 point budget for cards with a minor drawback (cumbersome delivery, simple delivery + a brief self-debuff)
 cards *must* require non-trivial delivery or have a significant cost to pay out mana,
  and should do something to targets.
  (something like Life Tap: lose life, gain mana could be acceptable. Mana Tap: melee, just gain mana would not.)
@@ -74,7 +70,8 @@ So charge effects are for multi-mob fights, consecutive fights, or major fights.
 Attack charges should a minor foe outright, maim a major foe, or maim multiple minor foes to feel impactful.
 As such, charge attacks generally shouldn't do less damage than a Strong, single hit.
 Charge actions, naturally, are better than quick actions due to costing mana.
-So a 1 cost charge action should be worth at least 3 points, plus 0-2 for targeting as with quicks.
+So a 1 cost charge action should be worth around 3 points, plus 0-2 for targeting as with quicks.
+A budget of 2 + targeting mod + mana cost, then.
 should payout be 1-1 mana for points? Maybe.
   That would mean a 5-mana simple delivery skill has 8 points to spend.
   'Kill' designed for diamond spends 5 mana on 'extremely strong' damage, with 3 for secondary effects.

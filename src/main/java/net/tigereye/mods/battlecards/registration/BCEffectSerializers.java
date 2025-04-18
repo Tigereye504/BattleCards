@@ -21,6 +21,7 @@ public class BCEffectSerializers {
         CardSerializer.registerCardEffectSerializer("health_scaler",new HealthScalerEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("hunger_scaler",new HungerScalerEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("if_status",new IfStatusEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("if_scalar",new IfScalarEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("target_user",new TargetUserEffect.Serializer());
         //payouts
         CardSerializer.registerCardEffectSerializer("apply_status",new ApplyStatusEffect.Serializer());

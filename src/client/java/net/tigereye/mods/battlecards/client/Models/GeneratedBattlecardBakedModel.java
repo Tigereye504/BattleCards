@@ -39,16 +39,17 @@ public class GeneratedBattlecardBakedModel implements FabricBakedModel, BakedMod
     public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
         ItemModels models = MinecraftClient.getInstance().getItemRenderer().getModels();
         BakedModelManager manager = models.getModelManager();
+        BakedModel model = null;
         if(stack.hasNbt()) {
             Identifier cardID = new Identifier(stack.getNbt().getString(CardManager.NBT_KEY));
             Identifier modifiedCardID = new Identifier(cardID.getNamespace(),"battlecard/"+cardID.getPath());
-            BakedModel model = manager.getModel(modifiedCardID);
-            if (model == null) {
-                model = manager.getModel(DEFAULT_MODEL_ID);
-            }
-            if (model != null) {
-                model.emitItemQuads(stack, randomSupplier, context);
-            }
+            model = manager.getModel(modifiedCardID);
+        }
+        if (model == null) {
+            model = manager.getModel(DEFAULT_MODEL_ID);
+        }
+        if (model != null) {
+            model.emitItemQuads(stack, randomSupplier, context);
         }
         if(stack.getItem() instanceof BattleCardItem bci){
             ItemStack sleeve = bci.getSleeve(stack);

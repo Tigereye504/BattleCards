@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
@@ -27,6 +28,8 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
 
     List<CardEffect> onEntityHitEffects = new ArrayList<>();
     double reach = 3.5;
+    double maxAngle = 30;
+    boolean isSweep = true;
     boolean retainOnMiss = true;
 
     public void addEffectOnEntityHit(CardEffect effect){
@@ -38,13 +41,59 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
 
     @Override
     public void apply(Entity user, ItemStack item, BattleCard battleCard, CardEffectContext context) {
+
+        if (user instanceof PlayerEntity pEntity) {
+            pEntity.swingHand(pEntity.getActiveHand());
+        }
+
         //TODO: raycast out to reach (configured, by default use the user's reach)
         Vec3d boxMin = user.getEyePos().add(-reach,-reach,-reach);
         Vec3d boxMax = user.getEyePos().add(reach,reach,reach);
-        EntityHitResult ehr = ProjectileUtil.raycast(user,
+        /*EntityHitResult ehr = ProjectileUtil.raycast(user,
                 user.getEyePos(),
                 user.getEyePos().add(user.getRotationVec(1).multiply(reach)),
                 user.getBoundingBox().stretch(user.getRotationVec(1.0f).multiply(reach)).expand(reach), entity -> entity != user,reach*reach);
+         */
+        //instead of raycasting, perhaps iterating the box for targets in a cone in front of the user would be better.
+        Box sweepBox = new Box(boxMin,boxMax);
+        List<Entity> possibleTargets = user.getEntityWorld().getOtherEntities(user,sweepBox);
+        List<Entity> targetsInCone = new ArrayList<>();
+        for(Entity possibleTarget : possibleTargets){
+            if(isEntityInCone(user.getEyePos(),possibleTarget,user.getHeadYaw(),user.getPitch(),maxAngle)){
+                targetsInCone.add(possibleTarget);
+            }
+        }
+        //TODO: Then take the nearest foe in cone that passes a 'line of sight' check. For now, keep that relatively simple;
+        // a raycast towards each of the target's corners and center. On any hit, the target was targetable.
+
+        //apply card effects to all hit entities
+        if(!targetsInCone.isEmpty()){
+            if(!isSweep){
+                //determine the closest target. remove the rest
+                targetsInCone.sort((entity1, entity2) -> {
+                    double dis1 = entity1.squaredDistanceTo(user);
+                    double dis2 = entity2.squaredDistanceTo(user);
+                    if(dis1 > dis2){
+                        return 1;
+                    }
+                    if(dis1 < dis2){
+                        return -1;
+                    }
+                    return 0;
+                });
+                Entity closest = targetsInCone.get(0);
+                targetsInCone.clear();
+                targetsInCone.add(closest);
+            }
+            for(Entity target : targetsInCone) {
+                CardEffectContext onHitContext = new CardEffectContext();
+                onHitContext.target = target;
+                for (CardEffect effect : onEntityHitEffects) {
+                    effect.apply(user, item, battleCard, onHitContext);
+                }
+            }
+        }
+        /*
         if(ehr != null){
             if(user instanceof PlayerEntity pEntity){
                 pEntity.swingHand(pEntity.getActiveHand());
@@ -55,9 +104,34 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
                 effect.apply(user,item,battleCard,onHitContext);
             }
         }
+        */
         else if(retainOnMiss){
             new RetainCardEffect().apply(user,item,battleCard,context);
         }
+    }
+
+    private boolean isEntityInCone(Vec3d origin, Entity entity, float yaw, float pitch, double coneWidth){
+        Box boundingBox = entity.getBoundingBox();
+        if(isPointInCone(origin,boundingBox.getCenter(),yaw,pitch,coneWidth)){return true;}
+        if(isPointInCone(origin,new Vec3d(boundingBox.maxX,boundingBox.maxY,boundingBox.maxZ),yaw,pitch,coneWidth)){return true;}
+        if(isPointInCone(origin,new Vec3d(boundingBox.maxX,boundingBox.maxY,boundingBox.minZ),yaw,pitch,coneWidth)){return true;}
+        if(isPointInCone(origin,new Vec3d(boundingBox.maxX,boundingBox.minY,boundingBox.maxZ),yaw,pitch,coneWidth)){return true;}
+        if(isPointInCone(origin,new Vec3d(boundingBox.maxX,boundingBox.minY,boundingBox.minZ),yaw,pitch,coneWidth)){return true;}
+        if(isPointInCone(origin,new Vec3d(boundingBox.minX,boundingBox.maxY,boundingBox.maxZ),yaw,pitch,coneWidth)){return true;}
+        if(isPointInCone(origin,new Vec3d(boundingBox.minX,boundingBox.maxY,boundingBox.minZ),yaw,pitch,coneWidth)){return true;}
+        if(isPointInCone(origin,new Vec3d(boundingBox.minX,boundingBox.minY,boundingBox.maxZ),yaw,pitch,coneWidth)){return true;}
+        if(isPointInCone(origin,new Vec3d(boundingBox.minX,boundingBox.minY,boundingBox.minZ),yaw,pitch,coneWidth)){return true;}
+        return false;
+    }
+
+    private boolean isPointInCone(Vec3d origin, Vec3d target, float yaw, float pitch, double coneWidth){
+        Vec3d relativizedPos = origin.relativize(target);
+        Vec3d step1 = relativizedPos.rotateY((float) (yaw*Math.PI/180));
+        Vec3d step2 = step1.rotateX((float) (pitch*Math.PI/180));
+        Vec3d orientedNormalizedRPos = step2.normalize();
+        //Vec3d orientedNormalizedRPos = relativizedPos.rotateX(-user.getHeadYaw()).rotateY(-user.getPitch()).normalize();
+        double angle = Math.acos(orientedNormalizedRPos.z)*180/Math.PI; //minecraft does angles in degrees, so convert from radians for consistency
+        return angle <= coneWidth;
     }
 
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
@@ -79,6 +153,7 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
         public MeleeEffect readFromJson(Identifier id, JsonElement entry) {
             MeleeEffect output = new MeleeEffect();
             output.reach = CardSerializer.readOrDefaultFloat(id,"reach",entry,3.5f);
+            output.isSweep = CardSerializer.readOrDefaultBoolean(id,"isSweep",entry,true);
             output.retainOnMiss = CardSerializer.readOrDefaultBoolean(id,"retainOnMiss",entry,true);
             output.addEffectsOnEntityHit(CardSerializer.readCardEffects(id, "onHit",entry));
             if (output.onEntityHitEffects.isEmpty()) {

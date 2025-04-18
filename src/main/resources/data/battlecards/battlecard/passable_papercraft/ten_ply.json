@@ -1,0 +1,96 @@
+{
+  "id": "battlecards:passable_papercraft/ten_ply",
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 1,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:player_attack"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 2
+        }
+      ]
+    }
+  ],
+  "cost": 10,
+  "advancedEffects": [
+    {
+      "effect": "throw_cards",
+      "projectiles": [
+        {
+          "effect": "throw_card",
+          "yaw": -4,
+          "speed": 1
+        },
+        {
+          "effect": "throw_card",
+          "yaw": -12,
+          "speed": 1
+        },
+        {
+          "effect": "throw_card",
+          "yaw": -20,
+          "speed": 1
+        },
+        {
+          "effect": "throw_card",
+          "yaw": -28,
+          "speed": 1
+        },
+        {
+          "effect": "throw_card",
+          "yaw": -36,
+          "speed": 1
+        },
+        {
+          "effect": "throw_card",
+          "yaw": 4,
+          "speed": 1
+        },
+        {
+          "effect": "throw_card",
+          "yaw": 12,
+          "speed": 1
+        },
+        {
+          "effect": "throw_card",
+          "yaw": 20,
+          "speed": 1
+        },
+        {
+          "effect": "throw_card",
+          "yaw": 28,
+          "speed": 1
+        },
+        {
+          "effect": "throw_card",
+          "yaw": 36,
+          "speed": 1
+        }
+      ],
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 14,
+          "damageType": "minecraft:arrow",
+          "afterDamage": [
+            {
+              "effect": "if_scalar",
+              "effects": [
+                {
+                  "effect": "gain_mana",
+                  "amount": 3
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

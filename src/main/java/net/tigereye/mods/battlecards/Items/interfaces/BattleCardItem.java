@@ -12,6 +12,7 @@ import net.tigereye.mods.battlecards.registration.BCStatusEffects;
 
 public interface BattleCardItem {
 
+    public static final int MAX_MANA = 10;
     static final String SLEEVE_NBT = "battlecard_sleeve";
 
     boolean performQuickEffect(ItemStack stack, LivingEntity user, World world);
@@ -37,7 +38,7 @@ public interface BattleCardItem {
         if(user instanceof LivingEntity livingEntity){
             int curMana = getCurrentMana(user,item);
             livingEntity.removeStatusEffect(BCStatusEffects.MANA);
-            livingEntity.addStatusEffect(BCStatusEffect.buildGradualFalloffStatusEffectInstance(BCStatusEffects.MANA, 600, 200, curMana + amount - 1, false, false, false));
+            livingEntity.addStatusEffect(BCStatusEffect.buildGradualFalloffStatusEffectInstance(BCStatusEffects.MANA, 600, 200, Math.min(MAX_MANA-1,curMana + amount - 1), false, false, false));
             //livingEntity.addStatusEffect(new StatusEffectInstance(BCStatusEffects.MANA,600,curMana+amount-1,false,false,false));
         }
     }

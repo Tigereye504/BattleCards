@@ -1,0 +1,38 @@
+{
+  "id": "battlecards:passable_papercraft/one_ply",
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 1,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:player_attack"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 2
+        }
+      ]
+    }
+  ],
+  "cost": 1,
+  "advancedEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 1,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 5,
+          "damageType": "minecraft:player_attack"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

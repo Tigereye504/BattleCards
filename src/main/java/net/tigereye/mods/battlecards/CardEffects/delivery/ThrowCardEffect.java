@@ -106,7 +106,7 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
                 originEntity.getEyeY() - 0.1F + rotatedOrigin.getY(),
                 originEntity.getZ() + rotatedOrigin.getZ(),
                 item, battleCard);
-        cardProjectileEntity.setVelocity(user,
+        cardProjectileEntity.setVelocity(originEntity,
                 angleRelativeToEntityElseAbsolute ? originEntity.getPitch() + this.pitch : this.pitch,
                 angleRelativeToEntityElseAbsolute ? originEntity.getYaw() + this.yaw : this.yaw, 0.0F, speed, 0F);
         cardProjectileEntity.addEffectsOnEntityHit(onEntityHitEffects);
@@ -161,7 +161,7 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
 
             output.pitch = CardSerializer.readOrDefaultFloat(id, "pitch",entry,0);
             output.yaw = CardSerializer.readOrDefaultFloat(id, "yaw",entry,0);
-            output.speed = CardSerializer.readOrDefaultFloat(id, "speed",entry,0);
+            output.speed = CardSerializer.readOrDefaultFloat(id, "speed",entry,1.5f);
 
             output.originRelativeToUserElseTarget = CardSerializer.readOrDefaultBoolean(id, "originRelativeToUser",entry,true);
             output.angleRelativeToEntityElseAbsolute = CardSerializer.readOrDefaultBoolean(id, "angleRelativeToEntity",entry,true);
