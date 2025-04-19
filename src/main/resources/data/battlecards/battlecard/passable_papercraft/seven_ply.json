@@ -1,5 +1,5 @@
 {
-  "id": "battlecards:passable_papercraft/three_ply",
+  "id": "battlecards:passable_papercraft/seven_ply",
   "quickEffects": [
     {
       "effect": "throw_card",
@@ -24,7 +24,17 @@
       "projectiles": [
         {
           "effect": "throw_card",
-          "yaw": 18,
+          "yaw": 30,
+          "speed": 1
+        },
+        {
+          "effect": "throw_card",
+          "yaw": 20,
+          "speed": 1
+        },
+        {
+          "effect": "throw_card",
+          "yaw": 10,
           "speed": 1
         },
         {
@@ -33,14 +43,24 @@
         },
         {
           "effect": "throw_card",
-          "yaw": -18,
+          "yaw": -10,
+          "speed": 1
+        },
+        {
+          "effect": "throw_card",
+          "yaw": -20,
+          "speed": 1
+        },
+        {
+          "effect": "throw_card",
+          "yaw": -30,
           "speed": 1
         }
       ],
       "onHit": [
         {
           "effect": "damage",
-          "amount": 7,
+          "amount": 11,
           "damageType": "minecraft:arrow",
           "afterDamage": [
             {

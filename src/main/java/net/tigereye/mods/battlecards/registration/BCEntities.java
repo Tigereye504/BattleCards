@@ -16,7 +16,7 @@ public class BCEntities {
             new Identifier(Battlecards.MODID, "card_projectile"),
             FabricEntityTypeBuilder.<CardProjectileEntity>create(SpawnGroup.MISC, CardProjectileEntity::new)
                     .dimensions(EntityDimensions.fixed(0.25F, 0.25F)) // dimensions in Minecraft units of the projectile
-                    .trackRangeBlocks(4).trackedUpdateRate(10) // necessary for all thrown projectiles (as it prevents it from breaking, lol)
+                    .trackRangeBlocks(20).trackedUpdateRate(10) // necessary for all thrown projectiles (as it prevents it from breaking, lol)
                     .build() // VERY IMPORTANT DONT DELETE FOR THE LOVE OF GOD PSLSSSSSS
     );
 

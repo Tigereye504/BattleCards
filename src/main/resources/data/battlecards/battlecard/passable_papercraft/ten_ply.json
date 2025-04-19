@@ -84,7 +84,7 @@
               "effects": [
                 {
                   "effect": "gain_mana",
-                  "amount": 3
+                  "amount": 2
                 }
               ]
             }

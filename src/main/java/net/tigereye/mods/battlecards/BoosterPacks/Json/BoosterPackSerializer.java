@@ -17,9 +17,9 @@ public class BoosterPackSerializer {
             throw new JsonSyntaxException("Booster Pack " + id + " lacks an id");
         }
         if (bpdJson.sourceLootTables == null) {
-            throw new JsonSyntaxException("Booster Pack " + id + " has no sourceLootTable entry");
+            Battlecards.LOGGER.warn("Booster Pack " + id + " has no sourceLootTable entry");
         }
-        if (bpdJson.dropRate == 0 && bpdJson.dropRateLootingFactor == 0 && bpdJson.dropRateLuckFactor == 0) {
+        if (bpdJson.dropRate == 0 && bpdJson.dropRateLootingFactor == 0) {
             Battlecards.LOGGER.warn("Booster Pack " + id + " have no way to drop");
         }
 
@@ -29,15 +29,16 @@ public class BoosterPackSerializer {
         boosterPackData.id = boosterPackID;
         boosterPackData.dropRate = bpdJson.dropRate;
         boosterPackData.dropRateLootingFactor = bpdJson.dropRateLootingFactor;
-        boosterPackData.dropRateLuckFactor = bpdJson.dropRateLuckFactor;
         int i = 0;
-        for (JsonElement entry :
-                bpdJson.sourceLootTables) {
-            ++i;
-            try {
-                mobs.add(new Identifier(entry.getAsString()));
-            } catch (Exception e) {
-                Battlecards.LOGGER.error("Error parsing entry no. " + i + " in " + id.toString() + "'s entity list");
+        if(bpdJson.sourceLootTables != null) {
+            for (JsonElement entry :
+                    bpdJson.sourceLootTables) {
+                ++i;
+                try {
+                    mobs.add(new Identifier(entry.getAsString()));
+                } catch (Exception e) {
+                    Battlecards.LOGGER.error("Error parsing entry no. " + i + " in " + id.toString() + "'s entity list");
+                }
             }
         }
         return new Pair<>(boosterPackData,mobs);

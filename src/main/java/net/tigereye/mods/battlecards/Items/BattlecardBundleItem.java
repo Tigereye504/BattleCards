@@ -19,6 +19,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Items.interfaces.BattleCardItem;
+import net.tigereye.mods.battlecards.Items.interfaces.CardOwningItem;
 
 import java.util.List;
 import java.util.Optional;
@@ -77,6 +78,10 @@ public class BattlecardBundleItem extends Item{
 
     protected static int addToBundle(ItemStack bundle, ItemStack stack) {
         if (!stack.isEmpty() && stack.getItem() instanceof BattleCardItem) {
+            if(stack.hasNbt() && stack.getNbt().containsUuid(CardOwningItem.CARD_OWNER_UUID_NBTKEY)){
+                //this prevents adding owned (and thus temporary) cards to decks.
+                return 0;
+            }
             NbtCompound nbtCompound = bundle.getOrCreateNbt();
             if (!nbtCompound.contains("Items")) {
                 nbtCompound.put("Items", new NbtList());

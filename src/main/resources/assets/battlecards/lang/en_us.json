@@ -118,14 +118,14 @@
   "card.battlecards.passable_papercraft/six_ply.charge": "Toss six cards for extreme damage, refunding mana on hit.",
   "card.battlecards.passable_papercraft/seven_ply": "Seven Ply",
   "card.battlecards.passable_papercraft/seven_ply.quick": "Toss a card for weak damage and 2 mana.",
-  "card.battlecards.passable_papercraft/seven_ply.charge": "Toss seven cards for extreme damage, refunding 2 mana on hit.",
+  "card.battlecards.passable_papercraft/seven_ply.charge": "Toss seven cards for extreme damage, refunding mana on hit.",
   "card.battlecards.passable_papercraft/eight_ply": "Eight Ply",
   "card.battlecards.passable_papercraft/eight_ply.quick": "Toss a card for weak damage and 2 mana.",
-  "card.battlecards.passable_papercraft/eight_ply.charge": "Toss eight deadly cards, refunding 2 mana on hit.",
+  "card.battlecards.passable_papercraft/eight_ply.charge": "Toss eight deadly cards, refunding mana on hit.",
   "card.battlecards.passable_papercraft/nine_ply": "Nine Ply",
   "card.battlecards.passable_papercraft/nine_ply.quick": "Toss a card for weak damage and 2 mana.",
-  "card.battlecards.passable_papercraft/nine_ply.charge": "Toss nine deadly cards, refunding 2 mana on hit.",
+  "card.battlecards.passable_papercraft/nine_ply.charge": "Toss nine deadly cards, refunding mana on hit.",
   "card.battlecards.passable_papercraft/ten_ply": "Ten Ply",
   "card.battlecards.passable_papercraft/ten_ply.quick": "Toss a card for weak damage and 2 mana.",
-  "card.battlecards.passable_papercraft/ten_ply.charge": "Toss ten deadly cards, refunding 3 mana on hit."
+  "card.battlecards.passable_papercraft/ten_ply.charge": "Toss ten deadly cards, refunding 2 mana on hit."
 }

@@ -65,7 +65,7 @@ cards *must* require non-trivial delivery or have a significant cost to pay out 
 similarly, cards generally should produce at least 1 mana if they require delivery.
 
 --Balance Considerations: Charge Actions--
-Charge actions just likely won't come up against a single average mob; they just aren't tanky enough.
+Charge actions likely won't come up against a single average mob; they just aren't tanky enough.
 So charge effects are for multi-mob fights, consecutive fights, or major fights.
 Attack charges should a minor foe outright, maim a major foe, or maim multiple minor foes to feel impactful.
 As such, charge attacks generally shouldn't do less damage than a Strong, single hit.
@@ -81,9 +81,9 @@ Costs for charge effects:
 With 2 'weak and 2' attacks on a mob at iron or diamond, that leaves 3-4 mana to spend on a 'Strong and effect' finisher,
   like Cannibalism.
 With 3 'weak and 2' attacks killing a mob at diamond, that leaves 5-6 mana to spend on a second kill.
-  So 5-6 mana single targets will want 'very strong' or 'devastating' damage, if intended to just kill.
+  So 5-6 mana single targets will want 'extremely strong' damage, if intended to just kill.
 With 4 'weak and 2' attacks killing a mob at iron, that leaves 7-8 mana to spend on a second kill.
-  So 7-8 mana single targets will want 'apocalyptic' damage, if intended to just kill.
+  So 7-8 mana single targets will want 'deadly' damage, if intended to just kill.
 With 5-6 'weak and 2' attacks killing a mob at paper...
   get out of paper, or specialize with 'mid and 1's or 'weak and 3 and cost's!
 
@@ -136,7 +136,13 @@ E   Undead: Healed by Instant Harm, Harmed by Instant Health. Burn In Sunlight.
 On events:
 I think I want two types of event listener: 'persistant' listeners and 'instanced' listeners.
 persistent listeners would listen to every card played
-instanced listeners would be created at the start of, only listen for, at die at the end of a card play
+instanced listeners would be created at the start of, only listen for, and die at the end of a card play
+I don't have a good way to know once a card is done with all its effects, though,
+as projectiles and delays detach from the original execution
+Well, a PersistantCardEffectContext is already planned.
+Put the listeners in that and just iterate though it come event time
+
+
 
 
 

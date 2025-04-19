@@ -7,6 +7,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Items.interfaces.BattleCardItem;
+import net.tigereye.mods.battlecards.Items.interfaces.CardOwningItem;
 
 public class CardSleeveItem extends Item implements CardSleeve{
 
@@ -20,6 +21,10 @@ public class CardSleeveItem extends Item implements CardSleeve{
         ItemStack sleeveItemStack = user.getStackInHand(hand);
         ItemStack otherItemStack = user.getStackInHand(hand == Hand.MAIN_HAND ? Hand.OFF_HAND : Hand.MAIN_HAND);
         if(otherItemStack.getItem() instanceof BattleCardItem bci){
+            if(otherItemStack.hasNbt() && otherItemStack.getNbt().containsUuid(CardOwningItem.CARD_OWNER_UUID_NBTKEY)){
+                //this prevents spending sleeves on owned (and thus temporary) cards.
+                return TypedActionResult.pass(sleeveItemStack);
+            }
             int sleevesToApply = Math.min(sleeveItemStack.getCount(),otherItemStack.getCount());
             ItemStack oldSleeves = bci.getSleeve(otherItemStack);
             if(oldSleeves != ItemStack.EMPTY){
@@ -35,6 +40,7 @@ public class CardSleeveItem extends Item implements CardSleeve{
             if(!user.getInventory().insertStack(fleshlySleevedCards)){
                 user.dropItem(fleshlySleevedCards,true);
             }
+            return TypedActionResult.consume(sleeveItemStack);
         }
         return TypedActionResult.pass(sleeveItemStack);
     }
