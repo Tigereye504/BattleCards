@@ -12,6 +12,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
@@ -36,29 +37,29 @@ public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
     }
 
     @Override
-    public void apply(Entity user, ItemStack item, BattleCard battleCard, CardEffectContext context) {
+    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         if (context.target != null) {
-            apply(user, context.target, item, battleCard);
+            apply(pContext, context.target);
         }
         else if(context.hitResult != null){
-            apply(user, context.hitResult.getPos(), item, battleCard);
+            apply(pContext, context.hitResult.getPos());
         }
         else {
-            apply(user, user, item, battleCard);
+            apply(pContext, pContext.user);
         }
     }
 
-    private void apply(Entity user, Entity target, ItemStack item, BattleCard battleCard) {
-        apply(user,target.getEyePos(),item,battleCard);
+    private void apply(PersistantCardEffectContext pContext, Entity target) {
+        apply(pContext,target.getEyePos());
     }
 
-    private void apply(Entity user, Vec3d center, ItemStack item, BattleCard battleCard) {
+    private void apply(PersistantCardEffectContext pContext, Vec3d center) {
         Box box = new Box(center,center).expand(radius);
-        List<LivingEntity> entityList = user.getWorld().getNonSpectatingEntities(LivingEntity.class,
+        List<LivingEntity> entityList = pContext.user.getWorld().getNonSpectatingEntities(LivingEntity.class,
                 box);
         double radiusSquared = radius*radius;
         for(LivingEntity entity: entityList){
-            if(!targetUser && entity == user){
+            if(!targetUser && entity == pContext.user){
                 continue;
             }
             boolean inRange = false;
@@ -74,7 +75,7 @@ public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
                 CardEffectContext context = new CardEffectContext();
                 context.target = entity;
                 for (CardEffect effect : effects) {
-                    effect.apply(user, item, battleCard, context);
+                    effect.apply(pContext, context);
                 }
             }
         }

@@ -9,6 +9,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardManager;
 
@@ -16,12 +17,12 @@ import java.util.List;
 
 public interface CardSleeve {
 
-    default float modifyDamage(Entity user, Entity target, ItemStack item, BattleCard battleCard, CardEffectContext context, float amount, ItemStack sleeve){
+    default float modifyDamage(PersistantCardEffectContext pContext, Entity target, CardEffectContext context, float amount, ItemStack sleeve){
         return amount;
     }
 
     //TODO: make event and hook for afterDamage
-    default void afterDamage(Entity user, Entity target, ItemStack item, BattleCard battleCard, CardEffectContext context,  float amountApplied, float amountTaken, ItemStack sleeve){}
+    default void afterDamage(PersistantCardEffectContext pContext, Entity target, CardEffectContext context,  float amountApplied, float amountTaken, ItemStack sleeve){}
 
     /***********************
      * modifyManaCost changes how much a card's charged effect costs to use.

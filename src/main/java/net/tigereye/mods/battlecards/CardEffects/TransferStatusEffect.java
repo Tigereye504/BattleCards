@@ -13,6 +13,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
@@ -31,18 +32,18 @@ public class TransferStatusEffect implements CardEffect, CardTooltipNester {
     boolean userToTarget = true;
 
     @Override
-    public void apply(Entity user, ItemStack item, BattleCard battleCard, CardEffectContext context) {
+    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         if(context.target != null){
-            apply(user,context.target,item,battleCard);
+            apply(pContext,context.target);
         }
         else {
-            apply(user, user, item, battleCard);
+            apply(pContext, pContext.user);
         }
     }
 
-    private void apply(Entity user, Entity target, ItemStack item, BattleCard battleCard) {
-        Entity donor = userToTarget ? user : target;
-        Entity reciever = userToTarget ? target : user;
+    private void apply(PersistantCardEffectContext pContext, Entity target) {
+        Entity donor = userToTarget ? pContext.user : target;
+        Entity reciever = userToTarget ? target : pContext.user;
         if(donor instanceof LivingEntity leDonor) {
             List<StatusEffectInstance> toMove = new ArrayList<>();
             if (type != null && leDonor.hasStatusEffect(type)){

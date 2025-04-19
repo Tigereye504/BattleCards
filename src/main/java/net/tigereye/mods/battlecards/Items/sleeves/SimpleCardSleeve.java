@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,7 +19,7 @@ public class SimpleCardSleeve extends CardSleeveItem{
         this.damageMultiplier = damageMultiplier;
     }
 
-    public float modifyDamage(Entity user, Entity target, ItemStack item, BattleCard battleCard, CardEffectContext context, float amount, ItemStack sleeve){
+    public float modifyDamage(PersistantCardEffectContext pContext, Entity target, CardEffectContext context, float amount, ItemStack sleeve){
         return amount*damageMultiplier;
     }
 

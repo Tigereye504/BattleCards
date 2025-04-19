@@ -9,6 +9,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
@@ -22,7 +23,6 @@ import java.util.List;
 
 public class ThrowCardsEffect implements CardEffect, CardTooltipNester {
 
-    BattleCardItem card;
     List<ThrowCardEffect> throwCardEffects = new ArrayList<>();
     List<CardEffect> onEntityHitEffects = new ArrayList<>();
     List<CardEffect> onCollisionEffects = new ArrayList<>();
@@ -60,19 +60,19 @@ public class ThrowCardsEffect implements CardEffect, CardTooltipNester {
     }
 
     @Override
-    public void apply(Entity user, ItemStack item, BattleCard battleCard, CardEffectContext context) {
+    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         if (context.target != null) {
-            apply(user, context.target, item, battleCard);
+            apply(pContext, context.target);
         } else {
-            apply(user, user, item, battleCard);
+            apply(pContext, pContext.user);
         }
     }
 
-    private void apply(Entity user, Entity target, ItemStack item, BattleCard battleCard) {
-        World world = user.getWorld();
+    private void apply(PersistantCardEffectContext pContext, Entity target) {
+        World world = pContext.user.getWorld();
         if(!world.isClient()) {
             for (ThrowCardEffect effect : throwCardEffects) {
-                CardProjectileEntity cardProjectileEntity = effect.createProjectile(user, item, battleCard);
+                CardProjectileEntity cardProjectileEntity = effect.createProjectile(pContext);
                 if(cardProjectileEntity != null) {
                     cardProjectileEntity.addEffectsOnEntityHit(onEntityHitEffects);
                     cardProjectileEntity.addEffectsOnCollision(onCollisionEffects);

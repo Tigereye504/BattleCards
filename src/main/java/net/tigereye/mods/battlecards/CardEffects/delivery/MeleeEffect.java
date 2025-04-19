@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.RetainCardEffect;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
@@ -40,15 +41,15 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
     }
 
     @Override
-    public void apply(Entity user, ItemStack item, BattleCard battleCard, CardEffectContext context) {
+    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
 
-        if (user instanceof PlayerEntity pEntity) {
+        if (pContext.user instanceof PlayerEntity pEntity) {
             pEntity.swingHand(pEntity.getActiveHand());
         }
 
         //TODO: raycast out to reach (configured, by default use the user's reach)
-        Vec3d boxMin = user.getEyePos().add(-reach,-reach,-reach);
-        Vec3d boxMax = user.getEyePos().add(reach,reach,reach);
+        Vec3d boxMin = pContext.user.getEyePos().add(-reach,-reach,-reach);
+        Vec3d boxMax = pContext.user.getEyePos().add(reach,reach,reach);
         /*EntityHitResult ehr = ProjectileUtil.raycast(user,
                 user.getEyePos(),
                 user.getEyePos().add(user.getRotationVec(1).multiply(reach)),
@@ -56,10 +57,10 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
          */
         //instead of raycasting, perhaps iterating the box for targets in a cone in front of the user would be better.
         Box sweepBox = new Box(boxMin,boxMax);
-        List<Entity> possibleTargets = user.getEntityWorld().getOtherEntities(user,sweepBox);
+        List<Entity> possibleTargets = pContext.user.getEntityWorld().getOtherEntities(pContext.user,sweepBox);
         List<Entity> targetsInCone = new ArrayList<>();
         for(Entity possibleTarget : possibleTargets){
-            if(isEntityInCone(user.getEyePos(),possibleTarget,user.getHeadYaw(),user.getPitch(),maxAngle)){
+            if(isEntityInCone(pContext.user.getEyePos(),possibleTarget,pContext.user.getHeadYaw(),pContext.user.getPitch(),maxAngle)){
                 targetsInCone.add(possibleTarget);
             }
         }
@@ -71,8 +72,8 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
             if(!isSweep){
                 //determine the closest target. remove the rest
                 targetsInCone.sort((entity1, entity2) -> {
-                    double dis1 = entity1.squaredDistanceTo(user);
-                    double dis2 = entity2.squaredDistanceTo(user);
+                    double dis1 = entity1.squaredDistanceTo(pContext.user);
+                    double dis2 = entity2.squaredDistanceTo(pContext.user);
                     if(dis1 > dis2){
                         return 1;
                     }
@@ -89,7 +90,7 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
                 CardEffectContext onHitContext = new CardEffectContext();
                 onHitContext.target = target;
                 for (CardEffect effect : onEntityHitEffects) {
-                    effect.apply(user, item, battleCard, onHitContext);
+                    effect.apply(pContext, onHitContext);
                 }
             }
         }
@@ -106,7 +107,7 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
         }
         */
         else if(retainOnMiss){
-            new RetainCardEffect().apply(user,item,battleCard,context);
+            new RetainCardEffect().apply(pContext,context);
         }
     }
 

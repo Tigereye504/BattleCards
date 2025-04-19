@@ -8,6 +8,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
@@ -22,9 +23,9 @@ public class GainManaEffect implements CardEffect, CardTooltipNester {
     private int amount;
 
     @Override
-    public void apply(Entity user, ItemStack item, BattleCard battleCard, CardEffectContext context) {
-        if(item.getItem() instanceof BattleCardItem bci) {
-            bci.gainMana(user, item, amount);
+    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
+        if(pContext.cardItem.getItem() instanceof BattleCardItem bci) {
+            bci.gainMana(pContext.user, pContext.cardItem, amount);
         }
     }
 

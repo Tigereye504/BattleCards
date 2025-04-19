@@ -10,6 +10,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
@@ -28,9 +29,9 @@ public class HealthScalerEffect implements CardEffect, CardTooltipNester {
     boolean absoluteElseRatio = true;
 
     @Override
-    public void apply(Entity user, ItemStack item, BattleCard battleCard, CardEffectContext context) {
+    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         CardEffectContext newContext = context.clone();
-        Entity scalarEntity = userElseTarget ? user : context.target;
+        Entity scalarEntity = userElseTarget ? pContext.user : context.target;
         if(scalarEntity instanceof LivingEntity livingEntity){
             newContext.scalar = (replaceElseAdd ? 0 : newContext.scalar) + (
                 (missingElseCurrent ? livingEntity.getMaxHealth() - livingEntity.getHealth() : livingEntity.getHealth())
@@ -40,7 +41,7 @@ public class HealthScalerEffect implements CardEffect, CardTooltipNester {
             newContext.scalar = replaceElseAdd ? 0 : newContext.scalar;
         }
         for(CardEffect effect : effects){
-            effect.apply(user, item, battleCard, newContext);
+            effect.apply(pContext, newContext);
         }
     }
 

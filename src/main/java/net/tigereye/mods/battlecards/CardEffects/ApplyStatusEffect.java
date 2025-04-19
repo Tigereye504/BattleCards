@@ -14,6 +14,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
@@ -29,16 +30,16 @@ public class ApplyStatusEffect implements CardEffect, CardTooltipNester {
     int magnitude = 0;
 
     @Override
-    public void apply(Entity user, ItemStack item, BattleCard battleCard, CardEffectContext context) {
+    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         if(context.target != null){
-            apply(user,context.target,item,battleCard);
+            apply(pContext,context.target);
         }
         else {
-            apply(user, user, item, battleCard);
+            apply(pContext, pContext.user);
         }
     }
 
-    private void apply(Entity user, Entity target, ItemStack item, BattleCard battleCard) {
+    private void apply(PersistantCardEffectContext pContext, Entity target) {
         if(type != null && target instanceof LivingEntity livingEntity){
             livingEntity.addStatusEffect(new StatusEffectInstance(type,duration,magnitude));
         }

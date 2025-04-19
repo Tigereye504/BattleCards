@@ -13,10 +13,7 @@ import net.tigereye.mods.battlecards.Cards.Json.CardManager;
 import net.tigereye.mods.battlecards.Items.BattlecardsDeckItem;
 import net.tigereye.mods.battlecards.Items.BoosterPackItem;
 import net.tigereye.mods.battlecards.Items.GeneratedCardItem;
-import net.tigereye.mods.battlecards.Items.sleeves.DiamondCardSleeve;
-import net.tigereye.mods.battlecards.Items.sleeves.GoldCardSleeve;
 import net.tigereye.mods.battlecards.Items.sleeves.SimpleCardSleeve;
-import net.tigereye.mods.battlecards.Items.sleeves.NetheriteCardSleeve;
 
 public class BCItems {
     public static final Item BATTLECARD = new GeneratedCardItem(new FabricItemSettings().maxCount(64));

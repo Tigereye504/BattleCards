@@ -9,6 +9,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
@@ -22,8 +23,8 @@ public class LifestealEffect implements CardEffect, CardTooltipNester {
     float ratio;
 
     @Override
-    public void apply(Entity user, ItemStack item, BattleCard battleCard, CardEffectContext context) {
-        apply(user,context.scalar);
+    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
+        apply(pContext.user,context.scalar);
     }
 
     private void apply(Entity user, float scalar) {

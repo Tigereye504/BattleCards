@@ -12,6 +12,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
@@ -28,21 +29,21 @@ public class IfStatusEffect implements CardEffect, CardTooltipNester {
     boolean targetElseUser = true;
 
     @Override
-    public void apply(Entity user, ItemStack item, BattleCard battleCard, CardEffectContext context) {
+    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         if(context.target != null){
-            apply(user,context.target,item,battleCard, context);
+            apply(pContext,context.target, context);
         }
         else {
-            apply(user, user, item, battleCard, context);
+            apply(pContext, pContext.user, context);
         }
     }
 
-    private void apply(Entity user, Entity target, ItemStack item, BattleCard battleCard, CardEffectContext context) {
-        Entity statusHaver = targetElseUser ? target : user;
+    private void apply(PersistantCardEffectContext pContext, Entity target, CardEffectContext context) {
+        Entity statusHaver = targetElseUser ? target : pContext.user;
         if(statusHaver instanceof LivingEntity livingEntity) {
             if (type != null && livingEntity.hasStatusEffect(type)){
                 for(CardEffect effect : effects) {
-                    effect.apply(user,item,battleCard,context);
+                    effect.apply(pContext,context);
                 }
             }
         }

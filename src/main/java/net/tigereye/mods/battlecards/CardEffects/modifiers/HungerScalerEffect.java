@@ -12,6 +12,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
@@ -30,9 +31,9 @@ public class HungerScalerEffect implements CardEffect, CardTooltipNester {
     boolean replaceElseAdd = true;
 
     @Override
-    public void apply(Entity user, ItemStack item, BattleCard battleCard, CardEffectContext context) {
+    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         CardEffectContext newContext = context.clone();
-        Entity scalarEntity = userElseTarget ? user : context.target;
+        Entity scalarEntity = userElseTarget ? pContext.user : context.target;
         int hungerlevel = 20;
         if(scalarEntity instanceof PlayerEntity playerEntity){
             hungerlevel = playerEntity.getHungerManager().getFoodLevel();
@@ -44,7 +45,7 @@ public class HungerScalerEffect implements CardEffect, CardTooltipNester {
         newContext.scalar = (replaceElseAdd ? 0 : newContext.scalar) +
                 (missingElseCurrent ? 20 - hungerlevel : hungerlevel);
         for(CardEffect effect : effects){
-            effect.apply(user, item, battleCard, newContext);
+            effect.apply(pContext, newContext);
         }
     }
 

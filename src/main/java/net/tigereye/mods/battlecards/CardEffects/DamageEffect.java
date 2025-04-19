@@ -14,6 +14,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
@@ -32,33 +33,33 @@ public class DamageEffect implements CardEffect, CardTooltipNester {
     List<CardEffect> afterDamageEffects = new ArrayList<>();
 
     @Override
-    public void apply(Entity user, ItemStack item, BattleCard battleCard, CardEffectContext context) {
+    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         if(context.target != null){
-            apply(user,context.target,item,battleCard, context);
+            apply(pContext,context.target, context);
         }
         else {
-            apply(user, user, item, battleCard, context);
+            apply(pContext, pContext.user, context);
         }
     }
 
-    private void apply(Entity user, Entity target, ItemStack item, BattleCard battleCard, CardEffectContext context) {
+    private void apply(PersistantCardEffectContext pContext, Entity target, CardEffectContext context) {
         if(target != null) {
             if(damageType == null){
-                Battlecards.LOGGER.warn("Missing damage type on {} damage effect. Replacing null with 'generic' damage type.",item.getName());
+                Battlecards.LOGGER.warn("Missing damage type on {} damage effect. Replacing null with 'generic' damage type.",pContext.cardItem.getName());
                 damageType = DamageTypes.GENERIC;
             }
             if(target instanceof LivingEntity lEntity) {
                 float targetHealth = lEntity.getHealth() + lEntity.getAbsorptionAmount();
                 float modifiedDamage = ModifyDamageCardEffectCallback.EVENT.invoker()
-                        .modifyDamage(user,target,item,battleCard,context,damage+(scalingDamage*context.scalar));
-                target.damage(target.getDamageSources().create(damageType, user), modifiedDamage);
+                        .modifyDamage(pContext,target,context,damage+(scalingDamage*context.scalar));
+                target.damage(target.getDamageSources().create(damageType, pContext.user), modifiedDamage);
                 float damageDealt = targetHealth - (lEntity.getHealth() + lEntity.getAbsorptionAmount());
                 //TODO: call post damage event
                 CardEffectContext postDamageContext = new CardEffectContext();
                 postDamageContext.target = target;
                 postDamageContext.scalar = damageDealt;
                 for(CardEffect effect : afterDamageEffects){
-                    effect.apply(user,item,battleCard,postDamageContext);
+                    effect.apply(pContext,postDamageContext);
                 }
             }
         }

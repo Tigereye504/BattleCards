@@ -4,6 +4,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 
 import java.util.ArrayList;
@@ -72,13 +73,17 @@ public class GeneratedBattleCard implements BattleCard {
 
     @Override
     public boolean performBasicEffect(LivingEntity user, ItemStack stack) {
-        quickEffects.forEach((cardEffect -> cardEffect.apply(user, stack, this)));
+        PersistantCardEffectContext pContext = new PersistantCardEffectContext(user,this,stack);
+        //TODO: call an event to load instanced events such as Overdraw and sleeve effects
+        quickEffects.forEach((cardEffect -> cardEffect.apply(pContext)));
         return true;
     }
 
     @Override
     public boolean performChargeEffect(LivingEntity user, ItemStack stack) {
-        chargeEffects.forEach((cardEffect -> cardEffect.apply(user, stack, this)));
+        PersistantCardEffectContext pContext = new PersistantCardEffectContext(user,this,stack);
+        //TODO: call an event to load instanced events such as Overdraw and sleeve effects
+        chargeEffects.forEach((cardEffect -> cardEffect.apply(pContext)));
         return false;
     }
 }

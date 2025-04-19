@@ -8,6 +8,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
@@ -21,8 +22,8 @@ public class RetainCardEffect implements CardEffect, CardTooltipNester {
     private int amount;
 
     @Override
-    public void apply(Entity user, ItemStack item, BattleCard battleCard, CardEffectContext context) {
-        item.getOrCreateNbt().putBoolean(RETAIN_NBTKEY,true);
+    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
+        pContext.cardItem.getOrCreateNbt().putBoolean(RETAIN_NBTKEY,true);
     }
 
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {

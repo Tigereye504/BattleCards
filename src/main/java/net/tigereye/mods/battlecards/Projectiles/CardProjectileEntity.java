@@ -11,6 +11,7 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.registration.BCEntities;
@@ -21,8 +22,7 @@ import java.util.List;
 
 public class CardProjectileEntity extends ThrownItemEntity {
 
-    ItemStack item;
-    BattleCard battleCard;
+    PersistantCardEffectContext pContext;
     List<CardEffect> onEntityHitEffects = new ArrayList<>();
     List<CardEffect> onCollisionEffects = new ArrayList<>();
     List<CardEffect> onTickEffects = new ArrayList<>();
@@ -31,27 +31,13 @@ public class CardProjectileEntity extends ThrownItemEntity {
 
     public CardProjectileEntity(EntityType<? extends ThrownItemEntity> entityType, World world) {
         super(entityType, world);
-        this.item = null;
-        this.battleCard = null;
+        this.pContext = null;
     }
 
-    public CardProjectileEntity(EntityType<? extends ThrownItemEntity> entityType, World world, ItemStack item, BattleCard battleCard) {
-        super(entityType, world);
-        this.item = item;
-        this.battleCard = battleCard;
-    }
-
-    public CardProjectileEntity(World world, LivingEntity owner, ItemStack item, BattleCard battleCard) {
-        super(BCEntities.CardProjectileEntityType, owner, world);
-        this.item = item;
-        this.battleCard = battleCard;
-    }
-
-    public CardProjectileEntity(World world, Entity owner, double x, double y, double z, ItemStack item, BattleCard battleCard) {
+    public CardProjectileEntity(PersistantCardEffectContext pContext, World world, double x, double y, double z) {
         super(BCEntities.CardProjectileEntityType, x, y, z, world);
-        setOwner(owner);
-        this.item = item;
-        this.battleCard = battleCard;
+        setOwner(pContext.user);
+        this.pContext = pContext;
     }
 
     @Override
@@ -87,7 +73,7 @@ public class CardProjectileEntity extends ThrownItemEntity {
         CardEffectContext context = new CardEffectContext();
         context.target = entityHitResult.getEntity();
         for(CardEffect effect : onEntityHitEffects){
-            effect.apply(getOwner(),item,battleCard,context);
+            effect.apply(pContext,context);
         }
     }
 
@@ -97,7 +83,7 @@ public class CardProjectileEntity extends ThrownItemEntity {
         for(CardEffect effect : onCollisionEffects){
             CardEffectContext context = new CardEffectContext();
             context.hitResult = hitResult;
-            effect.apply(getOwner(),item, battleCard,context);
+            effect.apply(pContext,context);
         }
 
         if (!this.getWorld().isClient) {
@@ -112,7 +98,7 @@ public class CardProjectileEntity extends ThrownItemEntity {
         CardEffectContext context = new CardEffectContext();
         context.target = this;
         for(CardEffect effect : onTickEffects){
-            effect.apply(getOwner(),item,battleCard,context);
+            effect.apply(pContext,context);
         }
     }
 }

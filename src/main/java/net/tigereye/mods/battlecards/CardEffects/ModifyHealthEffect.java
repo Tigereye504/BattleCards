@@ -9,6 +9,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
@@ -23,16 +24,16 @@ public class ModifyHealthEffect implements CardEffect, CardTooltipNester {
     float scalingAmount;
 
     @Override
-    public void apply(Entity user, ItemStack item, BattleCard battleCard, CardEffectContext context) {
+    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         if(context.target != null){
-            apply(user,context.target,item,battleCard,context);
+            apply(context.target, context);
         }
         else {
-            apply(user, user, item, battleCard,context);
+            apply(pContext.user, context);
         }
     }
 
-    private void apply(Entity user, Entity target, ItemStack item, BattleCard battleCard, CardEffectContext context) {
+    private void apply(Entity target, CardEffectContext context) {
         if(target instanceof LivingEntity livingEntity) {
             float totalAmount = amount + (scalingAmount*context.scalar);
             if(totalAmount > 0) {

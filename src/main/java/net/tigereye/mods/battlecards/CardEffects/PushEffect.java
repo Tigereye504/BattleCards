@@ -11,6 +11,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
@@ -28,17 +29,17 @@ public class PushEffect implements CardEffect, CardTooltipNester {
     public boolean applyKnockbackRes = true;
 
     @Override
-    public void apply(Entity user, ItemStack item, BattleCard battleCard, CardEffectContext context) {
+    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         if(context.target != null){
-            apply(user,context.target,item,battleCard);
+            apply(pContext,context.target);
         }
         else {
-            apply(user, user, item, battleCard);
+            apply(pContext, pContext.user);
         }
     }
 
-    private void apply(Entity user, Entity target, ItemStack item, BattleCard battleCard) {
-        Entity relativeEntity = pushRelativeToUserElseTarget ? user : target;
+    private void apply(PersistantCardEffectContext pContext, Entity target) {
+        Entity relativeEntity = pushRelativeToUserElseTarget ? pContext.user : target;
         Vec3d pushVector = relativeEntity.getCameraPosVec(1).normalize().multiply(magnitude)
                 .rotateX(pitch)
                 .rotateY(yaw);

@@ -10,6 +10,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
@@ -72,40 +73,39 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
     }
 
     @Override
-    public void apply(Entity user, ItemStack item, BattleCard battleCard, CardEffectContext context) {
+    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         if (context.target != null) {
-            apply(user, context.target, item, battleCard);
+            apply(pContext, context.target);
         } else {
-            apply(user, user, item, battleCard);
+            apply(pContext, pContext.user);
         }
     }
 
-    private void apply(Entity user, Entity target, ItemStack item, BattleCard battleCard) {
-        World world = user.getWorld();
+    private void apply(PersistantCardEffectContext pContext, Entity target) {
+        World world = pContext.user.getWorld();
         if (!world.isClient()) {
-            CardProjectileEntity cardProjectileEntity = createProjectile(user,target,item,battleCard);
+            CardProjectileEntity cardProjectileEntity = createProjectile(pContext,target);
             if(cardProjectileEntity != null) {
                 world.spawnEntity(cardProjectileEntity);
             }
         }
     }
 
-    public CardProjectileEntity createProjectile(Entity user, ItemStack item, BattleCard battleCard) {
-        return createProjectile(user,user,item,battleCard);
+    public CardProjectileEntity createProjectile(PersistantCardEffectContext pContext) {
+        return createProjectile(pContext,pContext.user);
     }
-    public CardProjectileEntity createProjectile(Entity user, Entity target, ItemStack item, BattleCard battleCard) {
-        if(user == null ||((!originRelativeToUserElseTarget)&&(target == null))){
+    public CardProjectileEntity createProjectile(PersistantCardEffectContext pContext, Entity target) {
+        if(pContext.user == null ||((!originRelativeToUserElseTarget)&&(target == null))){
             return null;
         }
-        Entity originEntity = originRelativeToUserElseTarget ? user : target;
-        World world = user.getWorld();
+        Entity originEntity = originRelativeToUserElseTarget ? pContext.user : target;
+        World world = pContext.user.getWorld();
         Vec3d rotatedOrigin = originOffset.rotateX(originEntity.getPitch()).rotateY(originEntity.getYaw());
 
-        CardProjectileEntity cardProjectileEntity = new CardProjectileEntity(world, user,
+        CardProjectileEntity cardProjectileEntity = new CardProjectileEntity(pContext, world,
                 originEntity.getX() + rotatedOrigin.getX(),
                 originEntity.getEyeY() - 0.1F + rotatedOrigin.getY(),
-                originEntity.getZ() + rotatedOrigin.getZ(),
-                item, battleCard);
+                originEntity.getZ() + rotatedOrigin.getZ());
         cardProjectileEntity.setVelocity(originEntity,
                 angleRelativeToEntityElseAbsolute ? originEntity.getPitch() + this.pitch : this.pitch,
                 angleRelativeToEntityElseAbsolute ? originEntity.getYaw() + this.yaw : this.yaw, 0.0F, speed, 0F);
