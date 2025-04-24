@@ -11,6 +11,7 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
+import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
@@ -19,32 +20,28 @@ import java.util.List;
 
 public class ModifyBreathEffect implements CardEffect, CardTooltipNester {
 
-    int amount;
+    CardScalar amount;
 
     @Override
     public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         if(context.target != null){
-            apply(context.target);
+            context.target.setAir(context.target.getAir()+((int)amount.getValue(pContext, context)));
         }
         else {
-            apply(pContext.user);
+            pContext.user.setAir(pContext.user.getAir()+((int)amount.getValue(pContext, context)));
         }
-    }
-
-    private void apply(Entity target) {
-        target.setAir(target.getAir()+amount);
     }
 
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         tooltip.add(Text.literal(" ".repeat(depth)).append(
-                Text.translatable("card.battlecards.tooltip.breath",amount)));
+                Text.translatable("card.battlecards.tooltip.breath",amount.appendInlineTooltip(world, tooltip, tooltipContext))));
     }
 
     public static class Serializer implements CardEffectSerializer {
         @Override
         public CardEffect readFromJson(Identifier id, JsonElement entry) {
             ModifyBreathEffect output = new ModifyBreathEffect();
-            output.amount = CardSerializer.readOrDefaultInt(id,"amount",entry,0);
+            output.amount = CardSerializer.readOrDefaultScalar(id,"amount",entry,0);
             return output;
         }
     }

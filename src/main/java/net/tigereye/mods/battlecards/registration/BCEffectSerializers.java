@@ -6,6 +6,10 @@ import net.tigereye.mods.battlecards.CardEffects.delivery.MeleeEffect;
 import net.tigereye.mods.battlecards.CardEffects.delivery.ThrowCardEffect;
 import net.tigereye.mods.battlecards.CardEffects.modifiers.*;
 import net.tigereye.mods.battlecards.CardEffects.delivery.ThrowCardsEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.AbsoluteScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.HealthScalarEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.HungerScalarEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.RandomScalarEffect;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 
 public class BCEffectSerializers {
@@ -18,8 +22,10 @@ public class BCEffectSerializers {
         CardSerializer.registerCardEffectSerializer("entities_in_radius",new EntitiesInRadiusEffect.Serializer());
         //modifiers
         CardSerializer.registerCardEffectSerializer("delay",new DelayedEffect.Serializer());
-        CardSerializer.registerCardEffectSerializer("health_scaler",new HealthScalerEffect.Serializer());
-        CardSerializer.registerCardEffectSerializer("hunger_scaler",new HungerScalerEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("absolute_scalar",new AbsoluteScalerEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("health_scalar",new HealthScalarEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("hunger_scalar",new HungerScalarEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("random_scalar",new RandomScalarEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("if_status",new IfStatusEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("if_scalar",new IfScalarEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("target_user",new TargetUserEffect.Serializer());

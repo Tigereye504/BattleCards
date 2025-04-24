@@ -1,4 +1,4 @@
-package net.tigereye.mods.battlecards.CardEffects.modifiers;
+package net.tigereye.mods.battlecards.CardEffects.scalar;
 
 import com.google.gson.JsonElement;
 import net.minecraft.client.item.TooltipContext;
@@ -6,7 +6,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
@@ -15,14 +14,13 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
-import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HungerScalerEffect implements CardEffect, CardTooltipNester {
+public class HungerScalarEffect implements CardEffect, CardScalar, CardTooltipNester {
 
     List<CardEffect> effects = new ArrayList<>();
     int nonPlayerHungerPerEffectLevel = 3;
@@ -33,6 +31,14 @@ public class HungerScalerEffect implements CardEffect, CardTooltipNester {
     @Override
     public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         CardEffectContext newContext = context.clone();
+        newContext.scalar = getValue(pContext,context);
+        for(CardEffect effect : effects){
+            effect.apply(pContext, newContext);
+        }
+    }
+
+    @Override
+    public float getValue(PersistantCardEffectContext pContext, CardEffectContext context) {
         Entity scalarEntity = userElseTarget ? pContext.user : context.target;
         int hungerlevel = 20;
         if(scalarEntity instanceof PlayerEntity playerEntity){
@@ -42,11 +48,8 @@ public class HungerScalerEffect implements CardEffect, CardTooltipNester {
             hungerlevel = Math.max(0,
                     20 - (nonPlayerHungerPerEffectLevel*(livingEntity.getStatusEffect(StatusEffects.HUNGER).getAmplifier()+1)));
         }
-        newContext.scalar = (replaceElseAdd ? 0 : newContext.scalar) +
+        return (replaceElseAdd ? 0 : context.scalar) +
                 (missingElseCurrent ? 20 - hungerlevel : hungerlevel);
-        for(CardEffect effect : effects){
-            effect.apply(pContext, newContext);
-        }
     }
 
     public void addCardEffect(CardEffect effect){
@@ -70,8 +73,8 @@ public class HungerScalerEffect implements CardEffect, CardTooltipNester {
 
     public static class Serializer implements CardEffectSerializer {
         @Override
-        public HungerScalerEffect readFromJson(Identifier id, JsonElement entry) {
-            HungerScalerEffect output = new HungerScalerEffect();
+        public HungerScalarEffect readFromJson(Identifier id, JsonElement entry) {
+            HungerScalarEffect output = new HungerScalarEffect();
             output.effects = CardSerializer.readCardEffects(id, "effects",entry);
             if (output.effects.isEmpty()) {
                 Battlecards.LOGGER.error("Missing effects for HungerScaler modifier in {}.",id);

@@ -12,6 +12,8 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
+import net.tigereye.mods.battlecards.CardEffects.scalar.AbsoluteScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
@@ -62,22 +64,25 @@ public class ThrowCardsEffect implements CardEffect, CardTooltipNester {
     @Override
     public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         if (context.target != null) {
-            apply(pContext, context.target);
+            apply(pContext,context,context.target);
         } else {
-            apply(pContext, pContext.user);
+            apply(pContext,context,pContext.user);
         }
     }
 
-    private void apply(PersistantCardEffectContext pContext, Entity target) {
+    private void apply(PersistantCardEffectContext pContext, CardEffectContext context, Entity target) {
         World world = pContext.user.getWorld();
         if(!world.isClient()) {
             for (ThrowCardEffect effect : throwCardEffects) {
-                CardProjectileEntity cardProjectileEntity = effect.createProjectile(pContext);
-                if(cardProjectileEntity != null) {
-                    cardProjectileEntity.addEffectsOnEntityHit(onEntityHitEffects);
-                    cardProjectileEntity.addEffectsOnCollision(onCollisionEffects);
-                    cardProjectileEntity.addEffectsOnTick(onTickEffects);
-                    world.spawnEntity(cardProjectileEntity);
+                float copyCount = effect.copies.getValue(pContext,context);
+                for (int i = 1; i <= copyCount; i++) {
+                    CardProjectileEntity cardProjectileEntity = effect.createProjectile(pContext, context);
+                    if (cardProjectileEntity != null) {
+                        cardProjectileEntity.addEffectsOnEntityHit(onEntityHitEffects);
+                        cardProjectileEntity.addEffectsOnCollision(onCollisionEffects);
+                        cardProjectileEntity.addEffectsOnTick(onTickEffects);
+                        world.spawnEntity(cardProjectileEntity);
+                    }
                 }
             }
         }

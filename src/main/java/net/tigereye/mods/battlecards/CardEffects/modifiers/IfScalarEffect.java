@@ -12,6 +12,8 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
+import net.tigereye.mods.battlecards.CardEffects.scalar.AbsoluteScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
@@ -21,12 +23,13 @@ import java.util.List;
 
 public class IfScalarEffect implements CardEffect, CardTooltipNester {
 
-    float amount = 0;
+    CardScalar amount = new AbsoluteScalerEffect(0);
     List<CardEffect> effects = new ArrayList<>();
     boolean greaterElseLesser = true;
 
     @Override
     public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
+        int amount = (int)Math.floor(this.amount.getValue(pContext,context));
         if (greaterElseLesser ? context.scalar >= amount : context.scalar <= amount){
             for(CardEffect effect : effects) {
                 effect.apply(pContext,context);
@@ -56,7 +59,7 @@ public class IfScalarEffect implements CardEffect, CardTooltipNester {
                 Battlecards.LOGGER.error("no effects on status in {}!",id);
             }
 
-            output.amount = CardSerializer.readOrDefaultFloat(id,"amount",entry,0);
+            output.amount = CardSerializer.readOrDefaultScalar(id,"amount",entry,0);
             output.greaterElseLesser = CardSerializer.readOrDefaultBoolean(id,"greaterElseLesser",entry,true);
 
             return output;

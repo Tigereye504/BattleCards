@@ -17,6 +17,8 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
+import net.tigereye.mods.battlecards.CardEffects.scalar.AbsoluteScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
@@ -26,22 +28,22 @@ import java.util.List;
 public class ApplyStatusEffect implements CardEffect, CardTooltipNester {
 
     StatusEffect type = null;
-    int duration = 1;
-    int magnitude = 0;
+    CardScalar duration = new AbsoluteScalerEffect(1);
+    CardScalar magnitude = new AbsoluteScalerEffect(0);
 
     @Override
     public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         if(context.target != null){
-            apply(pContext,context.target);
+            apply(pContext,context.target, context);
         }
         else {
-            apply(pContext, pContext.user);
+            apply(pContext, pContext.user, context);
         }
     }
 
-    private void apply(PersistantCardEffectContext pContext, Entity target) {
+    private void apply(PersistantCardEffectContext pContext, Entity target, CardEffectContext context) {
         if(type != null && target instanceof LivingEntity livingEntity){
-            livingEntity.addStatusEffect(new StatusEffectInstance(type,duration,magnitude));
+            livingEntity.addStatusEffect(new StatusEffectInstance(type,(int)duration.getValue(pContext,context),(int)magnitude.getValue(pContext, context)));
         }
     }
 
@@ -51,7 +53,9 @@ public class ApplyStatusEffect implements CardEffect, CardTooltipNester {
             return;
         }
         tooltip.add(Text.literal(" ".repeat(depth)).append(
-                Text.translatable("card.battlecards.tooltip.status",type.getName(), magnitude+1, ((float)duration)/20)));
+                Text.translatable("card.battlecards.tooltip.status",type.getName(),
+                        "magnitude "+magnitude.appendInlineTooltip(world, tooltip, tooltipContext),
+                        duration.appendInlineTooltip(world, tooltip, tooltipContext)+" ticks")));
     }
 
     public static class Serializer implements CardEffectSerializer {
@@ -66,8 +70,8 @@ public class ApplyStatusEffect implements CardEffect, CardTooltipNester {
                 Battlecards.LOGGER.error("Could not find status effect {}!", statusEffectID);
             }
 
-            output.duration = CardSerializer.readOrDefaultInt(id,"duration",entry,1);
-            output.magnitude = CardSerializer.readOrDefaultInt(id,"magnitude",entry,0);
+            output.duration = CardSerializer.readOrDefaultScalar(id,"duration",entry,1);
+            output.magnitude = CardSerializer.readOrDefaultScalar(id,"magnitude",entry,0);
 
             return output;
         }

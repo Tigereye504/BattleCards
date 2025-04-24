@@ -40,9 +40,9 @@ public class PushEffect implements CardEffect, CardTooltipNester {
 
     private void apply(PersistantCardEffectContext pContext, Entity target) {
         Entity relativeEntity = pushRelativeToUserElseTarget ? pContext.user : target;
-        Vec3d pushVector = relativeEntity.getCameraPosVec(1).normalize().multiply(magnitude)
-                .rotateX(pitch)
-                .rotateY(yaw);
+        Vec3d pushVector = relativeEntity.getRotationVector().normalize().multiply(magnitude)
+                .rotateX((float) (pitch*Math.PI/180))
+                .rotateY((float) (yaw*Math.PI/180));
         double KBRes = 0;
         if(target instanceof LivingEntity lEntity){
             KBRes = lEntity.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE);

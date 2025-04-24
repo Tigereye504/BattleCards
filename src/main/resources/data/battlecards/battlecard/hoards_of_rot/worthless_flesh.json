@@ -2,7 +2,7 @@
   "id": "battlecards:hoards_of_rot/worthless_flesh",
   "quickEffects": [
     {
-      "effect": "health_scaler",
+      "effect": "health_scalar",
       "missingElseCurrent": true,
       "effects": [
         {
@@ -14,10 +14,10 @@
       ]
     }
   ],
-  "cost": 5,
+  "cost": 4,
   "advancedEffects": [
     {
-      "effect": "health_scaler",
+      "effect": "health_scalar",
       "missingElseCurrent": true,
       "effects": [
         {

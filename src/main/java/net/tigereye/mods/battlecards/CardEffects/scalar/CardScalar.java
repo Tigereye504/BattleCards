@@ -1,8 +1,14 @@
 package net.tigereye.mods.battlecards.CardEffects.scalar;
 
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.text.Text;
+import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 
+import java.util.List;
+
 public interface CardScalar {
-    double getValue(PersistantCardEffectContext pContext, CardEffectContext context);
+    float getValue(PersistantCardEffectContext pContext, CardEffectContext context);
+    default Text appendInlineTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext){return Text.literal("<missing>");}
 }

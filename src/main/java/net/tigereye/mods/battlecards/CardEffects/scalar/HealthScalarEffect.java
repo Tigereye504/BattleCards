@@ -1,10 +1,9 @@
-package net.tigereye.mods.battlecards.CardEffects.modifiers;
+package net.tigereye.mods.battlecards.CardEffects.scalar;
 
 import com.google.gson.JsonElement;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
@@ -13,14 +12,13 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
-import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HealthScalerEffect implements CardEffect, CardTooltipNester {
+public class HealthScalarEffect implements CardEffect, CardScalar, CardTooltipNester {
 
     List<CardEffect> effects = new ArrayList<>();
     boolean userElseTarget = true;
@@ -31,17 +29,23 @@ public class HealthScalerEffect implements CardEffect, CardTooltipNester {
     @Override
     public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         CardEffectContext newContext = context.clone();
-        Entity scalarEntity = userElseTarget ? pContext.user : context.target;
-        if(scalarEntity instanceof LivingEntity livingEntity){
-            newContext.scalar = (replaceElseAdd ? 0 : newContext.scalar) + (
-                (missingElseCurrent ? livingEntity.getMaxHealth() - livingEntity.getHealth() : livingEntity.getHealth())
-                / (absoluteElseRatio ? 1 : livingEntity.getMaxHealth()));
-        }
-        else {
-            newContext.scalar = replaceElseAdd ? 0 : newContext.scalar;
-        }
+        newContext.scalar = getValue(pContext,context);
+
         for(CardEffect effect : effects){
             effect.apply(pContext, newContext);
+        }
+    }
+
+    @Override
+    public float getValue(PersistantCardEffectContext pContext, CardEffectContext context) {
+        Entity scalarEntity = userElseTarget ? pContext.user : context.target;
+        if(scalarEntity instanceof LivingEntity livingEntity){
+            return (replaceElseAdd ? 0 : context.scalar) + (
+                    (missingElseCurrent ? livingEntity.getMaxHealth() - livingEntity.getHealth() : livingEntity.getHealth())
+                            / (absoluteElseRatio ? 1 : livingEntity.getMaxHealth()));
+        }
+        else {
+            return replaceElseAdd ? 0 : context.scalar;
         }
     }
 
@@ -67,8 +71,8 @@ public class HealthScalerEffect implements CardEffect, CardTooltipNester {
 
     public static class Serializer implements CardEffectSerializer {
         @Override
-        public HealthScalerEffect readFromJson(Identifier id, JsonElement entry) {
-            HealthScalerEffect output = new HealthScalerEffect();
+        public HealthScalarEffect readFromJson(Identifier id, JsonElement entry) {
+            HealthScalarEffect output = new HealthScalarEffect();
             output.effects = CardSerializer.readCardEffects(id, "effects",entry);
             if (output.effects.isEmpty()) {
                 Battlecards.LOGGER.error("Missing effects for HealthScaler modifier in {}.",id);

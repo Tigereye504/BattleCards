@@ -127,5 +127,9 @@
   "card.battlecards.passable_papercraft/nine_ply.charge": "Toss nine deadly cards, refunding mana on hit.",
   "card.battlecards.passable_papercraft/ten_ply": "Ten Ply",
   "card.battlecards.passable_papercraft/ten_ply.quick": "Toss a card for weak damage and 2 mana.",
-  "card.battlecards.passable_papercraft/ten_ply.charge": "Toss ten deadly cards, refunding 2 mana on hit."
+  "card.battlecards.passable_papercraft/ten_ply.charge": "Toss ten deadly cards, refunding 2 mana on hit.",
+  "card.battlecards.tooltip.absolute_scaler": "X = %d.",
+  "card.battlecards.tooltip.random_scaler": "X between %d and %d",
+  "card.battlecards.tooltip.absolute_scaler.inline": "%d",
+  "card.battlecards.tooltip.random_scaler.inline": "%s to %s"
 }

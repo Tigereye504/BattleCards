@@ -2,7 +2,7 @@
   "id": "battlecards:hoards_of_rot/necromantic_surge",
   "quickEffects": [
     {
-      "effect": "health_scaler",
+      "effect": "health_scalar",
       "missingElseCurrent": true,
       "effects": [
         {

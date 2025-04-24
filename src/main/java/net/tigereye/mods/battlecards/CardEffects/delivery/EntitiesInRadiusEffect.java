@@ -15,6 +15,8 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
+import net.tigereye.mods.battlecards.CardEffects.scalar.AbsoluteScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
@@ -25,7 +27,7 @@ import java.util.List;
 public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
 
     List<CardEffect> effects = new ArrayList<>();
-    double radius = 1;
+    CardScalar radius = new AbsoluteScalerEffect(1);
     boolean targetUser = false;
     boolean sphereElseCylinder = false;
 
@@ -39,21 +41,22 @@ public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
     @Override
     public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         if (context.target != null) {
-            apply(pContext, context.target);
+            apply(pContext, context, context.target);
         }
         else if(context.hitResult != null){
-            apply(pContext, context.hitResult.getPos());
+            apply(pContext, context, context.hitResult.getPos());
         }
         else {
-            apply(pContext, pContext.user);
+            apply(pContext, context, pContext.user);
         }
     }
 
-    private void apply(PersistantCardEffectContext pContext, Entity target) {
-        apply(pContext,target.getEyePos());
+    private void apply(PersistantCardEffectContext pContext, CardEffectContext context, Entity target) {
+        apply(pContext, context, target.getEyePos());
     }
 
-    private void apply(PersistantCardEffectContext pContext, Vec3d center) {
+    private void apply(PersistantCardEffectContext pContext, CardEffectContext context, Vec3d center) {
+        float radius = this.radius.getValue(pContext,context);
         Box box = new Box(center,center).expand(radius);
         List<LivingEntity> entityList = pContext.user.getWorld().getNonSpectatingEntities(LivingEntity.class,
                 box);
@@ -72,10 +75,10 @@ public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
                 inRange = (diffX*diffX)+(diffY*diffY) < radiusSquared;
             }
             if(inRange){
-                CardEffectContext context = new CardEffectContext();
-                context.target = entity;
+                CardEffectContext newContext = context.clone();
+                newContext.target = entity;
                 for (CardEffect effect : effects) {
-                    effect.apply(pContext, context);
+                    effect.apply(pContext, newContext);
                 }
             }
         }
@@ -83,7 +86,7 @@ public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
 
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         tooltip.add(Text.literal(" ".repeat(depth)).append(
-                Text.translatable("card.battlecards.tooltip.radius",radius,
+                Text.translatable("card.battlecards.tooltip.radius",radius.appendInlineTooltip(world,tooltip,tooltipContext),
                         sphereElseCylinder ? "sphere" : "cylinder")));
         if(!effects.isEmpty()){
             for(CardEffect effect : effects){
@@ -98,7 +101,7 @@ public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
         @Override
         public EntitiesInRadiusEffect readFromJson(Identifier id, JsonElement entry) {
             EntitiesInRadiusEffect output = new EntitiesInRadiusEffect();
-            output.radius = CardSerializer.readOrDefaultFloat(id,"radius",entry,1f);
+            output.radius = CardSerializer.readOrDefaultScalar(id,"radius",entry,1f);
             output.targetUser = CardSerializer.readOrDefaultBoolean(id,"targetUser",entry,false);
             output.sphereElseCylinder = CardSerializer.readOrDefaultBoolean(id,"sphereElseCylinder",entry,false);
             output.addEffectsOnEntityInRange(CardSerializer.readCardEffects(id, "effects",entry));

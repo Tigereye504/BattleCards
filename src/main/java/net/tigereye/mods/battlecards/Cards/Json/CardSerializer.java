@@ -7,6 +7,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.AbsoluteScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.GeneratedBattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
@@ -71,26 +73,60 @@ public class CardSerializer {
         List<CardEffect> cardEffects = new ArrayList<>();
         for (JsonElement entry:
                 json) {
-            try{
-                JsonObject obj = entry.getAsJsonObject();
-                if (!obj.has("effect")) {
-                    Battlecards.LOGGER.error("Missing effect type component in {}",id.toString());
-                }
-                else{
-                    String effectType = obj.get("effect").getAsString();
-                    if(effectSerializers.containsKey(effectType)){
-                        cardEffects.add(effectSerializers.get(effectType).readFromJson(id, entry));
-                    }
-                    else {
-                        Battlecards.LOGGER.error("No matching effect serializer for {} in {}.",effectType,id.toString());
-                    }
-                }
-            }
-            catch (Exception e){
-                Battlecards.LOGGER.error("Error parsing {}'s effects!",id);
+            CardEffect effect = readCardEffect(entry,id);
+            if(effect != null){
+                cardEffects.add(effect);
             }
         }
         return cardEffects;
+    }
+
+    public static CardEffect readCardEffect(JsonElement entry, Identifier id){
+        try{
+            JsonObject obj = entry.getAsJsonObject();
+            if (!obj.has("effect")) {
+                Battlecards.LOGGER.error("Missing effect type component in {}",id.toString());
+            }
+            else{
+                String effectType = obj.get("effect").getAsString();
+                if(effectSerializers.containsKey(effectType)){
+                    return effectSerializers.get(effectType).readFromJson(id, entry);
+                }
+                else {
+                    Battlecards.LOGGER.error("No matching effect serializer for {} in {}.",effectType,id.toString());
+                }
+            }
+        }
+        catch (Exception e){
+            Battlecards.LOGGER.error("Error parsing {}'s effects!",id);
+        }
+        return null;
+    }
+
+    public static CardScalar readOrDefaultScalar(Identifier id, String name, JsonElement entry, float defaultValue) {
+        JsonObject obj = entry.getAsJsonObject();
+        if (obj.has(name)) {
+            JsonElement namedElement = obj.get(name);
+            if (namedElement.isJsonPrimitive()) {
+                try {
+                    return new AbsoluteScalerEffect(namedElement.getAsFloat());
+                } catch (Exception e) {
+                    Battlecards.LOGGER.error("Error reading primitive scalar in entry {} in {}!", name, id);
+                }
+            } else {
+                try {
+                    CardEffect effect = readCardEffect(namedElement, id);
+                    if (effect instanceof CardScalar scalar) {
+                        return scalar;
+                    } else {
+                        Battlecards.LOGGER.error("Non scalar CardEffect used as scalar in entry {} in {}!", name, id);
+                    }
+                } catch (Exception e) {
+                    Battlecards.LOGGER.error("Error reading scalar in entry {} in {}!", name, id);
+                }
+            }
+        }
+        return new AbsoluteScalerEffect(defaultValue);
     }
 
     public static int readOrDefaultInt(Identifier id, String name, JsonElement entry, int defaultValue) {

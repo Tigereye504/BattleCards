@@ -16,6 +16,8 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
+import net.tigereye.mods.battlecards.CardEffects.scalar.AbsoluteScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
@@ -26,21 +28,22 @@ import java.util.List;
 public class ClearStatusEffect implements CardEffect, CardTooltipNester {
 
     StatusEffect type = null;
-    int count = 0;
+    CardScalar count = new AbsoluteScalerEffect(0);
     boolean targetPositive = true;
     boolean targetNegative = true;
 
     @Override
     public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         if(context.target != null){
-            apply(pContext,context.target);
+            apply(pContext,context.target, context);
         }
         else {
-            apply(pContext, pContext.user);
+            apply(pContext, pContext.user, context);
         }
     }
 
-    private void apply(PersistantCardEffectContext pContext, Entity target) {
+    private void apply(PersistantCardEffectContext pContext, Entity target, CardEffectContext context) {
+        int count = (int) Math.floor(this.count.getValue(pContext,context));
         if(target instanceof LivingEntity livingEntity) {
             if (type != null){
                 livingEntity.removeStatusEffect(type);
@@ -72,7 +75,7 @@ public class ClearStatusEffect implements CardEffect, CardTooltipNester {
         }
         else {
             tooltip.add(Text.literal(" ".repeat(depth)).append(
-                    Text.translatable("card.battlecards.tooltip.clear_status_count", count)));
+                    Text.translatable("card.battlecards.tooltip.clear_status_count", count.appendInlineTooltip(world, tooltip, tooltipContext))));
         }
     }
 
@@ -90,7 +93,7 @@ public class ClearStatusEffect implements CardEffect, CardTooltipNester {
                 }
             }
 
-            output.count = CardSerializer.readOrDefaultInt(id,"count",entry,0);
+            output.count = CardSerializer.readOrDefaultScalar(id,"count",entry,0);
             output.targetPositive = CardSerializer.readOrDefaultBoolean(id,"targetPositive",entry,true);
             output.targetNegative = CardSerializer.readOrDefaultBoolean(id,"targetNegative",entry,true);
 

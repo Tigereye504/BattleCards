@@ -18,6 +18,8 @@ import net.tigereye.mods.battlecards.CardEffects.RetainCardEffect;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
+import net.tigereye.mods.battlecards.CardEffects.scalar.AbsoluteScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
@@ -28,8 +30,8 @@ import java.util.List;
 public class MeleeEffect implements CardEffect, CardTooltipNester {
 
     List<CardEffect> onEntityHitEffects = new ArrayList<>();
-    double reach = 3.5;
-    double maxAngle = 30;
+    CardScalar reach = new AbsoluteScalerEffect(3.5f);
+    CardScalar maxAngle = new AbsoluteScalerEffect(30);
     boolean isSweep = true;
     boolean retainOnMiss = true;
 
@@ -42,7 +44,8 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
 
     @Override
     public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
-
+        double reach = this.reach.getValue(pContext,context);
+        double maxAngle = this.maxAngle.getValue(pContext,context);
         if (pContext.user instanceof PlayerEntity pEntity) {
             pEntity.swingHand(pEntity.getActiveHand());
         }
@@ -153,7 +156,7 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
         @Override
         public MeleeEffect readFromJson(Identifier id, JsonElement entry) {
             MeleeEffect output = new MeleeEffect();
-            output.reach = CardSerializer.readOrDefaultFloat(id,"reach",entry,3.5f);
+            output.reach = CardSerializer.readOrDefaultScalar(id,"reach",entry,3.5f);
             output.isSweep = CardSerializer.readOrDefaultBoolean(id,"isSweep",entry,true);
             output.retainOnMiss = CardSerializer.readOrDefaultBoolean(id,"retainOnMiss",entry,true);
             output.addEffectsOnEntityHit(CardSerializer.readCardEffects(id, "onHit",entry));

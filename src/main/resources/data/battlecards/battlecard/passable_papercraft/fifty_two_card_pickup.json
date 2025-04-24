@@ -8,7 +8,7 @@
         {
           "effect": "damage",
           "amount": 4,
-          "damageType": "minecraft:player_attack"
+          "damageType": "minecraft:arrow"
         },
         {
           "effect": "gain_mana",
@@ -25,39 +25,10 @@
       "projectiles": [
         {
           "effect": "throw_card",
-          "yaw": -60,
-          "pitch": 5,
-          "speed": 0.5
-        },
-        {
-          "effect": "throw_card",
-          "yaw": 60,
-          "pitch": 5,
-          "speed": 0.5
-        },
-        {
-          "effect": "throw_card",
-          "yaw": 0,
-          "pitch": -5,
-          "speed": 0.5
-        },
-        {
-          "effect": "throw_card",
-          "yaw": 0,
-          "pitch": -10,
-          "speed": 0.5
-        },
-        {
-          "effect": "throw_card",
-          "yaw": 0,
-          "pitch": -15,
-          "speed": 0.5
-        },
-        {
-          "effect": "throw_card",
-          "yaw": 0,
-          "pitch": -20,
-          "speed": 0.5
+          "yaw": {"effect": "random_scalar", "minimum": -45, "maximum": 45},
+          "pitch": {"effect": "random_scalar", "minimum": -45, "maximum": 5},
+          "speed": {"effect": "random_scalar", "minimum": 0.4, "maximum": 0.6},
+          "copies": 52
         }
       ],
       "onHit": [
@@ -72,6 +43,10 @@
                 {
                   "effect": "gain_mana",
                   "amount": 1
+                },
+                {
+                  "effect": "push",
+                  "magnitude": 0.3
                 }
               ]
             }

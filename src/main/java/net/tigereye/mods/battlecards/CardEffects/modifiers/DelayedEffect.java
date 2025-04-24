@@ -12,6 +12,8 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
+import net.tigereye.mods.battlecards.CardEffects.scalar.AbsoluteScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
@@ -23,13 +25,13 @@ import java.util.List;
 
 public class DelayedEffect implements CardEffect, CardTooltipNester {
 
-    int delay = 1;
+    CardScalar delay = new AbsoluteScalerEffect(1);
     List<CardEffect> effects = new ArrayList<>();
 
     @Override
     public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         if(pContext.user instanceof DelayedActionTaker dat){
-            dat.battleCards$addDelayedAction(new DelayedCardAction(pContext,context,effects,delay));
+            dat.battleCards$addDelayedAction(new DelayedCardAction(pContext,context,effects,(int)delay.getValue(pContext,context)));
         }
     }
 
@@ -39,7 +41,7 @@ public class DelayedEffect implements CardEffect, CardTooltipNester {
 
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         tooltip.add(Text.literal(" ".repeat(depth)).append(
-                Text.translatable("card.battlecards.tooltip.delay_entity",delay)));
+                Text.translatable("card.battlecards.tooltip.delay_entity",delay.appendInlineTooltip(world, tooltip, tooltipContext))));
         if(!effects.isEmpty()){
             for(CardEffect effect : effects){
                 if(effect instanceof CardTooltipNester nester){
@@ -82,7 +84,7 @@ public class DelayedEffect implements CardEffect, CardTooltipNester {
                 Battlecards.LOGGER.error("Delay Entity Effect missing effect!");
             }
 
-            output.delay = CardSerializer.readOrDefaultInt(id, "delay", entry, 1);
+            output.delay = CardSerializer.readOrDefaultScalar(id, "delay", entry, 1);
 
             return output;
         }

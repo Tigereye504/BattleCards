@@ -19,7 +19,6 @@ import java.util.List;
 public class RetainCardEffect implements CardEffect, CardTooltipNester {
 
     public static final String RETAIN_NBTKEY = "retain_card";
-    private int amount;
 
     @Override
     public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {

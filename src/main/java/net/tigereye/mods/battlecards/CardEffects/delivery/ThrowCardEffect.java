@@ -13,6 +13,8 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
+import net.tigereye.mods.battlecards.CardEffects.scalar.AbsoluteScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
@@ -28,27 +30,20 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
     List<CardEffect> onTickEffects = new ArrayList<>();
     public Vec3d originOffset;
     public boolean originRelativeToUserElseTarget;
-    public float pitch;
-    public float yaw;
+    public CardScalar pitch;
+    public CardScalar yaw;
     public boolean angleRelativeToEntityElseAbsolute;
-    public float speed;
+    public CardScalar speed;
+    CardScalar copies;
 
     public ThrowCardEffect (){
         originOffset = Vec3d.ZERO;
         originRelativeToUserElseTarget = true;
-        pitch = 0;
-        yaw = 0;
+        pitch = new AbsoluteScalerEffect(0);
+        yaw = new AbsoluteScalerEffect(0);
         angleRelativeToEntityElseAbsolute = true;
-        speed = 1.5f;
-    }
-
-    public ThrowCardEffect (Vec3d originOffset, boolean originRelativeToUserElseTarget, float pitch, float yaw, boolean angleRelativeToEntityElseAbsolute, float speed){
-        this.originOffset = originOffset;
-        this.originRelativeToUserElseTarget = originRelativeToUserElseTarget;
-        this.pitch = pitch;
-        this.yaw = yaw;
-        this.angleRelativeToEntityElseAbsolute = angleRelativeToEntityElseAbsolute;
-        this.speed = speed;
+        speed = new AbsoluteScalerEffect(1.5f);
+        copies = new AbsoluteScalerEffect(1);
     }
 
     public void addEffectOnEntityHit(CardEffect effect){
@@ -75,26 +70,29 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
     @Override
     public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         if (context.target != null) {
-            apply(pContext, context.target);
+            apply(pContext, context, context.target);
         } else {
-            apply(pContext, pContext.user);
+            apply(pContext, context, pContext.user);
         }
     }
 
-    private void apply(PersistantCardEffectContext pContext, Entity target) {
+    private void apply(PersistantCardEffectContext pContext, CardEffectContext context, Entity target) {
         World world = pContext.user.getWorld();
         if (!world.isClient()) {
-            CardProjectileEntity cardProjectileEntity = createProjectile(pContext,target);
-            if(cardProjectileEntity != null) {
-                world.spawnEntity(cardProjectileEntity);
+            float copiesValue = copies.getValue(pContext,context);
+            for (int i = 1; i <= copiesValue; i++) {
+                CardProjectileEntity cardProjectileEntity = createProjectile(pContext,context,target);
+                if(cardProjectileEntity != null) {
+                    world.spawnEntity(cardProjectileEntity);
+                }
             }
         }
     }
 
-    public CardProjectileEntity createProjectile(PersistantCardEffectContext pContext) {
-        return createProjectile(pContext,pContext.user);
+    public CardProjectileEntity createProjectile(PersistantCardEffectContext pContext, CardEffectContext context) {
+        return createProjectile(pContext,context,pContext.user);
     }
-    public CardProjectileEntity createProjectile(PersistantCardEffectContext pContext, Entity target) {
+    public CardProjectileEntity createProjectile(PersistantCardEffectContext pContext, CardEffectContext context, Entity target) {
         if(pContext.user == null ||((!originRelativeToUserElseTarget)&&(target == null))){
             return null;
         }
@@ -107,8 +105,8 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
                 originEntity.getEyeY() - 0.1F + rotatedOrigin.getY(),
                 originEntity.getZ() + rotatedOrigin.getZ());
         cardProjectileEntity.setVelocity(originEntity,
-                angleRelativeToEntityElseAbsolute ? originEntity.getPitch() + this.pitch : this.pitch,
-                angleRelativeToEntityElseAbsolute ? originEntity.getYaw() + this.yaw : this.yaw, 0.0F, speed, 0F);
+                angleRelativeToEntityElseAbsolute ? originEntity.getPitch() + this.pitch.getValue(pContext,context) : this.pitch.getValue(pContext,context),
+                angleRelativeToEntityElseAbsolute ? originEntity.getYaw() + this.yaw.getValue(pContext,context) : this.yaw.getValue(pContext,context), 0.0F, speed.getValue(pContext,context), 0F);
         cardProjectileEntity.addEffectsOnEntityHit(onEntityHitEffects);
         cardProjectileEntity.addEffectsOnCollision(onCollisionEffects);
         cardProjectileEntity.addEffectsOnTick(onTickEffects);
@@ -159,9 +157,10 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
             float z = CardSerializer.readOrDefaultFloat(id, "originOffsetZ",entry,0);
             output.originOffset = new Vec3d(x,y,z);
 
-            output.pitch = CardSerializer.readOrDefaultFloat(id, "pitch",entry,0);
-            output.yaw = CardSerializer.readOrDefaultFloat(id, "yaw",entry,0);
-            output.speed = CardSerializer.readOrDefaultFloat(id, "speed",entry,1.5f);
+            output.pitch = CardSerializer.readOrDefaultScalar(id, "pitch",entry,0);
+            output.yaw = CardSerializer.readOrDefaultScalar(id, "yaw",entry,0);
+            output.speed = CardSerializer.readOrDefaultScalar(id, "speed",entry,1.5f);
+            output.copies = CardSerializer.readOrDefaultScalar(id, "copies",entry,1);
 
             output.originRelativeToUserElseTarget = CardSerializer.readOrDefaultBoolean(id, "originRelativeToUser",entry,true);
             output.angleRelativeToEntityElseAbsolute = CardSerializer.readOrDefaultBoolean(id, "angleRelativeToEntity",entry,true);

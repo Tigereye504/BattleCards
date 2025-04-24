@@ -33,7 +33,7 @@
       "effect": "melee",
       "onHit": [
         {
-          "effect": "hunger_scaler",
+          "effect": "hunger_scalar",
           "effects": [
             {
               "effect": "damage",
