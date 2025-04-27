@@ -131,5 +131,7 @@
   "card.battlecards.tooltip.absolute_scaler": "X = %d.",
   "card.battlecards.tooltip.random_scaler": "X between %d and %d",
   "card.battlecards.tooltip.absolute_scaler.inline": "%d",
-  "card.battlecards.tooltip.random_scaler.inline": "%s to %s"
+  "card.battlecards.tooltip.random_scaler.inline": "%s to %s",
+  "card.battlecards.tooltip.x_scaler.inline": "%sX",
+  "card.battlecards.tooltip.x_scalar": "X = %sX"
 }

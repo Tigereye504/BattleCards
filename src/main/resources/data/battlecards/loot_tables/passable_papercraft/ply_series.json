@@ -1,0 +1,61 @@
+{
+  "type": "minecraft:generic",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:passable_papercraft/one_ply\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:passable_papercraft/two_ply\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:passable_papercraft/three_ply\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:passable_papercraft/four_ply\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:passable_papercraft/five_ply\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:passable_papercraft/six_ply\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:passable_papercraft/seven_ply\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:passable_papercraft/eight_ply\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:passable_papercraft/nine_ply\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:passable_papercraft/ten_ply\"}"}]
+        }
+      ]
+    }
+  ],
+  "random_sequence": "battlecards:booster_pack"
+}

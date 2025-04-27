@@ -54,8 +54,8 @@ public class ApplyStatusEffect implements CardEffect, CardTooltipNester {
         }
         tooltip.add(Text.literal(" ".repeat(depth)).append(
                 Text.translatable("card.battlecards.tooltip.status",type.getName(),
-                        "magnitude "+magnitude.appendInlineTooltip(world, tooltip, tooltipContext),
-                        duration.appendInlineTooltip(world, tooltip, tooltipContext)+" ticks")));
+                        "magnitude "+magnitude.appendInlineTooltip(world, tooltip, tooltipContext).getString(),
+                        duration.appendInlineTooltip(world, tooltip, tooltipContext).getString()+" ticks")));
     }
 
     public static class Serializer implements CardEffectSerializer {

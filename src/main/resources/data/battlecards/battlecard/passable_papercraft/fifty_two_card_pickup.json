@@ -17,7 +17,7 @@
       ]
     }
   ],
-  "cost": 0,
+  "cost": 10,
   "advancedEffects": [
     {
 
@@ -25,9 +25,10 @@
       "projectiles": [
         {
           "effect": "throw_card",
-          "yaw": {"effect": "random_scalar", "minimum": -45, "maximum": 45},
-          "pitch": {"effect": "random_scalar", "minimum": -45, "maximum": 5},
-          "speed": {"effect": "random_scalar", "minimum": 0.4, "maximum": 0.6},
+          "yaw": {"effect": "random_scalar", "minimum": -30, "maximum": 30},
+          "pitch": {"effect": "random_scalar", "minimum": -30, "maximum": 2},
+          "speed": {"effect": "random_scalar", "minimum": 0.2, "maximum": 0.4},
+          "gravity": 0.005,
           "copies": 52
         }
       ],

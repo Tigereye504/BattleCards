@@ -1,0 +1,59 @@
+{
+  "id": "battlecards:passable_papercraft/eight_card_pickup",
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 1,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 2
+        }
+      ]
+    }
+  ],
+  "cost": 2,
+  "advancedEffects": [
+    {
+
+      "effect": "throw_cards",
+      "projectiles": [
+        {
+          "effect": "throw_card",
+          "yaw": {"effect": "random_scalar", "minimum": -14, "maximum": 14},
+          "pitch": {"effect": "random_scalar", "minimum": -14, "maximum": 2},
+          "speed": {"effect": "random_scalar", "minimum": 0.2, "maximum": 0.4},
+          "gravity": 0.005,
+          "copies": 8
+        }
+      ],
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 5,
+          "damageType": "minecraft:arrow",
+          "afterDamage": [
+            {
+              "effect": "if_scalar",
+              "effects": [
+                {
+                  "effect": "gain_mana",
+                  "amount": 1
+                },
+                {
+                  "effect": "push",
+                  "magnitude": 0.3
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

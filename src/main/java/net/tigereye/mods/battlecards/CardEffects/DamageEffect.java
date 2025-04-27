@@ -68,7 +68,7 @@ public class DamageEffect implements CardEffect, CardTooltipNester {
 
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         tooltip.add(Text.literal(" ".repeat(depth)).append(
-                Text.translatable("card.battlecards.tooltip.damage",damage.appendInlineTooltip(world,tooltip,tooltipContext),
+                Text.translatable("card.battlecards.tooltip.damage",damage.appendInlineTooltip(world,tooltip,tooltipContext).getString(),
                         scalingDamage == 0 ? "" : (" + "+scalingDamage+"X"))));
         if(!afterDamageEffects.isEmpty()){
             tooltip.add(Text.literal(" ".repeat(depth)).append(

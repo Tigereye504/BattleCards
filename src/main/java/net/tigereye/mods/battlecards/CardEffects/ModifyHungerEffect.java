@@ -44,8 +44,8 @@ public class ModifyHungerEffect implements CardEffect, CardTooltipNester {
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         tooltip.add(Text.literal(" ".repeat(depth)).append(
                 Text.translatable("card.battlecards.tooltip.hunger",
-                        hunger.appendInlineTooltip(world, tooltip, tooltipContext),
-                        saturation.appendInlineTooltip(world, tooltip, tooltipContext))));
+                        hunger.appendInlineTooltip(world, tooltip, tooltipContext).getString(),
+                        saturation.appendInlineTooltip(world, tooltip, tooltipContext).getString())));
     }
 
     public static class Serializer implements CardEffectSerializer {

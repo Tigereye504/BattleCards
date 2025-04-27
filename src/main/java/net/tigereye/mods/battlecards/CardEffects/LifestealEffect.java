@@ -32,7 +32,7 @@ public class LifestealEffect implements CardEffect, CardTooltipNester {
 
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         tooltip.add(Text.literal(" ".repeat(depth)).append(
-                Text.translatable("card.battlecards.tooltip.lifesteal",ratio.appendInlineTooltip(world, tooltip, tooltipContext))));
+                Text.translatable("card.battlecards.tooltip.lifesteal",ratio.appendInlineTooltip(world, tooltip, tooltipContext).getString())));
     }
 
     public static class Serializer implements CardEffectSerializer {

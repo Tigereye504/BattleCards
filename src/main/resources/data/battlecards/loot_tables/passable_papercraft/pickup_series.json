@@ -1,0 +1,61 @@
+{
+  "type": "minecraft:generic",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:passable_papercraft/four_card_pickup\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:passable_papercraft/eight_card_pickup\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:passable_papercraft/sixteen_card_pickup\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:passable_papercraft/twenty_card_pickup\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:passable_papercraft/twenty_four_card_pickup\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:passable_papercraft/twenty_eight_card_pickup\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:passable_papercraft/thirty_two_card_pickup\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:passable_papercraft/thirty_six_card_pickup\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:passable_papercraft/forty_four_card_pickup\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:passable_papercraft/fifty_two_card_pickup\"}"}]
+        }
+      ]
+    }
+  ],
+  "random_sequence": "battlecards:booster_pack"
+}

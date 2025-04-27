@@ -34,6 +34,7 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
     public CardScalar yaw;
     public boolean angleRelativeToEntityElseAbsolute;
     public CardScalar speed;
+    public CardScalar gravity;
     CardScalar copies;
 
     public ThrowCardEffect (){
@@ -44,6 +45,7 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
         angleRelativeToEntityElseAbsolute = true;
         speed = new AbsoluteScalerEffect(1.5f);
         copies = new AbsoluteScalerEffect(1);
+        gravity = new AbsoluteScalerEffect(0.05F);
     }
 
     public void addEffectOnEntityHit(CardEffect effect){
@@ -110,6 +112,7 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
         cardProjectileEntity.addEffectsOnEntityHit(onEntityHitEffects);
         cardProjectileEntity.addEffectsOnCollision(onCollisionEffects);
         cardProjectileEntity.addEffectsOnTick(onTickEffects);
+        cardProjectileEntity.gravity = gravity.getValue(pContext,context);
         return cardProjectileEntity;
     }
 
@@ -161,6 +164,7 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
             output.yaw = CardSerializer.readOrDefaultScalar(id, "yaw",entry,0);
             output.speed = CardSerializer.readOrDefaultScalar(id, "speed",entry,1.5f);
             output.copies = CardSerializer.readOrDefaultScalar(id, "copies",entry,1);
+            output.gravity = CardSerializer.readOrDefaultScalar(id, "gravity",entry,0.05F);
 
             output.originRelativeToUserElseTarget = CardSerializer.readOrDefaultBoolean(id, "originRelativeToUser",entry,true);
             output.angleRelativeToEntityElseAbsolute = CardSerializer.readOrDefaultBoolean(id, "angleRelativeToEntity",entry,true);

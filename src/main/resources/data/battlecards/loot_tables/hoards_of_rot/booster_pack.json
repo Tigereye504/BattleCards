@@ -2,170 +2,23 @@
   "type": "minecraft:generic",
   "pools": [
     {
-      "rolls": 3.0,
+      "rolls": 4.0,
       "entries": [
         {
-          "type": "minecraft:item",
-          "name": "battlecards:battlecard",
-          "functions": [
-            {
-              "function": "set_nbt",
-              "tag":"{battlecard:\"battlecards:hoards_of_rot/breathless\"}"
-            }
-          ]
-        },
+          "type": "minecraft:loot_table",
+          "name": "battlecards:hoards_of_rot/booster_pack_common"
+        }
+      ]
+    },
+    {
+      "rolls": 1.0,
+      "entries": [
         {
-          "type": "minecraft:item",
-          "name": "battlecards:battlecard",
-          "functions": [
-            {
-              "function": "set_nbt",
-              "tag":"{battlecard:\"battlecards:hoards_of_rot/cannibalism\"}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "battlecards:battlecard",
-          "functions": [
-            {
-              "function": "set_nbt",
-              "tag":"{battlecard:\"battlecards:hoards_of_rot/choke\"}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "battlecards:battlecard",
-          "functions": [
-            {
-              "function": "set_nbt",
-              "tag":"{battlecard:\"battlecards:hoards_of_rot/drag_down\"}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "battlecards:battlecard",
-          "functions": [
-            {
-              "function": "set_nbt",
-              "tag":"{battlecard:\"battlecards:hoards_of_rot/endurance\"}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "battlecards:battlecard",
-          "functions": [
-            {
-              "function": "set_nbt",
-              "tag":"{battlecard:\"battlecards:hoards_of_rot/famine\"}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "battlecards:battlecard",
-          "functions": [
-            {
-              "function": "set_nbt",
-              "tag":"{battlecard:\"battlecards:hoards_of_rot/ignore_wounds\"}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "battlecards:battlecard",
-          "functions": [
-            {
-              "function": "set_nbt",
-              "tag":"{battlecard:\"battlecards:hoards_of_rot/impale\"}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "battlecards:battlecard",
-          "functions": [
-            {
-              "function": "set_nbt",
-              "tag":"{battlecard:\"battlecards:hoards_of_rot/infectious_blow\"}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "battlecards:battlecard",
-          "functions": [
-            {
-              "function": "set_nbt",
-              "tag":"{battlecard:\"battlecards:hoards_of_rot/mighty_blow\"}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "battlecards:battlecard",
-          "functions": [
-            {
-              "function": "set_nbt",
-              "tag":"{battlecard:\"battlecards:hoards_of_rot/necromantic_surge\"}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "battlecards:battlecard",
-          "functions": [
-            {
-              "function": "set_nbt",
-              "tag":"{battlecard:\"battlecards:hoards_of_rot/persistence\"}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "battlecards:battlecard",
-          "functions": [
-            {
-              "function": "set_nbt",
-              "tag":"{battlecard:\"battlecards:hoards_of_rot/pummel\"}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "battlecards:battlecard",
-          "functions": [
-            {
-              "function": "set_nbt",
-              "tag":"{battlecard:\"battlecards:hoards_of_rot/ravenous_hunger\"}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "battlecards:battlecard",
-          "functions": [
-            {
-              "function": "set_nbt",
-              "tag":"{battlecard:\"battlecards:hoards_of_rot/undeath\"}"
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "battlecards:battlecard",
-          "functions": [
-            {
-              "function": "set_nbt",
-              "tag":"{battlecard:\"battlecards:hoards_of_rot/worthless_flesh\"}"
-            }
-          ]
+          "type": "minecraft:loot_table",
+          "name": "battlecards:hoards_of_rot/booster_pack_rare"
         }
       ]
     }
   ],
-  "random_sequence": "minecraft:entities/horse"
+  "random_sequence": "minecraft:entities/zombie"
 }

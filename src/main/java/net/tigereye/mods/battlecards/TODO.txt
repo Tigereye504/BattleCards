@@ -105,7 +105,6 @@ ET  Drag Down - Q: Weak Melee Attack, 2 Mana on hit - A(3): Strong Melee Attack,
 E   Choke - Q: Weak Melee Attack, 2 Mana on hit - A(3): Moderate Melee Attack, does drowning damage, depletes breath meter on hit.
         Perhaps make this 'very weak' drowning damage?
 ET  Infectious Blow - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger 2 for 5 seconds. - A(3): Strong Melee Attack, transfer one debuff to target
-ET  Ravenous Hunger - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger 2 for 5 seconds. - A(3): (2 + missing hunger) Melee Attack, gain 2 hunger on hit.
     Aura of Hunger - Q: Weak Melee Attack, 1 Mana on hit, 1 Mana on Hit - A(?): Aura of Hunger
     Feast or Famine - Q: Randomly restore hunger or suffer Hunger 3 for 10 seconds. Gain 2 Mana. A(?) - ???
 ET  Persistence - Q: Recover 20% of missing HP, 1 Mana if healed - A(3): Gain Undying for 30 seconds.
@@ -116,7 +115,8 @@ E   Breathless - Q: Gain 3 breath bubbles, 1 Mana if breath recovered - A(2): Ga
     --Rare--
 C   Cannibalism - Weak Melee Attack, 1 Mana on hit, 50% lifesteal - A(3): Strong Melee Attack, 50% lifesteal
 E   Impale - Q: Moderate Melee Attack, no sweeping, more range, 1 Mana on hit - A(5): Throw very strong trident.
-E   Famine - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger for 5 seconds. - A(5): 8 block burst: Inflict Instant Damage 2, Hunger 2 for 30 seconds.
+ET  Ravenous Hunger - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger 2 for 5 seconds. - A(3): (2 + missing hunger) Melee Attack, gain 2 hunger on hit.
+E   Famine - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger 2 for 5 seconds. - A(5): 8 block burst: Inflict Instant Damage 2, Hunger 2 for 30 seconds.
     Feast of Famine - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger for 5 seconds. A: Dispel Hunger from nearby targets, gain hunger for each dispelled.
 E   Worthless Flesh - Q: Gain Armored for 5 seconds, 1 Mana if wasn't Armored - A(3): Gain Armored 3, Reinforced 3 for 5 seconds.
 E   Necromantic Surge - Q: Recover 20% of missing HP, 1 Mana if healed - A(5): Gain Undying 5 for 5 seconds.

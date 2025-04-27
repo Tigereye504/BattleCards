@@ -1,0 +1,56 @@
+{
+  "type": "minecraft:generic",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:hoards_of_rot/breathless\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:hoards_of_rot/choke\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:hoards_of_rot/drag_down\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:hoards_of_rot/endurance\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:hoards_of_rot/infectious_blow\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:hoards_of_rot/mighty_blow\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:hoards_of_rot/persistence\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:hoards_of_rot/pummel\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:hoards_of_rot/undeath\"}"}]
+        }
+      ]
+    }
+  ],
+  "random_sequence": "battlecards:booster_pack"
+}

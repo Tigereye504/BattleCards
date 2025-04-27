@@ -94,7 +94,7 @@ public class TransferStatusEffect implements CardEffect, CardTooltipNester {
         }
         else {
             tooltip.add(Text.literal(" ".repeat(depth)).append(
-                    Text.translatable("card.battlecards.tooltip.transfer_status_count", count.appendInlineTooltip(world, tooltip, tooltipContext))));
+                    Text.translatable("card.battlecards.tooltip.transfer_status_count", count.appendInlineTooltip(world, tooltip, tooltipContext).getString())));
         }
     }
 

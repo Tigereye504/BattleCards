@@ -6,10 +6,7 @@ import net.tigereye.mods.battlecards.CardEffects.delivery.MeleeEffect;
 import net.tigereye.mods.battlecards.CardEffects.delivery.ThrowCardEffect;
 import net.tigereye.mods.battlecards.CardEffects.modifiers.*;
 import net.tigereye.mods.battlecards.CardEffects.delivery.ThrowCardsEffect;
-import net.tigereye.mods.battlecards.CardEffects.scalar.AbsoluteScalerEffect;
-import net.tigereye.mods.battlecards.CardEffects.scalar.HealthScalarEffect;
-import net.tigereye.mods.battlecards.CardEffects.scalar.HungerScalarEffect;
-import net.tigereye.mods.battlecards.CardEffects.scalar.RandomScalarEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.*;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 
 public class BCEffectSerializers {
@@ -21,14 +18,16 @@ public class BCEffectSerializers {
         CardSerializer.registerCardEffectSerializer("throw_cards",new ThrowCardsEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("entities_in_radius",new EntitiesInRadiusEffect.Serializer());
         //modifiers
+        CardSerializer.registerCardEffectSerializer("if_status",new IfStatusEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("if_scalar",new IfScalarEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("target_user",new TargetUserEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("delay",new DelayedEffect.Serializer());
+        //scalars
         CardSerializer.registerCardEffectSerializer("absolute_scalar",new AbsoluteScalerEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("health_scalar",new HealthScalarEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("hunger_scalar",new HungerScalarEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("random_scalar",new RandomScalarEffect.Serializer());
-        CardSerializer.registerCardEffectSerializer("if_status",new IfStatusEffect.Serializer());
-        CardSerializer.registerCardEffectSerializer("if_scalar",new IfScalarEffect.Serializer());
-        CardSerializer.registerCardEffectSerializer("target_user",new TargetUserEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("x_scalar",new XScalerEffect.Serializer());
         //payouts
         CardSerializer.registerCardEffectSerializer("apply_status",new ApplyStatusEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("clear_status",new ClearStatusEffect.Serializer());

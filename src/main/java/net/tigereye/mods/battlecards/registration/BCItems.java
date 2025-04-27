@@ -3,6 +3,7 @@ package net.tigereye.mods.battlecards.registration;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.item.*;
+import net.minecraft.recipe.SpecialRecipeSerializer;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
@@ -14,6 +15,7 @@ import net.tigereye.mods.battlecards.Items.BattlecardsDeckItem;
 import net.tigereye.mods.battlecards.Items.BoosterPackItem;
 import net.tigereye.mods.battlecards.Items.GeneratedCardItem;
 import net.tigereye.mods.battlecards.Items.sleeves.SimpleCardSleeve;
+import net.tigereye.mods.battlecards.Recipes.PapercraftBoosterRecipe;
 
 public class BCItems {
     public static final Item BATTLECARD = new GeneratedCardItem(new FabricItemSettings().maxCount(64));
@@ -24,6 +26,8 @@ public class BCItems {
     public static final Item SLEEVE_GOLD = new SimpleCardSleeve(new FabricItemSettings().maxCount(64),1.25f);
     public static final Item SLEEVE_DIAMOND = new SimpleCardSleeve(new FabricItemSettings().maxCount(64),2f);
     public static final Item SLEEVE_NETHERITE = new SimpleCardSleeve(new FabricItemSettings().maxCount(64),2.25f);
+
+    public static final SpecialRecipeSerializer<PapercraftBoosterRecipe> PAPERCRAFT_BOOSTER_RECIPE_SERIALIZER = new SpecialRecipeSerializer<>(PapercraftBoosterRecipe::new);
 
     public static final ItemGroup BATTLECARDS_ITEM_GROUP = FabricItemGroup.builder()
             .icon(() -> new ItemStack(BATTLECARD))
@@ -51,6 +55,9 @@ public class BCItems {
         Registry.register(Registries.ITEM, new Identifier(Battlecards.MODID, "sleeve/gold"), SLEEVE_GOLD);
         Registry.register(Registries.ITEM, new Identifier(Battlecards.MODID, "sleeve/diamond"), SLEEVE_DIAMOND);
         Registry.register(Registries.ITEM, new Identifier(Battlecards.MODID, "sleeve/netherite"), SLEEVE_NETHERITE);
+
         Registry.register(Registries.ITEM_GROUP, Identifier.of(Battlecards.MODID,"battlecards_item_group"), BATTLECARDS_ITEM_GROUP);
+
+        Registry.register(Registries.RECIPE_SERIALIZER, new Identifier(Battlecards.MODID,"crafting_special_papercraft_booster"), PAPERCRAFT_BOOSTER_RECIPE_SERIALIZER);
     }
 }

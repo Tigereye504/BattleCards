@@ -47,8 +47,8 @@ public class ModifyHealthEffect implements CardEffect, CardTooltipNester {
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         tooltip.add(Text.literal(" ".repeat(depth)).append(
                 Text.translatable("card.battlecards.tooltip.modify_health",
-                        amount.appendInlineTooltip(world, tooltip, tooltipContext),
-                        scalingAmount.appendInlineTooltip(world, tooltip, tooltipContext)+"X")));
+                        amount.appendInlineTooltip(world, tooltip, tooltipContext).getString(),
+                        scalingAmount.appendInlineTooltip(world, tooltip, tooltipContext).getString()+"X")));
     }
 
     public static class Serializer implements CardEffectSerializer {
