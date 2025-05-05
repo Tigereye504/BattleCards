@@ -1,0 +1,42 @@
+{
+  "id": "battlecards:deadfellas/reposition",
+  "quickEffects": [
+    {
+      "effect": "push",
+      "magnitude": -1,
+      "pitch": 5
+    },
+    {
+      "effect": "apply_status",
+      "type": "battlecards:evading",
+      "duration": 10,
+      "magnitude": 0
+    }
+  ],
+  "cost": 2,
+  "advancedEffects": [
+      {
+        "effect": "push",
+        "magnitude": -1,
+        "pitch": 5
+      },
+      {
+        "effect": "apply_status",
+        "type": "battlecards:evading",
+        "duration": 20,
+        "magnitude": 0
+      },
+      {
+        "effect": "apply_status",
+        "type": "minecraft:speed",
+        "duration": 90,
+        "magnitude": 4
+      },
+      {
+        "effect": "apply_status",
+        "type": "battlecards:highstep",
+        "duration": 90,
+        "magnitude": 1
+      }
+  ]
+}

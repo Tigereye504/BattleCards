@@ -9,6 +9,8 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.StatusEffects.BCStatusEffect;
+import net.tigereye.mods.battlecards.StatusEffects.Evading;
+import net.tigereye.mods.battlecards.StatusEffects.HighStep;
 import net.tigereye.mods.battlecards.StatusEffects.Undying;
 
 public class BCStatusEffects {
@@ -22,6 +24,8 @@ public class BCStatusEffects {
     public static StatusEffect REINFORCED = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 3402751)
             .addAttributeModifier(EntityAttributes.GENERIC_ARMOR_TOUGHNESS, "f5ff0ee8-28f2-4361-9d25-130bdf515375",
                     2F, EntityAttributeModifier.Operation.ADDITION);
+    public static StatusEffect EVADING = new Evading();
+    public static StatusEffect HIGHSTEP = new HighStep();
 
     public static void register(){
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "mana"), MANA);
@@ -29,6 +33,8 @@ public class BCStatusEffects {
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "undying"), UNDYING);
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "armored"), ARMORED);
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "reinforced"), REINFORCED);
+        Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "evading"), EVADING);
+        Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "highstep"), HIGHSTEP);
 
     }
 }

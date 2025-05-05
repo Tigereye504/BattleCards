@@ -21,12 +21,21 @@ public class BCEffectSerializers {
         CardSerializer.registerCardEffectSerializer("if_status",new IfStatusEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("if_scalar",new IfScalarEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("target_user",new TargetUserEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("target_nearest_entity",new TargetNearestEntityEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("target_tracked_entity",new TargetTrackedEntityEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("repeat",new RepeatEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("delay",new DelayedEffect.Serializer());
         //scalars
-        CardSerializer.registerCardEffectSerializer("absolute_scalar",new AbsoluteScalerEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("constant_scalar",new ConstantScalerEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("addition_scalar",new AdditionScalerEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("bounding_scalar",new BoundingScalerEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("multiplication_scalar",new MultiplicationScalerEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("health_scalar",new HealthScalarEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("hunger_scalar",new HungerScalarEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("random_scalar",new RandomScalarEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("distance_to_target_scalar",new DistanceToTargetScalarEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("yaw_to_target_scalar",new YawToTargetScalarEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("pitch_to_target_scalar",new PitchToTargetScalarEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("x_scalar",new XScalerEffect.Serializer());
         //payouts
         CardSerializer.registerCardEffectSerializer("apply_status",new ApplyStatusEffect.Serializer());

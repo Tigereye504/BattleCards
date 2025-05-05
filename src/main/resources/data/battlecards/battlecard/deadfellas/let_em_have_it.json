@@ -1,0 +1,55 @@
+{
+  "id": "battlecards:deadfellas/let_em_have_it",
+  "quickEffects": [
+    {
+      "effect": "repeat",
+      "delay": 5,
+      "count": 3,
+      "effects": [
+        {
+          "effect": "throw_card",
+          "speed": 3,
+          "onHit": [
+            {
+              "effect": "damage",
+              "amount": 2,
+              "damageType": "minecraft:arrow"
+            },
+            {
+              "effect": "gain_mana",
+              "amount": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cost": 7,
+  "advancedEffects": [
+    {
+      "effect": "repeat",
+      "delay": 1,
+      "count": 40,
+      "effects": [
+        {
+          "effect": "throw_card",
+          "speed": 3,
+          "divergence": 20,
+          "onHit": [
+            {
+              "effect": "damage",
+              "amount": 5,
+              "damageType": "minecraft:arrow"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "effect": "apply_status",
+      "type": "minecraft:slowness",
+      "duration": 40,
+      "magnitude": 2
+    }
+  ]
+}

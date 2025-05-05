@@ -44,7 +44,7 @@ public class BattlecardBundleItem extends Item{
                 this.playRemoveOneSound(player);
                 removeFirstCard(bundleItemStack).ifPresent(removedStack -> addToBundle(bundleItemStack, slot.insertStack(removedStack)));
             } else if (cardStack.getItem() instanceof BattleCardItem) {
-                int j = addToBundle(bundleItemStack, slot.takeStackRange(cardStack.getCount(), 64, player));
+                int j = addToBundle(bundleItemStack, slot.takeStackRange(cardStack.getCount(), 64 - getBundleOccupancy(cardStack), player));
                 if (j > 0) {
                     this.playInsertSound(player);
                 }

@@ -7,6 +7,7 @@ public class CardEffectContext {
     public Entity target;
     public float scalar;
     public HitResult hitResult;
+    public Entity trackedEntity;
 
     @Override
     public CardEffectContext clone(){
@@ -14,6 +15,7 @@ public class CardEffectContext {
         cardEffectContext.target = target;
         cardEffectContext.scalar = scalar;
         cardEffectContext.hitResult = hitResult;
+        cardEffectContext.trackedEntity = trackedEntity;
         return cardEffectContext;
     }
 }

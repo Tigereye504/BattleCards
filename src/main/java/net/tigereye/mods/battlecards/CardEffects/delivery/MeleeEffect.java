@@ -4,11 +4,8 @@ import com.google.gson.JsonElement;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -18,9 +15,8 @@ import net.tigereye.mods.battlecards.CardEffects.RetainCardEffect;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
-import net.tigereye.mods.battlecards.CardEffects.scalar.AbsoluteScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalerEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
-import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 
@@ -30,8 +26,9 @@ import java.util.List;
 public class MeleeEffect implements CardEffect, CardTooltipNester {
 
     List<CardEffect> onEntityHitEffects = new ArrayList<>();
-    CardScalar reach = new AbsoluteScalerEffect(3.5f);
-    CardScalar maxAngle = new AbsoluteScalerEffect(30);
+    List<CardEffect> onMissEffects = new ArrayList<>();
+    CardScalar reach = new ConstantScalerEffect(3.5f);
+    CardScalar maxAngle = new ConstantScalerEffect(30);
     boolean isSweep = true;
     boolean retainOnMiss = true;
 
@@ -40,6 +37,9 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
     }
     public void addEffectsOnEntityHit(List<CardEffect> effects){
         onEntityHitEffects.addAll(effects);
+    }
+    public void addEffectsOnMiss(List<CardEffect> effects){
+        onMissEffects.addAll(effects);
     }
 
     @Override
@@ -97,20 +97,17 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
                 }
             }
         }
-        /*
-        if(ehr != null){
-            if(user instanceof PlayerEntity pEntity){
-                pEntity.swingHand(pEntity.getActiveHand());
+        else {
+            if (retainOnMiss) {
+                new RetainCardEffect().apply(pContext, context);
             }
-            CardEffectContext onHitContext = new CardEffectContext();
-            onHitContext.target = ehr.getEntity();
-            for (CardEffect effect : onEntityHitEffects){
-                effect.apply(user,item,battleCard,onHitContext);
+            if(!onMissEffects.isEmpty()) {
+                CardEffectContext onMissContext = new CardEffectContext();
+                onMissContext.target = pContext.user;
+                for (CardEffect effect : onMissEffects) {
+                    effect.apply(pContext, onMissContext);
+                }
             }
-        }
-        */
-        else if(retainOnMiss){
-            new RetainCardEffect().apply(pContext,context);
         }
     }
 
@@ -160,9 +157,7 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
             output.isSweep = CardSerializer.readOrDefaultBoolean(id,"isSweep",entry,true);
             output.retainOnMiss = CardSerializer.readOrDefaultBoolean(id,"retainOnMiss",entry,true);
             output.addEffectsOnEntityHit(CardSerializer.readCardEffects(id, "onHit",entry));
-            if (output.onEntityHitEffects.isEmpty()) {
-                Battlecards.LOGGER.error("no effects on melee hit in {}!",id);
-            }
+            output.addEffectsOnMiss(CardSerializer.readCardEffects(id, "onMiss",entry));
             return output;
         }
     }

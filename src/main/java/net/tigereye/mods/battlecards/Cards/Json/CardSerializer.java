@@ -7,7 +7,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
-import net.tigereye.mods.battlecards.CardEffects.scalar.AbsoluteScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalerEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.GeneratedBattleCard;
@@ -103,13 +103,13 @@ public class CardSerializer {
         return null;
     }
 
-    public static CardScalar readOrDefaultScalar(Identifier id, String name, JsonElement entry, float defaultValue) {
+    public static CardScalar readOrDefaultScalar(Identifier id, String name, JsonElement entry, CardScalar defaultScalar) {
         JsonObject obj = entry.getAsJsonObject();
         if (obj.has(name)) {
             JsonElement namedElement = obj.get(name);
             if (namedElement.isJsonPrimitive()) {
                 try {
-                    return new AbsoluteScalerEffect(namedElement.getAsFloat());
+                    return new ConstantScalerEffect(namedElement.getAsFloat());
                 } catch (Exception e) {
                     Battlecards.LOGGER.error("Error reading primitive scalar in entry {} in {}!", name, id);
                 }
@@ -126,7 +126,11 @@ public class CardSerializer {
                 }
             }
         }
-        return new AbsoluteScalerEffect(defaultValue);
+        return defaultScalar;
+    }
+
+    public static CardScalar readOrDefaultScalar(Identifier id, String name, JsonElement entry, float defaultValue) {
+        return readOrDefaultScalar(id,name,entry,new ConstantScalerEffect(defaultValue));
     }
 
     public static int readOrDefaultInt(Identifier id, String name, JsonElement entry, int defaultValue) {

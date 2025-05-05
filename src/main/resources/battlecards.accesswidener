@@ -1,0 +1,3 @@
+accessWidener	v1	named
+
+accessible    method    net/minecraft/entity/projectile/PersistentProjectileEntity    canHit    (Lnet/minecraft/entity/Entity;)Z

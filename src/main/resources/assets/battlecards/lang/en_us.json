@@ -133,5 +133,18 @@
   "card.battlecards.tooltip.absolute_scaler.inline": "%d",
   "card.battlecards.tooltip.random_scaler.inline": "%s to %s",
   "card.battlecards.tooltip.x_scaler.inline": "%sX",
-  "card.battlecards.tooltip.x_scalar": "X = %sX"
+  "card.battlecards.tooltip.x_scalar": "X = %sX",
+  "card.battlecards.tooltip.target_projectile": "Projectile:",
+  "card.battlecards.tooltip.addition_scaler.inline": "%s + %s",
+  "card.battlecards.tooltip.addition_scalar": "X = %s + %s",
+  "card.battlecards.tooltip.multiplication_scalar": "X = %s * %s",
+  "card.battlecards.tooltip.multiplication_scaler.inline": "%s * %s",
+  "card.battlecards.tooltip.distance_to_tracked_entity_scalar": "X = Distance to Entity",
+  "card.battlecards.tooltip.yaw_to_tracked_entity_scalar": "X = Horizontal Angle to Entity",
+  "card.battlecards.tooltip.distance_to_target_scalar": "X = Distance to Target",
+  "card.battlecards.tooltip.yaw_to_target_scalar": "X = Yaw to Target",
+  "card.battlecards.tooltip.pitch_to_target_scalar": "X = Pitch to target",
+  "card.battlecards.tooltip.repeat_entity": "Repeat %s Times:",
+  "card.battlecards.tooltip.bounding_scalar": "X = %s between %s and %s",
+  "card.battlecards.tooltip.bounding_scaler.inline": "%s between %s and %s"
 }

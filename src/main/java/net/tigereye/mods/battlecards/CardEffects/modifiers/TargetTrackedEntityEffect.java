@@ -1,9 +1,7 @@
-package net.tigereye.mods.battlecards.CardEffects.scalar;
+package net.tigereye.mods.battlecards.CardEffects.modifiers;
 
 import com.google.gson.JsonElement;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
@@ -12,44 +10,58 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
+import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AbsoluteScalerEffect implements CardEffect, CardScalar, CardTooltipNester {
-
+public class TargetTrackedEntityEffect implements CardEffect, CardScalar, CardTooltipNester {
     List<CardEffect> effects = new ArrayList<>();
-    float amount = 0;
-
-    public AbsoluteScalerEffect(){}
-
-    public AbsoluteScalerEffect(float amount){this.amount = amount;}
+    boolean trackOldTarget = true;
 
     @Override
     public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
-        CardEffectContext newContext = context.clone();
-        newContext.scalar = amount;
-        for(CardEffect effect : effects){
-            effect.apply(pContext, newContext);
+        CardEffectContext newContext = makeNewContext(pContext,context);
+        if(newContext.target != null) {
+            for (CardEffect effect : effects) {
+                effect.apply(pContext, newContext);
+            }
         }
-    }
-
-    @Override
-    public float getValue(PersistantCardEffectContext pContext, CardEffectContext context) {
-        return amount;
     }
 
     public void addCardEffect(CardEffect effect){
         effects.add(effect);
     }
 
+    @Override
+    public float getValue(PersistantCardEffectContext pContext, CardEffectContext context) {
+        if(!effects.isEmpty()) {
+            if(effects.get(0) instanceof CardScalar scalar){
+                CardEffectContext newContext = makeNewContext(pContext,context);
+                if(newContext.target != null) {
+                    return scalar.getValue(pContext, newContext);
+                }
+            }
+        }
+        return 0;
+    }
+
+    private CardEffectContext makeNewContext(PersistantCardEffectContext pContext, CardEffectContext context){
+        CardEffectContext newContext = context.clone();
+        newContext.target = context.trackedEntity;
+        if(trackOldTarget){
+            newContext.trackedEntity = context.target;
+        }
+        newContext.hitResult = null;
+        return newContext;
+    }
+
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         if(!effects.isEmpty()){
             tooltip.add(Text.literal(" ".repeat(depth)).append(
-                    Text.translatable("card.battlecards.tooltip.absolute_scaler",
-                            amount)));
+                    Text.translatable("card.battlecards.tooltip.target_projectile")));
             for(CardEffect effect : effects){
                 if(effect instanceof CardTooltipNester nester){
                     nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);
@@ -58,20 +70,20 @@ public class AbsoluteScalerEffect implements CardEffect, CardScalar, CardTooltip
         }
     }
 
+    @Override
     public Text appendInlineTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        return Text.translatable("card.battlecards.tooltip.absolute_scaler.inline",amount);
+        return CardScalar.super.appendInlineTooltip(world, tooltip, tooltipContext);
     }
 
     public static class Serializer implements CardEffectSerializer {
         @Override
-        public AbsoluteScalerEffect readFromJson(Identifier id, JsonElement entry) {
-            AbsoluteScalerEffect output = new AbsoluteScalerEffect();
+        public TargetTrackedEntityEffect readFromJson(Identifier id, JsonElement entry) {
+            TargetTrackedEntityEffect output = new TargetTrackedEntityEffect();
             output.effects = CardSerializer.readCardEffects(id, "effects",entry);
             if (output.effects.isEmpty()) {
-                Battlecards.LOGGER.error("Missing effects for HealthScaler modifier in {}.",id);
+                Battlecards.LOGGER.error("Missing effects for TargetTrackedEntity modifier in {}.",id);
             }
-
-            output.amount = CardSerializer.readOrDefaultFloat(id,"amount",entry,0);
+            output.trackOldTarget = CardSerializer.readOrDefaultBoolean(id, "trackOldTarget",entry,true);
             return output;
         }
     }

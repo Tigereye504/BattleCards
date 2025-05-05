@@ -4,7 +4,6 @@ import com.google.gson.JsonElement;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
@@ -15,9 +14,8 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
-import net.tigereye.mods.battlecards.CardEffects.scalar.AbsoluteScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalerEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
-import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 
@@ -27,7 +25,7 @@ import java.util.List;
 public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
 
     List<CardEffect> effects = new ArrayList<>();
-    CardScalar radius = new AbsoluteScalerEffect(1);
+    CardScalar radius = new ConstantScalerEffect(1);
     boolean targetUser = false;
     boolean sphereElseCylinder = false;
 

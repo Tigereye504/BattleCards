@@ -76,10 +76,6 @@ public class HungerScalarEffect implements CardEffect, CardScalar, CardTooltipNe
         public HungerScalarEffect readFromJson(Identifier id, JsonElement entry) {
             HungerScalarEffect output = new HungerScalarEffect();
             output.effects = CardSerializer.readCardEffects(id, "effects",entry);
-            if (output.effects.isEmpty()) {
-                Battlecards.LOGGER.error("Missing effects for HungerScaler modifier in {}.",id);
-            }
-
             output.nonPlayerHungerPerEffectLevel = CardSerializer.readOrDefaultInt(id,"nonPlayerHungerPerEffectLevel",entry,3);
             output.userElseTarget = CardSerializer.readOrDefaultBoolean(id,"userElseTarget",entry,true);
             output.missingElseCurrent = CardSerializer.readOrDefaultBoolean(id,"missingElseCurrent",entry,true);

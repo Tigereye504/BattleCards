@@ -67,7 +67,6 @@ public class RandomScalarEffect implements CardEffect, CardScalar, CardTooltipNe
         public RandomScalarEffect readFromJson(Identifier id, JsonElement entry) {
             RandomScalarEffect output = new RandomScalarEffect();
             output.effects = CardSerializer.readCardEffects(id, "effects",entry);
-
             output.minimum = CardSerializer.readOrDefaultScalar(id,"minimum",entry,0);
             output.maximum = CardSerializer.readOrDefaultScalar(id,"maximum",entry,1);
             return output;

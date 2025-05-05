@@ -74,10 +74,6 @@ public class HealthScalarEffect implements CardEffect, CardScalar, CardTooltipNe
         public HealthScalarEffect readFromJson(Identifier id, JsonElement entry) {
             HealthScalarEffect output = new HealthScalarEffect();
             output.effects = CardSerializer.readCardEffects(id, "effects",entry);
-            if (output.effects.isEmpty()) {
-                Battlecards.LOGGER.error("Missing effects for HealthScaler modifier in {}.",id);
-            }
-
             output.absoluteElseRatio = CardSerializer.readOrDefaultBoolean(id,"absoluteElseRatio",entry,true);
             output.userElseTarget = CardSerializer.readOrDefaultBoolean(id,"userElseTarget",entry,true);
             output.missingElseCurrent = CardSerializer.readOrDefaultBoolean(id,"missingElseCurrent",entry,true);

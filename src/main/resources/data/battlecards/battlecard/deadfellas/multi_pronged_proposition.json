@@ -1,0 +1,52 @@
+{
+  "id": "battlecards:deadfellas/multi_pronged_proposition",
+  "quickEffects": [
+    {
+      "effect": "repeat",
+      "startingScalar": -15,
+      "incrementScalar": {"effect":"addition_scalar","a":15,"b":{"effect":"x_scalar"}},
+      "count": 3,
+      "effects": [
+        {
+          "effect": "throw_card",
+          "speed": 3,
+          "yaw": {"effect":"x_scalar"},
+          "onHit": [
+            {
+              "effect": "damage",
+              "amount": 4,
+              "damageType": "minecraft:arrow"
+            },
+            {
+              "effect": "gain_mana",
+              "amount": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "advancedEffects": [
+    {
+      "effect": "repeat",
+      "startingScalar": -20,
+      "incrementScalar": {"effect":"addition_scalar","a":10,"b":{"effect":"x_scalar"}},
+      "count": 5,
+      "effects": [
+        {
+          "effect": "throw_card",
+          "speed": 3,
+          "yaw": {"effect":"x_scalar"},
+          "onHit": [
+            {
+              "effect": "damage",
+              "amount": 5,
+              "damageType": "minecraft:arrow"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

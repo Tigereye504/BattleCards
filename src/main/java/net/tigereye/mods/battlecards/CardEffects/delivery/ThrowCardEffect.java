@@ -4,7 +4,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
@@ -13,9 +12,8 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
-import net.tigereye.mods.battlecards.CardEffects.scalar.AbsoluteScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalerEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
-import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 import net.tigereye.mods.battlecards.Projectiles.CardProjectileEntity;
@@ -30,22 +28,30 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
     List<CardEffect> onTickEffects = new ArrayList<>();
     public Vec3d originOffset;
     public boolean originRelativeToUserElseTarget;
+    public boolean trackProjectile;
     public CardScalar pitch;
     public CardScalar yaw;
     public boolean angleRelativeToEntityElseAbsolute;
     public CardScalar speed;
     public CardScalar gravity;
-    CardScalar copies;
+    public CardScalar piercing;
+    public CardScalar divergence;
+    public CardScalar copies;
+    public CardScalar copyDelay;
 
     public ThrowCardEffect (){
         originOffset = Vec3d.ZERO;
         originRelativeToUserElseTarget = true;
-        pitch = new AbsoluteScalerEffect(0);
-        yaw = new AbsoluteScalerEffect(0);
+        trackProjectile = true;
+        pitch = new ConstantScalerEffect(0);
+        yaw = new ConstantScalerEffect(0);
         angleRelativeToEntityElseAbsolute = true;
-        speed = new AbsoluteScalerEffect(1.5f);
-        copies = new AbsoluteScalerEffect(1);
-        gravity = new AbsoluteScalerEffect(0.05F);
+        speed = new ConstantScalerEffect(1.5f);
+        copies = new ConstantScalerEffect(1);
+        copyDelay = new ConstantScalerEffect(1);
+        gravity = new ConstantScalerEffect(0.05F);
+        piercing = new ConstantScalerEffect(0);
+        divergence = new ConstantScalerEffect(0);
     }
 
     public void addEffectOnEntityHit(CardEffect effect){
@@ -102,17 +108,20 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
         World world = pContext.user.getWorld();
         Vec3d rotatedOrigin = originOffset.rotateX(originEntity.getPitch()).rotateY(originEntity.getYaw());
 
-        CardProjectileEntity cardProjectileEntity = new CardProjectileEntity(pContext, world,
+        CardProjectileEntity cardProjectileEntity = new CardProjectileEntity(pContext, context, world,
                 originEntity.getX() + rotatedOrigin.getX(),
                 originEntity.getEyeY() - 0.1F + rotatedOrigin.getY(),
                 originEntity.getZ() + rotatedOrigin.getZ());
         cardProjectileEntity.setVelocity(originEntity,
                 angleRelativeToEntityElseAbsolute ? originEntity.getPitch() + this.pitch.getValue(pContext,context) : this.pitch.getValue(pContext,context),
-                angleRelativeToEntityElseAbsolute ? originEntity.getYaw() + this.yaw.getValue(pContext,context) : this.yaw.getValue(pContext,context), 0.0F, speed.getValue(pContext,context), 0F);
+                angleRelativeToEntityElseAbsolute ? originEntity.getYaw() + this.yaw.getValue(pContext,context) : this.yaw.getValue(pContext,context), 0.0F,
+                speed.getValue(pContext,context), divergence.getValue(pContext,context));
         cardProjectileEntity.addEffectsOnEntityHit(onEntityHitEffects);
         cardProjectileEntity.addEffectsOnCollision(onCollisionEffects);
         cardProjectileEntity.addEffectsOnTick(onTickEffects);
         cardProjectileEntity.gravity = gravity.getValue(pContext,context);
+        cardProjectileEntity.setPierceLevel((byte) (piercing.getValue(pContext, context)-1));
+        context.trackedEntity = cardProjectileEntity;
         return cardProjectileEntity;
     }
 
@@ -165,9 +174,12 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
             output.speed = CardSerializer.readOrDefaultScalar(id, "speed",entry,1.5f);
             output.copies = CardSerializer.readOrDefaultScalar(id, "copies",entry,1);
             output.gravity = CardSerializer.readOrDefaultScalar(id, "gravity",entry,0.05F);
+            output.piercing = CardSerializer.readOrDefaultScalar(id, "piercing",entry,0);
+            output.divergence = CardSerializer.readOrDefaultScalar(id, "divergence",entry,0);
 
             output.originRelativeToUserElseTarget = CardSerializer.readOrDefaultBoolean(id, "originRelativeToUser",entry,true);
             output.angleRelativeToEntityElseAbsolute = CardSerializer.readOrDefaultBoolean(id, "angleRelativeToEntity",entry,true);
+            output.trackProjectile = CardSerializer.readOrDefaultBoolean(id, "trackProjectile",entry,true);
 
             output.addEffectsOnEntityHit(CardSerializer.readCardEffects(id, "onHit",entry));
             output.addEffectsOnCollision(CardSerializer.readCardEffects(id, "onCollision",entry));

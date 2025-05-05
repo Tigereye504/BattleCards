@@ -1,0 +1,53 @@
+{
+  "id": "battlecards:memoire_of_a_tinker/longsword",
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 5,
+          "damageType": "minecraft:generic"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 2
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "advancedEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 7,
+          "damageType": "minecraft:generic"
+        },
+        {
+          "effect": "push",
+          "magnitude": 1.2,
+          "pitch": 10
+        }
+      ],
+      "onMiss": [
+        {
+          "effect": "gain_mana",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "effect": "target_user",
+      "effects": [
+        {
+          "effect": "push",
+          "magnitude": 1,
+          "pitch": 5
+        }
+      ]
+    }
+  ]
+}

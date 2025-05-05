@@ -1,0 +1,54 @@
+{
+  "id": "battlecards:deadfellas/involve_bystander",
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "piercing": 2,
+      "speed": 3,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 1
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "advancedEffects": [
+    {
+      "effect": "throw_card",
+      "piercing": 2,
+      "speed": 3,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 5,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "target_nearest_entity",
+          "effects": [
+            {
+              "effect": "target_tracked_entity",
+              "effects": [
+                {
+                  "effect": "push",
+                  "angleRelativeToUser": false,
+                  "overrideVelocity": true,
+                  "magnitude": 4,
+                  "pitch": {"effect": "target_tracked_entity", "effects":[{"effect":"pitch_to_target_scalar","userElseTrackedEntity":false}]},
+                  "yaw": {"effect": "target_tracked_entity", "effects":[{"effect":"yaw_to_target_scalar","userElseTrackedEntity":false}]}
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

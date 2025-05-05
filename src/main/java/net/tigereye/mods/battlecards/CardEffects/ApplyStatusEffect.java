@@ -7,7 +7,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -17,9 +16,8 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
-import net.tigereye.mods.battlecards.CardEffects.scalar.AbsoluteScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalerEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
-import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 
@@ -28,8 +26,8 @@ import java.util.List;
 public class ApplyStatusEffect implements CardEffect, CardTooltipNester {
 
     StatusEffect type = null;
-    CardScalar duration = new AbsoluteScalerEffect(1);
-    CardScalar magnitude = new AbsoluteScalerEffect(0);
+    CardScalar duration = new ConstantScalerEffect(1);
+    CardScalar magnitude = new ConstantScalerEffect(0);
 
     @Override
     public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
