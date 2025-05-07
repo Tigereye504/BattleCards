@@ -1,0 +1,54 @@
+{
+  "id": "battlecards:skeleton_pack/multi_pronged_proposition",
+  "quickKeywords": ["Attack","Projectile","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "repeat",
+      "startingScalar": -15,
+      "incrementScalar": {"effect":"addition_scalar","a":15,"b":{"effect":"x_scalar"}},
+      "count": 3,
+      "effects": [
+        {
+          "effect": "throw_card",
+          "speed": 3,
+          "yaw": {"effect":"x_scalar"},
+          "onHit": [
+            {
+              "effect": "damage",
+              "amount": 4,
+              "damageType": "minecraft:arrow"
+            },
+            {
+              "effect": "gain_mana",
+              "amount": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "chargeKeywords": ["Attack","Projectile"],
+  "chargeEffects": [
+    {
+      "effect": "repeat",
+      "startingScalar": -20,
+      "incrementScalar": {"effect":"addition_scalar","a":10,"b":{"effect":"x_scalar"}},
+      "count": 5,
+      "effects": [
+        {
+          "effect": "throw_card",
+          "speed": 3,
+          "yaw": {"effect":"x_scalar"},
+          "onHit": [
+            {
+              "effect": "damage",
+              "amount": 7,
+              "damageType": "minecraft:arrow"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "battlecards:zombie_pack/undeath",
+  "quickEffects": [
+    {
+      "effect": "apply_status",
+      "type": "battlecards:undeath",
+      "duration": 100,
+      "magnitude": 0
+    }
+  ],
+  "cost": 2,
+  "chargeEffects": [
+    {
+      "effect": "apply_status",
+      "type": "battlecards:undeath",
+      "duration": 600,
+      "magnitude": 0
+    }
+  ]
+}

@@ -18,7 +18,7 @@
     }
   ],
   "cost": 5,
-  "advancedEffects": [
+  "chargeEffects": [
     {
       "effect": "throw_cards",
       "projectiles": [

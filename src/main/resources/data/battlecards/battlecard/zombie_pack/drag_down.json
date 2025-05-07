@@ -1,0 +1,38 @@
+{
+  "id": "battlecards:zombie_pack/drag_down",
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:player_attack"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 2
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "chargeEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 7,
+          "damageType": "minecraft:player_attack"
+        },
+        {
+          "effect": "apply_status",
+          "type": "minecraft:slowness",
+          "duration": 100,
+          "magnitude": 1
+        }
+      ]
+    }
+  ]
+}

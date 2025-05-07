@@ -1,0 +1,46 @@
+{
+  "type": "minecraft:generic",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:zombie_pack/cannibalism\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:zombie_pack/famine\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:zombie_pack/ignore_wounds\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:zombie_pack/impale\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:zombie_pack/necromantic_surge\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:zombie_pack/ravenous_hunger\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:zombie_pack/worthless_flesh\"}"}]
+        }
+      ]
+    }
+  ],
+  "random_sequence": "minecraft:entities/horse"
+}

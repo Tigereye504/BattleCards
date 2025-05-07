@@ -1,0 +1,60 @@
+{
+  "id": "battlecards:skeleton_pack/explosive_rhetoric",
+  "quickKeywords": ["Attack","Projectile","Area Of Effect","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 3,
+      "onCollision": [
+        {
+          "effect": "entities_in_radius",
+          "radius": 3,
+          "targetUser": true,
+          "effects": [
+            {
+              "effect": "damage",
+              "amount": {"effect": "addition_scalar", "a": 10, "b":
+                {"effect": "multiplication_scalar", "a": -3, "b":
+                  {"effect": "bounding_scalar", "low": 2, "value":
+                    {"effect":"distance_to_target_scalar","userElseTrackedEntity":false}}}},
+              "comment": "This is 'AoE damage with falloff' - an explosion.",
+              "comment2": "It deals 4 damage out to 2 blocks down to 1 damage at 3 blocks.",
+              "damageType": "minecraft:explosion"
+            },
+            {
+              "effect": "gain_mana",
+              "amount": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cost": 5,
+  "chargeKeywords": ["Attack","Projectile","Area Of Effect"],
+  "chargeEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 3,
+      "onCollision": [
+        {
+          "effect": "entities_in_radius",
+          "radius": 5,
+          "targetUser": true,
+          "effects": [
+            {
+              "effect": "damage",
+              "amount": {"effect": "addition_scalar", "a": 17, "b":
+                {"effect": "multiplication_scalar", "a": -3, "b":
+                  {"effect": "bounding_scalar", "low": 2, "value":
+                      {"effect":"distance_to_target_scalar","userElseTrackedEntity":false}}}},
+              "comment": "This is 'AoE damage with falloff' - an explosion.",
+              "comment2": "It deals 11 damage out to 2 blocks down to 2 damage at 5 blocks.",
+              "damageType": "minecraft:explosion"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

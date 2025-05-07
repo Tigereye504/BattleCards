@@ -18,7 +18,7 @@
     }
   ],
   "cost": 2,
-  "advancedEffects": [
+  "chargeEffects": [
     {
 
       "effect": "throw_cards",

@@ -1,8 +1,0 @@
-{
-    "parent": "item/handheld",
-    "textures": {
-        "layer2": "battlecards:item/card_icons/melee",
-        "layer1": "battlecards:item/hoards_of_rot/cannibalism",
-        "layer0": "battlecards:item/hoards_of_rot/background"
-    }
-}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:generic",
+  "pools": [
+    {
+      "rolls": 4.0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "battlecards:zombie_pack/booster_pack_common"
+        }
+      ]
+    },
+    {
+      "rolls": 1.0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "battlecards:zombie_pack/booster_pack_rare"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "minecraft:entities/zombie"
+}

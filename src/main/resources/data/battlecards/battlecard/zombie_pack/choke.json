@@ -1,0 +1,36 @@
+{
+  "id": "battlecards:zombie_pack/choke",
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 3,
+          "damageType": "minecraft:drown"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 2
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "chargeEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 5,
+          "damageType": "minecraft:drown"
+        },
+        {
+          "effect": "modify_breath",
+          "amount": -20
+        }
+      ]
+    }
+  ]
+}

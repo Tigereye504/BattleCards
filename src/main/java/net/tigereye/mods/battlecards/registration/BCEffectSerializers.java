@@ -37,6 +37,7 @@ public class BCEffectSerializers {
         CardSerializer.registerCardEffectSerializer("yaw_to_target_scalar",new YawToTargetScalarEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("pitch_to_target_scalar",new PitchToTargetScalarEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("x_scalar",new XScalerEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("status_magnitude_scalar",new StatusLevelScalarEffect.Serializer());
         //payouts
         CardSerializer.registerCardEffectSerializer("apply_status",new ApplyStatusEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("clear_status",new ClearStatusEffect.Serializer());

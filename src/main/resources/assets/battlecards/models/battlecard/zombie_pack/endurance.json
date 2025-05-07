@@ -1,0 +1,8 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer2": "battlecards:item/card_icons/defense",
+        "layer1": "battlecards:item/unknown_card_art",
+        "layer0": "battlecards:item/zombie_pack/background"
+    }
+}

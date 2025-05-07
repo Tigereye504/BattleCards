@@ -1,5 +1,5 @@
 {
-  "id": "battlecards:hoards_of_rot/booster_pack",
+  "id": "battlecards:zombie_pack/booster_pack",
   "dropRate": 0.5,
   "sourceLootTables": [
     "minecraft:entities/zombie",

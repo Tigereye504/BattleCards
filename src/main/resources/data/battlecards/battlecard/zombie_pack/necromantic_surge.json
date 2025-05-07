@@ -1,0 +1,25 @@
+{
+  "id": "battlecards:zombie_pack/necromantic_surge",
+  "quickEffects": [
+    {
+      "effect": "health_scalar",
+      "missingElseCurrent": true,
+      "effects": [
+        {
+          "effect": "modify_health",
+          "scalingAmount": 0.20,
+          "damageType": "minecraft:generic"
+        }
+      ]
+    }
+  ],
+  "cost": 5,
+  "chargeEffects": [
+    {
+      "effect": "apply_status",
+      "type": "battlecards:undying",
+      "duration": 100,
+      "magnitude": 4
+    }
+  ]
+}

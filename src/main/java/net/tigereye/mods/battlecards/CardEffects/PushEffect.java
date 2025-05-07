@@ -65,7 +65,7 @@ public class PushEffect implements CardEffect, CardTooltipNester {
 
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         tooltip.add(Text.literal(" ".repeat(depth)).append(
-                Text.translatable("card.battlecards.tooltip.push",magnitude)));
+                Text.translatable("card.battlecards.tooltip.push",magnitude.appendInlineTooltip(world, tooltip, tooltipContext))));
     }
 
     public static class Serializer implements CardEffectSerializer {

@@ -1,0 +1,70 @@
+{
+  "id": "battlecards:skeleton_pack/rough_em_up",
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "isSweep": false,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:generic"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 1
+        },
+        {
+          "effect": "apply_status",
+          "type": "minecraft:slowness",
+          "duration": 100,
+          "magnitude": 0
+        }
+      ]
+    }
+  ],
+  "cost": 2,
+  "chargeEffects": [
+    {
+      "effect": "melee",
+      "isSweep": false,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:generic",
+          "afterDamage": [
+            {
+              "effect": "if_scalar",
+              "effects": [
+                {
+                  "effect": "apply_status",
+                  "type": "minecraft:slowness",
+                  "duration": 100,
+                  "magnitude": {
+                    "effect": "status_magnitude_scalar",
+                    "userElseTarget": false,
+                    "type": "minecraft:slowness"
+                  }
+                },
+                {
+                  "effect": "apply_status",
+                  "type": "minecraft:weakness",
+                  "duration": 100,
+                  "magnitude": {
+                    "effect": "status_magnitude_scalar",
+                    "userElseTarget": false,
+                    "type": "minecraft:weakness"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "effect": "retain"
+    }
+  ]
+}

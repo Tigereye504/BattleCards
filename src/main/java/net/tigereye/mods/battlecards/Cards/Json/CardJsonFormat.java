@@ -11,5 +11,5 @@ public class CardJsonFormat {
     String chargeDescription;
     int cost;
     JsonArray quickEffects;
-    JsonArray advancedEffects;
+    JsonArray chargeEffects;
 }

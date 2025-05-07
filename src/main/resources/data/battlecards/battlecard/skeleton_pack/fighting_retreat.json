@@ -1,0 +1,48 @@
+{
+  "id": "battlecards:skeleton_pack/fighting_retreat",
+  "quickKeywords": ["Movement","Status"],
+  "quickEffects": [
+    {
+      "effect": "push",
+      "magnitude": -1,
+      "pitch": 5
+    },
+    {
+      "effect": "apply_status",
+      "type": "battlecards:evading",
+      "duration": 10,
+      "magnitude": 0
+    }
+  ],
+  "cost": 3,
+  "chargeKeywords": ["Movement","Status","Attack","Projectile"],
+  "chargeEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 3,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 5,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "push",
+          "magnitude": 1,
+          "pitch": 10
+        }
+      ]
+    },
+    {
+      "effect": "apply_status",
+      "type": "battlecards:evading",
+      "duration": 20,
+      "magnitude": 0
+    },
+    {
+      "effect": "push",
+      "magnitude": -1,
+      "pitch": -10
+    }
+  ]
+}

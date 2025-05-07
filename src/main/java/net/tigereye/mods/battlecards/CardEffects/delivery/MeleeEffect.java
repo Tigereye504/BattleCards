@@ -154,6 +154,7 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
         public MeleeEffect readFromJson(Identifier id, JsonElement entry) {
             MeleeEffect output = new MeleeEffect();
             output.reach = CardSerializer.readOrDefaultScalar(id,"reach",entry,3.5f);
+            output.maxAngle = CardSerializer.readOrDefaultScalar(id,"maxAngle",entry,30);
             output.isSweep = CardSerializer.readOrDefaultBoolean(id,"isSweep",entry,true);
             output.retainOnMiss = CardSerializer.readOrDefaultBoolean(id,"retainOnMiss",entry,true);
             output.addEffectsOnEntityHit(CardSerializer.readCardEffects(id, "onHit",entry));

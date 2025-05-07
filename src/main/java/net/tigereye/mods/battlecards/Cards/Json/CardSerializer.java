@@ -47,11 +47,11 @@ public class CardSerializer {
             generatedBattleCard.setQuickEffects(readCardEffects(id,cardJson.quickEffects));
         }
         //set advanced effects
-        if (cardJson.advancedEffects == null) {
+        if (cardJson.chargeEffects == null) {
             Battlecards.LOGGER.warn("Card {} is missing charge effects!", id);
         }
         else{
-            generatedBattleCard.setChargeEffects(readCardEffects(id,cardJson.advancedEffects));
+            generatedBattleCard.setChargeEffects(readCardEffects(id,cardJson.chargeEffects));
         }
         return new Pair<>(cardID,generatedBattleCard);
     }

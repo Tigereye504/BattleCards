@@ -1,0 +1,37 @@
+{
+  "id": "battlecards:zombie_pack/mighty_blow",
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 5,
+          "damageType": "minecraft:generic"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 2
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "chargeEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 11,
+          "damageType": "minecraft:generic"
+        },
+        {
+          "effect": "push",
+          "magnitude": 1,
+          "pitch": 10
+        }
+      ]
+    }
+  ]
+}

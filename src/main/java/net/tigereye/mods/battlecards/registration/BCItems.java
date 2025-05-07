@@ -38,10 +38,10 @@ public class BCItems {
                 entries.add(SLEEVE_GOLD);
                 entries.add(SLEEVE_DIAMOND);
                 entries.add(SLEEVE_NETHERITE);
-                CardManager.GeneratedCards.forEach((id,battlecard) -> {
+                CardManager.GeneratedCards.keySet().stream().sorted().forEachOrdered((id) -> {
                     entries.add(CardManager.generateCardItemstack(id));
                 });
-                BoosterPackManager.BoosterPacks.forEach((id) -> {
+                BoosterPackManager.BoosterPacks.stream().sorted().forEachOrdered((id) -> {
                     entries.add(BoosterPackManager.generateBoosterPackItemstack(id));
                 });
             }))
