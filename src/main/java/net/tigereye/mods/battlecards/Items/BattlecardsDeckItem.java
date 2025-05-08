@@ -93,7 +93,7 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
         nbt.remove(DECK_DRAWPILE_NBTKEY);
         //go on a long cooldown
         //TODO: make this put all decks on cooldown (use a tag)
-        user.getItemCooldownManager().set(deck.getItem(),600);
+        user.getItemCooldownManager().set(deck.getItem(),200);
     }
 
     private UUID getOrCreateUUID(ItemStack deck){

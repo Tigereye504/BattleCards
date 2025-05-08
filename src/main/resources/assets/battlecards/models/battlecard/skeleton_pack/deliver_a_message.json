@@ -1,0 +1,8 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer2": "battlecards:item/card_icons/projectile",
+        "layer1": "battlecards:item/skeleton_pack/deliver_a_message",
+        "layer0": "battlecards:item/skeleton_pack/background"
+    }
+}

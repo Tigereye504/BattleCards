@@ -118,6 +118,9 @@
   "card.battlecards.zombie_pack/ignore_wounds.charge": "Gain Armored III and Reinforced III for 5 seconds.",
 
   "boosterpack.battlecards.skeleton_pack/booster_pack": "Deadfellows",
+  "card.battlecards.skeleton_pack/deliver_a_message": "Deliver a Message",
+  "card.battlecards.skeleton_pack/deliver_a_message.quick": "Weak projectile generates 1 mana per hit, +1 per 16 blocks distance.",
+  "card.battlecards.skeleton_pack/deliver_a_message.charge": "Projectile damage scales with distance, deadly at 32 blocks.",
   "card.battlecards.skeleton_pack/explosive_rhetoric": "Explosive Rhetoric",
   "card.battlecards.skeleton_pack/explosive_rhetoric.quick": "Weak explosive projectile generates 1 mana per hit.",
   "card.battlecards.skeleton_pack/explosive_rhetoric.charge": "Extremely strong explosive projectile devastates wide area.",
@@ -136,9 +139,6 @@
   "card.battlecards.skeleton_pack/rattle_em": "Rattle 'em",
   "card.battlecards.skeleton_pack/rattle_em.quick": "Fire three very weak shots worth 1 mana per hit.",
   "card.battlecards.skeleton_pack/rattle_em.charge": "Fire a rapid spray of seven consecutive shots.",
-  "card.battlecards.skeleton_pack/rough_em_up": "Rough 'em Up",
-  "card.battlecards.skeleton_pack/rough_em_up.quick": "Weak non-sweeping melee, inflict Slowness for 5 seconds. 1 mana on hit.",
-  "card.battlecards.skeleton_pack/rough_em_up.charge": "Weak non-sweeping melee, inflict escalating Weakness and Slowness for 5 seconds. Retain.",
   "card.battlecards.skeleton_pack/reposition": "Reposition",
   "card.battlecards.skeleton_pack/reposition.quick": "Dodge backwards, evading damage for a split second.",
   "card.battlecards.skeleton_pack/reposition.charge": "Dodge backwards, and gain great speed and highstep for 4.5 seconds.",
@@ -184,5 +184,10 @@
   "boosterpack.battlecards.vindicator_pack/booster_pack": "Memoire of a Tinker",
   "card.battlecards.vindicator_pack/longsword": "Longsword",
   "card.battlecards.vindicator_pack/longsword.quick": "Weak melee attack generates 2 mana.",
-  "card.battlecards.vindicator_pack/longsword.charge": "Strong Lunging strike pushes foes along. Refund 2 and Retain on miss."
+  "card.battlecards.vindicator_pack/longsword.charge": "Strong Lunging strike pushes foes along. Refund 2 and Retain on miss.",
+
+  "boosterpack.battlecards.wither_pack/booster_pack": "Dark Triad",
+  "card.battlecards.skeleton_pack/rough_em_up": "Rough 'em Up",
+  "card.battlecards.skeleton_pack/rough_em_up.quick": "Weak non-sweeping melee, inflict Slowness for 5 seconds. 1 mana on hit.",
+  "card.battlecards.skeleton_pack/rough_em_up.charge": "Weak non-sweeping melee, inflict escalating Weakness and Slowness for 5 seconds. Retain."
 }

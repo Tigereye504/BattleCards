@@ -1,0 +1,9 @@
+{
+  "id": "battlecards:skeleton_pack/booster_pack",
+  "dropRate": 0.1,
+  "dropRateLootingFactor": 0.035,
+  "sourceLootTables": [
+    "minecraft:entities/skeleton",
+    "minecraft:entities/stray"
+  ]
+}

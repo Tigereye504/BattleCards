@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "battlecards:zombie_pack/booster_pack_common"
+          "name": "battlecards:battlecard/zombie_pack/booster_pack_common"
         }
       ]
     },
@@ -15,7 +15,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "battlecards:zombie_pack/booster_pack_rare"
+          "name": "battlecards:battlecard/zombie_pack/booster_pack_rare"
         }
       ]
     }

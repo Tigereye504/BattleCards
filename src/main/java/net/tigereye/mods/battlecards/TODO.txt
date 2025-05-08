@@ -38,7 +38,7 @@ to reach new breakpoints where you kill in fewer hits.
 'very deadly'     - 7 - crit str II,axe 17          25.5        30          33.75  dmg
 'terminal'        - 8 - iron golem      *20*        ~*30*~      **40**      **45** dmg
 
-Leather: +25% damage, shuffled into deck twice at start of match
+Leather: +25% damage, shuffled into draw pile twice when added to draw pile
 Gold: +25% damage, half mana cost (round up)
 Emerald: +25% damage, +1 mana gain
 Glowstone: +25% damage, +1 mana cost, +1 effect magnitude
@@ -132,21 +132,14 @@ C   Reinforced X: +(2*X) Armor Toughness.
     --Debuffs--
 C   Undead: Healed by Instant Harm, Harmed by Instant Health. Burn In Sunlight.
 
-TODO: To be able to publish an update
- Implement Deliver a Message
- Make Deadfellows background texture
- Make Deadfellows boosterpack texture
- Make Deadfellows boosterpack data and drop tables
-
-
  Deadfellows (Skeletons, Strays)
  --names sound like mafia-lingo
 ET  Rattle 'em - Q: Shoot three weak arrows in rapid succession, 1 mana per hit - A(3): Shoot 5 arrows in very rapid succession
 ET  Multi-Pronged Proposition - Q: Shoot 3 weak arrows, 1 mana each on hit - A(3): Shoot 5 arrows in a fan (+/- 20, +/- 10, and 0 degrees).
 ET  Involve Bystander - Q: Shoot a weak arrow with 2 piercing, 1 mana on each hit - A(3): Shoot a arrow with 2 piercing. On hit, redirect at great speed towards the nearest other non-user entity.
-    Deliver a Message - Q: Shoot a weak shot, 1 mana +1 per 16 blocks distance on hit. - A(5): Shot damage scales with distance, deadly at 32 blocks.
+ET  Deliver a Message - Q: Shoot a weak shot, 1 mana +1 per 16 blocks distance on hit. - A(3): Shot damage scales with distance, deadly at 32 blocks.
     Insistent Question - Q: Shoot a weak arrow. On hit, repeat up to twice. 1 mana on hit. - A(3): Shoot a weak arrow. On hit, increase damage and repeat indefinitely.
-ET  Let 'em Have It - Q: Shoot 3 weak arrows, 1 mana each hit. A(7): Shoot a stream of countless, strong arrows in a wide cone.
+ET  Let 'em Have It (R) - Q: Shoot 3 weak arrows, 1 mana each hit. A(7): Shoot a stream of countless, strong arrows in a wide cone.
 ET  Explosive Rhetoric (R) - Q: Shoot a weak exploding arrow, 1 mana per hit. - A(5): Shoot a devastating, wide area explosing arrow.
 --  Vanish - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. A(5): Hop back, gain Invulnerable for .5 second and Invisible 3 for 5 seconds.
 ET  Scamper - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. A(3): Gain Speed 3 and Step Assist for 5 seconds.
@@ -157,7 +150,7 @@ ET  Reposition (R) - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. 
  Dark Triad (Wither Skeletons, Wither)
  --names come from gang-related (especially asian gang) and 'dark triad' mental trait related terms/phrases.
 ET  Rough 'em up - Q: Weak non-sweeping Melee Attack, 1 Mana on hit, inflict Slowness 1 for 5 seconds. - A(2): Weak Non-Sweeping melee attack inflicts escalating Weakness and Slowness for 5 seconds. Retain.
- --needs moved from Deadfellows to Dark Triad
+
 
 
 

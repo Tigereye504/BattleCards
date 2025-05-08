@@ -1,0 +1,38 @@
+{
+  "id": "battlecards:skeleton_pack/deliver_a_message",
+  "quickKeywords": ["Attack","Projectile","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 3,
+      "onHit": [
+        {"effect": "damage","amount": 4,"damageType": "minecraft:arrow"},
+        {
+          "effect": "gain_mana",
+          "amount": {"effect": "addition_scalar", "a": 1, "b":
+          {"effect": "multiplication_scalar", "a": 0.0625, "b":
+          {"effect":"distance_to_target_scalar","userElseTrackedEntity":true}}},
+          "comment": "Produce 1 mana, +1 per 16 blocks between user and target."
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "chargeKeywords": ["Attack","Projectile"],
+  "chargeEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 3,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": {"effect": "addition_scalar", "a": 6, "b":
+          {"effect": "multiplication_scalar", "a": 0.25, "b":
+          {"effect":"distance_to_target_scalar","userElseTrackedEntity":true}}},
+          "comment": "This inflicts 6 dmg + 1 per 4 blocks between user and target.",
+          "damageType": "minecraft:arrow"
+        }
+      ]
+    }
+  ]
+}

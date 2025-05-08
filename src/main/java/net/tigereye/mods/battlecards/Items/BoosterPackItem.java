@@ -51,6 +51,7 @@ public class BoosterPackItem extends Item {
             String boosterPackIDString = stack.getNbt().getString(BoosterPackManager.ID_NBTKEY);
             if(boosterPackIDString != null) {
                 Identifier boosterPackId = new Identifier(boosterPackIDString);
+                boosterPackId = new Identifier(boosterPackId.getNamespace(),"battlecard/"+boosterPackId.getPath());
                 //TODO: use ID to lookup loot table
                 if (world instanceof ServerWorld sWorld){
                     LootContextParameterSet.Builder LCPSBuilder = new LootContextParameterSet.Builder(sWorld)
