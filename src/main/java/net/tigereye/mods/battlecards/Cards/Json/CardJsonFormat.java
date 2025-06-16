@@ -10,6 +10,8 @@ public class CardJsonFormat {
     String quickDescription;
     String chargeDescription;
     int cost;
+    JsonArray quickKeywords;
+    JsonArray chargeKeywords;
     JsonArray quickEffects;
     JsonArray chargeEffects;
 }

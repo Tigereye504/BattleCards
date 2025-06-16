@@ -181,13 +181,30 @@
   "card.battlecards.passable_papercraft/ten_ply.quick": "Toss a card for weak damage and 2 mana.",
   "card.battlecards.passable_papercraft/ten_ply.charge": "Toss ten deadly cards, refunding 2 mana on hit.",
 
-  "boosterpack.battlecards.vindicator_pack/booster_pack": "Memoire of a Tinker",
-  "card.battlecards.vindicator_pack/longsword": "Longsword",
-  "card.battlecards.vindicator_pack/longsword.quick": "Weak melee attack generates 2 mana.",
-  "card.battlecards.vindicator_pack/longsword.charge": "Strong Lunging strike pushes foes along. Refund 2 and Retain on miss.",
-
   "boosterpack.battlecards.wither_pack/booster_pack": "Dark Triad",
   "card.battlecards.skeleton_pack/rough_em_up": "Rough 'em Up",
   "card.battlecards.skeleton_pack/rough_em_up.quick": "Weak non-sweeping melee, inflict Slowness for 5 seconds. 1 mana on hit.",
-  "card.battlecards.skeleton_pack/rough_em_up.charge": "Weak non-sweeping melee, inflict escalating Weakness and Slowness for 5 seconds. Retain."
+  "card.battlecards.skeleton_pack/rough_em_up.charge": "Weak non-sweeping melee, inflict escalating Weakness and Slowness for 5 seconds. Retain.",
+
+  "boosterpack.battlecards.illager_pack/booster_pack": "Way of Reaping",
+  "card.battlecards.illager_pack/focused_bolt": "Focused Bolt",
+  "card.battlecards.illager_pack/focused_bolt.quick": "Moderate projectile generates 1 mana.",
+  "card.battlecards.illager_pack/focused_bolt.charge": "aim for two seconds, then fire projectile which causes catastrophic harm.",
+  "card.battlecards.illager_pack/longsword": "Longsword",
+  "card.battlecards.illager_pack/longsword.quick": "Weak melee attack generates 2 mana.",
+  "card.battlecards.illager_pack/longsword.charge": "Strong Lunging strike pushes foes along. Refund 2 and Retain on miss.",
+  "card.battlecards.illager_pack/overdraw": "Overdraw",
+  "card.battlecards.illager_pack/overdraw.quick": "Moderate projectile generates 1 mana.",
+  "card.battlecards.illager_pack/overdraw.charge": "Gain escalating Overdraw for 5 seconds. Retain.",
+  "card.battlecards.illager_pack/overpenetration": "Overpenetration",
+  "card.battlecards.illager_pack/overpenetration.quick": "Moderate projectile generates 1 mana.",
+  "card.battlecards.illager_pack/overpenetration.charge": "Deadly projectile penetrates, first inflicting Sundered 2 for 10 seconds.",
+  "card.battlecards.illager_pack/staggering_bolt": "Staggering Bolt",
+  "card.battlecards.illager_pack/staggering_bolt.quick": "Moderate projectile generates 1 mana.",
+  "card.battlecards.illager_pack/staggering_bolt.charge": "Very strong projectile staggers target.",
+  "card.battlecards.illager_pack/sundering_bolt": "Sundering Bolt",
+  "card.battlecards.illager_pack/sundering_bolt.quick": "Moderate projectile generates 1 mana.",
+  "card.battlecards.illager_pack/sundering_bolt.charge": "Very strong projectile inflicts Sundered 1 for 5 seconds.",
+
+  "boosterpack.battlecards.villager_pack/booster_pack": "Way of Sowing"
 }

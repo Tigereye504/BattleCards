@@ -1,10 +1,12 @@
 package net.tigereye.mods.battlecards.StatusEffects;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,9 @@ public class BCStatusEffect extends StatusEffect {
 
     public boolean allowDeath(LivingEntity entity, DamageSource source, float damage, StatusEffectInstance instance, List<StatusEffect> effectsToRemove) {
         return true;
+    }
+
+    public void preparePersistentContext(PersistantCardEffectContext pContext, Entity entity, StatusEffectInstance instance, boolean quickElseCharge, List<StatusEffect> effectsToRemove) {
     }
 
     /*****Utilities*****/

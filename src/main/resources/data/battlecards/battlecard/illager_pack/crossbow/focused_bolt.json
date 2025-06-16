@@ -1,0 +1,63 @@
+{
+  "id": "battlecards:illager_pack/focused_bolt",
+  "quickKeywords": ["Attack","Projectile","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 3,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 5,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 1
+        }
+      ]
+    }
+  ],
+  "cost": 7,
+  "chargeKeywords": ["Attack","Projectile","Status"],
+  "chargeEffects": [
+    {
+      "effect": "repeat",
+      "delay": 5,
+      "count": 7,
+      "startingScalar": 2,
+      "incrementScalar": {"effect":"addition_scalar","a":1,"b":{"effect":"x_scalar"}},
+      "effects": [
+        {
+          "effect": "apply_status",
+          "type": "minecraft:slowness",
+          "magnitude": {"effect":"x_scalar"},
+          "duration": 10
+        }
+      ]
+    },
+    {
+      "effect": "delay",
+      "delay": 40,
+      "after_delay": [
+        {
+          "effect": "throw_card",
+          "speed": 5,
+          "onHit": [
+            {
+              "effect": "damage",
+              "amount": 20,
+              "damageType": "minecraft:arrow"
+            },
+            {
+              "effect": "apply_status",
+              "type": "battlecards:sundered",
+              "magnitude": 1,
+              "duration": 200
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

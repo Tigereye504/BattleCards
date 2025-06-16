@@ -1,0 +1,53 @@
+{
+  "id": "battlecards:illager_pack/staggering_bolt",
+  "quickKeywords": ["Attack","Projectile","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 3,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 5,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 1
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "chargeKeywords": ["Attack","Projectile","Status"],
+  "chargeEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 3,
+      "piercing": 4,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 7,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "apply_status",
+          "type": "minecraft:slowness",
+          "magnitude": 3,
+          "duration": 10
+        },
+        {
+          "effect": "apply_status",
+          "type": "minecraft:blindness",
+          "duration": 10
+        },
+        {
+          "effect": "push",
+          "magnitude": 0.5,
+          "pitch": 5
+        }
+      ]
+    }
+  ]
+}

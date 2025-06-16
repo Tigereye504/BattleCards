@@ -6,13 +6,18 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
+import net.tigereye.mods.battlecards.Events.PreparePersistentContextCallback;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 public class GeneratedBattleCard implements BattleCard {
     Identifier id;
     int cost;
+    Collection<String> quickKeywords = new HashSet<>();
+    Collection<String> chargeKeywords = new HashSet<>();
     List<CardEffect> quickEffects = new ArrayList<>();
     List<CardEffect> chargeEffects = new ArrayList<>();
 
@@ -34,6 +39,22 @@ public class GeneratedBattleCard implements BattleCard {
     @Override
     public Text getChargeDescription() {
         return Text.translatable("card."+getID().toTranslationKey()+".charge");
+    }
+
+    @Override
+    public Collection<String> getQuickKeywords() {
+        return quickKeywords;
+    }
+    public void addQuickKeyword(String string) {
+        quickKeywords.add(string);
+    }
+
+    @Override
+    public Collection<String> getChargeKeywords() {
+        return chargeKeywords;
+    }
+    public void addChargeKeyword(String string) {
+        chargeKeywords.add(string);
     }
 
     @Override
@@ -72,9 +93,9 @@ public class GeneratedBattleCard implements BattleCard {
     }
 
     @Override
-    public boolean performBasicEffect(LivingEntity user, ItemStack stack) {
+    public boolean performQuickEffect(LivingEntity user, ItemStack stack) {
         PersistantCardEffectContext pContext = new PersistantCardEffectContext(user,this,stack);
-        //TODO: call an event to load instanced events such as Overdraw and sleeve effects
+        PreparePersistentContextCallback.EVENT.invoker().preparePersistentContext(pContext,user,true);
         quickEffects.forEach((cardEffect -> cardEffect.apply(pContext)));
         return true;
     }
@@ -82,7 +103,7 @@ public class GeneratedBattleCard implements BattleCard {
     @Override
     public boolean performChargeEffect(LivingEntity user, ItemStack stack) {
         PersistantCardEffectContext pContext = new PersistantCardEffectContext(user,this,stack);
-        //TODO: call an event to load instanced events such as Overdraw and sleeve effects
+        PreparePersistentContextCallback.EVENT.invoker().preparePersistentContext(pContext,user,false);
         chargeEffects.forEach((cardEffect -> cardEffect.apply(pContext)));
         return false;
     }

@@ -1,6 +1,5 @@
 package net.tigereye.mods.battlecards.Cards;
 
-import com.mojang.authlib.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -11,6 +10,7 @@ import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Items.interfaces.BattleCardItem;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface BattleCard {
@@ -20,9 +20,11 @@ public interface BattleCard {
     public Text getName();
     public Text getBasicDescription();
     public Text getChargeDescription();
+    public Collection<String> getQuickKeywords();
+    public Collection<String> getChargeKeywords();
     public List<CardEffect> getQuickEffects();
     public List<CardEffect> getChargeEffects();
-    public boolean performBasicEffect(LivingEntity user, ItemStack itemStack);
+    public boolean performQuickEffect(LivingEntity user, ItemStack itemStack);
     public boolean performChargeEffect(LivingEntity user, ItemStack itemStack);
     public default void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         if(tooltipContext.isAdvanced()) {

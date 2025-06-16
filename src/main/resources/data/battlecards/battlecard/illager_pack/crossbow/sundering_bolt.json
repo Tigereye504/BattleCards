@@ -1,0 +1,41 @@
+{
+  "id": "battlecards:illager_pack/sundering_bolt",
+  "quickKeywords": ["Attack","Projectile","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 3,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 5,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 1
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "chargeKeywords": ["Attack","Projectile","Status"],
+  "chargeEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 3,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 9,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "apply_status",
+          "type": "battlecards:sundered",
+          "duration": 100
+        }
+      ]
+    }
+  ]
+}

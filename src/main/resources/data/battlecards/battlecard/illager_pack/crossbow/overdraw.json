@@ -1,0 +1,37 @@
+{
+  "id": "battlecards:illager_pack/overdraw",
+  "quickKeywords": ["Attack","Projectile","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 3,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 5,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 1
+        }
+      ]
+    }
+  ],
+  "cost": 1,
+  "chargeKeywords": ["Status"],
+  "chargeEffects": [
+    {
+      "effect": "apply_status",
+      "type": "battlecards:overdraw",
+      "duration": 100,
+      "magnitude": {
+        "effect": "status_magnitude_scalar",
+        "type": "battlecards:overdraw"
+      }
+    },
+    {
+      "effect": "retain"
+    }
+  ]
+}

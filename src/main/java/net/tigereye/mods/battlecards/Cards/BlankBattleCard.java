@@ -6,6 +6,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 
+import java.util.Collection;
 import java.util.List;
 
 public class BlankBattleCard implements BattleCard {
@@ -36,6 +37,16 @@ public class BlankBattleCard implements BattleCard {
     }
 
     @Override
+    public Collection<String> getQuickKeywords() {
+        return List.of();
+    }
+
+    @Override
+    public Collection<String> getChargeKeywords() {
+        return List.of();
+    }
+
+    @Override
     public List<CardEffect> getQuickEffects() {
         return List.of();
     }
@@ -46,7 +57,7 @@ public class BlankBattleCard implements BattleCard {
     }
 
     @Override
-    public boolean performBasicEffect(LivingEntity user, ItemStack itemStack) {
+    public boolean performQuickEffect(LivingEntity user, ItemStack itemStack) {
         return false;
     }
 

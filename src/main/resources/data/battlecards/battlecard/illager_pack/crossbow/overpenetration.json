@@ -1,0 +1,43 @@
+{
+  "id": "battlecards:illager_pack/overpenetration",
+  "quickKeywords": ["Attack","Projectile","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 3,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 5,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 1
+        }
+      ]
+    }
+  ],
+  "cost": 7,
+  "chargeKeywords": ["Attack","Projectile","Status"],
+  "chargeEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 4,
+      "piercing": 4,
+      "onHit": [
+        {
+          "effect": "apply_status",
+          "type": "battlecards:sundered",
+          "magnitude": 1,
+          "duration": 200
+        },
+        {
+          "effect": "damage",
+          "amount": 14,
+          "damageType": "minecraft:arrow"
+        }
+      ]
+    }
+  ]
+}

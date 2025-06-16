@@ -39,6 +39,22 @@ public class CardSerializer {
         //set effect cost
         generatedBattleCard.setChargeEffectCost(cardJson.cost);
 
+        //set quick keywords
+        if (cardJson.quickKeywords != null) {
+            for (JsonElement entry:
+                    cardJson.quickKeywords) {
+                generatedBattleCard.addQuickKeyword(entry.getAsString());
+            }
+        }
+
+        //set charge keywords
+        if (cardJson.chargeKeywords != null) {
+            for (JsonElement entry:
+                    cardJson.chargeKeywords) {
+                generatedBattleCard.addChargeKeyword(entry.getAsString());
+            }
+        }
+
         //set quick effects
         if (cardJson.quickEffects == null) {
             Battlecards.LOGGER.warn("Card {} is missing quick effects!", id);
@@ -176,7 +192,7 @@ public class CardSerializer {
                 return obj.get(name).getAsString();
             }
         } catch (Exception e) {
-            Battlecards.LOGGER.error("Error reading boolean in entry {} in {}!",name,id);
+            Battlecards.LOGGER.error("Error reading string in entry {} in {}!",name,id);
         }
         return defaultValue;
     }

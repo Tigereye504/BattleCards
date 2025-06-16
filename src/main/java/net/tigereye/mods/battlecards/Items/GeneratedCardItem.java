@@ -78,7 +78,7 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
     public boolean performQuickEffect(ItemStack stack, LivingEntity user, World world) {
         if(stack.hasNbt()){
             Identifier cardID = new Identifier(stack.getNbt().getString(CardManager.NBT_KEY));
-            CardManager.getEntry(cardID).performBasicEffect(user,stack);
+            CardManager.getEntry(cardID).performQuickEffect(user,stack);
             afterCardEffects(stack, world, user);
             return true;
         }
@@ -117,7 +117,6 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
 
     @Override
     public int getChargeEffectCost(Entity user, ItemStack item){
-        //TODO: check if owned
         //if has owner, proceed as normal
         //else, double the cost
         if(item.hasNbt()) {
