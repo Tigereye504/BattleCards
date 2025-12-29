@@ -8,7 +8,7 @@
         {
           "effect": "damage",
           "amount": 4,
-          "damageType": "minecraft:generic"
+          "damageType": "minecraft:player_attack"
         },
         {
           "effect": "gain_mana",
@@ -32,7 +32,7 @@
         {
           "effect": "damage",
           "amount": 4,
-          "damageType": "minecraft:generic",
+          "damageType": "minecraft:player_attack",
           "afterDamage": [
             {
               "effect": "if_scalar",

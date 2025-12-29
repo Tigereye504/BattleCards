@@ -1,0 +1,65 @@
+{
+  "id": "battlecards:illager_pack/desperation",
+  "quickKeywords": ["Attack","Melee","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "isSweep": "false",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:player_attack"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": {
+            "effect": "addition_scalar",
+            "a": 1,
+            "b": {
+              "effect": "multiplication_scalar",
+              "a": 4,
+              "b": {
+                "effect": "health_scalar",
+                "missingElseCurrent": true,
+                "absoluteElseRatio": false
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "cost": 10,
+  "chargeKeywords": ["Attack","Melee"],
+  "chargeEffects": [
+    {
+      "effect": "melee",
+      "isSweep": "false",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 20,
+          "scalingAmount": 1,
+          "damageType": "minecraft:player_attack"
+        },
+        {
+          "effect": "apply_status",
+          "type": "minecraft:weakness",
+          "duration": 10,
+          "magnitude": 3
+        },
+        {
+          "effect": "target_user",
+          "effects": [
+            {
+              "effect": "modify_health",
+              "amount": -2,
+              "comment": "perhaps instead of catastrophic damage, gain absorption hearts "
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -7,6 +7,7 @@ Actually, PersistantProjectileEntities have easily customized damage. so just se
 Or I could say 'fuck it', have all projectile cards throw cards, and just upgrade the snot out of the card projectile
 
 TODO: fix deck breaking with second stack of matching card
+TODO: fix sleeves sometimes eating cards (seems to happen when hotbar slot of card doesn't change?)
 
 Cards will drop in Booster Packs, which will usually be related to the dropping mob.
 Likely, any mob can drop a generic pack. That way killing modded critters is still worth something.
@@ -28,6 +29,7 @@ to reach new breakpoints where you kill in fewer hits.
 
 *Kills common mobs(20)*, ~*Kills Witches (26)*~, **Kills Hoglin and Endermen(40)**, ~**Kills Brutes(50)**~
                   value                 base (+0%)  iron (+50%) diamond(x2) netherite (+125%)
+'light'           - 0*- hand.           1-2 dmg
 'very weak'       -0.5- shovel.         3 dmg       3.75 dmg    6 dmg       6.75 dmg
 'weak'            - 1 - pickaxe.        4 dmg       6 dmg       8 dmg       9 dmg
 'moderate'        - 2 - a sword swipe.  5 dmg       7.5 dmg     10 dmg      11.25 dmg
@@ -58,7 +60,7 @@ similarly, cards generally should produce at least 1 mana if they require delive
 --Balance Considerations: Charge Actions--
 Charge actions likely won't come up against a single average mob; they just aren't tanky enough.
 So charge effects are for multi-mob fights, consecutive fights, or major fights.
-Attack charges should a minor foe outright, maim a major foe, or maim multiple minor foes to feel impactful.
+Attack charges should slay a minor foe outright, maim a major foe, or maim multiple minor foes to feel impactful.
 As such, charge attacks generally shouldn't do less damage than a Strong, single hit.
 Charge actions, naturally, are better than quick actions due to costing mana.
 So a 1 cost charge action should be worth around 3 points, plus 0-2 for targeting as with quicks.
@@ -134,6 +136,7 @@ C   Undead: Healed by Instant Harm, Harmed by Instant Health. Burn In Sunlight.
 
  Deadfellows (Skeletons, Strays)
  --names sound like mafia-lingo
+ --flighty movement, with trickshot arrows that pay out more for skillful positioning
 ET  Rattle 'em - Q: Shoot three weak arrows in rapid succession, 1 mana per hit - A(3): Shoot 5 arrows in very rapid succession
 ET  Multi-Pronged Proposition - Q: Shoot 3 weak arrows, 1 mana each on hit - A(3): Shoot 5 arrows in a fan (+/- 20, +/- 10, and 0 degrees).
 ET  Involve Bystander - Q: Shoot a weak arrow with 2 piercing, 1 mana on each hit - A(3): Shoot a arrow with 2 piercing. On hit, redirect at great speed towards the nearest other non-user entity.
@@ -151,6 +154,30 @@ ET  Reposition (R) - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. 
  --names come from gang-related (especially asian gang) and 'dark triad' mental trait related terms/phrases.
 ET  Rough 'em up - Q: Weak non-sweeping Melee Attack, 1 Mana on hit, inflict Slowness 1 for 5 seconds. - A(2): Weak Non-Sweeping melee attack inflicts escalating Weakness and Slowness for 5 seconds. Retain.
 
+The Way of Reaping (Illagers)
+ --Axe pillagers use aggressive movement, trading blows, and revenge
+ -Lunging Combo Attacks
+ET  Longsword
+ET  Uppercut
+ET  Shoulder Check - Q: Weak focused melee, 1 mana and knockback. - A(4) Charge forward with active hitbox, inflicting Strong damage and dragging targets
+    Overrun
+    Desperation - Q: Weak damage, mana scales with missing health - A(10) Catastrophic damage,
+    Yeild Your Flesh
+    Revenge
+    Blood for Blood
+ -Trading Attacks (inflict momentary weakness to counter hits)
+ -Low Health Scalars
+ -Absorption Hearts
+
+ --Crossbow pillagers use simple, high damage crossbow bolts that shatter defenses
+Focused Bolt
+Overdraw
+Overpenetration
+Staggering Bolt
+Sundering Bolt
+ --Witches..?
+
+ --Ravagers use extremely high mana, high impact melee and bullheaded bulk to close the gap
 
 
 

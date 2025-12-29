@@ -22,7 +22,9 @@ public class IfScalarEffect implements CardEffect, CardTooltipNester {
 
     CardScalar amount = new ConstantScalerEffect(0);
     List<CardEffect> effects = new ArrayList<>();
+    List<CardEffect> falseEffects = new ArrayList<>();
     boolean greaterElseLesser = true;
+    boolean acceptEqual = false;
 
     @Override
     public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
@@ -35,13 +37,28 @@ public class IfScalarEffect implements CardEffect, CardTooltipNester {
     }
 
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
-        tooltip.add(Text.literal(" ".repeat(depth)).append(
-                Text.translatable("card.battlecards.tooltip.if_scaler",
-                        greaterElseLesser ? "greater than" : "less than",
-                        amount)));
-        for(CardEffect effect : effects){
-            if(effect instanceof CardTooltipNester nester){
-                nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);
+        if(!effects.isEmpty()) {
+            tooltip.add(Text.literal(" ".repeat(depth)).append(
+                    Text.translatable("card.battlecards.tooltip.if_scaler",
+                            (greaterElseLesser ? "greater than" : "less than") +
+                                    (acceptEqual ? " or equal to" : ""),
+                            amount)));
+            for (CardEffect effect : effects) {
+                if (effect instanceof CardTooltipNester nester) {
+                    nester.appendNestedTooltip(world, tooltip, tooltipContext, depth + 1);
+                }
+            }
+        }
+        if(!falseEffects.isEmpty()) {
+            tooltip.add(Text.literal(" ".repeat(depth)).append(
+                    Text.translatable("card.battlecards.tooltip.if_scaler",
+                            (!greaterElseLesser ? "greater than" : "less than") +
+                                    (!acceptEqual ? " or equal to" : ""),
+                            amount)));
+            for (CardEffect effect : falseEffects) {
+                if (effect instanceof CardTooltipNester nester) {
+                    nester.appendNestedTooltip(world, tooltip, tooltipContext, depth + 1);
+                }
             }
         }
     }
@@ -52,12 +69,14 @@ public class IfScalarEffect implements CardEffect, CardTooltipNester {
             IfScalarEffect output = new IfScalarEffect();
 
             output.effects = CardSerializer.readCardEffects(id, "effects",entry);
+            output.falseEffects = CardSerializer.readCardEffects(id, "falseEffects",entry);
             if (output.effects.isEmpty()) {
-                Battlecards.LOGGER.error("no effects on status in {}!",id);
+                Battlecards.LOGGER.error("no effects on scalar in {}!",id);
             }
 
             output.amount = CardSerializer.readOrDefaultScalar(id,"amount",entry,0);
             output.greaterElseLesser = CardSerializer.readOrDefaultBoolean(id,"greaterElseLesser",entry,true);
+            output.acceptEqual = CardSerializer.readOrDefaultBoolean(id,"acceptEqual",entry,false);
 
             return output;
         }

@@ -7,8 +7,8 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 5,
-          "damageType": "minecraft:generic"
+          "amount": 4,
+          "damageType": "minecraft:player_attack"
         },
         {
           "effect": "gain_mana",
@@ -26,7 +26,7 @@
         {
           "effect": "damage",
           "amount": 7,
-          "damageType": "minecraft:generic"
+          "damageType": "minecraft:player_attack"
         },
         {
           "effect": "push",
@@ -47,7 +47,8 @@
         {
           "effect": "push",
           "magnitude": 0.8,
-          "pitch": 5
+          "pitch": 5,
+          "applyKnockbackRes" : false
         }
       ]
     }

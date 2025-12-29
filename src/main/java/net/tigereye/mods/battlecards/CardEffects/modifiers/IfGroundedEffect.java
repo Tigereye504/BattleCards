@@ -20,9 +20,8 @@ import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IfStatusEffect implements CardEffect, CardTooltipNester {
+public class IfGroundedEffect implements CardEffect, CardTooltipNester {
 
-    StatusEffect type = null;
     List<CardEffect> effects = new ArrayList<>();
     List<CardEffect> falseEffects = new ArrayList<>();
     boolean targetElseUser = true;
@@ -40,41 +39,37 @@ public class IfStatusEffect implements CardEffect, CardTooltipNester {
     private void apply(PersistantCardEffectContext pContext, Entity target, CardEffectContext context) {
         Entity subject = targetElseUser ? target : pContext.user;
         if(subject instanceof LivingEntity livingEntity) {
-            if (type != null && livingEntity.hasStatusEffect(type)){
+            if (subject.isOnGround()){
                 for(CardEffect effect : effects) {
                     effect.apply(pContext,context);
                 }
             }
-            else {
-                for(CardEffect effect : falseEffects) {
-                    effect.apply(pContext,context);
+            else{
+                for(CardEffect falseEffect : falseEffects) {
+                    falseEffect.apply(pContext,context);
                 }
             }
         }
     }
 
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
-        if(type != null){
-            if(effects != null) {
-                tooltip.add(Text.literal(" ".repeat(depth)).append(
-                        Text.translatable("card.battlecards.tooltip.if_status",
-                                targetElseUser ? "target" : "user",
-                                type.getName())));
-                for (CardEffect effect : effects) {
-                    if (effect instanceof CardTooltipNester nester) {
-                        nester.appendNestedTooltip(world, tooltip, tooltipContext, depth + 1);
-                    }
+        if(effects != null){
+            tooltip.add(Text.literal(" ".repeat(depth)).append(
+                    Text.translatable("card.battlecards.tooltip.if_grounded",
+                            targetElseUser ? "target" : "user")));
+            for(CardEffect effect : effects){
+                if(effect instanceof CardTooltipNester nester){
+                    nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);
                 }
             }
-            if(falseEffects != null) {
-                tooltip.add(Text.literal(" ".repeat(depth)).append(
-                        Text.translatable("card.battlecards.tooltip.if_status.false",
-                                targetElseUser ? "target" : "user",
-                                type.getName())));
-                for (CardEffect effect : falseEffects) {
-                    if (effect instanceof CardTooltipNester nester) {
-                        nester.appendNestedTooltip(world, tooltip, tooltipContext, depth + 1);
-                    }
+        }
+        if(falseEffects != null){
+            tooltip.add(Text.literal(" ".repeat(depth)).append(
+                    Text.translatable("card.battlecards.tooltip.if_grounded.false",
+                            targetElseUser ? "target" : "user")));
+            for(CardEffect effect : falseEffects){
+                if(effect instanceof CardTooltipNester nester){
+                    nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);
                 }
             }
         }
@@ -82,22 +77,16 @@ public class IfStatusEffect implements CardEffect, CardTooltipNester {
 
     public static class Serializer implements CardEffectSerializer {
         @Override
-        public IfStatusEffect readFromJson(Identifier id, JsonElement entry) {
-            IfStatusEffect output = new IfStatusEffect();
-
-            Identifier statusEffectID = new Identifier(CardSerializer.readOrDefaultString(id,"type",entry,""));
-            output.type = Registries.STATUS_EFFECT.get(statusEffectID);
-            if(output.type == null) {
-                Battlecards.LOGGER.error("Could not find status effect {}!", statusEffectID);
-            }
+        public IfGroundedEffect readFromJson(Identifier id, JsonElement entry) {
+            IfGroundedEffect output = new IfGroundedEffect();
 
             output.effects = CardSerializer.readCardEffects(id, "effects",entry);
             output.falseEffects = CardSerializer.readCardEffects(id, "falseEffects",entry);
             if (output.effects.isEmpty() && output.falseEffects.isEmpty()) {
-                Battlecards.LOGGER.error("no effects on status in {}!",id);
+                Battlecards.LOGGER.error("no effects on grounded in {}!",id);
             }
 
-            output.targetElseUser = CardSerializer.readOrDefaultBoolean(id,"targetPositive",entry,true);
+            output.targetElseUser = CardSerializer.readOrDefaultBoolean(id,"targetElseUser",entry,true);
 
             return output;
         }

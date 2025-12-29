@@ -7,7 +7,7 @@
         {
           "effect": "damage",
           "amount": 4,
-          "damageType": "minecraft:generic"
+          "damageType": "minecraft:player_attack"
         },
         {
           "effect": "gain_mana",
@@ -35,7 +35,7 @@
         {
           "effect": "damage",
           "amount": 7,
-          "damageType": "minecraft:generic"
+          "damageType": "minecraft:player_attack"
         },
         {
           "effect": "transfer_status",

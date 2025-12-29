@@ -5,7 +5,8 @@
     {
       "effect": "push",
       "magnitude": -1,
-      "pitch": 5
+      "pitch": 5,
+      "applyKnockbackRes" : false
     },
     {
       "effect": "apply_status",

@@ -1,0 +1,67 @@
+{
+  "id": "battlecards:illager_pack/shoulder_check",
+  "quickKeywords": ["Attack","Melee","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "isSweep": "false",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:player_attack"
+        },{
+          "effect": "push",
+          "magnitude": 1,
+          "pitch": 10
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 2
+        }
+      ]
+    }
+  ],
+  "cost": 4,
+  "chargeKeywords": ["Attack","Melee","Movement"],
+  "chargeEffects": [
+    {
+      "effect": "repeat",
+      "delay": 1,
+      "count": 10,
+      "effects": [
+        {
+          "effect": "melee",
+          "isSweep": "false",
+          "onHit": [
+            {
+              "effect": "damage",
+              "amount": 7,
+              "damageType": "minecraft:player_attack"
+            },
+            {
+              "effect": "apply_status",
+              "type": "minecraft:weakness",
+              "duration": 10,
+              "magnitude": 2
+            },
+            {
+              "effect": "push",
+              "magnitude": 1.5,
+              "pitch": 0,
+              "overrideVelocity": true,
+              "applyKnockback": false
+            }
+          ]
+        },
+        {
+          "effect": "push",
+          "magnitude": 1,
+          "pitch": 0,
+          "overrideVelocity": true,
+          "applyKnockback": false
+        }
+      ]
+    }
+  ]
+}

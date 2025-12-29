@@ -8,7 +8,7 @@
         {
           "effect": "modify_health",
           "scalingAmount": 0.20,
-          "damageType": "minecraft:generic"
+          "damageType": "minecraft:player_attack"
         }
       ]
     }

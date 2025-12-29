@@ -1,0 +1,64 @@
+{
+  "id": "battlecards:illager_pack/uppercut",
+  "quickKeywords": ["Attack","Melee","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "isSweep": "false",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 5,
+          "damageType": "minecraft:player_attack"
+        },{
+          "effect": "push",
+          "magnitude": 0.3,
+          "pitch": 80,
+          "absolutePitch": true
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 2
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "chargeKeywords": ["Attack","Melee","Movement"],
+  "chargeEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 7,
+          "damageType": "minecraft:generic"
+        },
+        {
+          "effect": "push",
+          "magnitude": 0.9,
+          "pitch": 80,
+          "absolutePitch": true
+        }
+      ]
+    },
+    {
+      "effect": "target_user",
+      "effects": [
+        {
+          "effect": "push",
+          "magnitude": 0.9,
+          "pitch": 80,
+          "absolutePitch": true,
+          "applyKnockbackRes" : false
+        },
+        {
+          "effect": "apply_status",
+          "type": "minecraft:jump_boost",
+          "magnitude": 1,
+          "duration": 35
+        }
+      ]
+    }
+  ]
+}

@@ -7,7 +7,7 @@
         {
           "effect": "damage",
           "amount": 4,
-          "damageType": "minecraft:generic",
+          "damageType": "minecraft:player_attack",
           "afterDamage": [
             {
               "effect": "lifesteal",
@@ -30,7 +30,7 @@
         {
           "effect": "damage",
           "amount": 7,
-          "damageType": "minecraft:generic",
+          "damageType": "minecraft:player_attack",
           "afterDamage": [
             {
               "effect": "lifesteal",

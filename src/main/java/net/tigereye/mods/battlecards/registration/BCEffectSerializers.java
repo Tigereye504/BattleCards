@@ -18,6 +18,7 @@ public class BCEffectSerializers {
         CardSerializer.registerCardEffectSerializer("throw_cards",new ThrowCardsEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("entities_in_radius",new EntitiesInRadiusEffect.Serializer());
         //modifiers
+        CardSerializer.registerCardEffectSerializer("if_grounded",new IfGroundedEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("if_status",new IfStatusEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("if_scalar",new IfScalarEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("target_user",new TargetUserEffect.Serializer());

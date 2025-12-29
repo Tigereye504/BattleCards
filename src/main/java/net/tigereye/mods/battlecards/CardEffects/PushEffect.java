@@ -26,6 +26,7 @@ public class PushEffect implements CardEffect, CardTooltipNester {
     public CardScalar yaw = new ConstantScalerEffect(0);
     public CardScalar magnitude = new ConstantScalerEffect(0.3f);
     public boolean pushRelativeToUserElseTarget = true;
+    public boolean absolutePitch = false;
     public boolean applyKnockbackRes = true;
     public boolean overrideVelocity = false;
 
@@ -41,7 +42,7 @@ public class PushEffect implements CardEffect, CardTooltipNester {
 
     private void apply(PersistantCardEffectContext pContext, Entity target, CardEffectContext context) {
         Entity relativeEntity = pushRelativeToUserElseTarget ? pContext.user : target;
-        float pushPitch = pitch.getValue(pContext,context) - relativeEntity.getPitch();
+        float pushPitch = pitch.getValue(pContext,context) - (absolutePitch ? 0 : relativeEntity.getPitch());
         float pushYaw =  yaw.getValue(pContext,context) - relativeEntity.getYaw();
         Vec3d pushVector = new Vec3d(0,0,magnitude.getValue(pContext,context))
                 .rotateX((float) (pushPitch*Math.PI/180))
@@ -77,8 +78,9 @@ public class PushEffect implements CardEffect, CardTooltipNester {
             output.yaw = CardSerializer.readOrDefaultScalar(id, "yaw",entry,0);
             output.magnitude = CardSerializer.readOrDefaultScalar(id, "magnitude",entry,0.3f);
             output.pushRelativeToUserElseTarget = CardSerializer.readOrDefaultBoolean(id, "angleRelativeToUser",entry,true);
-            output.applyKnockbackRes = CardSerializer.readOrDefaultBoolean(id, "applyKnockback",entry,true);
+            output.applyKnockbackRes = CardSerializer.readOrDefaultBoolean(id, "applyKnockbackRes",entry,true);
             output.overrideVelocity = CardSerializer.readOrDefaultBoolean(id, "overrideVelocity",entry,false);
+            output.absolutePitch = CardSerializer.readOrDefaultBoolean(id, "absolutePitch",entry,false);
 
             return output;
         }
