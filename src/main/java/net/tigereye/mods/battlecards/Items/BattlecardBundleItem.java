@@ -44,7 +44,8 @@ public class BattlecardBundleItem extends Item{
                 this.playRemoveOneSound(player);
                 removeFirstCard(bundleItemStack).ifPresent(removedStack -> addToBundle(bundleItemStack, slot.insertStack(removedStack)));
             } else if (cardStack.getItem() instanceof BattleCardItem) {
-                int j = addToBundle(bundleItemStack, slot.takeStackRange(cardStack.getCount(), 64 - getBundleOccupancy(cardStack), player));
+                int roomLeftForCard = 64 - getBundleOccupancy(bundleItemStack);
+                int j = addToBundle(bundleItemStack, slot.takeStackRange(cardStack.getCount(), roomLeftForCard, player));
                 if (j > 0) {
                     this.playInsertSound(player);
                 }
@@ -86,14 +87,14 @@ public class BattlecardBundleItem extends Item{
             if (!nbtCompound.contains("Items")) {
                 nbtCompound.put("Items", new NbtList());
             }
-            int k = stack.getCount();
+            int k = Math.min(stack.getCount(), (64 - getBundleOccupancy(bundle)));
             if (k == 0) {
                 return 0;
             } else {
                 NbtList nbtList = nbtCompound.getList("Items", NbtElement.COMPOUND_TYPE);
                 Optional<NbtCompound> optional = canMergeStack(stack, nbtList);
                 if (optional.isPresent()) {
-                    NbtCompound nbtCompound2 = (NbtCompound)optional.get();
+                    NbtCompound nbtCompound2 = optional.get();
                     ItemStack itemStack = ItemStack.fromNbt(nbtCompound2);
                     itemStack.increment(k);
                     itemStack.writeNbt(nbtCompound2);
