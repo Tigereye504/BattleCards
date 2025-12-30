@@ -1,5 +1,5 @@
 {
-  "id": "battlecards:illager_pack/overpenetration",
+  "id": "battlecards:illager_pack/pillager/sundering_bolt",
   "quickKeywords": ["Attack","Projectile","Mana Generator"],
   "quickEffects": [
     {
@@ -18,24 +18,22 @@
       ]
     }
   ],
-  "cost": 7,
+  "cost": 3,
   "chargeKeywords": ["Attack","Projectile","Status"],
   "chargeEffects": [
     {
       "effect": "throw_card",
-      "speed": 4,
-      "piercing": 4,
+      "speed": 3,
       "onHit": [
+        {
+          "effect": "damage",
+          "amount": 9,
+          "damageType": "minecraft:arrow"
+        },
         {
           "effect": "apply_status",
           "type": "battlecards:sundered",
-          "magnitude": 1,
-          "duration": 200
-        },
-        {
-          "effect": "damage",
-          "amount": 14,
-          "damageType": "minecraft:arrow"
+          "duration": 100
         }
       ]
     }

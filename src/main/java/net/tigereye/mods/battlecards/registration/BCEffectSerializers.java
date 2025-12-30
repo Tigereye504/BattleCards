@@ -31,6 +31,7 @@ public class BCEffectSerializers {
         CardSerializer.registerCardEffectSerializer("addition_scalar",new AdditionScalerEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("bounding_scalar",new BoundingScalerEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("multiplication_scalar",new MultiplicationScalerEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("absorption_scalar",new AbsorptionScalarEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("health_scalar",new HealthScalarEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("hunger_scalar",new HungerScalarEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("random_scalar",new RandomScalarEffect.Serializer());
@@ -45,6 +46,7 @@ public class BCEffectSerializers {
         CardSerializer.registerCardEffectSerializer("damage",new DamageEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("gain_mana",new GainManaEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("lifesteal",new LifestealEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("modify_absorption",new ModifyAbsorptionEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("modify_breath",new ModifyBreathEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("modify_health",new ModifyHealthEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("modify_hunger",new ModifyHungerEffect.Serializer());

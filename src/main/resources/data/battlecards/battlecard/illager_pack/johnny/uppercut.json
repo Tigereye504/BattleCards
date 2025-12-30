@@ -1,5 +1,5 @@
 {
-  "id": "battlecards:illager_pack/uppercut",
+  "id": "battlecards:illager_pack/johnny/uppercut",
   "quickKeywords": ["Attack","Melee","Mana Generator"],
   "quickEffects": [
     {
@@ -8,7 +8,7 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 5,
+          "amount": 11,
           "damageType": "minecraft:player_attack"
         },{
           "effect": "push",

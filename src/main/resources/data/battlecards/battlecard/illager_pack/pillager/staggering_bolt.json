@@ -1,5 +1,5 @@
 {
-  "id": "battlecards:illager_pack/sundering_bolt",
+  "id": "battlecards:illager_pack/pillager/staggering_bolt",
   "quickKeywords": ["Attack","Projectile","Mana Generator"],
   "quickEffects": [
     {
@@ -24,16 +24,28 @@
     {
       "effect": "throw_card",
       "speed": 3,
+      "piercing": 4,
       "onHit": [
         {
           "effect": "damage",
-          "amount": 9,
+          "amount": 7,
           "damageType": "minecraft:arrow"
         },
         {
           "effect": "apply_status",
-          "type": "battlecards:sundered",
-          "duration": 100
+          "type": "minecraft:slowness",
+          "magnitude": 3,
+          "duration": 10
+        },
+        {
+          "effect": "apply_status",
+          "type": "minecraft:blindness",
+          "duration": 10
+        },
+        {
+          "effect": "push",
+          "magnitude": 0.5,
+          "pitch": 5
         }
       ]
     }

@@ -1,5 +1,5 @@
 {
-  "id": "battlecards:illager_pack/shoulder_check",
+  "id": "battlecards:illager_pack/johnny/shoulder_check",
   "quickKeywords": ["Attack","Melee","Mana Generator"],
   "quickEffects": [
     {
@@ -12,7 +12,7 @@
           "damageType": "minecraft:player_attack"
         },{
           "effect": "push",
-          "magnitude": 1,
+          "magnitude": 0.6,
           "pitch": 10
         },
         {

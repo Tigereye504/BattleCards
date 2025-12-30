@@ -23,7 +23,7 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 11,
+          "amount": 9,
           "damageType": "minecraft:player_attack"
         },
         {

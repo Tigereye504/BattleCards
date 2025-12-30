@@ -8,6 +8,9 @@ Or I could say 'fuck it', have all projectile cards throw cards, and just upgrad
 
 TODO: fix deck breaking with second stack of matching card
 TODO: fix sleeves sometimes eating cards (seems to happen when hotbar slot of card doesn't change?)
+TODO: have decks store hotbar items and lock out droping/moving items from hotbar while active
+TODO: after hotbar update, have decks 'pause' on short click and reset on long click
+TODO: after hotbar update, maybe have mana be managed by active deck
 
 Cards will drop in Booster Packs, which will usually be related to the dropping mob.
 Likely, any mob can drop a generic pack. That way killing modded critters is still worth something.
@@ -17,7 +20,7 @@ This mod is problably just going to be the core mechanics and projectiles and su
 If stuff starts acting strange, consider:
 Make CardEffects and BattleCardProjectiles NBT serializable.
 
-TODO: Make Cards (Mostly card art, now)!
+TODO: Make Cards!
 
 --Card Sleeves and Damage Values--
 sleeveless cards should be akin to stone weapons, while netherite-sleeved cards should be akin to enchanted netherite weapons
@@ -36,9 +39,9 @@ to reach new breakpoints where you kill in fewer hits.
 'strong'          - 3 - an axe chop.    7 dmg       10.5 dmg    14 dmg      15.75 dmg
 'very strong'     - 4 - a trident stab. 9           13.5        18          *20.25* dmg
 'extremely strong'- 5 - critical axe.   11          16.5        *22*        24.75 dmg
-'deadly'          - 6 - crit str axe.   14          *21*        ~*28*~      ~*31.5*~ dmg
-'very deadly'     - 7 - crit str II,axe 17          25.5        30          33.75  dmg
-'catastrophic'    - 9? - iron golem      *20*        ~*30*~      **40**      **45** dmg
+'deadly'          - 7 - crit str axe.   14          *21*        ~*28*~      ~*31.5*~ dmg
+'very deadly'     - 9 - crit str II,axe 17          25.5        30          33.75  dmg
+'catastrophic'    - 12 - iron golem      *20*        ~*30*~      **40**      **45** dmg
 
 Leather: +25% damage, shuffled into draw pile twice when added to draw pile
 Gold: +25% damage, half mana cost (round up)
@@ -159,10 +162,10 @@ The Way of Reaping (Illagers)
  -Lunging Combo Attacks
 ET  Longsword
 ET  Uppercut
-ET  Shoulder Check - Q: Weak focused melee, 1 mana and knockback. - A(4) Charge forward with active hitbox, inflicting Strong damage and dragging targets
+ET  Shoulder Check - Q: Weak focused melee, 2 mana and knockback. - A(4) Charge forward with active hitbox, inflicting Strong damage and dragging targets
     Overrun
-    Desperation - Q: Weak damage, mana scales with missing health - A(10) Catastrophic damage,
-    Yeild Your Flesh
+    Desperation - Q: Weak focused melee, mana scales with missing health - A(10) Weak focused melee does Catastrophic damage and grants self Absorption III briefly.
+    Yield Your Flesh - Q: Moderate focused melee invites harm for 3 mana - A(3) Moderate to Deadly focused melee attack based on missing health.
     Revenge
     Blood for Blood
  -Trading Attacks (inflict momentary weakness to counter hits)

@@ -1,5 +1,5 @@
 {
-  "id": "battlecards:illager_pack/yield_your_flesh",
+  "id": "battlecards:illager_pack/johnny/yield_your_flesh",
   "quickKeywords": ["Attack","Melee","Mana Generator"],
   "quickEffects": [
     {
@@ -8,12 +8,12 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 4,
+          "amount": 5,
           "damageType": "minecraft:player_attack"
         },
         {
           "effect": "push",
-          "magnitude": -0.4,
+          "magnitude": -0.6,
           "pitch": -5
         },
         {
@@ -21,7 +21,7 @@
           "effects": [
             {
               "effect": "push",
-              "magnitude": 0.4,
+              "magnitude": 0.6,
               "pitch": 5,
               "applyKnockbackRes" : false
             }
@@ -49,7 +49,7 @@
             {
               "effect": "damage",
               "amount": 5,
-              "scalingAmount": 0.5,
+              "scalingAmount": 0.75,
               "damageType": "minecraft:player_attack"
             }
           ]

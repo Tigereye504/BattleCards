@@ -1,5 +1,5 @@
 {
-  "id": "battlecards:illager_pack/desperation",
+  "id": "battlecards:illager_pack/johnny/desperation",
   "quickKeywords": ["Attack","Melee","Mana Generator"],
   "quickEffects": [
     {
@@ -30,8 +30,8 @@
       ]
     }
   ],
-  "cost": 10,
-  "chargeKeywords": ["Attack","Melee"],
+  "cost": 8,
+  "chargeKeywords": ["Attack","Melee","Status"],
   "chargeEffects": [
     {
       "effect": "melee",
@@ -44,22 +44,21 @@
           "damageType": "minecraft:player_attack"
         },
         {
-          "effect": "apply_status",
-          "type": "minecraft:weakness",
-          "duration": 10,
-          "magnitude": 3
-        },
-        {
           "effect": "target_user",
           "effects": [
             {
-              "effect": "modify_health",
-              "amount": -2,
-              "comment": "perhaps instead of catastrophic damage, gain absorption hearts "
+              "effect": "apply_status",
+              "type": "minecraft:absorption",
+              "duration": 200,
+              "magnitude": 2
             }
           ]
         }
       ]
+    },
+    {
+      "effect": "modify_health",
+      "amount": -2
     }
   ]
 }

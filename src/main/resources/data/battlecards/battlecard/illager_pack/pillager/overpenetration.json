@@ -1,5 +1,5 @@
 {
-  "id": "battlecards:illager_pack/staggering_bolt",
+  "id": "battlecards:illager_pack/pillager/overpenetration",
   "quickKeywords": ["Attack","Projectile","Mana Generator"],
   "quickEffects": [
     {
@@ -18,34 +18,24 @@
       ]
     }
   ],
-  "cost": 3,
+  "cost": 7,
   "chargeKeywords": ["Attack","Projectile","Status"],
   "chargeEffects": [
     {
       "effect": "throw_card",
-      "speed": 3,
+      "speed": 4,
       "piercing": 4,
       "onHit": [
         {
+          "effect": "apply_status",
+          "type": "battlecards:sundered",
+          "magnitude": 1,
+          "duration": 200
+        },
+        {
           "effect": "damage",
-          "amount": 7,
+          "amount": 14,
           "damageType": "minecraft:arrow"
-        },
-        {
-          "effect": "apply_status",
-          "type": "minecraft:slowness",
-          "magnitude": 3,
-          "duration": 10
-        },
-        {
-          "effect": "apply_status",
-          "type": "minecraft:blindness",
-          "duration": 10
-        },
-        {
-          "effect": "push",
-          "magnitude": 0.5,
-          "pitch": 5
         }
       ]
     }

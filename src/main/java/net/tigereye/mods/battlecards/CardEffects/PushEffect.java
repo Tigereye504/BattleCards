@@ -60,6 +60,7 @@ public class PushEffect implements CardEffect, CardTooltipNester {
         else {
             target.addVelocity(pushVector.multiply(Math.max(0, 1 - KBRes)));
         }
+        target.limitFallDistance();
         target.velocityModified = true;
         target.velocityDirty = true;
     }
