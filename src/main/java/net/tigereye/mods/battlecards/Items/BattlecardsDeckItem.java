@@ -23,29 +23,29 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
 
     private static final String DECK_ACTIVE_NBTKEY = "deck_active";
     public static final String DECK_DRAWPILE_NBTKEY = "deck_drawpile";
+    public static final String HOTBAR_STORAGE_NBTKEY = "hotbar_storage";
+    public static final String HOTBAR_POSITION_NBTKEY = "hotbar_position";
     public BattlecardsDeckItem(Settings settings) {
         super(settings);
     }
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-
         ItemStack itemStack = user.getStackInHand(hand);
-        if(getBundleOccupancy(itemStack) > 0) {
+        if (getBundleOccupancy(itemStack) > 0) {
             if (!itemStack.getOrCreateNbt().contains(DECK_ACTIVE_NBTKEY)) {
-                activateDeck(world, user, itemStack);
-            }
-            else {
-                deactivateDeck(world, user, itemStack);
+                activateDeck(user, itemStack);
+            } else {
+                deactivateDeck(user, itemStack);
             }
         }
         return TypedActionResult.consume(itemStack);
     }
 
-    private void activateDeck(World world, PlayerEntity user, ItemStack itemStack) {
+    private void activateDeck(PlayerEntity user, ItemStack deck) {
         //become active with brief cooldown (to avoid deactivating by mistake)
-        user.getItemCooldownManager().set(itemStack.getItem(),20);
-        NbtCompound nbt = itemStack.getOrCreateNbt();
+        user.getItemCooldownManager().set(deck.getItem(),20);
+        NbtCompound nbt = deck.getOrCreateNbt();
         nbt.putBoolean(DECK_ACTIVE_NBTKEY,true);
         UUID deck_UUID;
         if(nbt.containsUuid(CARD_OWNER_UUID_NBTKEY)){
@@ -55,9 +55,11 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
             deck_UUID = UUID.randomUUID();
             nbt.putUuid(CARD_OWNER_UUID_NBTKEY,deck_UUID);
         }
+        //stash items from hotbar
+        stashHotbar(user,deck);
         //duplicate the inventory into the draw pile
         List<ItemStack> drawPile = new ArrayList<>();
-        getBundledStacks(itemStack).forEach((card) -> {
+        getBundledStacks(deck).forEach((card) -> {
             ItemStack tempCard = card.copy();
             tempCard.setCount(1);
             tempCard.getOrCreateNbt().putUuid(CARD_OWNER_UUID_NBTKEY,deck_UUID);
@@ -71,10 +73,37 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
         //save the draw pile
         pushDrawPile(nbt,drawPile);
         //for each empty slot in the hotbar, draw a card
-        while(drawCardToHotbar(world, user, itemStack));
+        while(drawCardToHotbar(user, deck));
     }
 
-    private void deactivateDeck(World world, PlayerEntity user, ItemStack deck) {
+    private void stashHotbar(PlayerEntity user, ItemStack deck) {
+        NbtCompound nbt = deck.getOrCreateNbt();
+        if (!nbt.contains(HOTBAR_STORAGE_NBTKEY)) {
+            nbt.put(HOTBAR_STORAGE_NBTKEY, new NbtList());
+        }
+        NbtList nbtList = nbt.getList(HOTBAR_STORAGE_NBTKEY, NbtElement.COMPOUND_TYPE);
+        PlayerInventory inventory = user.getInventory();
+        int hotbarPosition = -1;
+        for (int i = 0; i < 9; i++) {
+            ItemStack item;
+            if(inventory.getStack(i) != deck) {
+                item = inventory.removeStack(i);
+            }
+            else{
+                hotbarPosition = i;
+                item = ItemStack.EMPTY;
+            }
+            NbtCompound itemNBT = new NbtCompound();
+            item.writeNbt(itemNBT);
+            nbtList.add(i, itemNBT);
+        }
+        nbt.putInt(HOTBAR_POSITION_NBTKEY,hotbarPosition);
+        if(hotbarPosition != -1) {
+            inventory.insertStack(8, inventory.removeStack(hotbarPosition));
+        }
+    }
+
+    private void deactivateDeck(PlayerEntity user, ItemStack deck) {
         NbtCompound nbt = deck.getOrCreateNbt();
         nbt.remove(DECK_ACTIVE_NBTKEY);
         //destroy all deck-owned BattleCardItems
@@ -94,6 +123,33 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
         //go on a long cooldown
         //TODO: make this put all decks on cooldown (use a tag)
         user.getItemCooldownManager().set(deck.getItem(),200);
+        //release items from hotbar storage
+        releaseHotbar(user,deck);
+    }
+
+    private void releaseHotbar(PlayerEntity user, ItemStack deck) {
+        PlayerInventory inventory = user.getInventory();
+        NbtCompound nbt = deck.getOrCreateNbt();
+        int oldDeckPosition = nbt.getInt(HOTBAR_POSITION_NBTKEY);
+        int deckPosition = inventory.indexOf(deck);
+        if(oldDeckPosition >= 0 && oldDeckPosition < 9 && deckPosition >= 0 && deckPosition < 9){
+            inventory.removeStack(deckPosition);
+        }
+        if (!nbt.contains(HOTBAR_STORAGE_NBTKEY)) {
+            nbt.put(HOTBAR_STORAGE_NBTKEY, new NbtList());
+        }
+        NbtList nbtList = nbt.getList(HOTBAR_STORAGE_NBTKEY, NbtElement.COMPOUND_TYPE);
+        int i = 0;
+        while(!nbtList.isEmpty()) {
+            ItemStack item = ItemStack.fromNbt((NbtCompound) nbtList.remove(0));
+            if (item.isEmpty() || !inventory.insertStack(i,item)) {
+                user.dropItem(item, true);
+            }
+            i++;
+        }
+        if(oldDeckPosition >= 0 && oldDeckPosition < 9 && deckPosition >= 0 && deckPosition < 9) {
+            inventory.insertStack(oldDeckPosition, deck);
+        }
     }
 
     private UUID getOrCreateUUID(ItemStack deck){
@@ -109,7 +165,7 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
         return deck_UUID;
     }
 
-    public boolean drawCardToHotbar(World world, PlayerEntity user, ItemStack deck){
+    public boolean drawCardToHotbar(PlayerEntity user, ItemStack deck){
         //find an empty slot. return false if cant
         PlayerInventory inv = user.getInventory();
         int emptySlot = inv.getEmptySlot();
@@ -134,7 +190,7 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
                 }
             }
             if(deactivate){
-                deactivateDeck(world, user, deck);
+                deactivateDeck(user, deck);
             }
             return false;
         }
@@ -146,15 +202,7 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
     }
 
     public ItemStack drawCard(ItemStack deck){
-        //if the draw pile isn't empty:
-        //pop top card of draw pile
-        //return card
-        //if the draw pile is empty, return null
-        ItemStack card = popDrawPile(deck.getOrCreateNbt());
-        if(card != null){
-            return card;
-        }
-        return null;
+        return popDrawPile(deck.getOrCreateNbt());
     }
 
     public void afterOwnedCardPlayed(World world, PlayerEntity user, ItemStack deck, ItemStack card){
@@ -166,7 +214,7 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
             //else, destroy played card.
             user.getInventory().removeOne(card);
             //draw a new card to hotbar.
-            drawCardToHotbar(world, user, deck);
+            drawCardToHotbar(user, deck);
         }
     }
 
@@ -214,6 +262,5 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
         return false;
     }
 
-    /*********Deck Management**********/
     //TODO: block the add/remove card functions while active
 }
