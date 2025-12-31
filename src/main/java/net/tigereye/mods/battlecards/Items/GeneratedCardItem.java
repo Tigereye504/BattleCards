@@ -8,6 +8,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -55,9 +56,9 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
     private void afterCardEffects(ItemStack stack, World world, LivingEntity user) {
         //if owned, call the owner's afterOwnedCardPlayed function.
         if(user instanceof PlayerEntity pEntity) {
-            if(CardOwningItem.findOwningItem(stack, pEntity,(coi,owner) -> {
-                coi.afterOwnedCardPlayed(world,pEntity,owner,stack);
-            })){
+            ItemStack owner = CardOwningItem.findOwningItemInvSlot(stack, pEntity);
+            if(owner != null){
+                ((CardOwningItem)owner.getItem()).afterOwnedCardPlayed(world,pEntity,owner,stack);
                 pEntity.getItemCooldownManager().set(stack.getItem(),OWNED_COOLDOWN);
             }
             else{
@@ -70,6 +71,15 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
+        if(itemStack.hasNbt()){
+            NbtCompound nbt = itemStack.getNbt();
+            if(CardOwningItem.isCardOwned(itemStack)){
+                if(CardOwningItem.findOwningItemInvSlot(itemStack,user) == null){
+                    itemStack.setCount(0);
+                    return TypedActionResult.consume(itemStack);
+                }
+            }
+        }
         user.setCurrentHand(hand);
         return TypedActionResult.consume(itemStack);
     }

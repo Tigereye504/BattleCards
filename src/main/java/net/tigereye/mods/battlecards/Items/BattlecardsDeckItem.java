@@ -21,7 +21,6 @@ import java.util.UUID;
 //TODO: display dyecolor
 public class BattlecardsDeckItem extends BattlecardBundleItem implements DyeableItem, CardOwningItem {
 
-    private static final String DECK_ACTIVE_NBTKEY = "deck_active";
     public static final String DECK_DRAWPILE_NBTKEY = "deck_drawpile";
     public static final String HOTBAR_STORAGE_NBTKEY = "hotbar_storage";
     public static final String HOTBAR_POSITION_NBTKEY = "hotbar_position";
@@ -33,7 +32,7 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
         if (getBundleOccupancy(itemStack) > 0) {
-            if (!itemStack.getOrCreateNbt().contains(DECK_ACTIVE_NBTKEY)) {
+            if (!itemStack.getOrCreateNbt().contains(CARD_OWNER_UUID_NBTKEY)) {
                 activateDeck(user, itemStack);
             } else {
                 deactivateDeck(user, itemStack);
@@ -46,15 +45,7 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
         //become active with brief cooldown (to avoid deactivating by mistake)
         user.getItemCooldownManager().set(deck.getItem(),20);
         NbtCompound nbt = deck.getOrCreateNbt();
-        nbt.putBoolean(DECK_ACTIVE_NBTKEY,true);
-        UUID deck_UUID;
-        if(nbt.containsUuid(CARD_OWNER_UUID_NBTKEY)){
-            deck_UUID = nbt.getUuid(CARD_OWNER_UUID_NBTKEY);
-        }
-        else{
-            deck_UUID = UUID.randomUUID();
-            nbt.putUuid(CARD_OWNER_UUID_NBTKEY,deck_UUID);
-        }
+        UUID deck_UUID = getOrCreateUUID(deck);
         //stash items from hotbar
         stashHotbar(user,deck);
         //duplicate the inventory into the draw pile
@@ -85,11 +76,8 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
         PlayerInventory inventory = user.getInventory();
         int hotbarPosition = -1;
         for (int i = 0; i < 9; i++) {
-            ItemStack item;
-            if(inventory.getStack(i) != deck) {
-                item = inventory.removeStack(i);
-            }
-            else{
+            ItemStack item = inventory.removeStack(i);
+            if(item == deck) {
                 hotbarPosition = i;
                 item = ItemStack.EMPTY;
             }
@@ -99,16 +87,16 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
         }
         nbt.putInt(HOTBAR_POSITION_NBTKEY,hotbarPosition);
         if(hotbarPosition != -1) {
-            inventory.insertStack(8, inventory.removeStack(hotbarPosition));
+            inventory.setStack(8, deck);
         }
     }
 
     private void deactivateDeck(PlayerEntity user, ItemStack deck) {
         NbtCompound nbt = deck.getOrCreateNbt();
-        nbt.remove(DECK_ACTIVE_NBTKEY);
         //destroy all deck-owned BattleCardItems
         PlayerInventory inv = user.getInventory();
         UUID deckUUID = getOrCreateUUID(deck);
+        nbt.remove(CARD_OWNER_UUID_NBTKEY);
         for (int i = 0; i < inv.size(); i++) {
             ItemStack stack = inv.getStack(i);
             if(stack != deck && stack.getItem() instanceof BattleCardItem){
@@ -142,13 +130,18 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
         int i = 0;
         while(!nbtList.isEmpty()) {
             ItemStack item = ItemStack.fromNbt((NbtCompound) nbtList.remove(0));
-            if (item.isEmpty() || !inventory.insertStack(i,item)) {
-                user.dropItem(item, true);
+            if (!item.isEmpty()) {
+                if(inventory.getStack(i) != ItemStack.EMPTY){
+                    user.dropItem(inventory.removeStack(i),true);
+                }
+                if(!inventory.insertStack(i,item)) {
+                    user.dropItem(item, true);
+                }
             }
             i++;
         }
         if(oldDeckPosition >= 0 && oldDeckPosition < 9 && deckPosition >= 0 && deckPosition < 9) {
-            inventory.insertStack(oldDeckPosition, deck);
+            inventory.setStack(oldDeckPosition, deck);
         }
     }
 
