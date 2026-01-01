@@ -1,5 +1,6 @@
 package net.tigereye.mods.battlecards.Items;
 
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.*;
@@ -8,6 +9,7 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.CardEffects.RetainCardEffect;
 import net.tigereye.mods.battlecards.Items.interfaces.BattleCardItem;
@@ -29,8 +31,58 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
     }
 
     @Override
+    public UseAction getUseAction(ItemStack stack) {
+        return UseAction.BOW;
+    }
+
+    @Override
+    public int getMaxUseTime(ItemStack stack) {
+        return 5;
+    }
+
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack itemStack = user.getStackInHand(hand);
+        user.setCurrentHand(hand);
+        return TypedActionResult.consume(itemStack);
+    }
+
+    @Override
+    public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
+        if(user instanceof PlayerEntity pEntity) {
+            performQuickEffect(pEntity, stack);
+        }
+    }
+
+    @Override
+    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
+        if(user instanceof PlayerEntity pEntity) {
+            performChargeEffect(pEntity, stack);
+        }
+        return stack;
+    }
+
+    private void performQuickEffect(PlayerEntity user, ItemStack itemStack) {
+        //there are three states a deck can be in; Active, Inactive, and Paused
+        //When Inactive, a quick use will store the hotbar, draw a new hand, make the deck Active (activateDeck)
+        //When Active, a quick use will store the current hand, and retrieve the hotbar, make the deck Paused (pauseDeck)
+        //When Paused, a quick use will store the hotbar, retrieve the stored hand, and resume play (resumeDeck)
+        if (getBundleOccupancy(itemStack) > 0) {
+            //if the deck lacks an owner UUID, it is inactive
+            if (!itemStack.getOrCreateNbt().contains(CARD_OWNER_UUID_NBTKEY)) {
+                activateDeck(user, itemStack);
+            }
+            //if it has a stored hotbar, it is active
+            else if(itemStack.getOrCreateNbt().contains(HOTBAR_STORAGE_NBTKEY)){
+                pauseDeck(user, itemStack);
+            }
+            //if it has a UUID but not a hotbar, it is paused
+            else {
+                resumeDeck(user, itemStack);
+            }
+        }
+    }
+
+    private void performChargeEffect(PlayerEntity user, ItemStack itemStack) {
         if (getBundleOccupancy(itemStack) > 0) {
             if (!itemStack.getOrCreateNbt().contains(CARD_OWNER_UUID_NBTKEY)) {
                 activateDeck(user, itemStack);
@@ -38,7 +90,6 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
                 deactivateDeck(user, itemStack);
             }
         }
-        return TypedActionResult.consume(itemStack);
     }
 
     private void activateDeck(PlayerEntity user, ItemStack deck) {
@@ -123,26 +174,52 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
         if(oldDeckPosition >= 0 && oldDeckPosition < 9 && deckPosition >= 0 && deckPosition < 9){
             inventory.removeStack(deckPosition);
         }
-        if (!nbt.contains(HOTBAR_STORAGE_NBTKEY)) {
-            nbt.put(HOTBAR_STORAGE_NBTKEY, new NbtList());
-        }
-        NbtList nbtList = nbt.getList(HOTBAR_STORAGE_NBTKEY, NbtElement.COMPOUND_TYPE);
-        int i = 0;
-        while(!nbtList.isEmpty()) {
-            ItemStack item = ItemStack.fromNbt((NbtCompound) nbtList.remove(0));
-            if (!item.isEmpty()) {
-                if(inventory.getStack(i) != ItemStack.EMPTY){
-                    user.dropItem(inventory.removeStack(i),true);
+        if (nbt.contains(HOTBAR_STORAGE_NBTKEY)) {
+            NbtList nbtList = nbt.getList(HOTBAR_STORAGE_NBTKEY, NbtElement.COMPOUND_TYPE);
+            int i = 0;
+            while (!nbtList.isEmpty()) {
+                ItemStack item = ItemStack.fromNbt((NbtCompound) nbtList.remove(0));
+                if (!item.isEmpty()) {
+                    if (inventory.getStack(i) != ItemStack.EMPTY) {
+                        user.dropItem(inventory.removeStack(i), true);
+                    }
+                    if (!inventory.insertStack(i, item)) {
+                        user.dropItem(item, true);
+                    }
                 }
-                if(!inventory.insertStack(i,item)) {
-                    user.dropItem(item, true);
-                }
+                i++;
             }
-            i++;
+            nbt.remove(HOTBAR_STORAGE_NBTKEY);
         }
         if(oldDeckPosition >= 0 && oldDeckPosition < 9 && deckPosition >= 0 && deckPosition < 9) {
             inventory.setStack(oldDeckPosition, deck);
         }
+    }
+
+    private void pauseDeck(PlayerEntity user, ItemStack deck) {
+        //to pause a deck, we must find our owned cards and put them back on top of the deck to redraw
+        NbtCompound nbt = deck.getOrCreateNbt();
+        PlayerInventory inv = user.getInventory();
+        UUID deckUUID = getOrCreateUUID(deck);
+        for (int i = inv.size()-1; i >= 0; i--) {
+            ItemStack stack = inv.getStack(i);
+            if(stack != deck && stack.getItem() instanceof BattleCardItem){
+                NbtCompound cardNbt = stack.getNbt();
+                if(cardNbt != null && cardNbt.contains(CARD_OWNER_UUID_NBTKEY) && cardNbt.getUuid(CARD_OWNER_UUID_NBTKEY).compareTo(deckUUID) == 0){
+                    inv.removeStack(i);
+                    returnCard(nbt,stack);
+                }
+            }
+        }
+        //once we have done so, we can releaseHotbar, finishing the transition to a Paused deck
+        releaseHotbar(user,deck);
+    }
+
+    private void resumeDeck(PlayerEntity user, ItemStack deck) {
+        //to resume a deck, we must stash the hotbar
+        stashHotbar(user,deck);
+        //once we have done so, we can redraw our hand
+        while(drawCardToHotbar(user,deck));
     }
 
     private UUID getOrCreateUUID(ItemStack deck){
@@ -232,6 +309,16 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
         NbtCompound itemNBT = new NbtCompound();
         card.writeNbt(itemNBT);
         nbtList.add(0, itemNBT);
+    }
+
+    protected void returnCard(NbtCompound nbt, ItemStack card){
+        if (!nbt.contains(DECK_DRAWPILE_NBTKEY)) {
+            nbt.put(DECK_DRAWPILE_NBTKEY, new NbtList());
+        }
+        NbtList nbtList = nbt.getList(DECK_DRAWPILE_NBTKEY, NbtElement.COMPOUND_TYPE);
+        NbtCompound itemNBT = new NbtCompound();
+        card.writeNbt(itemNBT);
+        nbtList.add(itemNBT);
     }
 
     protected ItemStack popDrawPile(NbtCompound nbt){
