@@ -6,8 +6,6 @@ Specifically, put hooks at the start of the various trigger functions.
 Actually, PersistantProjectileEntities have easily customized damage. so just set that to zero and handle it myself.
 Or I could say 'fuck it', have all projectile cards throw cards, and just upgrade the snot out of the card projectile
 
-TODO: fix sleeves sometimes eating cards (seems to happen when hotbar slot of card doesn't change?)
-TODO: have decks store hotbar items and lock out droping/moving items from hotbar while active
 TODO: after hotbar update, have decks 'pause' on short click and reset on long click
 TODO: after hotbar update, maybe have mana be managed by active deck
 

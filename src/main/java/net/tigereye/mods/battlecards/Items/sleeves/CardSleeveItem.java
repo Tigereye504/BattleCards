@@ -19,27 +19,27 @@ public class CardSleeveItem extends Item implements CardSleeve{
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
 
         ItemStack sleeveItemStack = user.getStackInHand(hand);
-        ItemStack otherItemStack = user.getStackInHand(hand == Hand.MAIN_HAND ? Hand.OFF_HAND : Hand.MAIN_HAND);
-        if(otherItemStack.getItem() instanceof BattleCardItem bci){
-            if(otherItemStack.hasNbt() && otherItemStack.getNbt().containsUuid(CardOwningItem.CARD_OWNER_UUID_NBTKEY)){
+        ItemStack cardItemStack = user.getStackInHand(hand == Hand.MAIN_HAND ? Hand.OFF_HAND : Hand.MAIN_HAND);
+        if(cardItemStack.getItem() instanceof BattleCardItem bci){
+            if(CardOwningItem.isCardOwned(cardItemStack)){
                 //this prevents spending sleeves on owned (and thus temporary) cards.
                 return TypedActionResult.pass(sleeveItemStack);
             }
-            int sleevesToApply = Math.min(sleeveItemStack.getCount(),otherItemStack.getCount());
-            ItemStack oldSleeves = bci.getSleeve(otherItemStack);
+            int sleevesToApply = Math.min(sleeveItemStack.getCount(), cardItemStack.getCount());
+            ItemStack oldSleeves = bci.getSleeve(cardItemStack);
             if(oldSleeves != ItemStack.EMPTY){
                 oldSleeves.setCount(sleevesToApply);
-                if(!user.getInventory().insertStack(oldSleeves)){
+                if(!user.giveItemStack(oldSleeves)){
                     user.dropItem(oldSleeves,true);
                 }
             }
-            ItemStack fleshlySleevedCards = otherItemStack.copyWithCount(sleevesToApply);
-            bci.setSleeve(fleshlySleevedCards,sleeveItemStack);
-            otherItemStack.decrement(sleevesToApply);
-            sleeveItemStack.decrement(sleevesToApply);
-            if(!user.getInventory().insertStack(fleshlySleevedCards)){
-                user.dropItem(fleshlySleevedCards,true);
+            ItemStack freshlySleevedCards = cardItemStack.copyWithCount(sleevesToApply);
+            bci.setSleeve(freshlySleevedCards,sleeveItemStack.copyWithCount(1));
+            if(!user.giveItemStack(freshlySleevedCards)){
+                user.dropItem(freshlySleevedCards,true);
             }
+            cardItemStack.decrement(sleevesToApply);
+            sleeveItemStack.decrement(sleevesToApply);
             return TypedActionResult.consume(sleeveItemStack);
         }
         return TypedActionResult.pass(sleeveItemStack);
