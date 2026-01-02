@@ -6,5 +6,9 @@
     "minecraft:entities/zombie",
     "minecraft:entities/husk",
     "minecraft:entities/drowned"
-  ]
+  ],
+  "scrapValue": {
+    "item": "battlecards:card_scrap",
+    "count": 5
+  }
 }

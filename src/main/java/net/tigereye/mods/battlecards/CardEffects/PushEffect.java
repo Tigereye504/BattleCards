@@ -13,7 +13,7 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
-import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
@@ -22,9 +22,9 @@ import java.util.List;
 
 public class PushEffect implements CardEffect, CardTooltipNester {
 
-    public CardScalar pitch = new ConstantScalerEffect(0);
-    public CardScalar yaw = new ConstantScalerEffect(0);
-    public CardScalar magnitude = new ConstantScalerEffect(0.3f);
+    public CardScalar pitch = new ConstantScalarEffect(0);
+    public CardScalar yaw = new ConstantScalarEffect(0);
+    public CardScalar magnitude = new ConstantScalarEffect(0.3f);
     public boolean pushRelativeToUserElseTarget = true;
     public boolean absolutePitch = false;
     public boolean applyKnockbackRes = true;

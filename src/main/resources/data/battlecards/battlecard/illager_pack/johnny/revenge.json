@@ -1,0 +1,47 @@
+{
+  "id": "battlecards:illager_pack/johnny/revenge",
+  "quickKeywords": ["Attack","Melee","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "isSweep": "false",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 5,
+          "damageType": "minecraft:player_attack"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 2
+        }
+      ]
+    }
+  ],
+  "cost": 5,
+  "chargeKeywords": ["Attack","Melee"],
+  "chargeEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "recent_damage_scalar",
+          "maxTicks": 20,
+          "effects": [{
+            "effect": "if_scalar",
+            "effects": [{
+              "effect": "damage",
+              "amount": 14,
+              "damageType": "minecraft:player_attack"
+            }],
+            "falseEffects": [{
+              "effect": "damage",
+              "amount": 9,
+              "damageType": "minecraft:player_attack"
+            }]
+          }]
+        }
+      ]
+    }
+  ]
+}

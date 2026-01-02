@@ -12,7 +12,7 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
-import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
@@ -43,15 +43,15 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
         originOffset = Vec3d.ZERO;
         originRelativeToUserElseTarget = true;
         trackProjectile = true;
-        pitch = new ConstantScalerEffect(0);
-        yaw = new ConstantScalerEffect(0);
+        pitch = new ConstantScalarEffect(0);
+        yaw = new ConstantScalarEffect(0);
         angleRelativeToEntityElseAbsolute = true;
-        speed = new ConstantScalerEffect(1.5f);
-        copies = new ConstantScalerEffect(1);
-        copyDelay = new ConstantScalerEffect(1);
-        gravity = new ConstantScalerEffect(0.05F);
-        piercing = new ConstantScalerEffect(0);
-        divergence = new ConstantScalerEffect(0);
+        speed = new ConstantScalarEffect(1.5f);
+        copies = new ConstantScalarEffect(1);
+        copyDelay = new ConstantScalarEffect(1);
+        gravity = new ConstantScalarEffect(0.05F);
+        piercing = new ConstantScalarEffect(0);
+        divergence = new ConstantScalarEffect(0);
     }
 
     public void addEffectOnEntityHit(CardEffect effect){

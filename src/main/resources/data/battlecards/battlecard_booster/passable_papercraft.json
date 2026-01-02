@@ -3,5 +3,9 @@
   "dropRate": 0.1,
   "sourceLootTables": [
     "minecraft:entities/villager"
-  ]
+  ],
+  "scrapValue": {
+    "item": "minecraft:paper",
+    "count": 3
+  }
 }

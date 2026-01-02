@@ -16,14 +16,18 @@ import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdditionScalerEffect implements CardEffect, CardScalar, CardTooltipNester {
+public class BoundingScalarEffect implements CardEffect, CardScalar, CardTooltipNester {
+
+    private static final CardScalar DEFAULT_MINIMUM = new ConstantScalarEffect(Float.MIN_VALUE);
+    private static final CardScalar DEFAULT_MAXIMUM = new ConstantScalarEffect(Float.MAX_VALUE);
 
     List<CardEffect> effects = new ArrayList<>();
-    CardScalar a;
-    CardScalar b;
+    CardScalar low;
+    CardScalar value;
+    CardScalar high;
 
 
-    public AdditionScalerEffect(){}
+    public BoundingScalarEffect(){}
 
     @Override
     public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
@@ -36,7 +40,7 @@ public class AdditionScalerEffect implements CardEffect, CardScalar, CardTooltip
 
     @Override
     public float getValue(PersistantCardEffectContext pContext, CardEffectContext context) {
-        return a.getValue(pContext, context)+b.getValue(pContext, context);
+        return Math.min(Math.max(value.getValue(pContext, context), low.getValue(pContext,context)), high.getValue(pContext, context));
     }
 
     public void addCardEffect(CardEffect effect){
@@ -46,9 +50,10 @@ public class AdditionScalerEffect implements CardEffect, CardScalar, CardTooltip
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         if(!effects.isEmpty()){
             tooltip.add(Text.literal(" ".repeat(depth)).append(
-                    Text.translatable("card.battlecards.tooltip.addition_scalar",
-                            a.appendInlineTooltip(world, tooltip, tooltipContext),
-                            b.appendInlineTooltip(world, tooltip, tooltipContext))));
+                    Text.translatable("card.battlecards.tooltip.bounding_scalar",
+                            value.appendInlineTooltip(world, tooltip, tooltipContext),
+                            low.appendInlineTooltip(world, tooltip, tooltipContext),
+                            high.appendInlineTooltip(world, tooltip, tooltipContext))));
             for(CardEffect effect : effects){
                 if(effect instanceof CardTooltipNester nester){
                     nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);
@@ -58,26 +63,23 @@ public class AdditionScalerEffect implements CardEffect, CardScalar, CardTooltip
     }
 
     public Text appendInlineTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        return Text.translatable("card.battlecards.tooltip.addition_scaler.inline"
-                ,a.appendInlineTooltip(world, tooltip, tooltipContext)
-                ,b.appendInlineTooltip(world, tooltip, tooltipContext));
+        return Text.translatable("card.battlecards.tooltip.bounding_scalar.inline"
+                ,value.appendInlineTooltip(world, tooltip, tooltipContext)
+                ,low.appendInlineTooltip(world, tooltip, tooltipContext)
+                ,high.appendInlineTooltip(world, tooltip, tooltipContext));
     }
 
     public static class Serializer implements CardEffectSerializer {
         @Override
-        public AdditionScalerEffect readFromJson(Identifier id, JsonElement entry) {
-            AdditionScalerEffect output = new AdditionScalerEffect();
+        public BoundingScalarEffect readFromJson(Identifier id, JsonElement entry) {
+            BoundingScalarEffect output = new BoundingScalarEffect();
             output.effects = CardSerializer.readCardEffects(id, "effects",entry);
-            output.a = CardSerializer.readOrDefaultScalar(id,"a",entry,null);
-            if(output.a == null){
-                Battlecards.LOGGER.warn("Addition Scalar missing left hand scalar!");
-                output.a = new ConstantScalerEffect(0);
+            output.low = CardSerializer.readOrDefaultScalar(id,"low",entry,DEFAULT_MINIMUM);
+            output.high = CardSerializer.readOrDefaultScalar(id,"high",entry,DEFAULT_MAXIMUM);
+            if(output.low == DEFAULT_MINIMUM && output.high == DEFAULT_MAXIMUM){
+                Battlecards.LOGGER.warn("Bounded Scalar in {} applies no bounds!", id.toString());
             }
-            output.b = CardSerializer.readOrDefaultScalar(id,"b",entry,null);
-            if(output.b == null){
-                Battlecards.LOGGER.warn("Addition Scalar missing right hand scalar!");
-                output.a = new ConstantScalerEffect(0);
-            }
+            output.value = CardSerializer.readOrDefaultScalar(id,"value",entry,new XScalarEffect());
             return output;
         }
     }

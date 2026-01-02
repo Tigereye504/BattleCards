@@ -32,7 +32,7 @@
         {
           "effect": "damage",
           "amount": 7,
-          "damageType": "minecraft:generic"
+          "damageType": "minecraft:player_attack"
         },
         {
           "effect": "push",

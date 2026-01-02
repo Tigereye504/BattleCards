@@ -6,11 +6,11 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "battlecards:passable_papercraft/ply_series"
+          "name": "battlecards:battlecard/passable_papercraft/ply_series"
         },
         {
           "type": "minecraft:loot_table",
-          "name": "battlecards:passable_papercraft/pickup_series"
+          "name": "battlecards:battlecard/passable_papercraft/pickup_series"
         }
       ]
     }

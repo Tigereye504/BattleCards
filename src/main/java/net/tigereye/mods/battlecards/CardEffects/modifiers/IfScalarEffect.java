@@ -10,7 +10,7 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
-import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
@@ -20,7 +20,7 @@ import java.util.List;
 
 public class IfScalarEffect implements CardEffect, CardTooltipNester {
 
-    CardScalar amount = new ConstantScalerEffect(0);
+    CardScalar amount = new ConstantScalarEffect(0);
     List<CardEffect> effects = new ArrayList<>();
     List<CardEffect> falseEffects = new ArrayList<>();
     boolean greaterElseLesser = true;
@@ -39,10 +39,10 @@ public class IfScalarEffect implements CardEffect, CardTooltipNester {
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         if(!effects.isEmpty()) {
             tooltip.add(Text.literal(" ".repeat(depth)).append(
-                    Text.translatable("card.battlecards.tooltip.if_scaler",
+                    Text.translatable("card.battlecards.tooltip.if_scalar",
                             (greaterElseLesser ? "greater than" : "less than") +
                                     (acceptEqual ? " or equal to" : ""),
-                            amount)));
+                            amount.appendInlineTooltip(world, tooltip, tooltipContext))));
             for (CardEffect effect : effects) {
                 if (effect instanceof CardTooltipNester nester) {
                     nester.appendNestedTooltip(world, tooltip, tooltipContext, depth + 1);
@@ -51,10 +51,10 @@ public class IfScalarEffect implements CardEffect, CardTooltipNester {
         }
         if(!falseEffects.isEmpty()) {
             tooltip.add(Text.literal(" ".repeat(depth)).append(
-                    Text.translatable("card.battlecards.tooltip.if_scaler",
+                    Text.translatable("card.battlecards.tooltip.if_scalar",
                             (!greaterElseLesser ? "greater than" : "less than") +
                                     (!acceptEqual ? " or equal to" : ""),
-                            amount)));
+                            amount.appendInlineTooltip(world, tooltip, tooltipContext))));
             for (CardEffect effect : falseEffects) {
                 if (effect instanceof CardTooltipNester nester) {
                     nester.appendNestedTooltip(world, tooltip, tooltipContext, depth + 1);
@@ -71,7 +71,7 @@ public class IfScalarEffect implements CardEffect, CardTooltipNester {
             output.effects = CardSerializer.readCardEffects(id, "effects",entry);
             output.falseEffects = CardSerializer.readCardEffects(id, "falseEffects",entry);
             if (output.effects.isEmpty()) {
-                Battlecards.LOGGER.error("no effects on scalar in {}!",id);
+                Battlecards.LOGGER.error("no effects on if scalar in {}!",id);
             }
 
             output.amount = CardSerializer.readOrDefaultScalar(id,"amount",entry,0);

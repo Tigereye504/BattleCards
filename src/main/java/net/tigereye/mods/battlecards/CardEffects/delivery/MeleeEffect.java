@@ -15,7 +15,7 @@ import net.tigereye.mods.battlecards.CardEffects.RetainCardEffect;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
-import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
@@ -27,8 +27,8 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
 
     List<CardEffect> onEntityHitEffects = new ArrayList<>();
     List<CardEffect> onMissEffects = new ArrayList<>();
-    CardScalar reach = new ConstantScalerEffect(3.5f);
-    CardScalar maxAngle = new ConstantScalerEffect(30);
+    CardScalar reach = new ConstantScalarEffect(3.5f);
+    CardScalar maxAngle = new ConstantScalarEffect(30);
     boolean isSweep = true;
     boolean retainOnMiss = true;
 

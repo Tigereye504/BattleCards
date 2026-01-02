@@ -28,7 +28,7 @@ import java.util.List;
 
 public class DamageEffect implements CardEffect, CardTooltipNester {
 
-    float scalingDamage;
+    float scalingDamage = 0;
     CardScalar damage;
     RegistryKey<DamageType> damageType;
     List<CardEffect> afterDamageEffects = new ArrayList<>();

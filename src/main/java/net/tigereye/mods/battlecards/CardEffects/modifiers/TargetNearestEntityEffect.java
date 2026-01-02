@@ -15,7 +15,7 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
-import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
@@ -31,7 +31,7 @@ public class TargetNearestEntityEffect implements CardEffect, CardTooltipNester 
     boolean ignoreTrackedEntity = true;
     boolean ignoreCurrentTarget = true;
     boolean mustBeLiving = true;
-    CardScalar range = new ConstantScalerEffect(16);
+    CardScalar range = new ConstantScalarEffect(16);
 
     @Override
     public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {

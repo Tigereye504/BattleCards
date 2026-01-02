@@ -5,5 +5,9 @@
   "sourceLootTables": [
     "minecraft:entities/skeleton",
     "minecraft:entities/stray"
-  ]
+  ],
+  "scrapValue": {
+    "item": "battlecards:card_scrap",
+    "count": 5
+  }
 }

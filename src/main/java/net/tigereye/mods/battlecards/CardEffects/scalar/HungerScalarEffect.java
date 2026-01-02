@@ -59,7 +59,7 @@ public class HungerScalarEffect implements CardEffect, CardScalar, CardTooltipNe
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         if(!effects.isEmpty()){
             tooltip.add(Text.literal(" ".repeat(depth)).append(
-                    Text.translatable("card.battlecards.tooltip.hunger_scaler",
+                    Text.translatable("card.battlecards.tooltip.hunger_scalar",
                             replaceElseAdd ? "" : "X + ",
                             userElseTarget ? "User's" : "Target's",
                             missingElseCurrent ? "Missing" : "Current")));

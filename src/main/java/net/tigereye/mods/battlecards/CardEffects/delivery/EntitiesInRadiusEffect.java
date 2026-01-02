@@ -14,7 +14,7 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
-import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
@@ -25,7 +25,7 @@ import java.util.List;
 public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
 
     List<CardEffect> effects = new ArrayList<>();
-    CardScalar radius = new ConstantScalerEffect(1);
+    CardScalar radius = new ConstantScalarEffect(1);
     boolean targetUser = false;
     boolean sphereElseCylinder = false;
 

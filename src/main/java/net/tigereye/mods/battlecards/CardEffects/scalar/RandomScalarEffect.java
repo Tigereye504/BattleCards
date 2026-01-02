@@ -46,7 +46,7 @@ public class RandomScalarEffect implements CardEffect, CardScalar, CardTooltipNe
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         if(!effects.isEmpty()){
             tooltip.add(Text.literal(" ".repeat(depth)).append(
-                    Text.translatable("card.battlecards.tooltip.random_scaler",
+                    Text.translatable("card.battlecards.tooltip.random_scalar",
                             minimum,maximum)));
             for(CardEffect effect : effects){
                 if(effect instanceof CardTooltipNester nester){
@@ -57,7 +57,7 @@ public class RandomScalarEffect implements CardEffect, CardScalar, CardTooltipNe
     }
 
     public Text appendInlineTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext){
-        return Text.translatable("card.battlecards.tooltip.random_scaler.inline",
+        return Text.translatable("card.battlecards.tooltip.random_scalar.inline",
             minimum.appendInlineTooltip(world, tooltip, tooltipContext),
             maximum.appendInlineTooltip(world, tooltip, tooltipContext));
     }

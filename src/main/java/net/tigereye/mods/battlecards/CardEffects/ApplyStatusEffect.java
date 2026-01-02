@@ -16,7 +16,7 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
-import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
@@ -26,8 +26,8 @@ import java.util.List;
 public class ApplyStatusEffect implements CardEffect, CardTooltipNester {
 
     StatusEffect type = null;
-    CardScalar duration = new ConstantScalerEffect(1);
-    CardScalar magnitude = new ConstantScalerEffect(0);
+    CardScalar duration = new ConstantScalarEffect(1);
+    CardScalar magnitude = new ConstantScalarEffect(0);
 
     @Override
     public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {

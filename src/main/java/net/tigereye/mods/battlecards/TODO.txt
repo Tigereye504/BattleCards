@@ -4,9 +4,8 @@ for good and ill. I'd like snowballs to extinguish targets. I don't want arrows 
 Perhaps I can just overwrite the 'on hit' functions entirely, and reimplement the parts I want.
 Specifically, put hooks at the start of the various trigger functions.
 Actually, PersistantProjectileEntities have easily customized damage. so just set that to zero and handle it myself.
-Or I could say 'fuck it', have all projectile cards throw cards, and just upgrade the snot out of the card projectile
+Or I could simply, have all projectile cards throw cards, and just upgrade the snot out of the card projectile
 
-TODO: after hotbar update, have decks 'pause' on short click and reset on long click
 TODO: after hotbar update, maybe have mana be managed by active deck
 
 Cards will drop in Booster Packs, which will usually be related to the dropping mob.
@@ -38,7 +37,7 @@ to reach new breakpoints where you kill in fewer hits.
 'extremely strong'- 5 - critical axe.   11          16.5        *22*        24.75 dmg
 'deadly'          - 7 - crit str axe.   14          *21*        ~*28*~      ~*31.5*~ dmg
 'very deadly'     - 9 - crit str II,axe 17          25.5        30          33.75  dmg
-'catastrophic'    - 12 - iron golem      *20*        ~*30*~      **40**      **45** dmg
+'catastrophic'    - 11 - iron golem     *20*        ~*30*~      **40**      **45** dmg
 
 Leather: +25% damage, shuffled into draw pile twice when added to draw pile
 Gold: +25% damage, half mana cost (round up)
@@ -90,6 +89,31 @@ I don't have a good way to know once a card is done with all its effects, though
 as projectiles and delays detach from the original execution
 Well, a PersistantCardEffectContext is already planned.
 Put the listeners in that and just iterate though it come event time
+
+--Scrap--
+
+Salvage systems exist so that players who don't care about a system or don't have use for a particular item
+still get value from finding them, though lesser than if they were able to use it.
+In this case, the intent is that unwanted card/packs can be used as either furnace fuel (for those not wanting cards)
+or as luck boosters for other card packs (for those who just want different cards)
+it could also serve as a secondary currency for the TCG villager, who sells booster packs, set boxes, and possibly starter decks
+TODO: set boxes
+TODO: profession block for TCG villager
+TODO: TCG villager
+to reduce inventory bloat, the cards/packs should be rendered down to a homogenized form.
+torn up cards (cardfetti?), magic dust... I like cardfetti. the idea that sprinkling it over packs is how you luck boost them tickles me
+cardfetti would stack to 64, would burn rather poorly (you can get a lot of it) and would need to be compressible. Possibly twice.
+'cardfetti bricks' and 'cardfetti blocks', both as reversible 3x3 compressions.
+Cardfetti as fuel:
+-if cardfetti burned for half an operation, bricks burned for four, and blocks for 40,
+-it would be reasonable for them to be furnace-able into charcoal (blocks)
+-cardfetti blocks, being blocks, would also need to be placeable.
+Cardfetti as luck:
+-right-clicking a stack will consume it, granting a buff based on how much was consumed
+-the buff is consumed when next opening a card pack, acting as a luck boost (and thus invoking loot table quality rules)
+Exceptions:
+some cards are trash even among trash. Specifically, the Passable Papercraft set is craftable from 3 paper
+so to 3 paper is must return. Otherwise, it would let you turn a sugar cane farm into infinite cardfetti
 
 ----Cards----
 E - effect implemented
@@ -149,26 +173,34 @@ ET  Scamper - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. A(3): G
 ET  Speed - Q: Gain Speed for 5 seconds. Gain 1 mana if you lacked Speed. A(2): Gain Speed for 30 seconds.
 ET  Fighting Retreat (R) - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. - A(3): Hop far back. Gain Invulnerable for .5 second. Shoot an arrow with punch 2.
 ET  Reposition (R) - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. A(5): Hop back, gain Invulnerable for .5 second and Speed 3 for 5 seconds.
+    Make Your Bones (R) - Q: Shoot a weak arrow, 1 mana on hit, +2 on kill. A(6): Shoot a strong arrow. On kill, Refund 4 and gain Speed 3 and Step Assist for 30 seconds.
 
  Dark Triad (Wither Skeletons, Wither)
  --names come from gang-related (especially asian gang) and 'dark triad' mental trait related terms/phrases.
 ET  Rough 'em up - Q: Weak non-sweeping Melee Attack, 1 Mana on hit, inflict Slowness 1 for 5 seconds. - A(2): Weak Non-Sweeping melee attack inflicts escalating Weakness and Slowness for 5 seconds. Retain.
 
 The Way of Reaping (Illagers)
- --Axe pillagers use aggressive movement, trading blows, and revenge
+ --Axe pillagers use aggressive movement, trade blows, and seek revenge
  -Lunging Combo Attacks
-ET  Longsword
-ET  Uppercut
-ET  Shoulder Check - Q: Weak focused melee, 2 mana and knockback. - A(4) Charge forward with active hitbox, inflicting Strong damage and dragging targets
-    Overrun
-    Desperation - Q: Weak focused melee, mana scales with missing health - A(10) Weak focused melee does Catastrophic damage and grants self Absorption III briefly.
-    Yield Your Flesh - Q: Moderate focused melee invites harm for 3 mana - A(3) Moderate to Deadly focused melee attack based on missing health.
-    Revenge
-    Blood for Blood
- -Trading Attacks (inflict momentary weakness to counter hits)
- -Low Health Scalars
+ET  Longsword - Q: Weak melee, 2 mana - A(3): Strong lunging strike throws targets. Refund 2 and Retain on miss.
+ET  Uppercut - Q: Weak focused melee generates 2 mana and pops target up. - A(3): Strong rising strike throws target skyward.
+ET  Shoulder Check - Q: Weak focused melee, 2 mana and knockback. - A(4): Charge forward, inflicting Strong damage, stunning, and dragging all along path.
+    Overrun - Q: Moderate focused melee, 1 mana and knockback. - A(7): Charge forward a long time, inflicting Extremely Strong damage and stunning all along path.
+    Follow-up - Q: Moderate focused melee, 2 mana - A(2): Moderate focused melee is Very Strong if target was recently injured.
+ -Trading Attacks (hit expecting to be hit, sometimes inflict momentary weakness 'stunning' as mitigation)
+XX  Shoulder Check (see above)
+XX  Yield Your Flesh (see below)
+XX  Overrun (see above)
+    Reckless Strike - Q: Moderate focused melee, 1 mana - A(5): Extremely Strong, focused strike after lunging. Refund 2 on hit.
+ -Low Health Scalars / Retaliation
+ET  Yield Your Flesh - Q: Moderate focused melee invites harm for 3 mana - A(3): Moderate to Deadly focused melee attack based on missing health.
+XX  Desperation (see below)
+    Revenge - Q: Moderate focused melee, 2 mana - A(4): Very Strong focused melee is Deadly if recently injured.
+ET  Blood for Blood - Q: Moderate focused melee, 2 mana - A(5): Strong focused melee, returns damage and lifesteals when retaliating to immediate harm.
  -Absorption Hearts
-
+ET  Desperation - Q: Weak focused melee, mana scales with missing health - A(8): Very Deadly, focused melee attack bleeds self and grants Absorption V briefly (20 absorption, 10 seconds).
+    Guarded Strike - Q: Moderate focused melee, 2 mana - Q(5): Extremely Strong focused melee grants up to 8 Absorption on hit
+    Catch Breath - Q: Gain up to 2 Absorption - Q(3): Gain up to 8 Absorption
  --Crossbow pillagers use simple, high damage crossbow bolts that shatter defenses
 Focused Bolt
 Overdraw
@@ -176,9 +208,8 @@ Overpenetration
 Staggering Bolt
 Sundering Bolt
  --Witches..?
-
  --Ravagers use extremely high mana, high impact melee and bullheaded bulk to close the gap
-
+XX  Overrun (see above)
 
 
 

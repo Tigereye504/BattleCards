@@ -2,11 +2,10 @@ package net.tigereye.mods.battlecards.CardEffects.scalar;
 
 import com.google.gson.JsonElement;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
@@ -17,20 +16,19 @@ import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AbsorptionScalarEffect implements CardEffect, CardScalar, CardTooltipNester {
+public class AdditionScalarEffect implements CardEffect, CardScalar, CardTooltipNester {
 
     List<CardEffect> effects = new ArrayList<>();
-    boolean userElseTarget = true;
-    boolean replaceElseAdd = true;
-    boolean absoluteElseRatio = true;
-    //'absolute' returns the entity's absorption value
-    //'ratio' returns the entity's absorption as a portion of the entity's max health
+    CardScalar a;
+    CardScalar b;
+
+
+    public AdditionScalarEffect(){}
 
     @Override
     public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         CardEffectContext newContext = context.clone();
         newContext.scalar = getValue(pContext,context);
-
         for(CardEffect effect : effects){
             effect.apply(pContext, newContext);
         }
@@ -38,14 +36,7 @@ public class AbsorptionScalarEffect implements CardEffect, CardScalar, CardToolt
 
     @Override
     public float getValue(PersistantCardEffectContext pContext, CardEffectContext context) {
-        Entity scalarEntity = userElseTarget ? pContext.user : context.target;
-        if(scalarEntity instanceof LivingEntity livingEntity){
-            return (replaceElseAdd ? 0 : context.scalar) + (livingEntity.getAbsorptionAmount()
-                            / (absoluteElseRatio ? 1 : livingEntity.getMaxHealth()));
-        }
-        else {
-            return replaceElseAdd ? 0 : context.scalar;
-        }
+        return a.getValue(pContext, context)+b.getValue(pContext, context);
     }
 
     public void addCardEffect(CardEffect effect){
@@ -55,10 +46,9 @@ public class AbsorptionScalarEffect implements CardEffect, CardScalar, CardToolt
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         if(!effects.isEmpty()){
             tooltip.add(Text.literal(" ".repeat(depth)).append(
-                    Text.translatable("card.battlecards.tooltip.absorption_scalar",
-                            replaceElseAdd ? "" : "X + ",
-                            userElseTarget ? "User's" : "Target's",
-                            absoluteElseRatio ? "" : "% ")));
+                    Text.translatable("card.battlecards.tooltip.addition_scalar",
+                            a.appendInlineTooltip(world, tooltip, tooltipContext),
+                            b.appendInlineTooltip(world, tooltip, tooltipContext))));
             for(CardEffect effect : effects){
                 if(effect instanceof CardTooltipNester nester){
                     nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);
@@ -67,14 +57,27 @@ public class AbsorptionScalarEffect implements CardEffect, CardScalar, CardToolt
         }
     }
 
+    public Text appendInlineTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        return Text.translatable("card.battlecards.tooltip.addition_scalar.inline"
+                ,a.appendInlineTooltip(world, tooltip, tooltipContext)
+                ,b.appendInlineTooltip(world, tooltip, tooltipContext));
+    }
+
     public static class Serializer implements CardEffectSerializer {
         @Override
-        public AbsorptionScalarEffect readFromJson(Identifier id, JsonElement entry) {
-            AbsorptionScalarEffect output = new AbsorptionScalarEffect();
+        public AdditionScalarEffect readFromJson(Identifier id, JsonElement entry) {
+            AdditionScalarEffect output = new AdditionScalarEffect();
             output.effects = CardSerializer.readCardEffects(id, "effects",entry);
-            output.absoluteElseRatio = CardSerializer.readOrDefaultBoolean(id,"absoluteElseRatio",entry,true);
-            output.userElseTarget = CardSerializer.readOrDefaultBoolean(id,"userElseTarget",entry,true);
-            output.replaceElseAdd = CardSerializer.readOrDefaultBoolean(id,"replaceElseAdd",entry,true);
+            output.a = CardSerializer.readOrDefaultScalar(id,"a",entry,null);
+            if(output.a == null){
+                Battlecards.LOGGER.warn("Addition Scalar missing left hand scalar!");
+                output.a = new ConstantScalarEffect(0);
+            }
+            output.b = CardSerializer.readOrDefaultScalar(id,"b",entry,null);
+            if(output.b == null){
+                Battlecards.LOGGER.warn("Addition Scalar missing right hand scalar!");
+                output.a = new ConstantScalarEffect(0);
+            }
             return output;
         }
     }

@@ -5,7 +5,6 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
@@ -16,19 +15,19 @@ import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MultiplicationScalerEffect implements CardEffect, CardScalar, CardTooltipNester {
+public class ConstantScalarEffect implements CardEffect, CardScalar, CardTooltipNester {
 
     List<CardEffect> effects = new ArrayList<>();
-    CardScalar a;
-    CardScalar b;
+    float amount = 0;
 
+    public ConstantScalarEffect(){}
 
-    public MultiplicationScalerEffect(){}
+    public ConstantScalarEffect(float amount){this.amount = amount;}
 
     @Override
     public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         CardEffectContext newContext = context.clone();
-        newContext.scalar = getValue(pContext,context);
+        newContext.scalar = amount;
         for(CardEffect effect : effects){
             effect.apply(pContext, newContext);
         }
@@ -36,7 +35,7 @@ public class MultiplicationScalerEffect implements CardEffect, CardScalar, CardT
 
     @Override
     public float getValue(PersistantCardEffectContext pContext, CardEffectContext context) {
-        return a.getValue(pContext, context)*b.getValue(pContext, context);
+        return amount;
     }
 
     public void addCardEffect(CardEffect effect){
@@ -46,9 +45,8 @@ public class MultiplicationScalerEffect implements CardEffect, CardScalar, CardT
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         if(!effects.isEmpty()){
             tooltip.add(Text.literal(" ".repeat(depth)).append(
-                    Text.translatable("card.battlecards.tooltip.multiplication_scalar",
-                            a.appendInlineTooltip(world, tooltip, tooltipContext),
-                            b.appendInlineTooltip(world, tooltip, tooltipContext))));
+                    Text.translatable("card.battlecards.tooltip.constant_scalar",
+                            amount)));
             for(CardEffect effect : effects){
                 if(effect instanceof CardTooltipNester nester){
                     nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);
@@ -58,18 +56,15 @@ public class MultiplicationScalerEffect implements CardEffect, CardScalar, CardT
     }
 
     public Text appendInlineTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        return Text.translatable("card.battlecards.tooltip.multiplication_scaler.inline"
-                ,a.appendInlineTooltip(world, tooltip, tooltipContext)
-                ,b.appendInlineTooltip(world, tooltip, tooltipContext));
+        return Text.translatable("card.battlecards.tooltip.constant_scalar.inline",amount);
     }
 
     public static class Serializer implements CardEffectSerializer {
         @Override
-        public MultiplicationScalerEffect readFromJson(Identifier id, JsonElement entry) {
-            MultiplicationScalerEffect output = new MultiplicationScalerEffect();
+        public ConstantScalarEffect readFromJson(Identifier id, JsonElement entry) {
+            ConstantScalarEffect output = new ConstantScalarEffect();
             output.effects = CardSerializer.readCardEffects(id, "effects",entry);
-            output.a = CardSerializer.readOrDefaultScalar(id,"a",entry,1);
-            output.b = CardSerializer.readOrDefaultScalar(id,"b",entry,1);
+            output.amount = CardSerializer.readOrDefaultFloat(id,"amount",entry,0);
             return output;
         }
     }

@@ -10,9 +10,9 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
-import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
-import net.tigereye.mods.battlecards.CardEffects.scalar.XScalerEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.XScalarEffect;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 import net.tigereye.mods.battlecards.Util.DelayedActionTaker;
@@ -22,10 +22,10 @@ import java.util.List;
 
 public class RepeatEffect implements CardEffect, CardTooltipNester {
 
-    CardScalar startingScalar = new XScalerEffect();
-    CardScalar incrementScalar = new XScalerEffect();
-    CardScalar count = new ConstantScalerEffect(1);
-    CardScalar delay = new ConstantScalerEffect(0);
+    CardScalar startingScalar = new XScalarEffect();
+    CardScalar incrementScalar = new XScalarEffect();
+    CardScalar count = new ConstantScalarEffect(1);
+    CardScalar delay = new ConstantScalarEffect(0);
     List<CardEffect> effects = new ArrayList<>();
 
     @Override
@@ -76,8 +76,8 @@ public class RepeatEffect implements CardEffect, CardTooltipNester {
                 Battlecards.LOGGER.error("Repeat Effect missing effect!");
             }
 
-            output.startingScalar = CardSerializer.readOrDefaultScalar(id, "startingScalar", entry, new XScalerEffect());
-            output.incrementScalar = CardSerializer.readOrDefaultScalar(id, "incrementScalar", entry, new XScalerEffect());
+            output.startingScalar = CardSerializer.readOrDefaultScalar(id, "startingScalar", entry, new XScalarEffect());
+            output.incrementScalar = CardSerializer.readOrDefaultScalar(id, "incrementScalar", entry, new XScalarEffect());
             output.count = CardSerializer.readOrDefaultScalar(id, "count", entry, 1);
             output.delay = CardSerializer.readOrDefaultScalar(id, "delay", entry, 0);
 

@@ -1,5 +1,5 @@
 {
-  "id": "battlecards:illager_pack/johnny/cleave",
+  "id": "battlecards:illager_pack/johnny/blood_for_blood",
   "quickKeywords": ["Attack","Melee","Mana Generator"],
   "quickEffects": [
     {
@@ -19,27 +19,28 @@
     }
   ],
   "cost": 5,
-  "chargeKeywords": ["Attack","Melee","Status"],
+  "chargeKeywords": ["Attack","Melee","Healing"],
   "chargeEffects": [
     {
       "effect": "melee",
       "onHit": [
         {
           "effect": "damage",
-          "amount": 11,
-          "damageType": "minecraft:player_attack"
-        },
-        {
-          "effect": "apply_status",
-          "type": "minecraft:slowness",
-          "magnitude": 2,
-          "duration": 10
-        },
-        {
-          "effect": "apply_status",
-          "type": "minecraft:weakness",
-          "magnitude": 2,
-          "duration": 10
+          "amount": {
+            "effect": "addition_scalar",
+            "a": 5,
+            "b": {
+              "effect": "recent_damage_scalar",
+              "maxTicks": 10
+            }
+          },
+          "damageType": "minecraft:player_attack",
+          "afterDamage": [
+            {
+              "effect": "lifesteal",
+              "amount": 1.0
+            }
+          ]
         }
       ]
     }

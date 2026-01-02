@@ -56,7 +56,7 @@ public class HealthScalarEffect implements CardEffect, CardScalar, CardTooltipNe
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         if(!effects.isEmpty()){
             tooltip.add(Text.literal(" ".repeat(depth)).append(
-                    Text.translatable("card.battlecards.tooltip.health_scaler",
+                    Text.translatable("card.battlecards.tooltip.health_scalar",
                             replaceElseAdd ? "" : "X + ",
                             userElseTarget ? "User's" : "Target's",
                             absoluteElseRatio ? "" : "% ",

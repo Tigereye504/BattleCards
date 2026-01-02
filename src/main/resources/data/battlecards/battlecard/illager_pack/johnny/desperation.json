@@ -36,29 +36,24 @@
     {
       "effect": "melee",
       "isSweep": "false",
+      "retainOnMiss": "false",
       "onHit": [
         {
           "effect": "damage",
-          "amount": 20,
-          "scalingAmount": 1,
+          "amount": 17,
           "damageType": "minecraft:player_attack"
-        },
-        {
-          "effect": "target_user",
-          "effects": [
-            {
-              "effect": "apply_status",
-              "type": "minecraft:absorption",
-              "duration": 200,
-              "magnitude": 2
-            }
-          ]
         }
       ]
     },
     {
       "effect": "modify_health",
       "amount": -2
+    },
+    {
+      "effect": "apply_status",
+      "type": "minecraft:absorption",
+      "duration": 200,
+      "magnitude": 4
     }
   ]
 }
