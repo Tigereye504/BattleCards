@@ -24,7 +24,7 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 5,
+          "amount": 4,
           "damageType": "minecraft:arrow"
         },
         {

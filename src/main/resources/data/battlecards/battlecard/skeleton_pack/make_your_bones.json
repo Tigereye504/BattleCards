@@ -1,0 +1,87 @@
+{
+  "id": "battlecards:skeleton_pack/make_your_bones",
+  "quickKeywords": ["Attack","Projectile","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 3,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:arrow",
+          "afterDamage": [
+            {
+              "effect": "health_scalar",
+              "userElseTarget": false,
+              "missingElseCurrent": false,
+              "effects": [{
+                "effect": "if_scalar",
+                "greaterElseLesser": false,
+                "acceptEqual": true,
+                "amount": 0,
+                "effects": [{
+                  "effect": "gain_mana",
+                  "amount": 3
+                }],
+                "falseEffects": [{
+                  "effect": "gain_mana",
+                  "amount": 1
+                }]
+              }]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "chargeKeywords": ["Movement","Status","Attack","Projectile"],
+  "chargeEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 3,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 7,
+          "damageType": "minecraft:arrow",
+          "afterDamage": [
+            {
+              "effect": "health_scalar",
+              "userElseTarget": false,
+              "missingElseCurrent": false,
+              "effects": [{
+                "effect": "if_scalar",
+                "greaterElseLesser": false,
+                "acceptEqual": true,
+                "amount": 0,
+                "effects": [{
+                  "effect": "target_user",
+                  "effects": [
+                    {
+                      "effect": "gain_mana",
+                      "amount": 4
+                    },
+                    {
+                      "effect": "apply_status",
+                      "type": "minecraft:speed",
+                      "duration": 600,
+                      "magnitude": 1
+                    },
+                    {
+                      "effect": "apply_status",
+                      "type": "battlecards:highstep",
+                      "duration": 600,
+                      "magnitude": 0
+                    }
+                  ]
+                }]
+              }]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

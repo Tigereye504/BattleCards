@@ -29,8 +29,16 @@ public class IfScalarEffect implements CardEffect, CardTooltipNester {
     @Override
     public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
         float amount = this.amount.getValue(pContext,context);
-        if (greaterElseLesser ? context.scalar > amount : context.scalar < amount){
+        if (greaterElseLesser && acceptEqual ? context.scalar >= amount :
+                greaterElseLesser && !acceptEqual ? context.scalar > amount :
+                !greaterElseLesser && acceptEqual ? context.scalar <= amount :
+                context.scalar < amount){
             for(CardEffect effect : effects) {
+                effect.apply(pContext,context);
+            }
+        }
+        else{
+            for(CardEffect effect : falseEffects) {
                 effect.apply(pContext,context);
             }
         }

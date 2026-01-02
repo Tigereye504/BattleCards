@@ -23,6 +23,11 @@
           "type": "minecraft:item",
           "name": "battlecards:battlecard",
           "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:skeleton_pack/reposition\"}"}]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "battlecards:battlecard",
+          "functions": [{"function": "set_nbt","tag":"{battlecard:\"battlecards:skeleton_pack/make_your_bones\"}"}]
         }
       ]
     }
