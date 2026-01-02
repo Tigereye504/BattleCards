@@ -2,7 +2,7 @@
     "parent": "item/handheld",
     "textures": {
         "layer2": "battlecards:item/card_icons/defense",
-        "layer1": "battlecards:item/unknown_card_art",
+        "layer1": "battlecards:item/skeleton_pack/scamper",
         "layer0": "battlecards:item/skeleton_pack/background"
     }
 }

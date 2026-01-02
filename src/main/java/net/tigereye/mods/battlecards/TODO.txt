@@ -172,7 +172,7 @@ ET  Explosive Rhetoric (R) - Q: Shoot a weak exploding arrow, 1 mana per hit. - 
 ET  Scamper - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. A(3): Gain Speed 3 and Step Assist for 5 seconds.
 ET  Speed - Q: Gain Speed for 5 seconds. Gain 1 mana if you lacked Speed. A(2): Gain Speed for 30 seconds.
 ET  Fighting Retreat (R) - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. - A(3): Hop far back. Gain Invulnerable for .5 second. Shoot an arrow with punch 2.
-ET  Reposition (R) - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. A(5): Hop back, gain Invulnerable for .5 second and Speed 3 for 5 seconds.
+ET  Reposition (R) - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. A(5): Hop back, gain Invulnerable for .5 second and Speed 3 / Step Assist for 5 seconds.
     Make Your Bones (R) - Q: Shoot a weak arrow, 1 mana on hit, +2 on kill. A(6): Shoot a strong arrow. On kill, Refund 4 and gain Speed 3 and Step Assist for 30 seconds.
 
  Dark Triad (Wither Skeletons, Wither)

@@ -2,7 +2,7 @@
     "parent": "item/handheld",
     "textures": {
         "layer2": "battlecards:item/card_icons/projectile",
-        "layer1": "battlecards:item/skeleton_pack/let_em_have_it",
+        "layer1": "battlecards:item/skeleton_pack/make_your_bones",
         "layer0": "battlecards:item/skeleton_pack/background"
     }
 }

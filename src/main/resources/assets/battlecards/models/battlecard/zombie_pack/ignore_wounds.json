@@ -2,7 +2,7 @@
     "parent": "item/handheld",
     "textures": {
         "layer2": "battlecards:item/card_icons/healing",
-        "layer1": "battlecards:item/unknown_card_art",
+        "layer1": "battlecards:item/zombie_pack/ignore_wounds",
         "layer0": "battlecards:item/zombie_pack/background"
     }
 }
