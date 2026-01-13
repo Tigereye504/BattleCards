@@ -1,4 +1,4 @@
-package net.tigereye.mods.battlecards.CardEffects;
+package net.tigereye.mods.battlecards.CardEffects.entityEffects;
 
 import com.google.gson.JsonElement;
 import net.minecraft.client.item.TooltipContext;
@@ -6,7 +6,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -17,7 +16,6 @@ import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectCon
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
-import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 
@@ -108,7 +106,7 @@ public class TransferStatusEffect implements CardEffect, CardTooltipNester {
                 Identifier statusEffectID = new Identifier(statusEffect);
                 output.type = Registries.STATUS_EFFECT.get(statusEffectID);
                 if (output.type == null) {
-                    Battlecards.LOGGER.error("Could not find status effect {}!", statusEffectID);
+                    Battlecards.LOGGER.error("Could not find status effect {} in transfer_status in {}!", statusEffectID,id.toString());
                 }
             }
 

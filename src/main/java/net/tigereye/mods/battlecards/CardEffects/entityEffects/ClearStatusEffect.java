@@ -1,4 +1,4 @@
-package net.tigereye.mods.battlecards.CardEffects;
+package net.tigereye.mods.battlecards.CardEffects.entityEffects;
 
 import com.google.gson.JsonElement;
 import net.minecraft.client.item.TooltipContext;
@@ -87,7 +87,7 @@ public class ClearStatusEffect implements CardEffect, CardTooltipNester {
                 Identifier statusEffectID = new Identifier(statusEffect);
                 output.type = Registries.STATUS_EFFECT.get(statusEffectID);
                 if (output.type == null) {
-                    Battlecards.LOGGER.error("Could not find status effect {}!", statusEffectID);
+                    Battlecards.LOGGER.error("Could not find status effect {} in clear_status in {}!", statusEffectID,id.toString());
                 }
             }
 

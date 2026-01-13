@@ -28,7 +28,6 @@ public class CardProjectileEntity extends PersistentProjectileEntity implements 
 
     //TODO: custom nbt data to save effects
     //TODO: change sound effect away from arrows
-    //TODO: mixin persistent projectiles to modulate gravity
 
     public CardProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);

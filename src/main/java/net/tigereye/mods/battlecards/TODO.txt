@@ -6,7 +6,7 @@ Specifically, put hooks at the start of the various trigger functions.
 Actually, PersistantProjectileEntities have easily customized damage. so just set that to zero and handle it myself.
 Or I could simply, have all projectile cards throw cards, and just upgrade the snot out of the card projectile
 
-TODO: after hotbar update, maybe have mana be managed by active deck
+TODO: when pausing a deck, store mana and time in the deck. Restore mana (with time decay) on resume, clear it on close
 
 Cards will drop in Booster Packs, which will usually be related to the dropping mob.
 Likely, any mob can drop a generic pack. That way killing modded critters is still worth something.
@@ -72,9 +72,9 @@ Costs for charge effects:
 With 2 'weak and 2' attacks on a mob at iron or diamond, that leaves 3-4 mana to spend on a 'Strong and effect' finisher,
   like Cannibalism.
 With 3 'weak and 2' attacks killing a mob at diamond, that leaves 5-6 mana to spend on a second kill.
-  So 5-6 mana single targets will want 'extremely strong' damage, if intended to just kill.
+  So 5-6 mana single targets will want 'extremely strong' damage, if intended to kill.
 With 4 'weak and 2' attacks killing a mob at iron, that leaves 7-8 mana to spend on a second kill.
-  So 7-8 mana single targets will want 'deadly' damage, if intended to just kill.
+  So 7-8 mana single targets will want 'deadly' damage, if intended to kill.
 With 5-6 'weak and 2' attacks killing a mob at paper...
   get out of paper, or specialize with 'mid and 1's or 'weak and 3 and cost's!
 
@@ -91,7 +91,11 @@ Well, a PersistantCardEffectContext is already planned.
 Put the listeners in that and just iterate though it come event time
 
 --Scrap--
-
+TODO: Add Cardfetti, Cardfetti Brick, and Cardfetti Block items as 0.5/4/40 operation furnace fuels
+TODO: Add compression / decompression recipes, brick/block to charcoal furnace recipes
+TODO: Add scrapValue to cards, default 1 cardfetti, which can be set to other items and quantities
+TODO: Add scraping recipes to turn cards and cardpacks to cardfetti
+TODO: Add cardfetti sacrifice use and associated status effect 
 Salvage systems exist so that players who don't care about a system or don't have use for a particular item
 still get value from finding them, though lesser than if they were able to use it.
 In this case, the intent is that unwanted card/packs can be used as either furnace fuel (for those not wanting cards)
@@ -115,6 +119,9 @@ Exceptions:
 some cards are trash even among trash. Specifically, the Passable Papercraft set is craftable from 3 paper
 so to 3 paper is must return. Otherwise, it would let you turn a sugar cane farm into infinite cardfetti
 
+--World Integration--
+TODO: Prebuilt decks (also needed for TCG villager)
+TODO: card packs and prebuilts in chest loot tables
 ----Cards----
 E - effect implemented
 T - effect successfully tested
@@ -125,6 +132,7 @@ C - complete
 
 Horrors of the Night Series (Nighttime Mobs)
  Hordes of Rot (Zombies, Husks, Drowned)
+TODO: fix worthless_flesh and ignore_wounds mixup
     --Common--
 ET  Mighty Blow - Q: Weak Melee Attack, 2 Mana on hit - A(3): Strong Melee Attack with Knockback 3.
         knockback acting funny, angles are strange
@@ -148,7 +156,7 @@ ET  Famine - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger 2 for 5 seconds.
     Feast of Famine - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger for 5 seconds. A: Dispel Hunger from nearby targets, gain hunger for each dispelled.
 ET  Worthless Flesh - Q: Gain Armored for 5 seconds, 1 Mana if wasn't Armored - A(3): Gain Armored 3, Reinforced 3 for 5 seconds.
 ET  Necromantic Surge - Q: Recover 20% of missing HP, 1 Mana if healed - A(5): Gain Undying 5 for 5 seconds.
-ET  Ignore Wounds - Q: Recover 20% of missing HP, 1 Mana if healed - A(5): Recover 75% of missing HP.
+ET  Ignore Wounds - Q: Recover 20% of missing HP, 1 Mana if healed - A(5): Recover 67% of missing HP.
   Status Effects
     --Buffs--
 C   Undying X: Next lethal hit leaves user at X*10%hp.
@@ -173,34 +181,62 @@ ET  Scamper - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. A(3): G
 ET  Speed - Q: Gain Speed for 5 seconds. Gain 1 mana if you lacked Speed. A(2): Gain Speed for 30 seconds.
 ET  Fighting Retreat (R) - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. - A(3): Hop far back. Gain Invulnerable for .5 second. Shoot an arrow with punch 2.
 ET  Reposition (R) - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. A(5): Hop back, gain Invulnerable for .5 second and Speed 3 / Step Assist for 5 seconds.
-    Make Your Bones (R) - Q: Shoot a weak arrow, 1 mana on hit, +2 on kill. A(6): Shoot a strong arrow. On kill, Refund 4 and gain Speed 3 and Step Assist for 30 seconds.
+ET  Make Your Bones (R) - Q: Shoot a weak arrow, 1 mana on hit, +2 on kill. A(6): Shoot a strong arrow. On kill, Refund 4 and gain Speed 3 and Step Assist for 30 seconds.
 
- Dark Triad (Wither Skeletons, Wither)
+ ??? (Spiders, Cave Spiders, maybe other bugs like silverfish)
+ -Poison and poison interactions
+    Poison Fang: low cost strong melee attack with poison
+    Toxic Fang (R): moderate cost (6?), strong melee attack with deadly poison (Poison III long enough for 15 damage?)
+    Necrotic Fang (R): deadly melee attack inflicts Instant Damage II (essentially, does the better of 14-28 melee or 12 AP damage to the target)
+    Poison Spit: moderate projectile inflicts long poison
+    Sticky Glob: moderate projectile inflicts long slow
+    Entangle: moderate projectile inflicts long slow II
+    Spit Web: projectile creates web on hit
+    Consume: very strong melee attack has full lifesteal if target is poisoned
+    Devour (R): deadly melee attack has full lifesteal if target is poisoned
+    Venomous Lunge - Q: weak melee, 2 mana - A(3): Strong, focused strike inflicts poison after lunging.
+    Ensnaring Lunge - Q: weak melee, 2 mana - A(5): Very strong, focused strike creates web on hit after lunging.
+    Predation (R) - Q: weak melee, 2 mana - A(8): Deadly, focused strike has full lifesteal if target is poisoned.
+    Spider Lair (R): place carpet of webs on nearby ground
+    Jump Boost: gain jump boost
+    Webwalking: gain Webwalking (ignore slow from webs)
+    Aspect of the Spider (R): gain Speed, Webwalking, Jump Boost
+
+TODO: design Wither and Wither Skeleton cards
+Dark Triad (Wither Skeletons, Wither)
  --names come from gang-related (especially asian gang) and 'dark triad' mental trait related terms/phrases.
 ET  Rough 'em up - Q: Weak non-sweeping Melee Attack, 1 Mana on hit, inflict Slowness 1 for 5 seconds. - A(2): Weak Non-Sweeping melee attack inflicts escalating Weakness and Slowness for 5 seconds. Retain.
 
-The Way of Reaping (Illagers)
+The Way of Reaping I (Vindicators and Ravagers)
  --Axe pillagers use aggressive movement, trade blows, and seek revenge
  -Lunging Combo Attacks
 ET  Longsword - Q: Weak melee, 2 mana - A(3): Strong lunging strike throws targets. Refund 2 and Retain on miss.
 ET  Uppercut - Q: Weak focused melee generates 2 mana and pops target up. - A(3): Strong rising strike throws target skyward.
 ET  Shoulder Check - Q: Weak focused melee, 2 mana and knockback. - A(4): Charge forward, inflicting Strong damage, stunning, and dragging all along path.
-    Overrun - Q: Moderate focused melee, 1 mana and knockback. - A(7): Charge forward a long time, inflicting Extremely Strong damage and stunning all along path.
     Follow-up - Q: Moderate focused melee, 2 mana - A(2): Moderate focused melee is Very Strong if target was recently injured.
  -Trading Attacks (hit expecting to be hit, sometimes inflict momentary weakness 'stunning' as mitigation)
 XX  Shoulder Check (see above)
 XX  Yield Your Flesh (see below)
 XX  Overrun (see above)
-    Reckless Strike - Q: Moderate focused melee, 1 mana - A(5): Extremely Strong, focused strike after lunging. Refund 2 on hit.
+    Reckless Strike - Q: Moderate focused melee, 1 mana - A(5): Extremely Strong, focused strike after lunging. Refund 2 and Retain on hit.
  -Low Health Scalars / Retaliation
-ET  Yield Your Flesh - Q: Moderate focused melee invites harm for 3 mana - A(3): Moderate to Deadly focused melee attack based on missing health.
+ET  Yield Your Flesh (R) - Q: Moderate focused melee invites harm for 3 mana - A(3): Moderate to Deadly focused melee attack based on missing health.
 XX  Desperation (see below)
     Revenge - Q: Moderate focused melee, 2 mana - A(4): Very Strong focused melee is Deadly if recently injured.
 ET  Blood for Blood - Q: Moderate focused melee, 2 mana - A(5): Strong focused melee, returns damage and lifesteals when retaliating to immediate harm.
  -Absorption Hearts
-ET  Desperation - Q: Weak focused melee, mana scales with missing health - A(8): Very Deadly, focused melee attack bleeds self and grants Absorption V briefly (20 absorption, 10 seconds).
+ET  Desperation (R) - Q: Weak focused melee, mana scales with missing health - A(8): Very Deadly, focused melee attack bleeds self and grants Absorption V briefly (20 absorption, 10 seconds).
     Guarded Strike - Q: Moderate focused melee, 2 mana - Q(5): Extremely Strong focused melee grants up to 8 Absorption on hit
-    Catch Breath - Q: Gain up to 2 Absorption - Q(3): Gain up to 8 Absorption
+    Catch Breath - Q: Gain up to 2 Absorption - A(3): Gain up to 8 Absorption
+    Fearlessness (R) - Q: Gain up to 2 Absorption - A(9): Gain up to 20 Absorption
+ --Ravagers use extremely high mana, high impact melee and bullheaded bulk to close the gap
+    Overrun (R) - Q: Moderate focused melee, 1 mana and knockback. - A(7): Charge forward a long time, inflicting Extremely Strong damage and stunning all along path.
+    Stability - Q: Gain Stability for 10 seconds. - A(2): Gain Stability for 30 seconds.
+    Crush - Q: Moderate focused melee, 2 mana - A(8): Very Deadly focused melee grants up to 6 Absorption on hit.
+    Rend (R) - Q: Moderate focused melee, 2 mana - A(5): Very Strong focused melee is Catastrophic against low health targets.
+
+
+The Way of Reaping II (Pillagers, Witches, and Evokers)
  --Crossbow pillagers use simple, high damage crossbow bolts that shatter defenses
 Focused Bolt
 Overdraw
@@ -208,9 +244,15 @@ Overpenetration
 Staggering Bolt
 Sundering Bolt
  --Witches..?
- --Ravagers use extremely high mana, high impact melee and bullheaded bulk to close the gap
 XX  Overrun (see above)
 
+TODO: Endermen and Phantoms
+TODO: Blazes and Ghasts
+TODO: Pigmen
+TODO: Villagers and Iron Golems
+TODO: Snow Golems
+TODO: Guardians
+TODO: The Enderdragon
 
 
 

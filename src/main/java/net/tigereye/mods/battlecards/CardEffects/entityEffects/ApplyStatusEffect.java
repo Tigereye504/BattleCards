@@ -1,4 +1,4 @@
-package net.tigereye.mods.battlecards.CardEffects;
+package net.tigereye.mods.battlecards.CardEffects.entityEffects;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -65,7 +65,7 @@ public class ApplyStatusEffect implements CardEffect, CardTooltipNester {
             Identifier statusEffectID = new Identifier(CardSerializer.readOrDefaultString(id,"type",entry,""));
             output.type = Registries.STATUS_EFFECT.get(statusEffectID);
             if(output.type == null) {
-                Battlecards.LOGGER.error("Could not find status effect {}!", statusEffectID);
+                Battlecards.LOGGER.error("Could not find status effect {} in apply_status in {}!", statusEffectID,id.toString());
             }
 
             output.duration = CardSerializer.readOrDefaultScalar(id,"duration",entry,1);

@@ -20,7 +20,6 @@ public class GeneratedBattlecardModelLoadingPlugin implements ModelLoadingPlugin
             String trimmedPath = id.getPath().substring(7).split("\\.")[0];
             pluginContext.addModels(new Identifier(id.getNamespace(),trimmedPath));
         });
-        pluginContext.addModels();
         pluginContext.modifyModelAfterBake().register((original, context) -> {
             if (GENERATED_BATTLECARD_MODEL.equals(context.id())) {
                 return new GeneratedBattlecardBakedModel();

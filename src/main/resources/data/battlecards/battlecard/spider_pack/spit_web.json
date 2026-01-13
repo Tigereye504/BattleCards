@@ -1,0 +1,60 @@
+{
+  "id": "battlecards:spider_pack/spit_web",
+  "quickKeywords": ["Attack","Projectile","Mana Generator","Status"],
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 1.5,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 3,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "apply_status",
+          "type": "minecraft:slowness",
+          "duration": 80,
+          "magnitude": 0
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 2
+        }
+      ]
+    }
+  ],
+  "cost": 5,
+  "chargeKeywords": ["Attack","Projectile","World Editing"],
+  "chargeEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 1.5,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 5,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "push",
+          "magnitude": -0.3,
+          "pitch": 0,
+          "overrideVelocity": true,
+          "comment": "this serves to pull the target a bit into the new web, as they will likely be free of it otherwise"
+        }
+      ],
+      "onCollision": [
+        {
+          "effect": "target_tracked_entity",
+          "effects": [
+            {
+              "effect": "replace_block",
+              "block": "minecraft:cobweb"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "id": "battlecards:spider_pack/poison_fang",
+  "quickKeywords": ["Attack","Melee","Mana Generator","Status"],
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "isSweep": false,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:player_attack"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 1
+        },
+        {
+          "effect": "apply_status",
+          "type": "minecraft:poison",
+          "duration": 80,
+          "magnitude": 0
+        }
+      ]
+    }
+  ],
+  "cost": 4,
+  "chargeKeywords": ["Attack","Melee","Status"],
+  "chargeEffects": [
+    {
+      "effect": "melee",
+      "isSweep": false,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 7,
+          "damageType": "minecraft:player_attack"
+        },
+        {
+          "effect": "apply_status",
+          "type": "minecraft:poison",
+          "duration": 925,
+          "magnitude": 0
+        }
+      ]
+    }
+  ]
+}

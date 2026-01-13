@@ -1,9 +1,11 @@
 package net.tigereye.mods.battlecards.registration;
 
 import net.tigereye.mods.battlecards.CardEffects.*;
+import net.tigereye.mods.battlecards.CardEffects.blockEffects.ReplaceBlockEffect;
 import net.tigereye.mods.battlecards.CardEffects.delivery.EntitiesInRadiusEffect;
 import net.tigereye.mods.battlecards.CardEffects.delivery.MeleeEffect;
 import net.tigereye.mods.battlecards.CardEffects.delivery.ThrowCardEffect;
+import net.tigereye.mods.battlecards.CardEffects.entityEffects.*;
 import net.tigereye.mods.battlecards.CardEffects.modifiers.*;
 import net.tigereye.mods.battlecards.CardEffects.delivery.ThrowCardsEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.*;
@@ -41,7 +43,7 @@ public class BCEffectSerializers {
         CardSerializer.registerCardEffectSerializer("pitch_to_target_scalar",new PitchToTargetScalarEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("x_scalar",new XScalarEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("status_magnitude_scalar",new StatusLevelScalarEffect.Serializer());
-        //payouts
+        //entity effects
         CardSerializer.registerCardEffectSerializer("apply_status",new ApplyStatusEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("clear_status",new ClearStatusEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("damage",new DamageEffect.Serializer());
@@ -54,5 +56,9 @@ public class BCEffectSerializers {
         CardSerializer.registerCardEffectSerializer("push",new PushEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("retain",new RetainCardEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("transfer_status",new TransferStatusEffect.Serializer());
+        //block effects
+        CardSerializer.registerCardEffectSerializer("replace_block",new ReplaceBlockEffect.Serializer());
+
+
     }
 }

@@ -1,0 +1,48 @@
+{
+  "id": "battlecards:spider_pack/spit_poison",
+  "quickKeywords": ["Attack","Projectile","Mana Generator","Status"],
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 1.5,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 3,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 2
+        },
+        {
+          "effect": "apply_status",
+          "type": "minecraft:poison",
+          "duration": 80,
+          "magnitude": 0
+        }
+      ]
+    }
+  ],
+  "cost": 4,
+  "chargeKeywords": ["Attack","Projectile","Status"],
+  "chargeEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 2,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 5,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "apply_status",
+          "type": "minecraft:poison",
+          "duration": 925,
+          "magnitude": 0
+        }
+      ]
+    }
+  ]
+}

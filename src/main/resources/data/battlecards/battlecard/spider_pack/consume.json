@@ -1,0 +1,56 @@
+{
+  "id": "battlecards:spider_pack/consume",
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:player_attack",
+          "afterDamage": [
+            {
+              "effect": "if_status",
+              "type": "minecraft:poison",
+              "effects": [
+                {
+                  "effect": "lifesteal",
+                  "amount": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 1
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "chargeEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 7,
+          "damageType": "minecraft:player_attack",
+          "afterDamage": [
+            {
+              "effect": "if_status",
+              "type": "minecraft:poison",
+              "effects": [
+                {
+                  "effect": "lifesteal",
+                  "amount": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

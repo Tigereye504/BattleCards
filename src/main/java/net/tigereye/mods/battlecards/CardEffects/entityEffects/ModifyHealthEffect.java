@@ -1,4 +1,4 @@
-package net.tigereye.mods.battlecards.CardEffects;
+package net.tigereye.mods.battlecards.CardEffects.entityEffects;
 
 import com.google.gson.JsonElement;
 import net.minecraft.client.item.TooltipContext;
@@ -17,7 +17,7 @@ import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 
 import java.util.List;
 
-public class ModifyAbsorptionEffect implements CardEffect, CardTooltipNester {
+public class ModifyHealthEffect implements CardEffect, CardTooltipNester {
 
     CardScalar amount;
     CardScalar scalingAmount;
@@ -35,10 +35,14 @@ public class ModifyAbsorptionEffect implements CardEffect, CardTooltipNester {
         if(target instanceof LivingEntity livingEntity) {
             float totalAmount = amount.getValue(pContext, context) + (scalingAmount.getValue(pContext, context)*context.scalar);
             if(modifyElseSet) {
-                livingEntity.setAbsorptionAmount(livingEntity.getAbsorptionAmount() + totalAmount);
+                if (totalAmount > 0) {
+                    livingEntity.heal(totalAmount);
+                } else if (totalAmount < 0) {
+                    livingEntity.setHealth((float) Math.max(0.01, livingEntity.getHealth() + totalAmount));
+                }
             }
             else{
-                livingEntity.setAbsorptionAmount(totalAmount);
+                livingEntity.setHealth(totalAmount);
             }
         }
     }
@@ -46,13 +50,13 @@ public class ModifyAbsorptionEffect implements CardEffect, CardTooltipNester {
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         if(modifyElseSet) {
             tooltip.add(Text.literal(" ".repeat(depth)).append(
-                    Text.translatable("card.battlecards.tooltip.modify_absorption",
+                    Text.translatable("card.battlecards.tooltip.modify_health",
                             amount.appendInlineTooltip(world, tooltip, tooltipContext).getString(),
                             scalingAmount.appendInlineTooltip(world, tooltip, tooltipContext).getString() + "X")));
         }
         else{
             tooltip.add(Text.literal(" ".repeat(depth)).append(
-                    Text.translatable("card.battlecards.tooltip.modify_absorption.set",
+                    Text.translatable("card.battlecards.tooltip.modify_health.set",
                             amount.appendInlineTooltip(world, tooltip, tooltipContext).getString(),
                             scalingAmount.appendInlineTooltip(world, tooltip, tooltipContext).getString() + "X")));
         }
@@ -61,9 +65,10 @@ public class ModifyAbsorptionEffect implements CardEffect, CardTooltipNester {
     public static class Serializer implements CardEffectSerializer {
         @Override
         public CardEffect readFromJson(Identifier id, JsonElement entry) {
-            ModifyAbsorptionEffect output = new ModifyAbsorptionEffect();
+            ModifyHealthEffect output = new ModifyHealthEffect();
             output.amount = CardSerializer.readOrDefaultScalar(id, "amount",entry,0);
             output.scalingAmount = CardSerializer.readOrDefaultScalar(id, "scalingAmount",entry,0);
+            output.modifyElseSet = CardSerializer.readOrDefaultBoolean(id,"modifyElseSet",entry,true);
             return output;
         }
     }

@@ -55,7 +55,7 @@ public class IfStatusEffect implements CardEffect, CardTooltipNester {
 
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         if(type != null){
-            if(effects != null) {
+            if(!effects.isEmpty()) {
                 tooltip.add(Text.literal(" ".repeat(depth)).append(
                         Text.translatable("card.battlecards.tooltip.if_status",
                                 targetElseUser ? "target" : "user",
@@ -66,7 +66,7 @@ public class IfStatusEffect implements CardEffect, CardTooltipNester {
                     }
                 }
             }
-            if(falseEffects != null) {
+            if(!falseEffects.isEmpty()) {
                 tooltip.add(Text.literal(" ".repeat(depth)).append(
                         Text.translatable("card.battlecards.tooltip.if_status.false",
                                 targetElseUser ? "target" : "user",
@@ -88,7 +88,7 @@ public class IfStatusEffect implements CardEffect, CardTooltipNester {
             Identifier statusEffectID = new Identifier(CardSerializer.readOrDefaultString(id,"type",entry,""));
             output.type = Registries.STATUS_EFFECT.get(statusEffectID);
             if(output.type == null) {
-                Battlecards.LOGGER.error("Could not find status effect {}!", statusEffectID);
+                Battlecards.LOGGER.error("Could not find status effect {} in if_status in {}!", statusEffectID,id.toString());
             }
 
             output.effects = CardSerializer.readCardEffects(id, "effects",entry);

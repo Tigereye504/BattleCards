@@ -1,4 +1,4 @@
-package net.tigereye.mods.battlecards.CardEffects;
+package net.tigereye.mods.battlecards.CardEffects.entityEffects;
 
 import com.google.gson.JsonElement;
 import net.minecraft.client.item.TooltipContext;

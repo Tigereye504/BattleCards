@@ -35,7 +35,7 @@ public class EntityMixin implements DelayedActionTaker {
     }
 
     @Inject(at = @At("HEAD"), method = "baseTick")
-    public void spellboundLivingEntityBaseTickMixin(CallbackInfo info) {
+    public void BattlecardsLivingEntityBaseTickMixin(CallbackInfo info) {
         performingDelayedActions = true;
         for (DelayedAction action : delayedActions) {
             if (action.actOrDecrementTicks()) {

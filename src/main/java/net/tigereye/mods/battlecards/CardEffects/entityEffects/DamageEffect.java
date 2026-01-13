@@ -1,4 +1,4 @@
-package net.tigereye.mods.battlecards.CardEffects;
+package net.tigereye.mods.battlecards.CardEffects.entityEffects;
 
 import com.google.gson.JsonElement;
 import net.minecraft.client.item.TooltipContext;
@@ -6,7 +6,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.damage.DamageTypes;
-import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
@@ -18,7 +17,6 @@ import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectCon
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
-import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 import net.tigereye.mods.battlecards.Events.ModifyDamageCardEffectCallback;

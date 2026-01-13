@@ -1,0 +1,54 @@
+{
+  "id": "battlecards:spider_pack/necrotic_fang",
+  "quickKeywords": ["Attack","Melee","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "isSweep": false,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:player_attack"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 1
+        },
+        {
+          "effect": "apply_status",
+          "type": "minecraft:poison",
+          "duration": 25,
+          "magnitude": 1
+        }
+      ]
+    }
+  ],
+  "cost": 6,
+  "chargeKeywords": ["Attack","Melee","Status"],
+  "chargeEffects": [
+    {
+      "effect": "melee",
+      "isSweep": false,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 14,
+          "damageType": "minecraft:player_attack"
+        },
+        {
+          "effect": "apply_status",
+          "type": "minecraft:instant_damage",
+          "duration": 1,
+          "magnitude": 1
+        },
+        {
+          "effect": "apply_status",
+          "type": "minecraft:wither",
+          "duration": 100,
+          "magnitude": 0
+        }
+      ]
+    }
+  ]
+}
