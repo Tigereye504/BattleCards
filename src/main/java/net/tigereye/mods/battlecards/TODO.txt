@@ -185,22 +185,22 @@ ET  Make Your Bones (R) - Q: Shoot a weak arrow, 1 mana on hit, +2 on kill. A(6)
 
  ??? (Spiders, Cave Spiders, maybe other bugs like silverfish)
  -Poison and poison interactions
-    Poison Fang: low cost strong melee attack with poison
-    Toxic Fang (R): moderate cost (6?), strong melee attack with deadly poison (Poison III long enough for 15 damage?)
-    Necrotic Fang (R): deadly melee attack inflicts Instant Damage II (essentially, does the better of 14-28 melee or 12 AP damage to the target)
-    Poison Spit: moderate projectile inflicts long poison
-    Sticky Glob: moderate projectile inflicts long slow
-    Entangle: moderate projectile inflicts long slow II
-    Spit Web: projectile creates web on hit
-    Consume: very strong melee attack has full lifesteal if target is poisoned
-    Devour (R): deadly melee attack has full lifesteal if target is poisoned
-    Venomous Lunge - Q: weak melee, 2 mana - A(3): Strong, focused strike inflicts poison after lunging.
-    Ensnaring Lunge - Q: weak melee, 2 mana - A(5): Very strong, focused strike creates web on hit after lunging.
-    Predation (R) - Q: weak melee, 2 mana - A(8): Deadly, focused strike has full lifesteal if target is poisoned.
-    Spider Lair (R): place carpet of webs on nearby ground
-    Jump Boost: gain jump boost
-    Webwalking: gain Webwalking (ignore slow from webs)
-    Aspect of the Spider (R): gain Speed, Webwalking, Jump Boost
+ET  Poison Fang: low cost strong melee attack with poison
+ET  Toxic Fang (R): moderate cost (6?), strong melee attack with deadly poison (Poison III long enough for 15 damage?)
+E   Necrotic Fang (R): deadly melee attack inflicts Instant Damage II (essentially, does the better of 14-28 melee or 12 AP damage to the target)
+ET  Poison Spit: moderate projectile inflicts long poison
+ET  Sticky Glob: moderate projectile inflicts long slow
+ET  Caustic Goop: moderate projectile inflicts long slow and poison
+ET  Spit Web: projectile creates web on hit
+ET  Consume: very strong melee attack has full lifesteal if target is poisoned
+ET  Devour (R): deadly melee attack has full lifesteal if target is poisoned
+ET  Venomous Lunge - Q: weak melee, 2 mana - A(3): Strong, focused strike inflicts poison after lunging.
+ET  Ensnaring Lunge - Q: weak melee, 2 mana - A(5): Very strong, focused strike creates web on hit after lunging.
+ET  Predation (R) - Q: weak melee, 2 mana - A(8): Deadly, focused strike has full lifesteal if target is poisoned.
+  Spider Lair (R): place carpet of webs on nearby ground
+  Jump Boost: gain jump boost
+  Webwalking: gain Webwalking (ignore slow from webs)
+  Aspect of the Spider (R): gain Speed, Webwalking, Jump Boost
 
 TODO: design Wither and Wither Skeleton cards
 Dark Triad (Wither Skeletons, Wither)

@@ -7,5 +7,8 @@ public class BoosterPackJsonFormat {
     String id;
     float dropRate;
     float dropRateLootingFactor;
-    float dropRateLuckFactor;
+    int commonCount;
+    JsonArray commonCards;
+    int rareCount;
+    JsonArray rareCards;
 }

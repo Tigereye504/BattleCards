@@ -41,7 +41,7 @@ public class BCItems {
                 CardManager.GeneratedCards.keySet().stream().sorted().forEachOrdered((id) -> {
                     entries.add(CardManager.generateCardItemstack(id));
                 });
-                BoosterPackManager.BoosterPacks.stream().sorted().forEachOrdered((id) -> {
+                BoosterPackManager.boosterPacks.stream().sorted().forEachOrdered((id) -> {
                     entries.add(BoosterPackManager.generateBoosterPackItemstack(id));
                 });
             }))

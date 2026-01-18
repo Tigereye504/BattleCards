@@ -1,0 +1,36 @@
+{
+  "id": "battlecards:spider_pack/booster_pack",
+  "dropRate": 0.1,
+  "dropRateLootingFactor": 0.035,
+  "sourceLootTables": [
+    "minecraft:entities/spider",
+    "minecraft:entities/cave_spider"
+  ],
+  "scrapValue": {
+    "item": "battlecards:card_scrap",
+    "count": 5
+  },
+  "commonCount": 4,
+  "commonCards": [
+    "battlecards:spider_pack/poison_fang",
+    "battlecards:spider_pack/poison_spit",
+    "battlecards:spider_pack/sticky_glob",
+    "battlecards:spider_pack/caustic_goop",
+    "battlecards:spider_pack/spit_web",
+    "battlecards:spider_pack/consume",
+    "battlecards:spider_pack/venomous_lunge",
+    "battlecards:spider_pack/ensnaring_lunge",
+    "battlecards:basic_cards/jump_boost",
+    "battlecards:basic_cards/speed",
+    "battlecards:basic_cards/night_vision"
+  ],
+  "rareCount": 1,
+  "rareCards": [
+    "battlecards:spider_pack/toxic_fang",
+    "battlecards:spider_pack/necrotic_fang",
+    "battlecards:spider_pack/devour",
+    "battlecards:spider_pack/predation",
+    "battlecards:spider_pack/spider_lair",
+    "battlecards:spider_pack/spider_aspect"
+  ]
+}

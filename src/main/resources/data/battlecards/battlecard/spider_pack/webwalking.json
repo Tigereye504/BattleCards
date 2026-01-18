@@ -1,0 +1,20 @@
+{
+  "id": "battlecards:spider_pack/webwalking",
+  "quickEffects": [
+    {
+      "effect": "apply_status",
+      "type": "battlecards:webwalking",
+      "duration": 100,
+      "magnitude": 0
+    }
+  ],
+  "cost": 2,
+  "chargeEffects": [
+    {
+      "effect": "apply_status",
+      "type": "battlecards:webwalking",
+      "duration": 600,
+      "magnitude": 0
+    }
+  ]
+}

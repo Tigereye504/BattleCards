@@ -1,0 +1,8 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer2": "battlecards:item/card_icons/melee",
+        "layer1": "battlecards:item/spider_pack/venomous_lunge",
+        "layer0": "battlecards:item/spider_pack/background"
+    }
+}

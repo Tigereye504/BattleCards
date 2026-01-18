@@ -4,6 +4,7 @@
   "package": "net.tigereye.mods.battlecards.Mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "CobwebBlockMixin",
     "EntityMixin",
     "LivingEntityMixin",
     "PersistentProjectileEntityMixin"

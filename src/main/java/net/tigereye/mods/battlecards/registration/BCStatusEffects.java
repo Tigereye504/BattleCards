@@ -27,6 +27,7 @@ public class BCStatusEffects {
     public static StatusEffect EVADING = new Evading();
     public static StatusEffect HIGHSTEP = new HighStep();
     public static StatusEffect OVERDRAW = new Overdraw();
+    public static StatusEffect WEBWALKING = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 0xDDDDDD);
 
     public static void register(){
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "mana"), MANA);
@@ -38,6 +39,6 @@ public class BCStatusEffects {
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "highstep"), HIGHSTEP);
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "sundered"), SUNDERED);
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "overdraw"), OVERDRAW);
-
+        Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "webwalking"), WEBWALKING);
     }
 }

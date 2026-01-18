@@ -1,5 +1,5 @@
 {
-  "id": "battlecards:spider_pack/venomous_lunge",
+  "id": "battlecards:spider_pack/ensnaring_lunge",
   "quickKeywords": ["Attack","Melee","Mana Generator"],
   "quickEffects": [
     {
@@ -13,11 +13,11 @@
         },
         {
           "effect": "gain_mana",
-          "amount": 1
+          "amount": 2
         },
         {
           "effect": "apply_status",
-          "type": "minecraft:poison",
+          "type": "minecraft:slowness",
           "duration": 80,
           "magnitude": 0
         }
@@ -41,10 +41,8 @@
               "damageType": "minecraft:player_attack"
             },
             {
-              "effect": "apply_status",
-              "type": "minecraft:poison",
-              "duration": 925,
-              "magnitude": 0
+              "effect": "replace_block",
+              "block": "minecraft:cobweb"
             }
           ]
         }

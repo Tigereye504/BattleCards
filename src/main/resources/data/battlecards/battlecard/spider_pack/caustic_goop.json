@@ -1,5 +1,5 @@
 {
-  "id": "battlecards:spider_pack/entangle",
+  "id": "battlecards:spider_pack/caustic_goop",
   "quickKeywords": ["Attack","Projectile","Mana Generator","Status"],
   "quickEffects": [
     {
@@ -13,12 +13,18 @@
         },
         {
           "effect": "gain_mana",
-          "amount": 2
+          "amount": 1
         },
         {
           "effect": "apply_status",
           "type": "minecraft:slowness",
-          "duration": 80,
+          "duration": 60,
+          "magnitude": 0
+        },
+        {
+          "effect": "apply_status",
+          "type": "minecraft:poison",
+          "duration": 60,
           "magnitude": 0
         }
       ]
@@ -40,7 +46,13 @@
           "effect": "apply_status",
           "type": "minecraft:slowness",
           "duration": 400,
-          "magnitude": 1
+          "magnitude": 0
+        },
+        {
+          "effect": "apply_status",
+          "type": "minecraft:poison",
+          "duration": 400,
+          "magnitude": 0
         }
       ]
     }

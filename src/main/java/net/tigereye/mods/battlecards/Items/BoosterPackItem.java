@@ -51,16 +51,22 @@ public class BoosterPackItem extends Item {
             String boosterPackIDString = stack.getNbt().getString(BoosterPackManager.ID_NBTKEY);
             if(boosterPackIDString != null) {
                 Identifier boosterPackId = new Identifier(boosterPackIDString);
-                boosterPackId = new Identifier(boosterPackId.getNamespace(),"battlecard/"+boosterPackId.getPath());
-                //TODO: use ID to lookup loot table
                 if (world instanceof ServerWorld sWorld){
-                    LootContextParameterSet.Builder LCPSBuilder = new LootContextParameterSet.Builder(sWorld)
-                            .add(LootContextParameters.ORIGIN, user.getPos());
-                    LootTable lootTable = sWorld.getServer().getLootManager().getLootTable(boosterPackId);
-                    //TODO: generate loot
-                    LootContextParameterSet LCPS = LCPSBuilder.build(LootContextTypes.CHEST);
-                    List<ItemStack> list = lootTable.generateLoot(LCPS);
-                    //TODO: drop loot into inventory, or on ground if can't
+                    //use ID to get cards from booster pack manager
+                    List<ItemStack> list = BoosterPackManager.generateBoosterPackContents(boosterPackId,user);
+                    //if no cards are returned, instead try to use ID to lookup loot table
+                    Identifier LootTableId = new Identifier(boosterPackId.getNamespace(),"battlecard/"+boosterPackId.getPath());
+                    if(list.isEmpty()) {
+                        LootContextParameterSet.Builder LCPSBuilder = new LootContextParameterSet.Builder(sWorld)
+                                .add(LootContextParameters.ORIGIN, user.getPos());
+                        LootTable lootTable = sWorld.getServer().getLootManager().getLootTable(LootTableId);
+                        //generate loot
+                        if(lootTable != null) {
+                            LootContextParameterSet LCPS = LCPSBuilder.build(LootContextTypes.CHEST);
+                            list = lootTable.generateLoot(LCPS);
+                        }
+                    }
+                    //drop loot into inventory, or on ground if can't
                     PlayerInventory playerInventory = user.getInventory();
                     for (ItemStack itemStack:
                             list) {
