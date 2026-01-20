@@ -1,0 +1,38 @@
+{
+  "id": "battlecards:spider_pack/spider_aspect",
+  "quickEffects": [
+    {
+      "effect": "apply_status",
+      "type": "battlecards:webwalking",
+      "duration": 100,
+      "magnitude": 0
+    },
+    {
+      "effect": "apply_status",
+      "type": "minecraft:jump_boost",
+      "duration": 100,
+      "magnitude": 0
+    }
+  ],
+  "cost": 5,
+  "chargeEffects": [
+    {
+      "effect": "apply_status",
+      "type": "battlecards:webwalking",
+      "duration": 800,
+      "magnitude": 0
+    },
+    {
+      "effect": "apply_status",
+      "type": "minecraft:jump_boost",
+      "duration": 800,
+      "magnitude": 0
+    },
+    {
+      "effect": "apply_status",
+      "type": "minecraft:speed",
+      "duration": 800,
+      "magnitude": 0
+    }
+  ]
+}

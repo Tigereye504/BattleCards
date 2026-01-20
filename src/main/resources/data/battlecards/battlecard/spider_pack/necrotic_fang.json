@@ -13,13 +13,14 @@
         },
         {
           "effect": "gain_mana",
-          "amount": 1
+          "amount": 2
         },
         {
           "effect": "apply_status",
           "type": "minecraft:poison",
-          "duration": 25,
-          "magnitude": 1
+          "duration": 45,
+          "magnitude": 1,
+          "comment": "This is intended to apply 2 times after I-frames. 1 damage-cost worth"
         }
       ]
     }
@@ -40,13 +41,15 @@
           "effect": "apply_status",
           "type": "minecraft:instant_damage",
           "duration": 1,
-          "magnitude": 1
+          "magnitude": 1,
+          "comment": "12 AP damage, overlapping with the above physical hit."
         },
         {
           "effect": "apply_status",
-          "type": "minecraft:wither",
-          "duration": 100,
-          "magnitude": 0
+          "type": "minecraft:poison",
+          "duration": 50,
+          "magnitude": 1,
+          "comment": "This will hit 3 times, a bit more than one damage-cost worth."
         }
       ]
     }

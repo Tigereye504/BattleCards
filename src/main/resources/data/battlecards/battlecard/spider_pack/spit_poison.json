@@ -18,8 +18,9 @@
         {
           "effect": "apply_status",
           "type": "minecraft:poison",
-          "duration": 80,
-          "magnitude": 0
+          "duration": 110,
+          "magnitude": 0,
+          "comment": "This is intended to apply 4 times after I-frames. 1 damage-cost worth"
         }
       ]
     }

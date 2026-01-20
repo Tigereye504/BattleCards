@@ -3,6 +3,7 @@
   "quickEffects": [
     {
       "effect": "melee",
+      "isSweep": false,
       "onHit": [
         {
           "effect": "damage",
@@ -23,7 +24,7 @@
         },
         {
           "effect": "gain_mana",
-          "amount": 1
+          "amount": 2
         }
       ]
     }
@@ -32,6 +33,7 @@
   "chargeEffects": [
     {
       "effect": "melee",
+      "isSweep": false,
       "onHit": [
         {
           "effect": "damage",

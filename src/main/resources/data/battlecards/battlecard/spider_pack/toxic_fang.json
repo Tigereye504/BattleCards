@@ -13,7 +13,7 @@
         },
         {
           "effect": "gain_mana",
-          "amount": 1
+          "amount": 2
         },
         {
           "effect": "apply_status",
@@ -45,7 +45,7 @@
         {
           "effect": "apply_status",
           "type": "minecraft:wither",
-          "duration": 150,
+          "duration": 170,
           "magnitude": 0
         }
       ]

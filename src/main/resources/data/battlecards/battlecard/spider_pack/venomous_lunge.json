@@ -13,12 +13,12 @@
         },
         {
           "effect": "gain_mana",
-          "amount": 1
+          "amount": 2
         },
         {
           "effect": "apply_status",
           "type": "minecraft:poison",
-          "duration": 80,
+          "duration": 105,
           "magnitude": 0
         }
       ]

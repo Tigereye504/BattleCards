@@ -134,29 +134,29 @@ Horrors of the Night Series (Nighttime Mobs)
  Hordes of Rot (Zombies, Husks, Drowned)
 TODO: fix worthless_flesh and ignore_wounds mixup
     --Common--
-ET  Mighty Blow - Q: Weak Melee Attack, 2 Mana on hit - A(3): Strong Melee Attack with Knockback 3.
+C   Mighty Blow - Q: Weak Melee Attack, 2 Mana on hit - A(3): Strong Melee Attack with Knockback 3.
         knockback acting funny, angles are strange
-ET  Pummel - Q: Weak Melee Attack, 2 Mana on hit - A(3): Three Moderate Melee Attacks back to back.
-ET  Drag Down - Q: Weak Melee Attack, 2 Mana on hit - A(3): Strong Melee Attack, on hit Slow 2 for 5 seconds.
-ET  Choke - Q: Weak Melee Attack, 2 Mana on hit - A(3): Moderate Melee Attack, does drowning damage, depletes breath meter on hit.
+C   Pummel - Q: Weak Melee Attack, 2 Mana on hit - A(3): Three Moderate Melee Attacks back to back.
+C   Drag Down - Q: Weak Melee Attack, 2 Mana on hit - A(3): Strong Melee Attack, on hit Slow 2 for 5 seconds.
+C   Choke - Q: Weak Melee Attack, 2 Mana on hit - A(3): Moderate Melee Attack, does drowning damage, depletes breath meter on hit.
         Perhaps make this 'very weak' drowning damage?
-ET  Infectious Blow - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger 2 for 5 seconds. - A(3): Strong Melee Attack, transfer one debuff to target
+C   Infectious Blow - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger 2 for 5 seconds. - A(3): Strong Melee Attack, transfer one debuff to target
     Aura of Hunger - Q: Weak Melee Attack, 1 Mana on hit, 1 Mana on Hit - A(?): Aura of Hunger
     Feast or Famine - Q: Randomly restore hunger or suffer Hunger 3 for 10 seconds. Gain 2 Mana. A(?) - ???
-ET  Persistence - Q: Recover 20% of missing HP, 1 Mana if healed - A(3): Gain Undying for 30 seconds.
-ET  Endurance - Q: Gain Armored for 5 seconds, 1 Mana if wasn't Armored - A(3): Gain Armored for 30 seconds.
+C   Persistence - Q: Recover 20% of missing HP, 1 Mana if healed - A(3): Gain Undying for 30 seconds.
+C   Endurance - Q: Gain Armored for 5 seconds, 1 Mana if wasn't Armored - A(3): Gain Armored for 30 seconds.
     Leadership - Q: Gain Zombie Lord for 5 seconds, 1 Mana if wasn't Zombie Lord - A(2): Gain Zombie Lord for 30 seconds.
-ET  Undeath - Q: Gain Undead for 5 seconds, 1 Mana if wasn't Undead  - A(2): Gain Undead for 30 seconds.
-ET  Breathless - Q: Gain 3 breath bubbles, 1 Mana if breath recovered - A(2): Gain Water Breathing for 30 seconds.
+C   Undeath - Q: Gain Undead for 5 seconds, 1 Mana if wasn't Undead  - A(2): Gain Undead for 30 seconds.
+C   Breathless - Q: Gain 3 breath bubbles, 1 Mana if breath recovered - A(2): Gain Water Breathing for 30 seconds.
     --Rare--
 C   Cannibalism - Weak Melee Attack, 1 Mana on hit, 50% lifesteal - A(3): Strong Melee Attack, 50% lifesteal
-E   Impale - Q: Moderate Melee Attack, no sweeping, more range, 1 Mana on hit - A(5): Throw very strong trident.
-ET  Ravenous Hunger - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger 2 for 5 seconds. - A(3): (2 + missing hunger) Melee Attack, gain 2 hunger on hit.
-ET  Famine - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger 2 for 5 seconds. - A(5): 8 block burst: Inflict Instant Damage 2, Hunger 2 for 30 seconds.
+C   Impale - Q: Moderate Melee Attack, no sweeping, more range, 1 Mana on hit - A(5): Throw very strong trident.
+C   Ravenous Hunger - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger 2 for 5 seconds. - A(3): (2 + missing hunger) Melee Attack, gain 2 hunger on hit.
+C   Famine - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger 2 for 5 seconds. - A(5): 8 block burst: Inflict Instant Damage 2, Hunger 2 for 30 seconds.
     Feast of Famine - Q: Weak Melee Attack, 3 Mana on hit, Suffer Hunger for 5 seconds. A: Dispel Hunger from nearby targets, gain hunger for each dispelled.
-ET  Worthless Flesh - Q: Gain Armored for 5 seconds, 1 Mana if wasn't Armored - A(3): Gain Armored 3, Reinforced 3 for 5 seconds.
-ET  Necromantic Surge - Q: Recover 20% of missing HP, 1 Mana if healed - A(5): Gain Undying 5 for 5 seconds.
-ET  Ignore Wounds - Q: Recover 20% of missing HP, 1 Mana if healed - A(5): Recover 67% of missing HP.
+C   Worthless Flesh - Q: Gain Armored for 5 seconds, 1 Mana if wasn't Armored - A(3): Gain Armored 3, Reinforced 3 for 5 seconds.
+C   Necromantic Surge - Q: Recover 20% of missing HP, 1 Mana if healed - A(5): Gain Undying 5 for 5 seconds.
+C   Ignore Wounds - Q: Recover 20% of missing HP, 1 Mana if healed - A(5): Recover 67% of missing HP.
   Status Effects
     --Buffs--
 C   Undying X: Next lethal hit leaves user at X*10%hp.
@@ -169,38 +169,38 @@ C   Undead: Healed by Instant Harm, Harmed by Instant Health. Burn In Sunlight.
  Deadfellows (Skeletons, Strays)
  --names sound like mafia-lingo
  --flighty movement, with trickshot arrows that pay out more for skillful positioning
-ET  Rattle 'em - Q: Shoot three weak arrows in rapid succession, 1 mana per hit - A(3): Shoot 5 arrows in very rapid succession
-ET  Multi-Pronged Proposition - Q: Shoot 3 weak arrows, 1 mana each on hit - A(3): Shoot 5 arrows in a fan (+/- 20, +/- 10, and 0 degrees).
-ET  Involve Bystander - Q: Shoot a weak arrow with 2 piercing, 1 mana on each hit - A(3): Shoot a arrow with 2 piercing. On hit, redirect at great speed towards the nearest other non-user entity.
-ET  Deliver a Message - Q: Shoot a weak shot, 1 mana +1 per 16 blocks distance on hit. - A(3): Shot damage scales with distance, deadly at 32 blocks.
+C   Rattle 'em - Q: Shoot three weak arrows in rapid succession, 1 mana per hit - A(3): Shoot 5 arrows in very rapid succession
+C   Multi-Pronged Proposition - Q: Shoot 3 weak arrows, 1 mana each on hit - A(3): Shoot 5 arrows in a fan (+/- 20, +/- 10, and 0 degrees).
+C   Involve Bystander - Q: Shoot a weak arrow with 2 piercing, 1 mana on each hit - A(3): Shoot a arrow with 2 piercing. On hit, redirect at great speed towards the nearest other non-user entity.
+C   Deliver a Message - Q: Shoot a weak shot, 1 mana +1 per 16 blocks distance on hit. - A(3): Shot damage scales with distance, deadly at 32 blocks.
     Insistent Question - Q: Shoot a weak arrow. On hit, repeat up to twice. 1 mana on hit. - A(3): Shoot a weak arrow. On hit, increase damage and repeat indefinitely.
-ET  Let 'em Have It (R) - Q: Shoot 3 weak arrows, 1 mana each hit. A(7): Shoot a stream of countless, strong arrows in a wide cone.
-ET  Explosive Rhetoric (R) - Q: Shoot a weak exploding arrow, 1 mana per hit. - A(5): Shoot a devastating, wide area explosing arrow.
+C   Let 'em Have It (R) - Q: Shoot 3 weak arrows, 1 mana each hit. A(7): Shoot a stream of countless, strong arrows in a wide cone.
+C   Explosive Rhetoric (R) - Q: Shoot a weak exploding arrow, 1 mana per hit. - A(5): Shoot a devastating, wide area explosing arrow.
 --  Vanish - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. A(5): Hop back, gain Invulnerable for .5 second and Invisible 3 for 5 seconds.
-ET  Scamper - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. A(3): Gain Speed 3 and Step Assist for 5 seconds.
-ET  Speed - Q: Gain Speed for 5 seconds. Gain 1 mana if you lacked Speed. A(2): Gain Speed for 30 seconds.
-ET  Fighting Retreat (R) - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. - A(3): Hop far back. Gain Invulnerable for .5 second. Shoot an arrow with punch 2.
-ET  Reposition (R) - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. A(5): Hop back, gain Invulnerable for .5 second and Speed 3 / Step Assist for 5 seconds.
-ET  Make Your Bones (R) - Q: Shoot a weak arrow, 1 mana on hit, +2 on kill. A(6): Shoot a strong arrow. On kill, Refund 4 and gain Speed 3 and Step Assist for 30 seconds.
+C   Scamper - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. A(3): Gain Speed 3 and Step Assist for 5 seconds.
+C   Speed - Q: Gain Speed for 5 seconds. Gain 1 mana if you lacked Speed. A(2): Gain Speed for 30 seconds.
+C   Fighting Retreat (R) - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. - A(3): Hop far back. Gain Invulnerable for .5 second. Shoot an arrow with punch 2.
+C   Reposition (R) - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. A(5): Hop back, gain Invulnerable for .5 second and Speed 3 / Step Assist for 5 seconds.
+C   Make Your Bones (R) - Q: Shoot a weak arrow, 1 mana on hit, +2 on kill. A(6): Shoot a strong arrow. On kill, Refund 4 and gain Speed 3 and Step Assist for 30 seconds.
 
  ??? (Spiders, Cave Spiders, maybe other bugs like silverfish)
  -Poison and poison interactions
-ET  Poison Fang: low cost strong melee attack with poison
-ET  Toxic Fang (R): moderate cost (6?), strong melee attack with deadly poison (Poison III long enough for 15 damage?)
-E   Necrotic Fang (R): deadly melee attack inflicts Instant Damage II (essentially, does the better of 14-28 melee or 12 AP damage to the target)
-ET  Poison Spit: moderate projectile inflicts long poison
-ET  Sticky Glob: moderate projectile inflicts long slow
-ET  Caustic Goop: moderate projectile inflicts long slow and poison
-ET  Spit Web: projectile creates web on hit
-ET  Consume: very strong melee attack has full lifesteal if target is poisoned
-ET  Devour (R): deadly melee attack has full lifesteal if target is poisoned
-ET  Venomous Lunge - Q: weak melee, 2 mana - A(3): Strong, focused strike inflicts poison after lunging.
-ET  Ensnaring Lunge - Q: weak melee, 2 mana - A(5): Very strong, focused strike creates web on hit after lunging.
-ET  Predation (R) - Q: weak melee, 2 mana - A(8): Deadly, focused strike has full lifesteal if target is poisoned.
+C   Poison Fang: low cost strong melee attack with poison
+C   Toxic Fang (R): moderate cost (6?), strong melee attack with deadly poison (Poison III long enough for 15 damage?)
+C   Necrotic Fang (R): deadly melee attack inflicts Instant Damage II (essentially, does the better of 14-28 melee or 12 AP damage to the target)
+C   Poison Spit: moderate projectile inflicts long poison
+C   Sticky Glob: moderate projectile inflicts long slow
+C   Caustic Goop: moderate projectile inflicts long slow and poison
+C   Spit Web: projectile creates web on hit
+C   Consume: very strong melee attack has full lifesteal if target is poisoned
+C   Devour (R): deadly melee attack has full lifesteal if target is poisoned
+C   Venomous Lunge - Q: weak melee, 2 mana - A(3): Strong, focused strike inflicts poison after lunging.
+C   Ensnaring Lunge - Q: weak melee, 2 mana - A(5): Very strong, focused strike creates web on hit after lunging.
+C   Predation (R) - Q: weak melee, 2 mana - A(8): Deadly, focused strike has full lifesteal if target is poisoned.
   Spider Lair (R): place carpet of webs on nearby ground
-  Jump Boost: gain jump boost
-  Webwalking: gain Webwalking (ignore slow from webs)
-  Aspect of the Spider (R): gain Speed, Webwalking, Jump Boost
+C   Jump Boost: gain jump boost
+C   Webwalking: gain Webwalking (ignore slow from webs)
+C   Spider Aspect (R): gain Speed, Webwalking, Jump Boost
 
 TODO: design Wither and Wither Skeleton cards
 Dark Triad (Wither Skeletons, Wither)

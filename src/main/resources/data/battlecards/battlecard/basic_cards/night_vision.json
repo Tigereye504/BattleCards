@@ -1,18 +1,20 @@
 {
-  "id": "battlecards:spider_pack/webwalking",
+  "id": "battlecards:basic_cards/night_vision",
+  "quickKeywords": ["Status"],
   "quickEffects": [
     {
       "effect": "apply_status",
-      "type": "battlecards:webwalking",
+      "type": "minecraft:night_vision",
       "duration": 200,
       "magnitude": 0
     }
   ],
   "cost": 2,
+  "chargedKeywords": ["Status"],
   "chargeEffects": [
     {
       "effect": "apply_status",
-      "type": "battlecards:webwalking",
+      "type": "minecraft:night_vision",
       "duration": 1200,
       "magnitude": 0
     }

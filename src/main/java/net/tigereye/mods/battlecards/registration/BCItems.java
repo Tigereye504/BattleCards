@@ -3,6 +3,7 @@ package net.tigereye.mods.battlecards.registration;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.registry.FuelRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
@@ -76,5 +77,9 @@ public class BCItems {
 
         Registry.register(Registries.RECIPE_SERIALIZER, new Identifier(Battlecards.MODID,"crafting_special_papercraft_booster"), PAPERCRAFT_BOOSTER_RECIPE_SERIALIZER);
         Registry.register(Registries.RECIPE_SERIALIZER, new Identifier(Battlecards.MODID,"crafting_special_shred_card_or_boosterpack"), SHRED_CARD_BOOSTER_PACKS_RECIPE_SERIALIZER);
+
+        FuelRegistry.INSTANCE.add(CARDFETTI,100);
+        FuelRegistry.INSTANCE.add(CARDFETTI_BRICK,400);
+        FuelRegistry.INSTANCE.add(CARDFETTI_BLOCK,4000);
     }
 }
