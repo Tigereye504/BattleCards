@@ -7,8 +7,26 @@
     "minecraft:entities/husk",
     "minecraft:entities/drowned"
   ],
-  "scrapValue": {
-    "item": "battlecards:card_scrap",
-    "count": 5
-  }
+  "commonCount": 4,
+  "commonCards": [
+    "battlecards:zombie_pack/breathless",
+    "battlecards:zombie_pack/choke",
+    "battlecards:zombie_pack/drag_down",
+    "battlecards:zombie_pack/endurance",
+    "battlecards:zombie_pack/infectious_blow",
+    "battlecards:zombie_pack/mighty_blow",
+    "battlecards:zombie_pack/persistence",
+    "battlecards:zombie_pack/pummel",
+    "battlecards:zombie_pack/undeath"
+  ],
+  "rareCount": 1,
+  "rareCards": [
+    "battlecards:zombie_pack/cannibalism",
+    "battlecards:zombie_pack/famine",
+    "battlecards:zombie_pack/ignore_wounds",
+    "battlecards:zombie_pack/impale",
+    "battlecards:zombie_pack/necromantic_surge",
+    "battlecards:zombie_pack/ravenous_hunger",
+    "battlecards:zombie_pack/worthless_flesh"
+  ]
 }

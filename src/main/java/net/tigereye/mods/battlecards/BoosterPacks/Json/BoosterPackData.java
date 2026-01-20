@@ -1,5 +1,6 @@
 package net.tigereye.mods.battlecards.BoosterPacks.Json;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.tigereye.mods.battlecards.BoosterPacks.BoosterPackCardList;
 import net.tigereye.mods.battlecards.BoosterPacks.BoosterPackDropRates;
@@ -9,6 +10,7 @@ import java.util.Set;
 public class BoosterPackData {
     public Identifier id;
     public Set<Identifier> mobs;
+    public ItemStack scrapValue;
     public float dropRate;
     public float dropRateLootingFactor;
     public int commonCount;

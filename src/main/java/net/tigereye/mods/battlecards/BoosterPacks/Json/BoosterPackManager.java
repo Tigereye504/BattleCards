@@ -12,6 +12,7 @@ import net.tigereye.mods.battlecards.BoosterPacks.BoosterPackCardList;
 import net.tigereye.mods.battlecards.BoosterPacks.BoosterPackDropRates;
 import net.tigereye.mods.battlecards.Cards.Json.CardManager;
 import net.tigereye.mods.battlecards.registration.BCItems;
+import net.tigereye.mods.battlecards.registration.BCStatusEffects;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -28,6 +29,7 @@ public class BoosterPackManager implements SimpleSynchronousResourceReloadListen
     public static Map<String, List<BoosterPackDropRates>> lootTableInjections = new HashMap<>();
     //The String would be an Identifier, but Maps don't properly compare them.
     public static Map<String, BoosterPackCardList> boosterPackCardList = new HashMap<>();
+    public static Map<String, ItemStack> boosterPackScrapValue = new HashMap<>();
     public static Set<Identifier> boosterPacks = new HashSet<>();
 
     @Override
@@ -52,6 +54,7 @@ public class BoosterPackManager implements SimpleSynchronousResourceReloadListen
                     lootTableInjections.put(deIdentifiedEntity, boosterList);
                 }
                 boosterPackCardList.put(boosterPackData.id.toString(),boosterPackData.getCardList());
+                boosterPackScrapValue.put(boosterPackData.id.toString(),boosterPackData.scrapValue);
 
             } catch(Exception e) {
                 Battlecards.LOGGER.error("Error occurred while loading resource json " + id.toString(), e);
@@ -75,23 +78,34 @@ public class BoosterPackManager implements SimpleSynchronousResourceReloadListen
     }
 
     public static List<ItemStack> generateBoosterPackContents(Identifier id, PlayerEntity user){
-        //TODO: account for cardfetti luck
-        return generateBoosterPackContents(id, user.getLuck(),user.getRandom());
+        float luck = user.getLuck() + (user.hasStatusEffect(BCStatusEffects.CARDFETTI_SACRIFICE) ?
+                user.getStatusEffect(BCStatusEffects.CARDFETTI_SACRIFICE).getAmplifier()+1 : 0);
+        user.removeStatusEffect(BCStatusEffects.CARDFETTI_SACRIFICE);
+        return generateBoosterPackContents(id,luck,user.getRandom());
     }
 
-    public static List<ItemStack> generateBoosterPackContents(Identifier id, float luck, Random random){
-        //TODO: use luck to roll to upgrade commons to rares
+    private static List<ItemStack> generateBoosterPackContents(Identifier id, float luck, Random random){
         List<ItemStack> chosenCards = new ArrayList<>();
         BoosterPackCardList cardList = boosterPackCardList.get(id.toString());
+        //TODO: move chances to config
+        float baseUpgradeChance = 0.05f;
+        float scalingUpgradeChance = 0.05f;
         if(cardList != null) {
-            chosenCards.addAll(rollNCardsFromSet(cardList.commonCards,cardList.commonCount,luck,random));
-            chosenCards.addAll(rollNCardsFromSet(cardList.rareCards,cardList.rareCount,luck,random));
+            int upgrades = 0;
+            for (int i = 0; i < cardList.commonCount; i++) {
+                if(random.nextFloat() < (baseUpgradeChance + (scalingUpgradeChance*luck))/(upgrades+1)){
+                    upgrades++;
+                }
+            }
+            chosenCards.addAll(rollNCardsFromSet(cardList.commonCards,cardList.commonCount-upgrades,luck,random));
+            chosenCards.addAll(rollNCardsFromSet(cardList.rareCards,cardList.rareCount+upgrades,luck,random));
         }
         return chosenCards;
     }
 
     private static List<ItemStack> rollNCardsFromSet(Set<Identifier> cardSet, int count, float luck, Random random){
         //TODO: use luck to roll for shiny/art variants (most likely this should be done in CardManager)
+        //  Cannot be done until shiny/art variants are supported.
         List<ItemStack> chosenCards = new ArrayList<>();
         int options = cardSet.size();
         List<Integer> picks = new ArrayList<>();

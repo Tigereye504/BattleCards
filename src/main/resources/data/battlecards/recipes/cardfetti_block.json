@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "###",
+        "###"
+    ],
+    "key": {
+        "#": {
+            "item": "battlecards:cardfetti_brick"
+        }
+    },
+    "result": {
+        "item": "battlecards:cardfetti_block",
+        "count": 1
+    }
+}

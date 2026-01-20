@@ -6,10 +6,6 @@
     "minecraft:entities/spider",
     "minecraft:entities/cave_spider"
   ],
-  "scrapValue": {
-    "item": "battlecards:card_scrap",
-    "count": 5
-  },
   "commonCount": 4,
   "commonCards": [
     "battlecards:spider_pack/poison_fang",

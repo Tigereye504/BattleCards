@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "battlecards:cardfetti_brick"
+        }
+    ],
+    "result": {
+        "item": "battlecards:cardfetti",
+        "count": 4
+    }
+}

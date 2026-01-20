@@ -6,8 +6,21 @@
     "minecraft:entities/skeleton",
     "minecraft:entities/stray"
   ],
-  "scrapValue": {
-    "item": "battlecards:card_scrap",
-    "count": 5
-  }
+  "commonCount": 4,
+  "commonCards": [
+    "battlecards:skeleton_pack/deliver_a_message",
+    "battlecards:skeleton_pack/involve_bystander",
+    "battlecards:skeleton_pack/multi_pronged_proposition",
+    "battlecards:skeleton_pack/rattle_em",
+    "battlecards:skeleton_pack/scamper",
+    "battlecards:basic_cards/speed"
+  ],
+  "rareCount": 1,
+  "rareCards": [
+    "battlecards:skeleton_pack/explosive_rhetoric",
+    "battlecards:skeleton_pack/fighting_retreat",
+    "battlecards:skeleton_pack/let_em_have_it",
+    "battlecards:skeleton_pack/reposition",
+    "battlecards:skeleton_pack/make_your_bones"
+  ]
 }

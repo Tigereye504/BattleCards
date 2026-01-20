@@ -32,13 +32,11 @@ public class BoosterPackItem extends Item {
 
     @Override
     public Text getName(ItemStack stack) {
-        if(stack.hasNbt()) {
-            String boosterPackID = stack.getNbt().getString(BoosterPackManager.ID_NBTKEY);
-            if(boosterPackID != null) {
-                String[] splitID = boosterPackID.split(":",2);
-                if(splitID.length > 1) {
-                    return Text.translatable("boosterpack." + splitID[0] + "." + splitID[1]);
-                }
+        String boosterPackID = getBoosterPackID(stack);
+        if(boosterPackID != null) {
+            String[] splitID = boosterPackID.split(":",2);
+            if(splitID.length > 1) {
+                return Text.translatable("boosterpack." + splitID[0] + "." + splitID[1]);
             }
         }
         return Text.translatable("boosterpack.battlecards.blank");
@@ -79,5 +77,12 @@ public class BoosterPackItem extends Item {
         }
         stack.decrement(1);
         return TypedActionResult.consume(stack);
+    }
+
+    public static String getBoosterPackID(ItemStack stack){
+        if(stack.hasNbt()) {
+            return stack.getNbt().getString(BoosterPackManager.ID_NBTKEY);
+        }
+        return null;
     }
 }

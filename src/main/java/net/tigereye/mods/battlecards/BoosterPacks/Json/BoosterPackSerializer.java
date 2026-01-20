@@ -2,13 +2,15 @@ package net.tigereye.mods.battlecards.BoosterPacks.Json;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonSyntaxException;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
 import net.tigereye.mods.battlecards.Battlecards;
+import net.tigereye.mods.battlecards.registration.BCItems;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
 public class BoosterPackSerializer {
     //remember: the first identifier is the entity, the second is the chest cavity type
@@ -30,6 +32,8 @@ public class BoosterPackSerializer {
         boosterPackData.id = boosterPackID;
         boosterPackData.dropRate = bpdJson.dropRate;
         boosterPackData.dropRateLootingFactor = bpdJson.dropRateLootingFactor;
+
+
         int i = 0;
         if(bpdJson.sourceLootTables != null) {
             for (JsonElement entry :
@@ -42,6 +46,7 @@ public class BoosterPackSerializer {
                 }
             }
         }
+
         boosterPackData.commonCount = bpdJson.commonCount;
         boosterPackData.rareCount = bpdJson.rareCount;
 
@@ -72,6 +77,25 @@ public class BoosterPackSerializer {
                 }
             }
         }
+
+        if(bpdJson.scrapValue != null){
+            try{
+                Item item = Registries.ITEM.get(Identifier.tryParse(bpdJson.scrapValue.get("item").getAsString()));
+                if(item == Items.AIR){
+                    Battlecards.LOGGER.error("Scrap value of {} is air. This is most likely due to a misspelled identifier", id.toString());
+                }
+                int count = bpdJson.scrapValue.get("count").getAsInt();
+                boosterPackData.scrapValue = new ItemStack(item,count);
+            }
+            catch (Exception e){
+                Battlecards.LOGGER.error("Error parsing scrap value of {}", id.toString());
+                boosterPackData.scrapValue = null;
+            }
+        }
+        else{
+            boosterPackData.scrapValue = new ItemStack(BCItems.CARDFETTI,boosterPackData.commonCount+boosterPackData.rareCount);
+        }
+
         return boosterPackData;
     }
 }

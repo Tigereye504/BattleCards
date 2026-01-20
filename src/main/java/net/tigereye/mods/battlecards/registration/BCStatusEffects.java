@@ -12,6 +12,7 @@ import net.tigereye.mods.battlecards.StatusEffects.*;
 
 public class BCStatusEffects {
 
+    public static StatusEffect CARDFETTI_SACRIFICE = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 0x802000);
     public static StatusEffect MANA = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 0x008080);
     public static StatusEffect UNDEATH = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 0xAAAAAA);
     public static StatusEffect UNDYING = new Undying();
@@ -30,6 +31,7 @@ public class BCStatusEffects {
     public static StatusEffect WEBWALKING = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 0xDDDDDD);
 
     public static void register(){
+        Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "cardfetti_sacrifice"), CARDFETTI_SACRIFICE);
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "mana"), MANA);
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "undeath"), UNDEATH);
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "undying"), UNDYING);
