@@ -8,8 +8,9 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Items.interfaces.BattleCardItem;
 import net.tigereye.mods.battlecards.Items.interfaces.CardOwningItem;
+import net.tigereye.mods.battlecards.Items.interfaces.CardSleeve;
 
-public class CardSleeveItem extends Item implements CardSleeve{
+public class CardSleeveItem extends Item implements CardSleeve {
 
     public CardSleeveItem(Settings settings) {
         super(settings);

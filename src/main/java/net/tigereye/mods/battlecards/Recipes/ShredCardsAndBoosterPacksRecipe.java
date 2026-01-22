@@ -11,6 +11,8 @@ import net.minecraft.registry.DynamicRegistryManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.BoosterPacks.Json.BoosterPackManager;
+import net.tigereye.mods.battlecards.Cards.BattleCard;
+import net.tigereye.mods.battlecards.Cards.Json.CardManager;
 import net.tigereye.mods.battlecards.Items.BoosterPackItem;
 import net.tigereye.mods.battlecards.Items.interfaces.CardOwningItem;
 import net.tigereye.mods.battlecards.registration.BCItems;
@@ -67,9 +69,11 @@ public class ShredCardsAndBoosterPacksRecipe extends SpecialCraftingRecipe {
             return BoosterPackManager.boosterPackScrapValue.getOrDefault(
                     BoosterPackItem.getBoosterPackID(found),ItemStack.EMPTY).copy();
         }
-        else if(found.getItem() == BCItems.BATTLECARD){
+        BattleCard card = CardManager.readNBTBattleCard(found);
+        if(card != null){
             //TODO: variable output for cards
-            return new ItemStack(BCItems.CARDFETTI,1);
+            //TODO: return the card's sleeve to the player, if any
+            return card.getScrapValue();
         }
 
         return ItemStack.EMPTY;

@@ -2,6 +2,7 @@ package net.tigereye.mods.battlecards.Cards;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
@@ -64,5 +65,10 @@ public class BlankBattleCard implements BattleCard {
     @Override
     public boolean performChargeEffect(LivingEntity user, ItemStack itemStack) {
         return false;
+    }
+
+    @Override
+    public ItemStack getScrapValue() {
+        return Items.PAPER.getDefaultStack();
     }
 }

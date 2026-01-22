@@ -2,7 +2,7 @@
     "parent": "item/handheld",
     "textures": {
         "layer2": "battlecards:item/card_icons/projectile",
-        "layer1": "battlecards:item/unknown_card_art",
+        "layer1": "battlecards:item/passable_papercraft/six_ply",
         "layer0": "battlecards:item/unknown_card_background"
     }
 }

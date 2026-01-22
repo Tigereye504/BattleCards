@@ -66,5 +66,9 @@
         }
       ]
     }
-  ]
+  ],
+  "scrapValue": {
+    "item": "minecraft:paper",
+    "count": 1
+  }
 }

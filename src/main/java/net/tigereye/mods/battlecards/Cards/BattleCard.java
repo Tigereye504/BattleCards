@@ -26,6 +26,7 @@ public interface BattleCard {
     public List<CardEffect> getChargeEffects();
     public boolean performQuickEffect(LivingEntity user, ItemStack itemStack);
     public boolean performChargeEffect(LivingEntity user, ItemStack itemStack);
+    public ItemStack getScrapValue();
     public default void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         if(tooltipContext.isAdvanced()) {
             tooltip.add(Text.translatable("card.battlecards.tooltip.quick_header"));

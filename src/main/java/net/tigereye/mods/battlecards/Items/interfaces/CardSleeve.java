@@ -1,19 +1,9 @@
-package net.tigereye.mods.battlecards.Items.sleeves;
+package net.tigereye.mods.battlecards.Items.interfaces;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
-import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
-import net.tigereye.mods.battlecards.Cards.BattleCard;
-import net.tigereye.mods.battlecards.Cards.Json.CardManager;
-
-import java.util.List;
 
 public interface CardSleeve {
 

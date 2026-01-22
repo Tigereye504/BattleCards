@@ -3,6 +3,10 @@ package net.tigereye.mods.battlecards.Cards.Json;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.tigereye.mods.battlecards.Battlecards;
@@ -12,6 +16,7 @@ import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.GeneratedBattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
+import net.tigereye.mods.battlecards.registration.BCItems;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,6 +74,25 @@ public class CardSerializer {
         else{
             generatedBattleCard.setChargeEffects(readCardEffects(id,cardJson.chargeEffects));
         }
+
+        if(cardJson.scrapValue != null){
+            try{
+                Item item = Registries.ITEM.get(Identifier.tryParse(cardJson.scrapValue.get("item").getAsString()));
+                if(item == Items.AIR){
+                    Battlecards.LOGGER.error("Scrap value of {} is air. This is most likely due to a misspelled identifier", id.toString());
+                }
+                int count = cardJson.scrapValue.get("count").getAsInt();
+                generatedBattleCard.setScrapValue(new ItemStack(item,count));
+            }
+            catch (Exception e){
+                Battlecards.LOGGER.error("Error parsing scrap value of {}. Defaulting to 1 Cardfetti.", id.toString());
+                generatedBattleCard.setScrapValue(new ItemStack(BCItems.CARDFETTI,1));
+            }
+        }
+        else{
+            generatedBattleCard.setScrapValue(new ItemStack(BCItems.CARDFETTI,1));
+        }
+
         return new Pair<>(cardID,generatedBattleCard);
     }
 

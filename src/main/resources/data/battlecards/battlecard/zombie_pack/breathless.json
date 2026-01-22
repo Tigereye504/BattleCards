@@ -3,15 +3,21 @@
   "quickEffects": [
     {
       "effect": "modify_breath",
-      "amount": 3
+      "amount": 100
     }
   ],
-  "cost": 2,
+  "cost": 5,
   "chargeEffects": [
     {
       "effect": "apply_status",
       "type": "minecraft:water_breathing",
-      "duration": 1800,
+      "duration": 1200,
+      "magnitude": 0
+    },
+    {
+      "effect": "apply_status",
+      "type": "battlecards:undeath",
+      "duration": 1200,
       "magnitude": 0
     }
   ]

@@ -20,6 +20,7 @@ public class GeneratedBattleCard implements BattleCard {
     Collection<String> chargeKeywords = new HashSet<>();
     List<CardEffect> quickEffects = new ArrayList<>();
     List<CardEffect> chargeEffects = new ArrayList<>();
+    ItemStack scrapValue = ItemStack.EMPTY;
 
     public Identifier getID() {
         return id;
@@ -106,5 +107,14 @@ public class GeneratedBattleCard implements BattleCard {
         PreparePersistentContextCallback.EVENT.invoker().preparePersistentContext(pContext,user,false);
         chargeEffects.forEach((cardEffect -> cardEffect.apply(pContext)));
         return false;
+    }
+
+    @Override
+    public ItemStack getScrapValue() {
+        return scrapValue.copy();
+    }
+
+    public void setScrapValue(ItemStack scrapValue){
+        this.scrapValue = scrapValue.copy();
     }
 }

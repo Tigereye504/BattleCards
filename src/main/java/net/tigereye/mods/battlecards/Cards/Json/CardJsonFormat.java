@@ -1,6 +1,7 @@
 package net.tigereye.mods.battlecards.Cards.Json;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 public class CardJsonFormat {
     String id;
@@ -14,4 +15,5 @@ public class CardJsonFormat {
     JsonArray chargeKeywords;
     JsonArray quickEffects;
     JsonArray chargeEffects;
+    JsonObject scrapValue;
 }

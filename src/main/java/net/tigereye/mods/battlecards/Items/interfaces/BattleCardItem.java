@@ -2,11 +2,9 @@ package net.tigereye.mods.battlecards.Items.interfaces;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.World;
-import net.tigereye.mods.battlecards.Items.sleeves.CardSleeve;
 import net.tigereye.mods.battlecards.StatusEffects.BCStatusEffect;
 import net.tigereye.mods.battlecards.registration.BCStatusEffects;
 
@@ -28,6 +26,10 @@ public interface BattleCardItem {
             return sleeveStack;
         }
         return ItemStack.EMPTY;
+    }
+
+    default void clearSleeve(ItemStack item){
+        item.removeSubNbt(SLEEVE_NBT);
     }
 
     default void setSleeve(ItemStack item, ItemStack sleeve){

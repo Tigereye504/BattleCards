@@ -6,8 +6,6 @@ Specifically, put hooks at the start of the various trigger functions.
 Actually, PersistantProjectileEntities have easily customized damage. so just set that to zero and handle it myself.
 Or I could simply, have all projectile cards throw cards, and just upgrade the snot out of the card projectile
 
-TODO: when pausing a deck, store mana and time in the deck. Restore mana (with time decay) on resume, clear it on close
-
 Cards will drop in Booster Packs, which will usually be related to the dropping mob.
 Likely, any mob can drop a generic pack. That way killing modded critters is still worth something.
 
@@ -39,11 +37,13 @@ to reach new breakpoints where you kill in fewer hits.
 'very deadly'     - 9 - crit str II,axe 17          25.5        30          33.75  dmg
 'catastrophic'    - 11 - iron golem     *20*        ~*30*~      **40**      **45** dmg
 
+TODO: implement specialized card sleeves
+TODO: add 'penny sleeve' to remove sleeves from cards, recipe paper;glass pane;paper
 Leather: +25% damage, shuffled into draw pile twice when added to draw pile
 Gold: +25% damage, half mana cost (round up)
 Emerald: +25% damage, +1 mana gain
-Glowstone: +25% damage, +1 mana cost, +1 effect magnitude
-Redstone: +25% damage, +1 mana cost, x2 effect duration
+Glowstone: +25% damage, +1 effect magnitude
+Redstone: +25% damage, x2 effect duration
 
 --Balance Considerations: Quick Actions--
 
@@ -91,11 +91,6 @@ Well, a PersistantCardEffectContext is already planned.
 Put the listeners in that and just iterate though it come event time
 
 --Scrap--
-TODO: Add Cardfetti, Cardfetti Brick, and Cardfetti Block items as 0.5/4/40 operation furnace fuels
-TODO: Add compression / decompression recipes, brick/block to charcoal furnace recipes
-TODO: Add scrapValue to cards, default 1 cardfetti, which can be set to other items and quantities
-TODO: Add scraping recipes to turn cards and cardpacks to cardfetti
-TODO: Add cardfetti sacrifice use and associated status effect 
 Salvage systems exist so that players who don't care about a system or don't have use for a particular item
 still get value from finding them, though lesser than if they were able to use it.
 In this case, the intent is that unwanted card/packs can be used as either furnace fuel (for those not wanting cards)
@@ -132,7 +127,7 @@ C - complete
 
 Horrors of the Night Series (Nighttime Mobs)
  Hordes of Rot (Zombies, Husks, Drowned)
-TODO: fix worthless_flesh and ignore_wounds mixup
+
     --Common--
 C   Mighty Blow - Q: Weak Melee Attack, 2 Mana on hit - A(3): Strong Melee Attack with Knockback 3.
         knockback acting funny, angles are strange

@@ -7,5 +7,31 @@
   "scrapValue": {
     "item": "minecraft:paper",
     "count": 3
-  }
+  },
+  "commonCount": 2,
+  "commonCards": [
+    "battlecards:passable_papercraft/one_ply",
+    "battlecards:passable_papercraft/two_ply",
+    "battlecards:passable_papercraft/three_ply",
+    "battlecards:passable_papercraft/four_ply",
+    "battlecards:passable_papercraft/five_ply",
+    "battlecards:passable_papercraft/six_ply",
+    "battlecards:passable_papercraft/seven_ply",
+    "battlecards:passable_papercraft/eight_ply",
+    "battlecards:passable_papercraft/nine_ply",
+    "battlecards:passable_papercraft/ten_ply"
+  ],
+  "rareCount": 1,
+  "rareCards": [
+    "battlecards:passable_papercraft/four_card_pickup",
+    "battlecards:passable_papercraft/eight_card_pickup",
+    "battlecards:passable_papercraft/twelve_card_pickup",
+    "battlecards:passable_papercraft/sixteen_card_pickup",
+    "battlecards:passable_papercraft/twenty_card_pickup",
+    "battlecards:passable_papercraft/twenty_four_card_pickup",
+    "battlecards:passable_papercraft/twenty_eight_card_pickup",
+    "battlecards:passable_papercraft/thirty_six_card_pickup",
+    "battlecards:passable_papercraft/forty_four_card_pickup",
+    "battlecards:passable_papercraft/fifty_two_card_pickup"
+  ]
 }
