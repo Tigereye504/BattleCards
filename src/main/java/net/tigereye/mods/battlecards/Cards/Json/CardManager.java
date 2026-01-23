@@ -7,20 +7,27 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
+import net.minecraft.util.math.random.Random;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.BlankBattleCard;
+import net.tigereye.mods.battlecards.Cards.GeneratedBattleCard;
 import net.tigereye.mods.battlecards.registration.BCItems;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CardManager implements SimpleSynchronousResourceReloadListener {
+    //TODO: move chances to config
+    private static final float VARIANT_ART_BASE_CHANCE = 0.05f;
+    private static final float VARIANT_ART_BASE_CHANCE_PER_LUCK = 0.01f;
     private static final String RESOURCE_LOCATION = "battlecard";
-    public static final String NBT_KEY = "battlecard";
+    public static final String ID_KEY = "battlecard";
+    public static final String VARIANT_KEY = "battlecard_variant";
     private final CardSerializer SERIALIZER = new CardSerializer();
     public static Map<Identifier, BattleCard> GeneratedCards = new HashMap<>();
 
@@ -36,8 +43,26 @@ public class CardManager implements SimpleSynchronousResourceReloadListener {
         manager.findResources(RESOURCE_LOCATION, path -> path.getPath().endsWith(".json")).forEach((id,resource) -> {
             try(InputStream stream = resource.getInputStream()) {
                 Reader reader = new InputStreamReader(stream);
-                Pair<Identifier, BattleCard> cardPair = SERIALIZER.read(id,new Gson().fromJson(reader,CardJsonFormat.class));
-                GeneratedCards.put(cardPair.getLeft(),cardPair.getRight());
+                //TODO: let art variants be merged into existing cards.
+                CardSerializerOutput output = SERIALIZER.read(id,new Gson().fromJson(reader,CardJsonFormat.class));
+                if (!GeneratedCards.containsKey(output.id)) {
+                    GeneratedCards.put(output.id,output.battleCard);
+                }
+                else {
+                    BattleCard oldCard = GeneratedCards.get(output.id);
+                    if(output.replace){
+                        for(Identifier variant : oldCard.getVariants()) {
+                            output.battleCard.addVariant(variant);
+                        }
+                        GeneratedCards.put(output.id,output.battleCard);
+                    }
+                    else{
+                        for(Identifier variant : output.battleCard.getVariants()) {
+                            oldCard.addVariant(variant);
+                        }
+                        GeneratedCards.put(output.id,oldCard);
+                    }
+                }
             } catch(Exception e) {
                 Battlecards.LOGGER.error("Error occurred while loading resource json " + id.toString(), e);
             }
@@ -59,7 +84,7 @@ public class CardManager implements SimpleSynchronousResourceReloadListener {
 
     public static BattleCard readNBTBattleCard(NbtCompound nbt) {
         if(nbt != null) {
-            Identifier cardID = new Identifier(nbt.getString(NBT_KEY));
+            Identifier cardID = new Identifier(nbt.getString(ID_KEY));
             if(hasEntry(cardID)) {
                 return getEntry(cardID);
             }
@@ -67,9 +92,28 @@ public class CardManager implements SimpleSynchronousResourceReloadListener {
         return new BlankBattleCard();
     }
 
+    public static ItemStack generateCardItemstack(Identifier id, float luck, Random random){
+        BattleCard card = GeneratedCards.get(id);
+        Identifier varID = null;
+        if(card != null){
+            List<Identifier> variantList = card.getVariants();
+            if(!(card.getVariants().isEmpty()) && random.nextFloat() < VARIANT_ART_BASE_CHANCE+(VARIANT_ART_BASE_CHANCE_PER_LUCK*luck)){
+                varID = variantList.get(random.nextInt(card.getVariants().size()));
+            }
+        }
+        return generateCardItemstack(id, varID);
+    }
+
     public static ItemStack generateCardItemstack(Identifier id){
+        return generateCardItemstack(id, null);
+    }
+    public static ItemStack generateCardItemstack(Identifier id, Identifier varID){
         ItemStack stack = new ItemStack(BCItems.BATTLECARD);
-        stack.getOrCreateNbt().putString(NBT_KEY,id.toString());
+        NbtCompound nbt = stack.getOrCreateNbt();
+        nbt.putString(ID_KEY,id.toString());
+        if(varID != null) {
+            nbt.putString(VARIANT_KEY, varID.toString());
+        }
         return stack;
     }
 

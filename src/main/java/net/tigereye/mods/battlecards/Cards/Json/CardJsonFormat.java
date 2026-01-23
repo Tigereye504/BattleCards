@@ -11,9 +11,12 @@ public class CardJsonFormat {
     String quickDescription;
     String chargeDescription;
     int cost;
+    JsonArray variants;
     JsonArray quickKeywords;
     JsonArray chargeKeywords;
     JsonArray quickEffects;
     JsonArray chargeEffects;
     JsonObject scrapValue;
+
+    boolean replace = true;
 }

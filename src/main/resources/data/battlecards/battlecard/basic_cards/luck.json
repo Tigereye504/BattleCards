@@ -1,0 +1,22 @@
+{
+  "id": "battlecards:basic_cards/luck",
+  "quickKeywords": ["Status"],
+  "quickEffects": [
+    {
+      "effect": "apply_status",
+      "type": "minecraft:luck",
+      "duration": 200,
+      "magnitude": 0
+    }
+  ],
+  "cost": 2,
+  "chargedKeywords": ["Status"],
+  "chargeEffects": [
+    {
+      "effect": "apply_status",
+      "type": "minecraft:luck",
+      "duration": 600,
+      "magnitude": 1
+    }
+  ]
+}

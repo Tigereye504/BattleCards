@@ -20,6 +20,8 @@ public interface BattleCard {
     public Text getName();
     public Text getBasicDescription();
     public Text getChargeDescription();
+    public List<Identifier> getVariants();
+    public void addVariant(Identifier id);
     public Collection<String> getQuickKeywords();
     public Collection<String> getChargeKeywords();
     public List<CardEffect> getQuickEffects();

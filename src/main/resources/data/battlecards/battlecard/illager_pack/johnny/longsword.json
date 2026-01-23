@@ -1,5 +1,8 @@
 {
   "id": "battlecards:illager_pack/johnny/longsword",
+  "variants": [
+    "battlecards:illager_pack/johnny/longsword-full"
+  ],
   "quickKeywords": ["Attack","Melee","Mana Generator"],
   "quickEffects": [
     {

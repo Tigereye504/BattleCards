@@ -1,0 +1,22 @@
+{
+  "id": "battlecards:basic_cards/absorption",
+  "quickKeywords": ["Status"],
+  "quickEffects": [
+    {
+      "effect": "apply_status",
+      "type": "minecraft:absorption",
+      "duration": 200,
+      "magnitude": 0
+    }
+  ],
+  "cost": 2,
+  "chargedKeywords": ["Status"],
+  "chargeEffects": [
+    {
+      "effect": "apply_status",
+      "type": "minecraft:absorption",
+      "duration": 600,
+      "magnitude": 1
+    }
+  ]
+}

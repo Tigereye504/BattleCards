@@ -1,0 +1,6 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "battlecards:item/illager_pack/johnny/booster_pack"
+    }
+}

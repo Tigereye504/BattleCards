@@ -1,0 +1,22 @@
+{
+  "id": "battlecards:basic_cards/fire_resistance",
+  "quickKeywords": ["Status"],
+  "quickEffects": [
+    {
+      "effect": "apply_status",
+      "type": "minecraft:fire_resistance",
+      "duration": 200,
+      "magnitude": 0
+    }
+  ],
+  "cost": 2,
+  "chargedKeywords": ["Status"],
+  "chargeEffects": [
+    {
+      "effect": "apply_status",
+      "type": "minecraft:fire_resistance",
+      "duration": 1200,
+      "magnitude": 0
+    }
+  ]
+}

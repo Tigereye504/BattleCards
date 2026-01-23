@@ -1,10 +1,10 @@
 {
-  "id": "battlecards:skeleton_pack/speed",
+  "id": "battlecards:basic_cards/regeneration",
   "quickKeywords": ["Status"],
   "quickEffects": [
     {
       "effect": "apply_status",
-      "type": "minecraft:speed",
+      "type": "minecraft:regeneration",
       "duration": 200,
       "magnitude": 0
     }
@@ -14,7 +14,7 @@
   "chargeEffects": [
     {
       "effect": "apply_status",
-      "type": "minecraft:speed",
+      "type": "minecraft:regeneration",
       "duration": 600,
       "magnitude": 1
     }

@@ -16,6 +16,7 @@ import java.util.List;
 public class GeneratedBattleCard implements BattleCard {
     Identifier id;
     int cost;
+    Collection<Identifier> variants = new ArrayList<>();
     Collection<String> quickKeywords = new HashSet<>();
     Collection<String> chargeKeywords = new HashSet<>();
     List<CardEffect> quickEffects = new ArrayList<>();
@@ -40,6 +41,16 @@ public class GeneratedBattleCard implements BattleCard {
     @Override
     public Text getChargeDescription() {
         return Text.translatable("card."+getID().toTranslationKey()+".charge");
+    }
+
+    @Override
+    public List<Identifier> getVariants() {
+        return variants.stream().toList();
+    }
+
+    @Override
+    public void addVariant(Identifier id){
+        variants.add(id);
     }
 
     @Override

@@ -27,28 +27,29 @@ public class CardSerializer {
     private static final String DEFAULT_TEXTURE = "battlecards:item/battlecard";
     private static final Map<String, CardEffectSerializer> effectSerializers = new HashMap<>();
 
-    public Pair<Identifier, BattleCard> read(Identifier id, CardJsonFormat cardJson) {
-        GeneratedBattleCard generatedBattleCard = new GeneratedBattleCard();
+    public CardSerializerOutput read(Identifier id, CardJsonFormat cardJson) {
+        CardSerializerOutput output = new CardSerializerOutput();
+        output.battleCard = new GeneratedBattleCard();
 
         //set internal id
         Identifier cardID;
         if (cardJson.id == null) {
             Battlecards.LOGGER.warn("Card {} is missing an id! Defaulting to directory path.", id);
-            cardID = id;
+            output.id = id;
         }
         else {
-            cardID = new Identifier(cardJson.id);
+            output.id = new Identifier(cardJson.id);
         }
-        generatedBattleCard.setID(cardID);
+        output.battleCard.setID(output.id);
 
         //set effect cost
-        generatedBattleCard.setChargeEffectCost(cardJson.cost);
+        output.battleCard.setChargeEffectCost(cardJson.cost);
 
         //set quick keywords
         if (cardJson.quickKeywords != null) {
             for (JsonElement entry:
                     cardJson.quickKeywords) {
-                generatedBattleCard.addQuickKeyword(entry.getAsString());
+                output.battleCard.addQuickKeyword(entry.getAsString());
             }
         }
 
@@ -56,7 +57,7 @@ public class CardSerializer {
         if (cardJson.chargeKeywords != null) {
             for (JsonElement entry:
                     cardJson.chargeKeywords) {
-                generatedBattleCard.addChargeKeyword(entry.getAsString());
+                output.battleCard.addChargeKeyword(entry.getAsString());
             }
         }
 
@@ -65,14 +66,14 @@ public class CardSerializer {
             Battlecards.LOGGER.warn("Card {} is missing quick effects!", id);
         }
         else{
-            generatedBattleCard.setQuickEffects(readCardEffects(id,cardJson.quickEffects));
+            output.battleCard.setQuickEffects(readCardEffects(id,cardJson.quickEffects));
         }
         //set advanced effects
         if (cardJson.chargeEffects == null) {
             Battlecards.LOGGER.warn("Card {} is missing charge effects!", id);
         }
         else{
-            generatedBattleCard.setChargeEffects(readCardEffects(id,cardJson.chargeEffects));
+            output.battleCard.setChargeEffects(readCardEffects(id,cardJson.chargeEffects));
         }
 
         if(cardJson.scrapValue != null){
@@ -82,18 +83,35 @@ public class CardSerializer {
                     Battlecards.LOGGER.error("Scrap value of {} is air. This is most likely due to a misspelled identifier", id.toString());
                 }
                 int count = cardJson.scrapValue.get("count").getAsInt();
-                generatedBattleCard.setScrapValue(new ItemStack(item,count));
+                output.battleCard.setScrapValue(new ItemStack(item,count));
             }
             catch (Exception e){
                 Battlecards.LOGGER.error("Error parsing scrap value of {}. Defaulting to 1 Cardfetti.", id.toString());
-                generatedBattleCard.setScrapValue(new ItemStack(BCItems.CARDFETTI,1));
+                output.battleCard.setScrapValue(new ItemStack(BCItems.CARDFETTI,1));
             }
         }
         else{
-            generatedBattleCard.setScrapValue(new ItemStack(BCItems.CARDFETTI,1));
+            output.battleCard.setScrapValue(new ItemStack(BCItems.CARDFETTI,1));
         }
 
-        return new Pair<>(cardID,generatedBattleCard);
+        if(cardJson.variants != null){
+            int i = 0;
+            for (JsonElement entry:
+                    cardJson.variants) {
+                i++;
+                try{
+                    output.battleCard.addVariant(Identifier.tryParse(entry.getAsString()));
+                }
+                catch (Exception e){
+                    Battlecards.LOGGER.error("Error parsing variant {} of card {}.", i, id.toString());
+                }
+            }
+        }
+
+
+        output.replace = cardJson.replace;
+
+        return output;
     }
 
     public static List<CardEffect> readCardEffects(Identifier id, String name, JsonElement element){

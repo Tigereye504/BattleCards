@@ -20,6 +20,10 @@ import java.io.Reader;
 import java.util.*;
 
 public class BoosterPackManager implements SimpleSynchronousResourceReloadListener {
+
+    //TODO: move chances to config
+    private static final float BASE_UPGRADE_CHANCE = 0.05f;
+    private static final float SCALING_UPGRADE_CHANCE = 0.05f;
     private static final String RESOURCE_LOCATION = "battlecard_booster";
     public static final String ID_NBTKEY = "booster_pack";
     public static BoosterPackManager INSTANCE = new BoosterPackManager();
@@ -87,13 +91,10 @@ public class BoosterPackManager implements SimpleSynchronousResourceReloadListen
     private static List<ItemStack> generateBoosterPackContents(Identifier id, float luck, Random random){
         List<ItemStack> chosenCards = new ArrayList<>();
         BoosterPackCardList cardList = boosterPackCardList.get(id.toString());
-        //TODO: move chances to config
-        float baseUpgradeChance = 0.05f;
-        float scalingUpgradeChance = 0.05f;
         if(cardList != null) {
             int upgrades = 0;
             for (int i = 0; i < cardList.commonCount; i++) {
-                if(random.nextFloat() < (baseUpgradeChance + (scalingUpgradeChance*luck))/(upgrades+1)){
+                if(random.nextFloat() < (BASE_UPGRADE_CHANCE + (SCALING_UPGRADE_CHANCE *luck))/(upgrades+1)){
                     upgrades++;
                 }
             }
@@ -104,8 +105,6 @@ public class BoosterPackManager implements SimpleSynchronousResourceReloadListen
     }
 
     private static List<ItemStack> rollNCardsFromSet(Set<Identifier> cardSet, int count, float luck, Random random){
-        //TODO: use luck to roll for shiny/art variants (most likely this should be done in CardManager)
-        //  Cannot be done until shiny/art variants are supported.
         List<ItemStack> chosenCards = new ArrayList<>();
         int options = cardSet.size();
         List<Integer> picks = new ArrayList<>();
@@ -120,7 +119,7 @@ public class BoosterPackManager implements SimpleSynchronousResourceReloadListen
                 Identifier cardID = iter.next();
                 do {
                     picks.remove(0);
-                    chosenCards.add(CardManager.generateCardItemstack(cardID));
+                    chosenCards.add(CardManager.generateCardItemstack(cardID,luck,random));
                 } while (!picks.isEmpty() && i == picks.get(0));
             }
             else{

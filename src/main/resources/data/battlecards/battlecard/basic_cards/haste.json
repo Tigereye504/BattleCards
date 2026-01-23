@@ -1,0 +1,22 @@
+{
+  "id": "battlecards:basic_cards/haste",
+  "quickKeywords": ["Status"],
+  "quickEffects": [
+    {
+      "effect": "apply_status",
+      "type": "minecraft:haste",
+      "duration": 200,
+      "magnitude": 0
+    }
+  ],
+  "cost": 2,
+  "chargedKeywords": ["Status"],
+  "chargeEffects": [
+    {
+      "effect": "apply_status",
+      "type": "minecraft:haste",
+      "duration": 600,
+      "magnitude": 1
+    }
+  ]
+}

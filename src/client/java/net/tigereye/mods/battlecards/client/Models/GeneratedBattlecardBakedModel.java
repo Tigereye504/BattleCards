@@ -13,6 +13,7 @@ import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.screen.PlayerScreenHandler;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -41,7 +42,14 @@ public class GeneratedBattlecardBakedModel implements FabricBakedModel, BakedMod
         BakedModelManager manager = models.getModelManager();
         BakedModel model = null;
         if(stack.hasNbt()) {
-            Identifier cardID = new Identifier(stack.getNbt().getString(CardManager.NBT_KEY));
+            NbtCompound nbt = stack.getNbt();
+            Identifier cardID;
+            if(nbt.contains(CardManager.VARIANT_KEY)){
+                cardID = new Identifier(stack.getNbt().getString(CardManager.VARIANT_KEY));
+            }
+            else {
+                cardID = new Identifier(stack.getNbt().getString(CardManager.ID_KEY));
+            }
             Identifier modifiedCardID = new Identifier(cardID.getNamespace(),"battlecard/"+cardID.getPath());
             model = manager.getModel(modifiedCardID);
         }

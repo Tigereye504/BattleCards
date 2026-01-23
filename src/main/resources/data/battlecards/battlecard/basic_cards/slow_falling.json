@@ -1,0 +1,22 @@
+{
+  "id": "battlecards:basic_cards/slow_falling",
+  "quickKeywords": ["Status"],
+  "quickEffects": [
+    {
+      "effect": "apply_status",
+      "type": "minecraft:slow_falling",
+      "duration": 200,
+      "magnitude": 0
+    }
+  ],
+  "cost": 2,
+  "chargedKeywords": ["Status"],
+  "chargeEffects": [
+    {
+      "effect": "apply_status",
+      "type": "minecraft:slow_falling",
+      "duration": 1200,
+      "magnitude": 0
+    }
+  ]
+}

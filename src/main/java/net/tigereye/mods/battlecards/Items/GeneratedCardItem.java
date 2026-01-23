@@ -87,7 +87,7 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
     @Override
     public boolean performQuickEffect(ItemStack stack, LivingEntity user, World world) {
         if(stack.hasNbt()){
-            Identifier cardID = new Identifier(stack.getNbt().getString(CardManager.NBT_KEY));
+            Identifier cardID = new Identifier(stack.getNbt().getString(CardManager.ID_KEY));
             CardManager.getEntry(cardID).performQuickEffect(user,stack);
             afterCardEffects(stack, world, user);
             return true;
@@ -98,7 +98,7 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
     @Override
     public boolean performChargeEffect(ItemStack stack, LivingEntity user, World world) {
         if(stack.hasNbt()){
-            Identifier cardID = new Identifier(stack.getNbt().getString(CardManager.NBT_KEY));
+            Identifier cardID = new Identifier(stack.getNbt().getString(CardManager.ID_KEY));
             BattleCard card = CardManager.getEntry(cardID);
             if(payManaCost(user,stack,getChargeEffectCost(user,stack))){
                 card.performChargeEffect(user,stack);
@@ -130,7 +130,7 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
         //if has owner, proceed as normal
         //else, double the cost
         if(item.hasNbt()) {
-            Identifier cardID = new Identifier(item.getNbt().getString(CardManager.NBT_KEY));
+            Identifier cardID = new Identifier(item.getNbt().getString(CardManager.ID_KEY));
             BattleCard card = CardManager.getEntry(cardID);
             return item.getNbt().containsUuid(CardOwningItem.CARD_OWNER_UUID_NBTKEY) ? card.getChargeEffectCost() : card.getChargeEffectCost()*2;
         }
@@ -148,7 +148,7 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
     @Override
     public Text getName(ItemStack stack) {
         if(stack.hasNbt()) {
-            String cardID = stack.getNbt().getString(CardManager.NBT_KEY);
+            String cardID = stack.getNbt().getString(CardManager.ID_KEY);
             if(cardID != null) {
                 String[] splitID = cardID.split(":",2);
                 if(splitID.length > 1) {
@@ -167,7 +167,7 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
 
         Identifier cardID;
         if(itemStack.hasNbt()) {
-            cardID = new Identifier(itemStack.getNbt().getString(CardManager.NBT_KEY));
+            cardID = new Identifier(itemStack.getNbt().getString(CardManager.ID_KEY));
         }
         else{
             cardID = null;

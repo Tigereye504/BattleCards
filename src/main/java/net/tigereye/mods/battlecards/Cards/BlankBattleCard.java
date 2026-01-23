@@ -7,10 +7,13 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public class BlankBattleCard implements BattleCard {
+
+    List<Identifier> variants = new ArrayList<>();
 
     @Override
     public Identifier getID() {
@@ -35,6 +38,16 @@ public class BlankBattleCard implements BattleCard {
     @Override
     public Text getChargeDescription() {
         return Text.empty();
+    }
+
+    @Override
+    public List<Identifier> getVariants() {
+        return variants;
+    }
+
+    @Override
+    public void addVariant(Identifier id) {
+        variants.add(id);
     }
 
     @Override

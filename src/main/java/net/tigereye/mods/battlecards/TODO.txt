@@ -14,6 +14,8 @@ This mod is problably just going to be the core mechanics and projectiles and su
 If stuff starts acting strange, consider:
 Make CardEffects and BattleCardProjectiles NBT serializable.
 
+TODO: add rarity pips to rare cards.
+
 TODO: Make Cards!
 
 --Card Sleeves and Damage Values--
@@ -205,7 +207,7 @@ ET  Rough 'em up - Q: Weak non-sweeping Melee Attack, 1 Mana on hit, inflict Slo
 The Way of Reaping I (Vindicators and Ravagers)
  --Axe pillagers use aggressive movement, trade blows, and seek revenge
  -Lunging Combo Attacks
-ET  Longsword - Q: Weak melee, 2 mana - A(3): Strong lunging strike throws targets. Refund 2 and Retain on miss.
+ET  Longsword (R) - Q: Weak melee, 2 mana - A(3): Strong lunging strike throws targets. Refund 2 and Retain on miss.
 ET  Uppercut - Q: Weak focused melee generates 2 mana and pops target up. - A(3): Strong rising strike throws target skyward.
 ET  Shoulder Check - Q: Weak focused melee, 2 mana and knockback. - A(4): Charge forward, inflicting Strong damage, stunning, and dragging all along path.
     Follow-up - Q: Moderate focused melee, 2 mana - A(2): Moderate focused melee is Very Strong if target was recently injured.

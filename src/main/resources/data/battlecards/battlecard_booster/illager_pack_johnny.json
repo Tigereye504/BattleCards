@@ -1,0 +1,31 @@
+{
+  "id": "battlecards:illager_pack/johnny/booster_pack",
+  "dropRate": 0.1,
+  "dropRateLootingFactor": 0.035,
+  "sourceLootTables": [
+    "minecraft:entities/vindicator",
+    "minecraft:entities/ravager"
+  ],
+  "commonCount": 4,
+  "commonCards": [
+    "battlecards:illager_pack/johnny/blood_for_blood",
+    "battlecards:illager_pack/johnny/catch_breath",
+    "battlecards:illager_pack/johnny/crush",
+    "battlecards:illager_pack/johnny/follow_up",
+    "battlecards:illager_pack/johnny/guarded_strike",
+    "battlecards:illager_pack/johnny/reckless_strike",
+    "battlecards:illager_pack/johnny/rend",
+    "battlecards:illager_pack/johnny/revenge",
+    "battlecards:illager_pack/johnny/shoulder_check",
+    "battlecards:illager_pack/johnny/stability",
+    "battlecards:illager_pack/johnny/uppercut"
+  ],
+  "rareCount": 1,
+  "rareCards": [
+    "battlecards:illager_pack/johnny/desperation",
+    "battlecards:illager_pack/johnny/fearlessness",
+    "battlecards:illager_pack/johnny/longsword",
+    "battlecards:illager_pack/johnny/overrun",
+    "battlecards:illager_pack/johnny/yield_your_flesh"
+  ]
+}

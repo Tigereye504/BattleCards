@@ -48,6 +48,7 @@ public class BCItems {
             .entries(((displayContext, entries) -> {
                 entries.add(CARDFETTI);
                 entries.add(CARDFETTI_BRICK);
+                entries.add(CARDFETTI_BLOCK.asItem());
                 entries.add(DECK);
                 entries.add(SLEEVE_PENNY);
                 entries.add(SLEEVE_IRON);
@@ -56,6 +57,9 @@ public class BCItems {
                 entries.add(SLEEVE_NETHERITE);
                 CardManager.GeneratedCards.keySet().stream().sorted().forEachOrdered((id) -> {
                     entries.add(CardManager.generateCardItemstack(id));
+                    CardManager.GeneratedCards.get(id).getVariants().forEach((varID) ->{
+                        entries.add(CardManager.generateCardItemstack(id,varID));
+                    });
                 });
                 BoosterPackManager.boosterPacks.stream().sorted().forEachOrdered((id) -> {
                     entries.add(BoosterPackManager.generateBoosterPackItemstack(id));
