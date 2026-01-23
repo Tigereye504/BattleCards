@@ -1,5 +1,5 @@
 {
-    "parent": "item/handheld",
+    "parent": "item/generated",
     "textures": {
         "layer2": "battlecards:item/card_icons/unknown",
         "layer1": "battlecards:item/unknown_card_art",

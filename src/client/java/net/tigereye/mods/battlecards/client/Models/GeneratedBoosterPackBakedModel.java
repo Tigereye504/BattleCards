@@ -5,9 +5,11 @@ import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.model.BakedModel;
+import net.minecraft.client.render.model.BakedModelManager;
 import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.render.model.json.ModelOverrideList;
 import net.minecraft.client.render.model.json.ModelTransformation;
+import net.minecraft.client.render.model.json.Transformation;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.item.ItemStack;
@@ -29,6 +31,7 @@ public class GeneratedBoosterPackBakedModel implements FabricBakedModel, BakedMo
 
     private static final SpriteIdentifier DEFAULT_SPRITE_ID = new SpriteIdentifier(PlayerScreenHandler.EMPTY_OFFHAND_ARMOR_SLOT,Identifier.of(Battlecards.MODID,"item/booster_pack"));
     private static final Identifier DEFAULT_MODEL_ID = new Identifier(Battlecards.MODID,"battlecard/booster_pack");
+    private static ModelTransformation transformation;
     public GeneratedBoosterPackBakedModel() {
 
     }
@@ -36,9 +39,9 @@ public class GeneratedBoosterPackBakedModel implements FabricBakedModel, BakedMo
     @Override
     public void emitItemQuads(ItemStack stack, Supplier<Random> randomSupplier, RenderContext context) {
         if(stack.hasNbt()) {
-            Identifier cardID = new Identifier(stack.getNbt().getString(BoosterPackManager.ID_NBTKEY));
-            Identifier modifiedCardID = new Identifier(cardID.getNamespace(),"battlecard/"+cardID.getPath());
-            BakedModel model = MinecraftClient.getInstance().getItemRenderer().getModels().getModelManager().getModel(modifiedCardID);
+            Identifier packID = new Identifier(stack.getNbt().getString(BoosterPackManager.ID_NBTKEY));
+            Identifier modifiedPackID = new Identifier(packID.getNamespace(),"battlecard/"+packID.getPath());
+            BakedModel model = MinecraftClient.getInstance().getItemRenderer().getModels().getModelManager().getModel(modifiedPackID);
             if (model == null) {
                 model = MinecraftClient.getInstance().getItemRenderer().getModels().getModelManager().getModel(DEFAULT_MODEL_ID);
             }
@@ -89,7 +92,10 @@ public class GeneratedBoosterPackBakedModel implements FabricBakedModel, BakedMo
 
     @Override
     public ModelTransformation getTransformation() {
-        return ModelTransformation.NONE;
+        if(transformation == null) {
+            transformation = MinecraftClient.getInstance().getItemRenderer().getModels().getModelManager().getModel(DEFAULT_MODEL_ID).getTransformation();
+        }
+        return transformation;
     }
 
     @Override

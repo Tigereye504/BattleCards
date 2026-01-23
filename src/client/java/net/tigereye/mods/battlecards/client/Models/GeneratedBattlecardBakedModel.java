@@ -32,6 +32,7 @@ public class GeneratedBattlecardBakedModel implements FabricBakedModel, BakedMod
 
     private static final SpriteIdentifier DEFAULT_SPRITE_ID = new SpriteIdentifier(PlayerScreenHandler.EMPTY_OFFHAND_ARMOR_SLOT,Identifier.of(Battlecards.MODID,"item/battlecard"));
     private static final Identifier DEFAULT_MODEL_ID = new Identifier(Battlecards.MODID,"battlecard/battlecard");
+    private static ModelTransformation transformation;
     public GeneratedBattlecardBakedModel() {
 
     }
@@ -108,7 +109,10 @@ public class GeneratedBattlecardBakedModel implements FabricBakedModel, BakedMod
 
     @Override
     public ModelTransformation getTransformation() {
-        return ModelTransformation.NONE;
+        if(transformation == null) {
+            transformation = MinecraftClient.getInstance().getItemRenderer().getModels().getModelManager().getModel(DEFAULT_MODEL_ID).getTransformation();
+        }
+        return transformation;
     }
 
     @Override

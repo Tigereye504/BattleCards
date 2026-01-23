@@ -1,6 +1,7 @@
 {
     "parent": "item/handheld",
     "textures": {
+        "layer3": "battlecards:item/rarity_mark",
         "layer2": "battlecards:item/card_icons/healing",
         "layer1": "battlecards:item/zombie_pack/necromantic_surge",
         "layer0": "battlecards:item/zombie_pack/background"
