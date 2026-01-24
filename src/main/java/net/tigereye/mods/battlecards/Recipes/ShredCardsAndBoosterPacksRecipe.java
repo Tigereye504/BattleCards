@@ -71,7 +71,6 @@ public class ShredCardsAndBoosterPacksRecipe extends SpecialCraftingRecipe {
         }
         BattleCard card = CardManager.readNBTBattleCard(found);
         if(card != null){
-            //TODO: variable output for cards
             //TODO: return the card's sleeve to the player, if any
             return card.getScrapValue();
         }

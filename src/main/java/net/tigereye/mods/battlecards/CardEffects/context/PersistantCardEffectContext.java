@@ -10,13 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersistantCardEffectContext {
-    //TODO: decide wither to use this... or perhaps something more event based
     public Entity user = null;
     public BattleCard card = null;
     public ItemStack cardItem = null;
     public List<ModifyDamageCardEffectCallback> modifyDamageListeners = new ArrayList<>();
     //other listeners as needed
-
     public PersistantCardEffectContext(Entity user, BattleCard card, ItemStack cardItem){
         this.user = user;
         this.card = card;

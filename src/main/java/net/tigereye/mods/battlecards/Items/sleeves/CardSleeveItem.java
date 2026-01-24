@@ -1,16 +1,18 @@
 package net.tigereye.mods.battlecards.Items.sleeves;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.Items.interfaces.BattleCardItem;
 import net.tigereye.mods.battlecards.Items.interfaces.CardOwningItem;
 import net.tigereye.mods.battlecards.Items.interfaces.CardSleeve;
 
-public class CardSleeveItem extends Item implements CardSleeve {
+public abstract class CardSleeveItem extends Item implements CardSleeve {
 
     public CardSleeveItem(Settings settings) {
         super(settings);
@@ -27,7 +29,7 @@ public class CardSleeveItem extends Item implements CardSleeve {
                 return TypedActionResult.pass(sleeveItemStack);
             }
             int sleevesToApply = Math.min(sleeveItemStack.getCount(), cardItemStack.getCount());
-            ItemStack oldSleeves = bci.getSleeve(cardItemStack);
+            ItemStack oldSleeves = BattleCardItem.getSleeve(cardItemStack);
             if(oldSleeves != ItemStack.EMPTY){
                 oldSleeves.setCount(sleevesToApply);
                 if(!user.giveItemStack(oldSleeves)){

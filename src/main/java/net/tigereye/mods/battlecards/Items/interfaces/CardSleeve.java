@@ -28,13 +28,14 @@ public interface CardSleeve {
      * Note that both the unmodified and modified costs of cards will be shown in the tooltip.
      * If false, the sleeve is being invoked 'for real' and should apply changes.
      * For example, Batet Sleeves could allow the user to substitute missing mana for blood debt.
-     * When forDisplay is true, the mana cost is set to the card's current available mana. No blood debt is incurred.
-     * When forDisplay is false, the mana cost is set to the card's current available mana and the rest taken in blood.
+     * When forDisplay is true, the mana cost is set to the user's current available mana. No blood debt is incurred.
+     * When forDisplay is false, the mana cost is set to the user's current available mana and the rest taken in blood.
      * @return
+     * Returns the mana cost after the sleeve's modification.
      */
     //TODO: make event and hook for modifyManaCost
     default int modifyManaCost(Entity user, ItemStack item, int cost, boolean forDisplay){return cost;}
 
-    //@Environment(EnvType.CLIENT)
-    //Text getCardTooltipLine(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext);
+    void preparePersistentContext(PersistantCardEffectContext pContext, Entity user, ItemStack sleeve, boolean quickElseCharge);
+
 }

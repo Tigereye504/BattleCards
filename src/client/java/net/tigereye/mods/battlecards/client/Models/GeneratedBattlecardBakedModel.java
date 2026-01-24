@@ -61,7 +61,7 @@ public class GeneratedBattlecardBakedModel implements FabricBakedModel, BakedMod
             model.emitItemQuads(stack, randomSupplier, context);
         }
         if(stack.getItem() instanceof BattleCardItem bci){
-            ItemStack sleeve = bci.getSleeve(stack);
+            ItemStack sleeve = BattleCardItem.getSleeve(stack);
             if(sleeve != ItemStack.EMPTY){
                 models.getModel(sleeve).emitItemQuads(sleeve,randomSupplier,context);
             }

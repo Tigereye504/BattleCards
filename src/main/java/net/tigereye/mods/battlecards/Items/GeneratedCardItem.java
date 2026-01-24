@@ -162,7 +162,7 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
     @Override
     @Environment(EnvType.CLIENT)
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        ItemStack sleeve = getSleeve(itemStack);
+        ItemStack sleeve = BattleCardItem.getSleeve(itemStack);
         sleeve.getItem().appendTooltip(sleeve,world,tooltip,tooltipContext);
 
         Identifier cardID;

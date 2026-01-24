@@ -34,7 +34,7 @@ public class PennySleeveItem extends Item{
                 //this prevents spending sleeves on owned (and thus temporary) cards.
                 return TypedActionResult.pass(sleeveItemStack);
             }
-            ItemStack oldSleeves = bci.getSleeve(cardItemStack);
+            ItemStack oldSleeves = BattleCardItem.getSleeve(cardItemStack);
             if(oldSleeves != ItemStack.EMPTY){
                 if(!user.giveItemStack(oldSleeves)){
                     user.dropItem(oldSleeves,true);

@@ -10,17 +10,6 @@ import net.tigereye.mods.battlecards.Items.interfaces.BattleCardItem;
 
 public class ModifyDamageCardEffectListener {
 
-
-    public static float applySleeve(PersistantCardEffectContext pContext, Entity target, CardEffectContext context, float amount) {
-        if(pContext.cardItem.getItem() instanceof BattleCardItem bci){
-            ItemStack sleeveStack = bci.getSleeve(pContext.cardItem);
-            if(sleeveStack.getItem() instanceof CardSleeve sleeve){
-                amount = sleeve.modifyDamage(pContext,target,context,amount,sleeveStack);
-            }
-        }
-        return amount;
-    }
-
     public static float applyPersistentContext(PersistantCardEffectContext pContext, Entity entity, CardEffectContext cardEffectContext, float amount) {
         for (ModifyDamageCardEffectCallback damageCallback : pContext.modifyDamageListeners){
             amount = damageCallback.modifyDamage(pContext, entity, cardEffectContext, amount);

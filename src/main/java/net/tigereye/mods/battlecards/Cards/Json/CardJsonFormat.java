@@ -17,6 +17,5 @@ public class CardJsonFormat {
     JsonArray quickEffects;
     JsonArray chargeEffects;
     JsonObject scrapValue;
-
     boolean replace = true;
 }

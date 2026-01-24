@@ -16,7 +16,7 @@ public interface BattleCardItem {
     boolean performQuickEffect(ItemStack stack, LivingEntity user, World world);
     boolean performChargeEffect(ItemStack stack, LivingEntity user, World world);
 
-    default ItemStack getSleeve(ItemStack item){
+    static ItemStack getSleeve(ItemStack item){
         NbtCompound sleeveNbt = item.getSubNbt(SLEEVE_NBT);
         if(sleeveNbt == null) {
             return ItemStack.EMPTY;

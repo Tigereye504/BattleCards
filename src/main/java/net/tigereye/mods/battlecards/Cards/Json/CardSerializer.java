@@ -47,6 +47,9 @@ public class CardSerializer {
 
         //set quick keywords
         if (cardJson.quickKeywords != null) {
+            if(!cardJson.replace){
+                Battlecards.LOGGER.warn("Card {} has quick keywords in supplemental json. These will likely be overwritten.", id);
+            }
             for (JsonElement entry:
                     cardJson.quickKeywords) {
                 output.battleCard.addQuickKeyword(entry.getAsString());
@@ -55,6 +58,9 @@ public class CardSerializer {
 
         //set charge keywords
         if (cardJson.chargeKeywords != null) {
+            if(!cardJson.replace){
+                Battlecards.LOGGER.warn("Card {} has charge keywords in supplemental json. These will likely be overwritten.", id);
+            }
             for (JsonElement entry:
                     cardJson.chargeKeywords) {
                 output.battleCard.addChargeKeyword(entry.getAsString());
@@ -63,20 +69,34 @@ public class CardSerializer {
 
         //set quick effects
         if (cardJson.quickEffects == null) {
-            Battlecards.LOGGER.warn("Card {} is missing quick effects!", id);
+            if(cardJson.replace) {
+                Battlecards.LOGGER.warn("Card {} is missing quick effects!", id);
+            }
         }
         else{
+            if(!cardJson.replace){
+                Battlecards.LOGGER.warn("Card {} has quick effects in supplemental json. These will likely be overwritten.", id);
+            }
             output.battleCard.setQuickEffects(readCardEffects(id,cardJson.quickEffects));
         }
+
         //set advanced effects
         if (cardJson.chargeEffects == null) {
-            Battlecards.LOGGER.warn("Card {} is missing charge effects!", id);
+            if(cardJson.replace) {
+                Battlecards.LOGGER.warn("Card {} is missing charge effects!", id);
+            }
         }
         else{
+            if(!cardJson.replace){
+                Battlecards.LOGGER.warn("Card {} has charge effects in supplemental json. These will likely be overwritten.", id);
+            }
             output.battleCard.setChargeEffects(readCardEffects(id,cardJson.chargeEffects));
         }
 
         if(cardJson.scrapValue != null){
+            if(!cardJson.replace) {
+                Battlecards.LOGGER.warn("Card {} has scrap value in supplemental json. This will likely be overwritten.", id);
+            }
             try{
                 Item item = Registries.ITEM.get(Identifier.tryParse(cardJson.scrapValue.get("item").getAsString()));
                 if(item == Items.AIR){
@@ -107,7 +127,6 @@ public class CardSerializer {
                 }
             }
         }
-
 
         output.replace = cardJson.replace;
 

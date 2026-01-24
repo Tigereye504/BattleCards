@@ -43,7 +43,6 @@ public class CardManager implements SimpleSynchronousResourceReloadListener {
         manager.findResources(RESOURCE_LOCATION, path -> path.getPath().endsWith(".json")).forEach((id,resource) -> {
             try(InputStream stream = resource.getInputStream()) {
                 Reader reader = new InputStreamReader(stream);
-                //TODO: let art variants be merged into existing cards.
                 CardSerializerOutput output = SERIALIZER.read(id,new Gson().fromJson(reader,CardJsonFormat.class));
                 if (!GeneratedCards.containsKey(output.id)) {
                     GeneratedCards.put(output.id,output.battleCard);

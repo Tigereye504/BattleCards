@@ -14,8 +14,6 @@ This mod is problably just going to be the core mechanics and projectiles and su
 If stuff starts acting strange, consider:
 Make CardEffects and BattleCardProjectiles NBT serializable.
 
-TODO: add rarity pips to rare cards.
-
 TODO: Make Cards!
 
 --Card Sleeves and Damage Values--
@@ -40,7 +38,8 @@ to reach new breakpoints where you kill in fewer hits.
 'catastrophic'    - 11 - iron golem     *20*        ~*30*~      **40**      **45** dmg
 
 TODO: implement specialized card sleeves
-TODO: add 'penny sleeve' to remove sleeves from cards, recipe paper;glass pane;paper
+TODO: need modifyStatusEffectListeners in PersistantCardEffectContext for redstone and glowstone sleeves
+TODO: need modifyManaGainListeners in PersistantCardEffectContext for emerald sleeves
 Leather: +25% damage, shuffled into draw pile twice when added to draw pile
 Gold: +25% damage, half mana cost (round up)
 Emerald: +25% damage, +1 mana gain

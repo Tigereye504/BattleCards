@@ -13,8 +13,8 @@ public class BCListeners {
     public static void register(){
         ServerLivingEntityEvents.ALLOW_DEATH.register(OnDeathListener::checkStatusEffectsAllowDeath);
         LootTableEvents.MODIFY.register(LootTableEventsListener::injectBoosterPacks);
-        ModifyDamageCardEffectCallback.EVENT.register(ModifyDamageCardEffectListener::applySleeve);
         ModifyDamageCardEffectCallback.EVENT.register(ModifyDamageCardEffectListener::applyPersistentContext);
+        PreparePersistentContextCallback.EVENT.register(PreparePersistentContextListener::applySleeve);
         PreparePersistentContextCallback.EVENT.register(PreparePersistentContextListener::applyStatusEffects);
     }
 }
