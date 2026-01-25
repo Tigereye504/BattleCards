@@ -1,16 +1,13 @@
 package net.tigereye.mods.battlecards.CardEffects.interfaces;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
-import net.tigereye.mods.battlecards.Cards.BattleCard;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 
 public interface CardEffect {
 
-    void apply(PersistantCardEffectContext pContext, CardEffectContext context);
+    void apply(PersistentCardEffectContext pContext, CardEffectContext context);
 
-    default void apply(PersistantCardEffectContext pContext){
+    default void apply(PersistentCardEffectContext pContext){
         apply(pContext,new CardEffectContext());
     }
 

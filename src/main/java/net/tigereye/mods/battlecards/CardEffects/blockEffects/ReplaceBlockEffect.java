@@ -6,16 +6,13 @@ import net.minecraft.block.Blocks;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.AutomaticItemPlacementContext;
-import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
@@ -32,7 +29,7 @@ public class ReplaceBlockEffect implements CardEffect, CardTooltipNester {
 
 
     @Override
-    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
+    public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
         if (context.target != null) {
             apply(pContext, context, context.target);
         }
@@ -44,11 +41,11 @@ public class ReplaceBlockEffect implements CardEffect, CardTooltipNester {
         }
     }
 
-    private void apply(PersistantCardEffectContext pContext, CardEffectContext context, Entity target) {
+    private void apply(PersistentCardEffectContext pContext, CardEffectContext context, Entity target) {
         apply(pContext, context, target.getBlockPos());
     }
 
-    private void apply(PersistantCardEffectContext pContext, CardEffectContext context, BlockPos pos) {
+    private void apply(PersistentCardEffectContext pContext, CardEffectContext context, BlockPos pos) {
         World world = pContext.user.getWorld();
         BlockState curBlock = world.getBlockState(pos);
         AutomaticItemPlacementContext ipc = new AutomaticItemPlacementContext(world,pos,pContext.user.getHorizontalFacing(), block.getBlock().asItem().getDefaultStack(),pContext.user.getHorizontalFacing());

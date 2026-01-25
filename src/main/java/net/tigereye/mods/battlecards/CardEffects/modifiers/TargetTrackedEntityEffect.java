@@ -7,7 +7,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
@@ -22,7 +22,7 @@ public class TargetTrackedEntityEffect implements CardEffect, CardScalar, CardTo
     boolean trackOldTarget = true;
 
     @Override
-    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
+    public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
         CardEffectContext newContext = makeNewContext(pContext,context);
         if(newContext.target != null) {
             for (CardEffect effect : effects) {
@@ -36,7 +36,7 @@ public class TargetTrackedEntityEffect implements CardEffect, CardScalar, CardTo
     }
 
     @Override
-    public float getValue(PersistantCardEffectContext pContext, CardEffectContext context) {
+    public float getValue(PersistentCardEffectContext pContext, CardEffectContext context) {
         if(!effects.isEmpty()) {
             if(effects.get(0) instanceof CardScalar scalar){
                 CardEffectContext newContext = makeNewContext(pContext,context);
@@ -48,7 +48,7 @@ public class TargetTrackedEntityEffect implements CardEffect, CardScalar, CardTo
         return 0;
     }
 
-    private CardEffectContext makeNewContext(PersistantCardEffectContext pContext, CardEffectContext context){
+    private CardEffectContext makeNewContext(PersistentCardEffectContext pContext, CardEffectContext context){
         CardEffectContext newContext = context.clone();
         newContext.target = context.trackedEntity;
         if(trackOldTarget){

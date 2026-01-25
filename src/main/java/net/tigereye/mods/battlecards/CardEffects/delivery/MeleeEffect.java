@@ -9,10 +9,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.RetainCardEffect;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
@@ -43,7 +42,7 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
     }
 
     @Override
-    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
+    public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
         double reach = this.reach.getValue(pContext,context);
         double maxAngle = this.maxAngle.getValue(pContext,context);
         if (pContext.user instanceof PlayerEntity pEntity) {

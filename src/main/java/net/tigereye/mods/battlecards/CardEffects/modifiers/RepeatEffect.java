@@ -7,7 +7,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
@@ -29,7 +29,7 @@ public class RepeatEffect implements CardEffect, CardTooltipNester {
     List<CardEffect> effects = new ArrayList<>();
 
     @Override
-    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
+    public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
 
         int countValue = (int)(Math.floor(count.getValue(pContext,context)));
         int delayValue = (int)(Math.floor(delay.getValue(pContext,context)));

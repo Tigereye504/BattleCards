@@ -9,7 +9,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
@@ -76,7 +76,7 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
     }
 
     @Override
-    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
+    public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
         if (context.target != null) {
             apply(pContext, context, context.target);
         } else {
@@ -84,7 +84,7 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
         }
     }
 
-    private void apply(PersistantCardEffectContext pContext, CardEffectContext context, Entity target) {
+    private void apply(PersistentCardEffectContext pContext, CardEffectContext context, Entity target) {
         World world = pContext.user.getWorld();
         if (!world.isClient()) {
             float copiesValue = copies.getValue(pContext,context);
@@ -97,10 +97,10 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
         }
     }
 
-    public CardProjectileEntity createProjectile(PersistantCardEffectContext pContext, CardEffectContext context) {
+    public CardProjectileEntity createProjectile(PersistentCardEffectContext pContext, CardEffectContext context) {
         return createProjectile(pContext,context,pContext.user);
     }
-    public CardProjectileEntity createProjectile(PersistantCardEffectContext pContext, CardEffectContext context, Entity target) {
+    public CardProjectileEntity createProjectile(PersistentCardEffectContext pContext, CardEffectContext context, Entity target) {
         if(pContext.user == null ||((!originRelativeToUserElseTarget)&&(target == null))){
             return null;
         }

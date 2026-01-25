@@ -9,7 +9,7 @@ import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.Cards.Json.CardManager;
 import net.tigereye.mods.battlecards.registration.BCEntities;
@@ -19,7 +19,7 @@ import java.util.List;
 
 public class CardProjectileEntity extends PersistentProjectileEntity implements BCProjectileEntity {
 
-    PersistantCardEffectContext pContext;
+    PersistentCardEffectContext pContext;
     CardEffectContext context;
     List<CardEffect> onEntityHitEffects = new ArrayList<>();
     List<CardEffect> onCollisionEffects = new ArrayList<>();
@@ -31,12 +31,12 @@ public class CardProjectileEntity extends PersistentProjectileEntity implements 
 
     public CardProjectileEntity(EntityType<? extends PersistentProjectileEntity> entityType, World world) {
         super(entityType, world);
-        this.pContext = new PersistantCardEffectContext(null,CardManager.readNBTBattleCard(ItemStack.EMPTY),ItemStack.EMPTY);
+        this.pContext = new PersistentCardEffectContext(null,CardManager.readNBTBattleCard(ItemStack.EMPTY),ItemStack.EMPTY);
         this.context = new CardEffectContext();
         this.init();
     }
 
-    public CardProjectileEntity(PersistantCardEffectContext pContext, CardEffectContext context, World world, double x, double y, double z) {
+    public CardProjectileEntity(PersistentCardEffectContext pContext, CardEffectContext context, World world, double x, double y, double z) {
         super(BCEntities.CardProjectileEntityType, x, y, z, world);
         this.pContext = pContext;
         this.context = context;

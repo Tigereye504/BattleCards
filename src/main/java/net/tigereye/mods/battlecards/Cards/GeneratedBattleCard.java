@@ -4,7 +4,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.Events.PreparePersistentContextCallback;
 
@@ -106,7 +106,7 @@ public class GeneratedBattleCard implements BattleCard {
 
     @Override
     public boolean performQuickEffect(LivingEntity user, ItemStack stack) {
-        PersistantCardEffectContext pContext = new PersistantCardEffectContext(user,this,stack);
+        PersistentCardEffectContext pContext = new PersistentCardEffectContext(user,this,stack);
         PreparePersistentContextCallback.EVENT.invoker().preparePersistentContext(pContext,user,true);
         quickEffects.forEach((cardEffect -> cardEffect.apply(pContext)));
         return true;
@@ -114,7 +114,7 @@ public class GeneratedBattleCard implements BattleCard {
 
     @Override
     public boolean performChargeEffect(LivingEntity user, ItemStack stack) {
-        PersistantCardEffectContext pContext = new PersistantCardEffectContext(user,this,stack);
+        PersistentCardEffectContext pContext = new PersistentCardEffectContext(user,this,stack);
         PreparePersistentContextCallback.EVENT.invoker().preparePersistentContext(pContext,user,false);
         chargeEffects.forEach((cardEffect -> cardEffect.apply(pContext)));
         return false;

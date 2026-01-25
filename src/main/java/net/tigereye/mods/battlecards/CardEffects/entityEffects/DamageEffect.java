@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
@@ -32,7 +32,7 @@ public class DamageEffect implements CardEffect, CardTooltipNester {
     List<CardEffect> afterDamageEffects = new ArrayList<>();
 
     @Override
-    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
+    public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
         if(context.target != null){
             apply(pContext,context.target, context);
         }
@@ -41,7 +41,7 @@ public class DamageEffect implements CardEffect, CardTooltipNester {
         }
     }
 
-    private void apply(PersistantCardEffectContext pContext, Entity target, CardEffectContext context) {
+    private void apply(PersistentCardEffectContext pContext, Entity target, CardEffectContext context) {
         if(target != null) {
             if(damageType == null){
                 Battlecards.LOGGER.warn("Missing damage type on {} damage effect. Replacing null with 'generic' damage type.",pContext.cardItem.getName());

@@ -3,10 +3,8 @@ package net.tigereye.mods.battlecards.Events;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.ItemStack;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
-import net.tigereye.mods.battlecards.Cards.BattleCard;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 
 public interface ModifyDamageCardEffectCallback {
     Event<ModifyDamageCardEffectCallback> EVENT = EventFactory.createArrayBacked(ModifyDamageCardEffectCallback.class,
@@ -17,5 +15,5 @@ public interface ModifyDamageCardEffectCallback {
                 return amount;
             });
 
-    float modifyDamage(PersistantCardEffectContext pContext, Entity target, CardEffectContext context, float amount);
+    float modifyDamage(PersistentCardEffectContext pContext, Entity target, CardEffectContext context, float amount);
 }

@@ -11,7 +11,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
@@ -37,7 +37,7 @@ public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
     }
 
     @Override
-    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
+    public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
         if (context.target != null) {
             apply(pContext, context, context.target);
         }
@@ -49,11 +49,11 @@ public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
         }
     }
 
-    private void apply(PersistantCardEffectContext pContext, CardEffectContext context, Entity target) {
+    private void apply(PersistentCardEffectContext pContext, CardEffectContext context, Entity target) {
         apply(pContext, context, target.getEyePos());
     }
 
-    private void apply(PersistantCardEffectContext pContext, CardEffectContext context, Vec3d center) {
+    private void apply(PersistentCardEffectContext pContext, CardEffectContext context, Vec3d center) {
         float radius = this.radius.getValue(pContext,context);
         Box box = new Box(center,center).expand(radius);
         List<LivingEntity> entityList = pContext.user.getWorld().getNonSpectatingEntities(LivingEntity.class,

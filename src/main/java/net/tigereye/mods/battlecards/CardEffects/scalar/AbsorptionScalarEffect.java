@@ -8,7 +8,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
@@ -27,7 +27,7 @@ public class AbsorptionScalarEffect implements CardEffect, CardScalar, CardToolt
     //'ratio' returns the entity's absorption as a portion of the entity's max health
 
     @Override
-    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
+    public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
         CardEffectContext newContext = context.clone();
         newContext.scalar = getValue(pContext,context);
 
@@ -37,7 +37,7 @@ public class AbsorptionScalarEffect implements CardEffect, CardScalar, CardToolt
     }
 
     @Override
-    public float getValue(PersistantCardEffectContext pContext, CardEffectContext context) {
+    public float getValue(PersistentCardEffectContext pContext, CardEffectContext context) {
         Entity scalarEntity = userElseTarget ? pContext.user : context.target;
         if(scalarEntity instanceof LivingEntity livingEntity){
             return (replaceElseAdd ? 0 : context.scalar) + (livingEntity.getAbsorptionAmount()

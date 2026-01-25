@@ -5,11 +5,10 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Vec2f;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
@@ -25,7 +24,7 @@ public class PitchToTargetScalarEffect implements CardEffect, CardScalar, CardTo
     boolean degElseRad = true;
 
     @Override
-    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
+    public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
         CardEffectContext newContext = context.clone();
         newContext.scalar = getValue(pContext,context);
 
@@ -35,7 +34,7 @@ public class PitchToTargetScalarEffect implements CardEffect, CardScalar, CardTo
     }
 
     @Override
-    public float getValue(PersistantCardEffectContext pContext, CardEffectContext context) {
+    public float getValue(PersistentCardEffectContext pContext, CardEffectContext context) {
         Entity scalarEntity = userElseTrackedEntity ? pContext.user : context.trackedEntity;
         if(context.target == null){
             return 0;

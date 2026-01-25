@@ -5,9 +5,8 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
-import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
@@ -26,7 +25,7 @@ public class MultiplicationScalarEffect implements CardEffect, CardScalar, CardT
     public MultiplicationScalarEffect(){}
 
     @Override
-    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
+    public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
         CardEffectContext newContext = context.clone();
         newContext.scalar = getValue(pContext,context);
         for(CardEffect effect : effects){
@@ -35,7 +34,7 @@ public class MultiplicationScalarEffect implements CardEffect, CardScalar, CardT
     }
 
     @Override
-    public float getValue(PersistantCardEffectContext pContext, CardEffectContext context) {
+    public float getValue(PersistentCardEffectContext pContext, CardEffectContext context) {
         return a.getValue(pContext, context)*b.getValue(pContext, context);
     }
 

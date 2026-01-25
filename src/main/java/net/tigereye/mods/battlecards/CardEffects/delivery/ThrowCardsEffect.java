@@ -8,7 +8,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
@@ -57,7 +57,7 @@ public class ThrowCardsEffect implements CardEffect, CardTooltipNester {
     }
 
     @Override
-    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
+    public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
         if (context.target != null) {
             apply(pContext,context,context.target);
         } else {
@@ -65,7 +65,7 @@ public class ThrowCardsEffect implements CardEffect, CardTooltipNester {
         }
     }
 
-    private void apply(PersistantCardEffectContext pContext, CardEffectContext context, Entity target) {
+    private void apply(PersistentCardEffectContext pContext, CardEffectContext context, Entity target) {
         World world = pContext.user.getWorld();
         if(!world.isClient()) {
             for (ThrowCardEffect effect : throwCardEffects) {

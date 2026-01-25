@@ -1,13 +1,11 @@
 package net.tigereye.mods.battlecards.Items.sleeves;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
 import net.tigereye.mods.battlecards.Items.interfaces.BattleCardItem;
 import net.tigereye.mods.battlecards.Items.interfaces.CardOwningItem;
 import net.tigereye.mods.battlecards.Items.interfaces.CardSleeve;

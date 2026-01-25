@@ -12,7 +12,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
@@ -34,7 +34,7 @@ public class TargetNearestEntityEffect implements CardEffect, CardTooltipNester 
     CardScalar range = new ConstantScalarEffect(16);
 
     @Override
-    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
+    public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
         CardEffectContext newContext = context.clone();
         Vec3d origin;
         if(context.target != null){
@@ -53,7 +53,7 @@ public class TargetNearestEntityEffect implements CardEffect, CardTooltipNester 
         }
     }
 
-    private Entity getTarget(PersistantCardEffectContext pContext, CardEffectContext context, Vec3d origin) {
+    private Entity getTarget(PersistentCardEffectContext pContext, CardEffectContext context, Vec3d origin) {
         double range = this.range.getValue(pContext,context);
         List<Entity> ignoreList = new ArrayList<>();
         if(ignoreUser && pContext.user != null) ignoreList.add(pContext.user);

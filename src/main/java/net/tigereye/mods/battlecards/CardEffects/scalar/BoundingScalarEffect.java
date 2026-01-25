@@ -7,7 +7,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
@@ -30,7 +30,7 @@ public class BoundingScalarEffect implements CardEffect, CardScalar, CardTooltip
     public BoundingScalarEffect(){}
 
     @Override
-    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
+    public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
         CardEffectContext newContext = context.clone();
         newContext.scalar = getValue(pContext,context);
         for(CardEffect effect : effects){
@@ -39,7 +39,7 @@ public class BoundingScalarEffect implements CardEffect, CardScalar, CardTooltip
     }
 
     @Override
-    public float getValue(PersistantCardEffectContext pContext, CardEffectContext context) {
+    public float getValue(PersistentCardEffectContext pContext, CardEffectContext context) {
         return Math.min(Math.max(value.getValue(pContext, context), low.getValue(pContext,context)), high.getValue(pContext, context));
     }
 

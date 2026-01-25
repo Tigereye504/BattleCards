@@ -1,18 +1,38 @@
 package net.tigereye.mods.battlecards.Items.interfaces;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 
 public interface CardSleeve {
 
-    default float modifyDamage(PersistantCardEffectContext pContext, Entity target, CardEffectContext context, float amount, ItemStack sleeve){
+    default float modifyDamage(PersistentCardEffectContext pContext, Entity target, CardEffectContext context, float amount, ItemStack sleeve){
         return amount;
     }
 
+    /***********************
+     * modifyStatusEffect changes how much a card's charged effect costs to use.
+     * @param pContext
+     * the persistent context of the card, which is unchanged after card effect setup.
+     * @param target
+     * The entity to receive the status effect after all modifiers are applied.
+     * @param context
+     * the non-persistent context of the card effect, which is frequently modified by card effects.
+     * @param instance
+     * The status effect instance to be applied before sleeve modification
+     * @param sleeve
+     * The sleeve of the used card. Should be a CardSleeve, but beware of shenanigans. Passed as a ItemStack to preserve NBT
+     * @return
+     * Returns the status effect instance after the sleeve's modification.
+     */
+    default StatusEffectInstance modifyStatusEffect(PersistentCardEffectContext pContext, Entity target, CardEffectContext context, StatusEffectInstance instance, ItemStack sleeve){
+        return instance;
+    }
+
     //TODO: make event and hook for afterDamage
-    default void afterDamage(PersistantCardEffectContext pContext, Entity target, CardEffectContext context,  float amountApplied, float amountTaken, ItemStack sleeve){}
+    default void afterDamage(PersistentCardEffectContext pContext, Entity target, CardEffectContext context, float amountApplied, float amountTaken, ItemStack sleeve){}
 
     /***********************
      * modifyManaCost changes how much a card's charged effect costs to use.
@@ -36,6 +56,6 @@ public interface CardSleeve {
     //TODO: make event and hook for modifyManaCost
     default int modifyManaCost(Entity user, ItemStack item, int cost, boolean forDisplay){return cost;}
 
-    void preparePersistentContext(PersistantCardEffectContext pContext, Entity user, ItemStack sleeve, boolean quickElseCharge);
+    void preparePersistentContext(PersistentCardEffectContext pContext, Entity user, ItemStack sleeve, boolean quickElseCharge);
 
 }

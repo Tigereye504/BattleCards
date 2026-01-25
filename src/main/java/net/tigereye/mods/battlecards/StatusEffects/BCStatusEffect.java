@@ -6,7 +6,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ public class BCStatusEffect extends StatusEffect {
         return true;
     }
 
-    public void preparePersistentContext(PersistantCardEffectContext pContext, Entity entity, StatusEffectInstance instance, boolean quickElseCharge, List<StatusEffect> effectsToRemove) {
+    public void preparePersistentContext(PersistentCardEffectContext pContext, Entity entity, StatusEffectInstance instance, boolean quickElseCharge, List<StatusEffect> effectsToRemove) {
     }
 
     /*****Utilities*****/

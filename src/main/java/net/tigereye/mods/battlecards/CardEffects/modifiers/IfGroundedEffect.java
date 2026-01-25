@@ -4,14 +4,12 @@ import com.google.gson.JsonElement;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
@@ -27,7 +25,7 @@ public class IfGroundedEffect implements CardEffect, CardTooltipNester {
     boolean targetElseUser = true;
 
     @Override
-    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
+    public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
         if(context.target != null){
             apply(pContext,context.target, context);
         }
@@ -36,7 +34,7 @@ public class IfGroundedEffect implements CardEffect, CardTooltipNester {
         }
     }
 
-    private void apply(PersistantCardEffectContext pContext, Entity target, CardEffectContext context) {
+    private void apply(PersistentCardEffectContext pContext, Entity target, CardEffectContext context) {
         Entity subject = targetElseUser ? target : pContext.user;
         if(subject instanceof LivingEntity livingEntity) {
             if (subject.isOnGround()){

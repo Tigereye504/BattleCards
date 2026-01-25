@@ -8,7 +8,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
-import net.tigereye.mods.battlecards.CardEffects.context.PersistantCardEffectContext;
+import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
@@ -27,7 +27,7 @@ public class DelayedEffect implements CardEffect, CardTooltipNester {
     List<CardEffect> effects = new ArrayList<>();
 
     @Override
-    public void apply(PersistantCardEffectContext pContext, CardEffectContext context) {
+    public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
         if(pContext.user instanceof DelayedActionTaker dat){
             dat.battleCards$addDelayedAction(new DelayedCardAction(pContext,context,effects,(int)delay.getValue(pContext,context)));
         }
@@ -51,13 +51,13 @@ public class DelayedEffect implements CardEffect, CardTooltipNester {
 
     public static class DelayedCardAction extends DelayedAction {
 
-        PersistantCardEffectContext pContext;
+        PersistentCardEffectContext pContext;
         Entity target;
         CardEffectContext context;
         List<CardEffect> effects;
 
 
-        DelayedCardAction(PersistantCardEffectContext pContext, CardEffectContext context, CardEffect effect, int delay){
+        DelayedCardAction(PersistentCardEffectContext pContext, CardEffectContext context, CardEffect effect, int delay){
             this.pContext = pContext;
             this.context = context;
             this.effects = new ArrayList<CardEffect>();
@@ -65,7 +65,7 @@ public class DelayedEffect implements CardEffect, CardTooltipNester {
             setTicks(delay);
         }
 
-        DelayedCardAction(PersistantCardEffectContext pContext, CardEffectContext context, List<CardEffect> effects, int delay){
+        DelayedCardAction(PersistentCardEffectContext pContext, CardEffectContext context, List<CardEffect> effects, int delay){
             this.pContext = pContext;
             this.context = context;
             this.effects = effects;
