@@ -7,10 +7,10 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 
-public interface ModifyStatusEffectCardEffectCallback {
-    Event<ModifyStatusEffectCardEffectCallback> EVENT = EventFactory.createArrayBacked(ModifyStatusEffectCardEffectCallback.class,
+public interface StatusEffectCardEffectCallback {
+    Event<StatusEffectCardEffectCallback> EVENT = EventFactory.createArrayBacked(StatusEffectCardEffectCallback.class,
             (listeners) -> (pContext,target,context,instance) -> {
-                for (ModifyStatusEffectCardEffectCallback listener : listeners) {
+                for (StatusEffectCardEffectCallback listener : listeners) {
                     instance = listener.modifyStatusEffect(pContext,target,context,instance);
                 }
                 return instance;

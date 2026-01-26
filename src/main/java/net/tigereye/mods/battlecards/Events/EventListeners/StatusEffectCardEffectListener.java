@@ -4,12 +4,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
-import net.tigereye.mods.battlecards.Events.ModifyStatusEffectCardEffectCallback;
+import net.tigereye.mods.battlecards.Events.StatusEffectCardEffectCallback;
 
-public class ModifyStatusEffectCardEffectListener {
+public class StatusEffectCardEffectListener {
 
     public static StatusEffectInstance applyPersistentContext(PersistentCardEffectContext pContext, Entity entity, CardEffectContext cardEffectContext, StatusEffectInstance instance) {
-        for (ModifyStatusEffectCardEffectCallback statusEffectCallback : pContext.modifyStatusEffectListeners){
+        for (StatusEffectCardEffectCallback statusEffectCallback : pContext.modifyStatusEffectCallbacks){
             instance = statusEffectCallback.modifyStatusEffect(pContext, entity, cardEffectContext, instance);
         }
         return instance;

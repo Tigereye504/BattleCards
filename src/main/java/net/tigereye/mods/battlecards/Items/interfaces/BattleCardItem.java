@@ -53,7 +53,7 @@ public interface BattleCardItem {
         return 0;
     }
 
-    int getChargeEffectCost(Entity user, ItemStack item);
+    int getChargeEffectCost(Entity user, ItemStack item, boolean forDisplay);
 
     default boolean payManaCost(Entity user, ItemStack item, int cost){
         if(user instanceof LivingEntity livingEntity){

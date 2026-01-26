@@ -13,19 +13,33 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class SimpleCardSleeve extends CardSleeveItem{
-    private final float damageMultiplier;
-    private final float statusEffectDurationMultiplier;
-    private final int statusEffectMagnitudeAdder;
+    private float damageMultiplier = 1;
+    private float statusEffectDurationMultiplier = 1;
+    private int statusEffectMagnitudeAdder = 0;
+    private int manaGainAdder = 0;
+    private float manaCostMultiplier = 1;
 
-    public SimpleCardSleeve(Settings settings, float damageMultiplier) {
-        this(settings,damageMultiplier,1,0);
+
+    public SimpleCardSleeve(Settings settings){
+        super(settings);
     }
 
-    public SimpleCardSleeve(Settings settings, float damageMultiplier, float statusEffectDurationMultiplier, int statusEffectMagnitudeAdder) {
-        super(settings);
+    public SimpleCardSleeve DamageMultiplier(float damageMultiplier){
         this.damageMultiplier = damageMultiplier;
+        return this;
+    }
+    public SimpleCardSleeve StatusEffectModifiers(float statusEffectDurationMultiplier, int statusEffectMagnitudeAdder){
         this.statusEffectDurationMultiplier = statusEffectDurationMultiplier;
         this.statusEffectMagnitudeAdder = statusEffectMagnitudeAdder;
+        return this;
+    }
+    public SimpleCardSleeve ManaGainAdder(int manaGainAdder){
+        this.manaGainAdder = manaGainAdder;
+        return this;
+    }
+    public SimpleCardSleeve ManaCostMultiplier(float manaCostMultiplier){
+        this.manaCostMultiplier = manaCostMultiplier;
+        return this;
     }
 
     @Override
@@ -40,14 +54,28 @@ public class SimpleCardSleeve extends CardSleeveItem{
         return new StatusEffectInstance(instance.getEffectType(),newDuration,newMagnitude);
     }
 
+    @Override
+    public int modifyManaGain(PersistentCardEffectContext pContext, Entity target, CardEffectContext context, int amount, ItemStack sleeve){
+        return amount+manaGainAdder;
+    }
+
+    @Override
+    public int modifyManaCost(Entity user, ItemStack item, int cost, boolean forDisplay){
+        return (int) Math.ceil(cost*manaCostMultiplier);
+    }
+
     public void preparePersistentContext(PersistentCardEffectContext pContext, Entity user, ItemStack sleeve, boolean quickElseCharge) {
         if(damageMultiplier != 1) {
             pContext.modifyDamageCallbacks.add((pContext2, target, context, amount)
                     -> modifyDamage(pContext, target, context, amount, sleeve));
         }
         if(statusEffectDurationMultiplier != 1 || statusEffectMagnitudeAdder != 0) {
-            pContext.modifyStatusEffectListeners.add((pContext2, target, context, instance)
+            pContext.modifyStatusEffectCallbacks.add((pContext2, target, context, instance)
                     -> modifyStatusEffect(pContext, target, context, instance, sleeve));
+        }
+        if(manaGainAdder != 0){
+            pContext.manaGainCallbacks.add((pContext2, target, context, amount)
+                    -> modifyManaGain(pContext, target, context, amount, sleeve));
         }
     }
 
@@ -64,6 +92,14 @@ public class SimpleCardSleeve extends CardSleeveItem{
         if(statusEffectMagnitudeAdder != 0) {
             tooltip.add(Text.translatable("item.battlecards.sleeve.simple.statusMagnitudeDesc",
                     statusEffectMagnitudeAdder > 0 ? "+" : "", statusEffectMagnitudeAdder));
+        }
+        if(manaGainAdder != 0){
+            tooltip.add(Text.translatable("item.battlecards.sleeve.simple.manaGainDesc",
+                    manaGainAdder > 0 ? "+" : "", manaGainAdder));
+        }
+        if(manaCostMultiplier != 1){
+            tooltip.add(Text.translatable("item.battlecards.sleeve.simple.manaCostDesc",
+                    manaCostMultiplier > 1 ? "+" : "", (int) ((manaCostMultiplier - 1) * 100)));
         }
         super.appendTooltip(stack, world, tooltip, context);
     }

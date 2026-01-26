@@ -6,10 +6,10 @@ import net.minecraft.entity.Entity;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 
-public interface ModifyDamageCardEffectCallback {
-    Event<ModifyDamageCardEffectCallback> EVENT = EventFactory.createArrayBacked(ModifyDamageCardEffectCallback.class,
+public interface DamageCardEffectCallback {
+    Event<DamageCardEffectCallback> EVENT = EventFactory.createArrayBacked(DamageCardEffectCallback.class,
             (listeners) -> (pContext,target,context,amount) -> {
-                for (ModifyDamageCardEffectCallback listener : listeners) {
+                for (DamageCardEffectCallback listener : listeners) {
                     amount = listener.modifyDamage(pContext,target,context,amount);
                 }
                 return amount;

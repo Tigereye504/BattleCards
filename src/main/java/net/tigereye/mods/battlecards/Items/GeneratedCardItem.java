@@ -18,6 +18,8 @@ import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.CardEffects.RetainCardEffect;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardManager;
+import net.tigereye.mods.battlecards.Events.CardManaCostCallback;
+import net.tigereye.mods.battlecards.Events.ManaGainCardEffectCallback;
 import net.tigereye.mods.battlecards.Items.interfaces.BattleCardItem;
 import net.tigereye.mods.battlecards.Items.interfaces.CardOwningItem;
 
@@ -100,7 +102,7 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
         if(stack.hasNbt()){
             Identifier cardID = new Identifier(stack.getNbt().getString(CardManager.ID_KEY));
             BattleCard card = CardManager.getEntry(cardID);
-            if(payManaCost(user,stack,getChargeEffectCost(user,stack))){
+            if(payManaCost(user,stack,getChargeEffectCost(user,stack,false))){
                 card.performChargeEffect(user,stack);
                 afterCardEffects(stack, world, user);
                 return true;
@@ -126,13 +128,15 @@ public class GeneratedCardItem extends Item implements BattleCardItem {
     }
 
     @Override
-    public int getChargeEffectCost(Entity user, ItemStack item){
+    public int getChargeEffectCost(Entity user, ItemStack item, boolean forDisplay){
         //if has owner, proceed as normal
         //else, double the cost
         if(item.hasNbt()) {
             Identifier cardID = new Identifier(item.getNbt().getString(CardManager.ID_KEY));
             BattleCard card = CardManager.getEntry(cardID);
-            return item.getNbt().containsUuid(CardOwningItem.CARD_OWNER_UUID_NBTKEY) ? card.getChargeEffectCost() : card.getChargeEffectCost()*2;
+            int cost = card.getChargeEffectCost();
+            return CardManaCostCallback.EVENT.invoker()
+                    .modifyManaCost(user,item,card,cost,false);
         }
         return 0;
     }

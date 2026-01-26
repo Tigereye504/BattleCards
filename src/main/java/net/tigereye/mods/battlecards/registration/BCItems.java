@@ -34,12 +34,15 @@ public class BCItems {
     public static final Block CARDFETTI_BLOCK = new Block(FabricBlockSettings.copyOf(Blocks.BAMBOO_PLANKS));
 
     public static final Item SLEEVE_PENNY = new PennySleeveItem(new FabricItemSettings().maxCount(1));
-    public static final Item SLEEVE_IRON = new SimpleCardSleeve(new FabricItemSettings().maxCount(64),1.5f);
-    public static final Item SLEEVE_GOLD = new SimpleCardSleeve(new FabricItemSettings().maxCount(64),1.25f);
-    public static final Item SLEEVE_DIAMOND = new SimpleCardSleeve(new FabricItemSettings().maxCount(64),2f);
-    public static final Item SLEEVE_NETHERITE = new SimpleCardSleeve(new FabricItemSettings().maxCount(64),2.25f);
-    public static final Item SLEEVE_GLOWSTONE = new SimpleCardSleeve(new FabricItemSettings().maxCount(64),1,1,1);
-    public static final Item SLEEVE_REDSTONE = new SimpleCardSleeve(new FabricItemSettings().maxCount(64),1,2,0);
+    public static final Item SLEEVE_IRON = new SimpleCardSleeve(new FabricItemSettings().maxCount(64)).DamageMultiplier(1.5f);
+    public static final Item SLEEVE_DIAMOND = new SimpleCardSleeve(new FabricItemSettings().maxCount(64)).DamageMultiplier(2f);
+    public static final Item SLEEVE_NETHERITE = new SimpleCardSleeve(new FabricItemSettings().maxCount(64)).DamageMultiplier(2.25f);
+    public static final Item SLEEVE_GLOWSTONE = new SimpleCardSleeve(new FabricItemSettings().maxCount(64))
+            .StatusEffectModifiers(1,1);
+    public static final Item SLEEVE_REDSTONE = new SimpleCardSleeve(new FabricItemSettings().maxCount(64))
+            .StatusEffectModifiers(2,0);
+    public static final Item SLEEVE_GOLD = new SimpleCardSleeve(new FabricItemSettings().maxCount(64)).ManaCostMultiplier(.5f);
+    public static final Item SLEEVE_EMERALD = new SimpleCardSleeve(new FabricItemSettings().maxCount(64)).ManaGainAdder(1);
 
     public static final SpecialRecipeSerializer<PapercraftBoosterRecipe> PAPERCRAFT_BOOSTER_RECIPE_SERIALIZER = new SpecialRecipeSerializer<>(PapercraftBoosterRecipe::new);
     public static final SpecialRecipeSerializer<ShredCardsAndBoosterPacksRecipe> SHRED_CARD_BOOSTER_PACKS_RECIPE_SERIALIZER = new SpecialRecipeSerializer<>(ShredCardsAndBoosterPacksRecipe::new);
@@ -54,11 +57,12 @@ public class BCItems {
                 entries.add(DECK);
                 entries.add(SLEEVE_PENNY);
                 entries.add(SLEEVE_IRON);
-                entries.add(SLEEVE_GOLD);
                 entries.add(SLEEVE_DIAMOND);
                 entries.add(SLEEVE_NETHERITE);
                 entries.add(SLEEVE_GLOWSTONE);
                 entries.add(SLEEVE_REDSTONE);
+                entries.add(SLEEVE_GOLD);
+                entries.add(SLEEVE_EMERALD);
                 CardManager.GeneratedCards.keySet().stream().sorted().forEachOrdered((id) -> {
                     entries.add(CardManager.generateCardItemstack(id));
                     CardManager.GeneratedCards.get(id).getVariants().forEach((varID) ->{
@@ -81,11 +85,12 @@ public class BCItems {
         Registry.register(Registries.ITEM, new Identifier(Battlecards.MODID, "deck"), DECK);
         Registry.register(Registries.ITEM, new Identifier(Battlecards.MODID, "sleeve/penny"), SLEEVE_PENNY);
         Registry.register(Registries.ITEM, new Identifier(Battlecards.MODID, "sleeve/iron"), SLEEVE_IRON);
-        Registry.register(Registries.ITEM, new Identifier(Battlecards.MODID, "sleeve/gold"), SLEEVE_GOLD);
         Registry.register(Registries.ITEM, new Identifier(Battlecards.MODID, "sleeve/diamond"), SLEEVE_DIAMOND);
         Registry.register(Registries.ITEM, new Identifier(Battlecards.MODID, "sleeve/netherite"), SLEEVE_NETHERITE);
         Registry.register(Registries.ITEM, new Identifier(Battlecards.MODID, "sleeve/glowstone"), SLEEVE_GLOWSTONE);
         Registry.register(Registries.ITEM, new Identifier(Battlecards.MODID, "sleeve/redstone"), SLEEVE_REDSTONE);
+        Registry.register(Registries.ITEM, new Identifier(Battlecards.MODID, "sleeve/gold"), SLEEVE_GOLD);
+        Registry.register(Registries.ITEM, new Identifier(Battlecards.MODID, "sleeve/emerald"), SLEEVE_EMERALD);
 
         Registry.register(Registries.ITEM_GROUP, Identifier.of(Battlecards.MODID,"battlecards_item_group"), BATTLECARDS_ITEM_GROUP);
 

@@ -38,13 +38,12 @@ to reach new breakpoints where you kill in fewer hits.
 'catastrophic'    - 11 - iron golem     *20*        ~*30*~      **40**      **45** dmg
 
 TODO: implement specialized card sleeves
-TODO: need modifyStatusEffectListeners in PersistantCardEffectContext for redstone and glowstone sleeves
-TODO: need modifyManaGainListeners in PersistantCardEffectContext for emerald sleeves
 Leather: +25% damage, shuffled into draw pile twice when added to draw pile
+Copper: +25% damage, Inherent (drawn first in game start)
 Gold: +25% damage, half mana cost (round up)
 Emerald: +25% damage, +1 mana gain
-Glowstone: +25% damage, +1 effect magnitude
-Redstone: +25% damage, x2 effect duration
+C   Glowstone: +25% damage, +1 effect magnitude
+C   Redstone: +25% damage, x2 effect duration
 
 --Balance Considerations: Quick Actions--
 

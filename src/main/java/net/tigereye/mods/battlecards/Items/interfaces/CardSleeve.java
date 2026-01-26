@@ -8,6 +8,21 @@ import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectCon
 
 public interface CardSleeve {
 
+    /***********************
+     * modifyDamage changes how much a card's charged effect costs to use.
+     * @param pContext
+     * the persistent context of the card, which lasts the life of the card.
+     * @param target
+     * The entity to receive the status effect after all modifiers are applied.
+     * @param context
+     * the non-persistent context of the card effect, which only lasts for the current card effect and is copied to its children.
+     * @param amount
+     * The amount of damage to be applied before sleeve modification
+     * @param sleeve
+     * The sleeve of the used card. Should be a CardSleeve, but beware of shenanigans. Passed as a ItemStack to preserve NBT
+     * @return
+     * Returns the damage after the sleeve's modification.
+     */
     default float modifyDamage(PersistentCardEffectContext pContext, Entity target, CardEffectContext context, float amount, ItemStack sleeve){
         return amount;
     }
@@ -15,11 +30,11 @@ public interface CardSleeve {
     /***********************
      * modifyStatusEffect changes how much a card's charged effect costs to use.
      * @param pContext
-     * the persistent context of the card, which is unchanged after card effect setup.
+     * the persistent context of the card, which lasts the life of the card.
      * @param target
      * The entity to receive the status effect after all modifiers are applied.
      * @param context
-     * the non-persistent context of the card effect, which is frequently modified by card effects.
+     * the non-persistent context of the card effect, which only lasts for the current card effect and is copied to its children.
      * @param instance
      * The status effect instance to be applied before sleeve modification
      * @param sleeve
@@ -29,6 +44,25 @@ public interface CardSleeve {
      */
     default StatusEffectInstance modifyStatusEffect(PersistentCardEffectContext pContext, Entity target, CardEffectContext context, StatusEffectInstance instance, ItemStack sleeve){
         return instance;
+    }
+
+    /***********************
+     * modifyDamage changes how much a card's charged effect costs to use.
+     * @param pContext
+     * the persistent context of the card, which lasts the life of the card.
+     * @param target
+     * The entity to receive the status effect after all modifiers are applied.
+     * @param context
+     * the non-persistent context of the card effect, which only lasts for the current card effect and is copied to its children.
+     * @param amount
+     * The amount of mana to be gained before sleeve modification
+     * @param sleeve
+     * The sleeve of the used card. Should be a CardSleeve, but beware of shenanigans. Passed as a ItemStack to preserve NBT
+     * @return
+     * Returns the mana gain after the sleeve's modification.
+     */
+    default int modifyManaGain(PersistentCardEffectContext pContext, Entity target, CardEffectContext context, int amount, ItemStack sleeve){
+        return amount;
     }
 
     //TODO: make event and hook for afterDamage
@@ -53,7 +87,6 @@ public interface CardSleeve {
      * @return
      * Returns the mana cost after the sleeve's modification.
      */
-    //TODO: make event and hook for modifyManaCost
     default int modifyManaCost(Entity user, ItemStack item, int cost, boolean forDisplay){return cost;}
 
     void preparePersistentContext(PersistentCardEffectContext pContext, Entity user, ItemStack sleeve, boolean quickElseCharge);

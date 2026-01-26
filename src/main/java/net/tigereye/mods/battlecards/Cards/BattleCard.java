@@ -40,7 +40,7 @@ public interface BattleCard {
             int cost = this.getChargeEffectCost();
             int modifiedCost = cost;
             if(itemStack.getItem() instanceof BattleCardItem bci){
-                modifiedCost = bci.getChargeEffectCost(null,itemStack);
+                modifiedCost = bci.getChargeEffectCost(null,itemStack,true);
             }
             tooltip.add(Text.translatable("card.battlecards.tooltip.charge_header", this.getChargeEffectCost(),
                     cost != modifiedCost ? " ("+modifiedCost+")" : ""));
@@ -56,7 +56,7 @@ public interface BattleCard {
             int cost = this.getChargeEffectCost();
             int modifiedCost = cost;
             if(itemStack.getItem() instanceof BattleCardItem bci){
-                modifiedCost = bci.getChargeEffectCost(null,itemStack);
+                modifiedCost = bci.getChargeEffectCost(null,itemStack,true);
             }
             tooltip.add(Text.translatable("card.battlecards.tooltip.charge_header", this.getChargeEffectCost(),
                     cost != modifiedCost ? " ("+modifiedCost+")" : ""));

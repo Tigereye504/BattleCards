@@ -20,7 +20,7 @@ import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
-import net.tigereye.mods.battlecards.Events.ModifyStatusEffectCardEffectCallback;
+import net.tigereye.mods.battlecards.Events.StatusEffectCardEffectCallback;
 
 import java.util.List;
 
@@ -43,7 +43,7 @@ public class ApplyStatusEffect implements CardEffect, CardTooltipNester {
     private void apply(PersistentCardEffectContext pContext, Entity target, CardEffectContext context) {
         if(type != null && target instanceof LivingEntity livingEntity){
             StatusEffectInstance instance = new StatusEffectInstance(type,(int)duration.getValue(pContext,context),(int)magnitude.getValue(pContext, context));
-            instance = ModifyStatusEffectCardEffectCallback.EVENT.invoker()
+            instance = StatusEffectCardEffectCallback.EVENT.invoker()
                     .modifyStatusEffect(pContext,target,context,instance);
             livingEntity.addStatusEffect(instance);
         }

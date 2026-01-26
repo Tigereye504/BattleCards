@@ -12,6 +12,8 @@ import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
+import net.tigereye.mods.battlecards.Events.DamageCardEffectCallback;
+import net.tigereye.mods.battlecards.Events.ManaGainCardEffectCallback;
 import net.tigereye.mods.battlecards.Items.interfaces.BattleCardItem;
 
 import java.util.List;
@@ -23,7 +25,9 @@ public class GainManaEffect implements CardEffect, CardTooltipNester {
     @Override
     public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
         if(pContext.cardItem.getItem() instanceof BattleCardItem bci) {
-            bci.gainMana(pContext.user, pContext.cardItem, (int) amount.getValue(pContext, context));
+            int modifiedMana = ManaGainCardEffectCallback.EVENT.invoker()
+                    .modifyManaGain(pContext, pContext.user, context,(int) amount.getValue(pContext,context));
+            bci.gainMana(pContext.user, pContext.cardItem, modifiedMana);
         }
     }
 

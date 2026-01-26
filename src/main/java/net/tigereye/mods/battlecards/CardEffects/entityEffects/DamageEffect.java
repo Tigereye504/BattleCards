@@ -19,7 +19,7 @@ import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
-import net.tigereye.mods.battlecards.Events.ModifyDamageCardEffectCallback;
+import net.tigereye.mods.battlecards.Events.DamageCardEffectCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,7 @@ public class DamageEffect implements CardEffect, CardTooltipNester {
             }
             if(target instanceof LivingEntity lEntity) {
                 float targetHealth = lEntity.getHealth() + lEntity.getAbsorptionAmount();
-                float modifiedDamage = ModifyDamageCardEffectCallback.EVENT.invoker()
+                float modifiedDamage = DamageCardEffectCallback.EVENT.invoker()
                         .modifyDamage(pContext,target,context,damage.getValue(pContext,context)+(scalingDamage*context.scalar));
                 target.damage(target.getDamageSources().create(damageType, pContext.user), modifiedDamage);
                 float damageDealt = targetHealth - (lEntity.getHealth() + lEntity.getAbsorptionAmount());

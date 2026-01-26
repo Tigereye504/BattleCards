@@ -40,7 +40,7 @@ public class BCGUI {
             }
 
             if(cardItem != null) {
-                int manaCost = cardItem.getChargeEffectCost(player, heldItem);
+                int manaCost = cardItem.getChargeEffectCost(player, heldItem,true);
                 client.getProfiler().push("health");
                 int scaledWidth = client.getWindow().getScaledWidth();
                 int scaledHeight = client.getWindow().getScaledHeight();
