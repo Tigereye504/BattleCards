@@ -1,7 +1,9 @@
 package net.tigereye.mods.battlecards.registration;
 
 import net.tigereye.mods.battlecards.CardEffects.*;
+import net.tigereye.mods.battlecards.CardEffects.blockEffects.BlocksInDiskEffect;
 import net.tigereye.mods.battlecards.CardEffects.blockEffects.ReplaceBlockEffect;
+import net.tigereye.mods.battlecards.CardEffects.blockEffects.SnapBlockPosToSurface;
 import net.tigereye.mods.battlecards.CardEffects.delivery.EntitiesInRadiusEffect;
 import net.tigereye.mods.battlecards.CardEffects.delivery.MeleeEffect;
 import net.tigereye.mods.battlecards.CardEffects.delivery.ThrowCardEffect;
@@ -20,9 +22,10 @@ public class BCEffectSerializers {
         CardSerializer.registerCardEffectSerializer("throw_cards",new ThrowCardsEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("entities_in_radius",new EntitiesInRadiusEffect.Serializer());
         //modifiers
-        CardSerializer.registerCardEffectSerializer("if_grounded",new IfGroundedEffect.Serializer());
-        CardSerializer.registerCardEffectSerializer("if_status",new IfStatusEffect.Serializer());
-        CardSerializer.registerCardEffectSerializer("if_scalar",new IfScalarEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("if_grounded",new IfGroundedCondition.Serializer());
+        CardSerializer.registerCardEffectSerializer("if_status",new IfStatusCondition.Serializer());
+        CardSerializer.registerCardEffectSerializer("if_scalar",new IfScalarCondition.Serializer());
+        CardSerializer.registerCardEffectSerializer("if_block",new IfBlockCondition.Serializer());
         CardSerializer.registerCardEffectSerializer("target_user",new TargetUserEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("target_nearest_entity",new TargetNearestEntityEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("target_tracked_entity",new TargetTrackedEntityEffect.Serializer());
@@ -58,6 +61,8 @@ public class BCEffectSerializers {
         CardSerializer.registerCardEffectSerializer("transfer_status",new TransferStatusEffect.Serializer());
         //block effects
         CardSerializer.registerCardEffectSerializer("replace_block",new ReplaceBlockEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("blocks_in_disk",new BlocksInDiskEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("snap_block_pos_to_surface",new SnapBlockPosToSurface.Serializer());
 
 
     }

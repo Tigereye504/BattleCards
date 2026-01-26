@@ -57,10 +57,17 @@
   "card.battlecards.tooltip.clear_status": "Remove %s status effect",
   "card.battlecards.tooltip.transfer_status": "Transfer %s status effect",
   "card.battlecards.tooltip.transfer_status_count": "Transfer %d status effects",
+
+  "card.battlecards.tooltip.replace_block": "Replace block under %d res with %s",
+  "card.battlecards.tooltip.blocks_in_disk": "For %d blocks in disk:",
+  "card.battlecards.tooltip.snap_block_pos_to_surface": "Snap blockPos to surface",
+
   "card.battlecards.tooltip.if_grounded": "If %s is grounded:",
   "card.battlecards.tooltip.if_grounded.false": "If %s is not grounded:",
   "card.battlecards.tooltip.if_status": "If %s has %s effect:",
   "card.battlecards.tooltip.if_status.false": "If %s lacks %s effect:",
+  "card.battlecards.tooltip.if_block": "If block is %s:",
+  "card.battlecards.tooltip.if_block.false": "If block is not %s:",
   "card.battlecards.tooltip.if_scalar": "If X is %s %d:",
   "card.battlecards.tooltip.radius": "Entities within a %d block radius %s:",
   "card.battlecards.tooltip.retain": "Retain this card",
@@ -89,7 +96,6 @@
   "card.battlecards.tooltip.x_scalar": "X = %sX",
   "card.battlecards.tooltip.x_scalar.inline": "%sX",
   "card.battlecards.tooltip.yaw_to_target_scalar": "X = Yaw to Target",
-  "card.battlecards.tooltip.replace_block": "Replace block under %d res with %s",
 
   "card.battlecards.blank": "Blank Card",
   "boosterpack.battlecards.blank": "Empty Boosterpack",

@@ -1,0 +1,50 @@
+{
+  "id": "battlecards:spider_pack/spider_lair",
+  "quickKeywords": ["World Editing"],
+  "quickEffects": [
+    {
+      "effect": "replace_block",
+      "block": "minecraft:cobweb",
+      "duration": 100
+    }
+  ],
+  "cost": 8,
+  "chargeKeywords": ["World Editing"],
+  "chargeEffects": [
+    {
+      "effect": "blocks_in_disk",
+      "blocks": 37,
+      "effects": [
+        {
+          "effect": "snap_block_pos_to_surface",
+          "maxDistance": 4,
+          "maxBackwardDistance": 2,
+          "distanceFromSurface": 1,
+          "effects": [
+            {
+              "effect": "replace_block",
+              "block": "minecraft:cobweb"
+            },
+            {
+              "effect": "delay",
+              "delay": {"effect": "random_scalar", "minimum": 100, "maximum": 140},
+              "after_delay": [
+                {
+                  "effect": "if_block",
+                  "block": "minecraft:cobweb",
+                  "effects": [
+                    {
+                      "effect": "replace_block",
+                      "block": "minecraft:air",
+                      "maxBlastRes": 4
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

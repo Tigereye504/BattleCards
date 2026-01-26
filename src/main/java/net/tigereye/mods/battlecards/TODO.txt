@@ -14,7 +14,7 @@ This mod is problably just going to be the core mechanics and projectiles and su
 If stuff starts acting strange, consider:
 Make CardEffects and BattleCardProjectiles NBT serializable.
 
-TODO: Make Cards!
+TODO: add 'duration' to ReplaceBlockEffect, setting a delay and delete to the block it placed.
 
 --Card Sleeves and Damage Values--
 sleeveless cards should be akin to stone weapons, while netherite-sleeved cards should be akin to enchanted netherite weapons
@@ -38,10 +38,11 @@ to reach new breakpoints where you kill in fewer hits.
 'catastrophic'    - 11 - iron golem     *20*        ~*30*~      **40**      **45** dmg
 
 TODO: implement specialized card sleeves
-Leather: +25% damage, shuffled into draw pile twice when added to draw pile
-Copper: +25% damage, Inherent (drawn first in game start)
-Gold: +25% damage, half mana cost (round up)
-Emerald: +25% damage, +1 mana gain
+
+    Leather: +25% damage, shuffled into draw pile twice when added to draw pile
+    Copper: +25% damage, Inherent (drawn first in game start)
+C   Gold: +25% damage, half mana cost (round up)
+C   Emerald: +25% damage, +1 mana gain
 C   Glowstone: +25% damage, +1 effect magnitude
 C   Redstone: +25% damage, x2 effect duration
 

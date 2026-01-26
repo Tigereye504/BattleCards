@@ -18,7 +18,7 @@ import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IfScalarEffect implements CardEffect, CardTooltipNester {
+public class IfScalarCondition implements CardEffect, CardTooltipNester {
 
     CardScalar amount = new ConstantScalarEffect(0);
     List<CardEffect> effects = new ArrayList<>();
@@ -73,8 +73,8 @@ public class IfScalarEffect implements CardEffect, CardTooltipNester {
 
     public static class Serializer implements CardEffectSerializer {
         @Override
-        public IfScalarEffect readFromJson(Identifier id, JsonElement entry) {
-            IfScalarEffect output = new IfScalarEffect();
+        public IfScalarCondition readFromJson(Identifier id, JsonElement entry) {
+            IfScalarCondition output = new IfScalarCondition();
 
             output.effects = CardSerializer.readCardEffects(id, "effects",entry);
             output.falseEffects = CardSerializer.readCardEffects(id, "falseEffects",entry);

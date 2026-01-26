@@ -3,6 +3,7 @@ package net.tigereye.mods.battlecards.Cards.Json;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -26,6 +27,7 @@ import java.util.Map;
 public class CardSerializer {
     private static final String DEFAULT_TEXTURE = "battlecards:item/battlecard";
     private static final Map<String, CardEffectSerializer> effectSerializers = new HashMap<>();
+
 
     public CardSerializerOutput read(Identifier id, CardJsonFormat cardJson) {
         CardSerializerOutput output = new CardSerializerOutput();
@@ -256,6 +258,40 @@ public class CardSerializer {
             Battlecards.LOGGER.error("Error reading string in entry {} in {}!",name,id);
         }
         return defaultValue;
+    }
+
+    public static List<String> readOrDefaultStringList(Identifier id, String name, JsonElement entry, ArrayList<String> defaultList) {
+        JsonObject obj = entry.getAsJsonObject();
+        if (obj.has(name)) {
+            JsonElement namedElement = obj.get(name);
+            if (namedElement.isJsonPrimitive()) {
+                try {
+                    List<String> output = new ArrayList<>();
+                    output.add(namedElement.getAsString());
+                    return output;
+                } catch (Exception e) {
+                    Battlecards.LOGGER.error("Error reading primitive string in entry {} in {}!", name, id);
+                }
+            }
+            else if (namedElement.isJsonArray()) {
+                try {
+                    JsonArray jArray = namedElement.getAsJsonArray();
+                    List<String> output = new ArrayList<>();
+                    for (JsonElement element:
+                            jArray) {
+                        output.add(element.getAsString());
+                    }
+                    return output;
+                }
+                catch(Exception e){
+                Battlecards.LOGGER.error("Error reading string array in entry {} in {}!", name, id);
+                }
+            }
+            else{
+                Battlecards.LOGGER.error("Non string, non list found when string or list expected in entry {} in {}!", name, id);
+            }
+        }
+        return defaultList;
     }
 
     public static void registerCardEffectSerializer(String id, CardEffectSerializer serializer){

@@ -33,6 +33,9 @@ public class ReplaceBlockEffect implements CardEffect, CardTooltipNester {
         if (context.target != null) {
             apply(pContext, context, context.target);
         }
+        else if(context.blockPos != null){
+            apply(pContext, context, context.blockPos);
+        }
         else if(context.hitResult != null){
             apply(pContext, context, BlockPos.ofFloored(context.hitResult.getPos()));
         }
@@ -49,8 +52,11 @@ public class ReplaceBlockEffect implements CardEffect, CardTooltipNester {
         World world = pContext.user.getWorld();
         BlockState curBlock = world.getBlockState(pos);
         AutomaticItemPlacementContext ipc = new AutomaticItemPlacementContext(world,pos,pContext.user.getHorizontalFacing(), block.getBlock().asItem().getDefaultStack(),pContext.user.getHorizontalFacing());
-        if(curBlock.canReplace(ipc))
-        world.setBlockState(pos, block, 3);
+        float blockBlastRes = curBlock.getBlock().getBlastResistance();
+        float _maxBlastRes = maxBlastRes.getValue(pContext,context);
+        if(curBlock.getBlock().getBlastResistance() <= maxBlastRes.getValue(pContext,context)) {
+            world.setBlockState(pos, block, 3);
+        }
     }
 
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
@@ -65,7 +71,7 @@ public class ReplaceBlockEffect implements CardEffect, CardTooltipNester {
         public CardEffect readFromJson(Identifier id, JsonElement entry) {
 
             ReplaceBlockEffect output = new ReplaceBlockEffect();
-            output.maxBlastRes = CardSerializer.readOrDefaultScalar(id,"amount",entry,0);
+            output.maxBlastRes = CardSerializer.readOrDefaultScalar(id,"maxBlastRes",entry,0);
             output.block = Registries.BLOCK.get(new Identifier(
                     CardSerializer.readOrDefaultString(id, "block",entry,"minecraft:dirt")))
                     .getDefaultState();
