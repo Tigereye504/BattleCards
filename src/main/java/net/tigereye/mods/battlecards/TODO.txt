@@ -14,8 +14,6 @@ This mod is problably just going to be the core mechanics and projectiles and su
 If stuff starts acting strange, consider:
 Make CardEffects and BattleCardProjectiles NBT serializable.
 
-TODO: add 'duration' to ReplaceBlockEffect, setting a delay and delete to the block it placed.
-
 --Card Sleeves and Damage Values--
 sleeveless cards should be akin to stone weapons, while netherite-sleeved cards should be akin to enchanted netherite weapons
 quick effects should be somewhat weaker than the balance point, and charge effects better (based on mana cost)

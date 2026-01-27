@@ -3,9 +3,27 @@
   "quickKeywords": ["World Editing"],
   "quickEffects": [
     {
-      "effect": "replace_block",
-      "block": "minecraft:cobweb",
-      "duration": 100
+      "effect": "blocks_in_disk",
+      "blocks": 5,
+      "effects": [
+        {
+          "effect": "snap_block_pos_to_surface",
+          "maxDistance": 4,
+          "maxBackwardDistance": 2,
+          "distanceFromSurface": 1,
+          "effects": [
+            {
+              "effect": "replace_block",
+              "block": "minecraft:cobweb",
+              "duration": {
+                "effect": "random_scalar",
+                "minimum": 100,
+                "maximum": 140
+              }
+            }
+          ]
+        }
+      ]
     }
   ],
   "cost": 8,
