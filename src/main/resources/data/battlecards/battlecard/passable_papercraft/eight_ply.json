@@ -68,18 +68,7 @@
         {
           "effect": "damage",
           "amount": 14,
-          "damageType": "minecraft:arrow",
-          "afterDamage": [
-            {
-              "effect": "if_scalar",
-              "effects": [
-                {
-                  "effect": "gain_mana",
-                  "amount": 1
-                }
-              ]
-            }
-          ]
+          "damageType": "minecraft:arrow"
         }
       ]
     }

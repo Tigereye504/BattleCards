@@ -6,6 +6,7 @@
       "effect": "push",
       "magnitude": -1,
       "pitch": 5,
+      "absolutePitch": true,
       "applyKnockbackRes" : false
     },
     {

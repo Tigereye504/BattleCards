@@ -8,11 +8,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
-import net.tigereye.mods.battlecards.Cards.BattleCard;
-import net.tigereye.mods.battlecards.Cards.Json.CardManager;
 import net.tigereye.mods.battlecards.Items.interfaces.BattleCardItem;
 import net.tigereye.mods.battlecards.Items.interfaces.CardOwningItem;
 
@@ -35,6 +32,7 @@ public class PennySleeveItem extends Item{
                 return TypedActionResult.pass(sleeveItemStack);
             }
             ItemStack oldSleeves = BattleCardItem.getSleeve(cardItemStack);
+            oldSleeves.setCount(cardItemStack.getCount());
             if(oldSleeves != ItemStack.EMPTY){
                 if(!user.giveItemStack(oldSleeves)){
                     user.dropItem(oldSleeves,true);

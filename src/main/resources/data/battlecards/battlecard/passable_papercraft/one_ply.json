@@ -27,10 +27,6 @@
           "effect": "damage",
           "amount": 5,
           "damageType": "minecraft:arrow"
-        },
-        {
-          "effect": "gain_mana",
-          "amount": 1
         }
       ]
     }

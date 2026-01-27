@@ -42,10 +42,6 @@
               "effect": "if_scalar",
               "effects": [
                 {
-                  "effect": "gain_mana",
-                  "amount": 1
-                },
-                {
                   "effect": "push",
                   "magnitude": 0.3
                 }
