@@ -50,7 +50,8 @@
           "effects": [
             {
               "effect": "replace_block",
-              "block": "minecraft:cobweb"
+              "block": "minecraft:cobweb",
+              "duration": 100
             }
           ]
         }

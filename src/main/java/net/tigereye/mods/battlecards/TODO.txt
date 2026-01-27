@@ -37,7 +37,7 @@ to reach new breakpoints where you kill in fewer hits.
 'very deadly'     - 9 - crit str II,axe 17          25.5        30          33.75  dmg
 'catastrophic'    - 11 - iron golem     *20*        ~*30*~      **40**      **45** dmg
 
-TODO: implement specialized card sleeves
+TODO: implement leather and copper card sleeves
 
     Leather: +25% damage, shuffled into draw pile twice when added to draw pile
     Copper: +25% damage, Inherent (drawn first in game start)

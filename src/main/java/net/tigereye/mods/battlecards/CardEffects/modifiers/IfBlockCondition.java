@@ -27,6 +27,14 @@ public class IfBlockCondition implements CardEffect, CardTooltipNester {
     List<CardEffect> falseEffects = new ArrayList<>();
     List<Block> block = new ArrayList<>();
 
+    public IfBlockCondition(){}
+
+    public IfBlockCondition(List<Block> block, List<CardEffect> effects,List<CardEffect> falseEffects){
+        this.block = block;
+        this.effects = effects;
+        this.falseEffects = falseEffects;
+    }
+
     @Override
     public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
         if (context.target != null) {

@@ -69,6 +69,8 @@
           "effect": "push",
           "magnitude": 0.8,
           "pitch": 10,
+          "absolutePitch": true,
+          "overrideVelocity": true,
           "applyKnockbackRes" : false
         }
       ]

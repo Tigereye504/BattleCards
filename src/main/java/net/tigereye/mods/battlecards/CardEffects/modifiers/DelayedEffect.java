@@ -26,6 +26,13 @@ public class DelayedEffect implements CardEffect, CardTooltipNester {
     CardScalar delay = new ConstantScalarEffect(1);
     List<CardEffect> effects = new ArrayList<>();
 
+    public DelayedEffect(){}
+
+    public DelayedEffect(CardScalar delay,List<CardEffect> effects){
+        this.delay = delay;
+        this.effects = effects;
+    }
+
     @Override
     public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
         if(pContext.user instanceof DelayedActionTaker dat){

@@ -42,7 +42,8 @@
             },
             {
               "effect": "replace_block",
-              "block": "minecraft:cobweb"
+              "block": "minecraft:cobweb",
+              "duration": 100
             }
           ]
         }
@@ -55,6 +56,8 @@
           "effect": "push",
           "magnitude": 0.8,
           "pitch": 10,
+          "absolutePitch": true,
+          "overrideVelocity": true,
           "applyKnockbackRes" : false
         }
       ]

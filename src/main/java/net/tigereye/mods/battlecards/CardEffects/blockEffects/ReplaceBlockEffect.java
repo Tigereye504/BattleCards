@@ -15,10 +15,13 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
+import net.tigereye.mods.battlecards.CardEffects.modifiers.DelayedEffect;
+import net.tigereye.mods.battlecards.CardEffects.modifiers.IfBlockCondition;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
+import net.tigereye.mods.battlecards.Util.DelayedAction;
 
 import java.util.List;
 
@@ -26,7 +29,15 @@ public class ReplaceBlockEffect implements CardEffect, CardTooltipNester {
 
     CardScalar maxBlastRes = new ConstantScalarEffect(0);
     BlockState block = Blocks.DIRT.getDefaultState();
+    CardScalar duration = new ConstantScalarEffect(0);
 
+    public ReplaceBlockEffect(){}
+
+    public ReplaceBlockEffect(CardScalar maxBlastRes,BlockState block,CardScalar duration){
+        this.maxBlastRes = maxBlastRes;
+        this.block = block;
+        this.duration = duration;
+    }
 
     @Override
     public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
@@ -52,10 +63,17 @@ public class ReplaceBlockEffect implements CardEffect, CardTooltipNester {
         World world = pContext.user.getWorld();
         BlockState curBlock = world.getBlockState(pos);
         AutomaticItemPlacementContext ipc = new AutomaticItemPlacementContext(world,pos,pContext.user.getHorizontalFacing(), block.getBlock().asItem().getDefaultStack(),pContext.user.getHorizontalFacing());
-        float blockBlastRes = curBlock.getBlock().getBlastResistance();
-        float _maxBlastRes = maxBlastRes.getValue(pContext,context);
         if(curBlock.getBlock().getBlastResistance() <= maxBlastRes.getValue(pContext,context)) {
             world.setBlockState(pos, block, 3);
+        }
+        if(duration.getValue(pContext,context) > 0){
+            CardEffectContext newContext = new CardEffectContext();
+            newContext.blockPos = pos;
+            ReplaceBlockEffect replaceBlockEffect = new ReplaceBlockEffect(
+                    new ConstantScalarEffect(block.getBlock().getBlastResistance()),curBlock,new ConstantScalarEffect(0));
+            IfBlockCondition ifBlockCondition = new IfBlockCondition(List.of(block.getBlock()),List.of(replaceBlockEffect),List.of());
+            DelayedEffect delay = new DelayedEffect(duration,List.of(ifBlockCondition));
+            delay.apply(pContext,newContext);
         }
     }
 
@@ -75,6 +93,7 @@ public class ReplaceBlockEffect implements CardEffect, CardTooltipNester {
             output.block = Registries.BLOCK.get(new Identifier(
                     CardSerializer.readOrDefaultString(id, "block",entry,"minecraft:dirt")))
                     .getDefaultState();
+            output.duration = CardSerializer.readOrDefaultScalar(id,"duration",entry,0);
             return output;
         }
     }

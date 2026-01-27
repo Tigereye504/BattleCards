@@ -47,9 +47,6 @@ public class PushEffect implements CardEffect, CardTooltipNester {
         Vec3d pushVector = new Vec3d(0,0,magnitude.getValue(pContext,context))
                 .rotateX((float) (pushPitch*Math.PI/180))
                 .rotateY((float) (pushYaw*Math.PI/180));
-        //Vec3d pushVector = relativeEntity.getRotationVector().normalize().multiply(magnitude.getValue(pContext,context))
-        //        .rotateX((float) (pitch.getValue(pContext,context)*Math.PI/180))
-        //        .rotateY((float) (yaw.getValue(pContext,context)*Math.PI/180));
         double KBRes = 0;
         if(applyKnockbackRes && target instanceof LivingEntity lEntity){
             KBRes = lEntity.getAttributeValue(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE);

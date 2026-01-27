@@ -23,24 +23,8 @@
           "effects": [
             {
               "effect": "replace_block",
-              "block": "minecraft:cobweb"
-            },
-            {
-              "effect": "delay",
-              "delay": {"effect": "random_scalar", "minimum": 100, "maximum": 140},
-              "after_delay": [
-                {
-                  "effect": "if_block",
-                  "block": "minecraft:cobweb",
-                  "effects": [
-                    {
-                      "effect": "replace_block",
-                      "block": "minecraft:air",
-                      "maxBlastRes": 4
-                    }
-                  ]
-                }
-              ]
+              "block": "minecraft:cobweb",
+              "duration": {"effect": "random_scalar", "minimum": 100, "maximum": 140}
             }
           ]
         }
