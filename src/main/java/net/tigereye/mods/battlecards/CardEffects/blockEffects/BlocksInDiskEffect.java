@@ -64,20 +64,20 @@ public class BlocksInDiskEffect implements CardEffect, CardTooltipNester {
         Set<BlockPos> positions = new HashSet<>();
         positions.add(pos);
         Vec3i x;
-        Vec3i z;
-        switch (dir){
-            case UP, DOWN:
+        Vec3i z = switch (dir) {
+            case UP, DOWN -> {
                 x = Direction.NORTH.getVector();
-                z = Direction.EAST.getVector();
-                break;
-            case EAST, WEST:
+                yield Direction.EAST.getVector();
+            }
+            case EAST, WEST -> {
                 x = Direction.NORTH.getVector();
-                z = Direction.UP.getVector();
-                break;
-            default: //NORTH, SOUTH:
+                yield Direction.UP.getVector();
+            }
+            default -> {
                 x = Direction.UP.getVector();
-                z = Direction.EAST.getVector();
-        }
+                yield Direction.EAST.getVector();
+            }
+        };
         int radius = 1;
         int width = 0;
         while (blocks > 1) {
@@ -121,7 +121,7 @@ public class BlocksInDiskEffect implements CardEffect, CardTooltipNester {
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         if(!effects.isEmpty()){
             tooltip.add(Text.literal(" ".repeat(depth)).append(
-                    Text.translatable("card.battlecards.tooltip.blocks_in_disk", blocks)));
+                    Text.translatable("card.battlecards.tooltip.blocks_in_disk", blocks.appendInlineTooltip(world, tooltip, tooltipContext))));
             for(CardEffect effect : effects){
                 if(effect instanceof CardTooltipNester nester){
                     nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);

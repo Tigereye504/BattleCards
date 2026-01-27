@@ -37,14 +37,13 @@ public class RepeatEffect implements CardEffect, CardTooltipNester {
         for (int i = 0; i < countValue; i++) {
             if(delayValue > 0 && i > 0 && pContext.user instanceof DelayedActionTaker dat) {
                 int finalI = i;
-                effects.forEach((effect) -> {
-                    dat.battleCards$addDelayedAction(new DelayedEffect.DelayedCardAction(pContext, context.clone(), effect, delayValue * finalI));
-                });
+                effects.forEach((effect) ->
+                        dat.battleCards$addDelayedAction(new DelayedEffect.DelayedCardAction(
+                                pContext, context.clone(), effect, delayValue * finalI)));
             }
             else{
-                effects.forEach((effect) -> {
-                    effect.apply(pContext, context.clone());
-                });
+                effects.forEach((effect) ->
+                        effect.apply(pContext, context.clone()));
             }
             context.scalar = incrementScalar.getValue(pContext, context);
         }
@@ -56,7 +55,7 @@ public class RepeatEffect implements CardEffect, CardTooltipNester {
 
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         tooltip.add(Text.literal(" ".repeat(depth)).append(
-                Text.translatable("card.battlecards.tooltip.repeat_entity",delay.appendInlineTooltip(world, tooltip, tooltipContext))));
+                Text.translatable("card.battlecards.tooltip.repeat",delay.appendInlineTooltip(world, tooltip, tooltipContext))));
         if(!effects.isEmpty()){
             for(CardEffect effect : effects){
                 if(effect instanceof CardTooltipNester nester){

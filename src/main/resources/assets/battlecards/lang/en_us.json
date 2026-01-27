@@ -22,12 +22,15 @@
   "item.battlecards.cardfetti_brick": "Cardfetti Brick",
   "block.battlecards.cardfetti_block": "Cardfetti Block",
 
-  "effect.battlecards.armored": "Armored",
-  "effect.battlecards.cardfetti_sacrifice": "Cardfetti Sacrifice",
   "effect.battlecards.mana": "Mana",
+  "effect.battlecards.cardfetti_sacrifice": "Cardfetti Sacrifice",
+  "effect.battlecards.armored": "Armored",
+  "effect.battlecards.evading": "Evading",
+  "effect.battlecards.highstep": "Highstep",
   "effect.battlecards.overdraw": "Overdraw",
   "effect.battlecards.reinforced": "Reinforced",
-  "effect.battlecards.undead": "Undead",
+  "effect.battlecards.sundered": "Sundered",
+  "effect.battlecards.undeath": "Undeath",
   "effect.battlecards.undying": "Undying",
   "effect.battlecards.webwalking": "Webwalking",
 
@@ -60,7 +63,7 @@
 
   "card.battlecards.tooltip.replace_block": "Replace block under %d res with %s",
   "card.battlecards.tooltip.blocks_in_disk": "For %d blocks in disk:",
-  "card.battlecards.tooltip.snap_block_pos_to_surface": "Snap blockPos to surface",
+  "card.battlecards.tooltip.snap_block_pos_to_surface": "Snap up to %d down or %d up to surface",
 
   "card.battlecards.tooltip.if_grounded": "If %s is grounded:",
   "card.battlecards.tooltip.if_grounded.false": "If %s is not grounded:",

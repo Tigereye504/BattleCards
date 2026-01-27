@@ -4,7 +4,6 @@ import com.google.gson.JsonElement;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.fluid.FluidState;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -110,7 +109,9 @@ public class SnapBlockPosToSurface implements CardEffect, CardTooltipNester {
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         if(!effects.isEmpty()){
             tooltip.add(Text.literal(" ".repeat(depth)).append(
-                    Text.translatable("card.battlecards.tooltip.snap_block_pos_to_surface")));
+                    Text.translatable("card.battlecards.tooltip.snap_block_pos_to_surface",
+                            maxDistance.appendInlineTooltip(world, tooltip, tooltipContext),
+                            maxBackwardDistance.appendInlineTooltip(world, tooltip, tooltipContext))));
             for(CardEffect effect : effects){
                 if(effect instanceof CardTooltipNester nester){
                     nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);

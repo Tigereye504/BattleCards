@@ -120,6 +120,9 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
         //save the draw pile
         pushDrawPile(nbt,drawPile);
         //for each empty slot in the hotbar, draw a card
+        //I do not like how inobvious this line is, but to be clear:
+        //until drawCardToHotbar returns false, meaning it didn't find an open spot to put a new card or has no more cards to draw,
+        //repeat drawCardToHotbar
         while(drawCardToHotbar(user, deck));
     }
 
@@ -218,6 +221,9 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
             nbt.remove(HOTBAR_STORAGE_NBTKEY);
         }
         if(oldDeckPosition >= 0 && oldDeckPosition < 9 && deckPosition >= 0 && deckPosition < 9) {
+            if (inventory.getStack(oldDeckPosition) != ItemStack.EMPTY) {
+                user.dropItem(inventory.removeStack(oldDeckPosition), true);
+            }
             inventory.setStack(oldDeckPosition, deck);
         }
     }
