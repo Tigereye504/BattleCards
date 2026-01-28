@@ -26,7 +26,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 //TODO: display dyecolor
-public class BattlecardBundleItem extends Item{
+public class BattlecardBundleItem extends Item implements DyeableItem{
     
     public BattlecardBundleItem(Settings settings) {
         super(settings);
@@ -190,9 +190,5 @@ public class BattlecardBundleItem extends Item{
 
     protected void playInsertSound(Entity entity) {
         entity.playSound(SoundEvents.ITEM_BUNDLE_INSERT, 0.8F, 0.8F + entity.getWorld().getRandom().nextFloat() * 0.4F);
-    }
-
-    protected void playDropContentsSound(Entity entity) {
-        entity.playSound(SoundEvents.ITEM_BUNDLE_DROP_CONTENTS, 0.8F, 0.8F + entity.getWorld().getRandom().nextFloat() * 0.4F);
     }
 }

@@ -1,7 +1,21 @@
 {
     "parent": "item/generated",
+    "overrides": [
+        {
+            "model": "battlecards:item/deck_active",
+            "predicate": {
+                "battlecards:deck_state": 0.1
+            }
+        },
+        {
+            "model": "battlecards:item/deck_paused",
+            "predicate": {
+                "battlecards:deck_state": 0.2
+            }
+        }
+    ],
     "textures": {
-        "layer0": "battlecards:item/deck",
-        "layer1": "battlecards:item/deck_overlay"
+        "layer0": "battlecards:item/deck_inactive_box",
+        "layer1": "battlecards:item/deck_inactive_contents"
     }
 }
