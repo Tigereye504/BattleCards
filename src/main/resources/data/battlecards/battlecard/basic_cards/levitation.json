@@ -5,7 +5,7 @@
     {
       "effect": "apply_status",
       "type": "minecraft:levitation",
-      "duration": 200,
+      "duration": 400,
       "magnitude": 0
     }
   ],
@@ -15,7 +15,7 @@
     {
       "effect": "apply_status",
       "type": "minecraft:levitation",
-      "duration": 1200,
+      "duration": 1400,
       "magnitude": 0
     }
   ]

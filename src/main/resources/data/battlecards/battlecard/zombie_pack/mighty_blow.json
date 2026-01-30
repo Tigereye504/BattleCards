@@ -16,14 +16,16 @@
       ]
     }
   ],
-  "cost": 3,
+  "cost": 6,
+  "chargeComment": "10 budget, 8 damage + 1 push + 1 sweeping",
+  "chargeComment2": "This is high end direct violence. Higher cost cards need to instead diversify effects.",
   "chargeEffects": [
     {
       "effect": "melee",
       "onHit": [
         {
           "effect": "damage",
-          "amount": 9,
+          "amount": 17,
           "damageType": "minecraft:player_attack"
         },
         {

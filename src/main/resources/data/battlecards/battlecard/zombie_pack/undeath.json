@@ -4,7 +4,7 @@
     {
       "effect": "apply_status",
       "type": "battlecards:undeath",
-      "duration": 100,
+      "duration": 400,
       "magnitude": 0
     }
   ],

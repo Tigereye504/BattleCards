@@ -5,7 +5,7 @@
     {
       "effect": "apply_status",
       "type": "minecraft:haste",
-      "duration": 200,
+      "duration": 400,
       "magnitude": 0
     }
   ],

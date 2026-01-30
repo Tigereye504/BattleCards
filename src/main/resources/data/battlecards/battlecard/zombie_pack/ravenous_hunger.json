@@ -1,5 +1,6 @@
 {
   "id": "battlecards:zombie_pack/ravenous_hunger",
+  "quickComment": "4 budget, 1 damage + 1 sweeping + 3 mana - 1 self-hunger",
   "quickEffects": [
     {
       "effect": "melee",
@@ -28,6 +29,10 @@
     }
   ],
   "cost": 3,
+  "chargedComment": "6 budget, 4 damage + 1 sweeping + 1 hunger restoration",
+  "chargedComment2": "Does 7 + 0to10 damage. that averages 12 damage... but starving yourself is rough.",
+  "chargedComment3": "I'm going to tentatively call it a x1/2 disadvantage. (7+5/2 dmg, V.Strong, 4 pts)",
+  "chargedComment4": "The hunger restoration is minor, and counter synergistic due to the card's nature. (1 pt).",
   "chargeEffects": [
     {
       "effect": "melee",
@@ -37,8 +42,8 @@
           "effects": [
             {
               "effect": "damage",
-              "amount": 3,
-              "scalingAmount": 1,
+              "amount": 7,
+              "scalingAmount": 0.5,
               "damageType": "minecraft:player_attack"
             }
           ]
@@ -48,8 +53,8 @@
           "effects": [
             {
               "effect": "modify_hunger",
-              "hunger": 2,
-              "saturation": 0
+              "hunger": 3,
+              "saturation": 1.8
             }
           ]
         }

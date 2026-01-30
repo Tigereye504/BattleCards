@@ -56,14 +56,13 @@ public class ApplyStatusEffect implements CardEffect, CardTooltipNester {
         }
         tooltip.add(Text.literal(" ".repeat(depth)).append(
                 Text.translatable("card.battlecards.tooltip.status",type.getName(),
-                        "magnitude "+magnitude.appendInlineTooltip(world, tooltip, tooltipContext).getString(),
-                        duration.appendInlineTooltip(world, tooltip, tooltipContext).getString()+" ticks")));
+                        magnitude.appendInlineTooltip(world, tooltip, tooltipContext).getString(),
+                        duration.appendInlineTooltip(world, tooltip, tooltipContext).getString())));
     }
 
     public static class Serializer implements CardEffectSerializer {
         @Override
         public ApplyStatusEffect readFromJson(Identifier id, JsonElement entry) {
-            JsonObject obj = entry.getAsJsonObject();
             ApplyStatusEffect output = new ApplyStatusEffect();
 
             Identifier statusEffectID = new Identifier(CardSerializer.readOrDefaultString(id,"type",entry,""));

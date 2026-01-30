@@ -2,53 +2,66 @@
   "id": "battlecards:zombie_pack/pummel",
   "quickEffects": [
     {
-      "effect": "melee",
-      "onHit": [
+      "effect": "repeat",
+      "delay": 10,
+      "count": 2,
+      "effects": [
         {
-          "effect": "damage",
-          "amount": 4,
-          "damageType": "minecraft:player_attack"
-        },
-        {
-          "effect": "gain_mana",
-          "amount": 2
+          "effect": "melee",
+          "retainOnMiss": false,
+          "onHit": [
+            {
+              "effect": "damage",
+              "amount": 2,
+              "damageType": "minecraft:player_attack"
+            },
+            {
+              "effect": "gain_mana",
+              "amount": 1
+            }
+          ]
         }
       ]
     }
   ],
-  "cost": 3,
+  "cost": 4,
+  "chargeComment": "Melee delivery = 4 base. Has Sweeping (1 pt)",
+  "chargeComment2": "does 12 damage over 3 hits. somewhat worse than 12 in one hit, due to innate armor piercing",
+  "chargeComment4": "That leaves it somewhere between 'very' and 'extremely' strong in damage-value. (6 pts?)",
+  "chargeComment5": "The self push is puny, essentially cosmetic (0 pts)",
+  "chargeComment6": "Armored is for if this pushes the player into something, and serves as a secondary use case (2/2 pts).",
+  "chargeComment7": "2 seconds is a very brief defense, so it can be very high magnitude for cost. Final Budget: 8",
   "chargeEffects": [
     {
-      "effect": "melee",
-      "onHit": [
+      "effect": "repeat",
+      "delay": 10,
+      "count": 3,
+      "effects": [
         {
-          "effect": "damage",
-          "amount": 5,
-          "damageType": "minecraft:player_attack"
-        },
-        {
-          "effect": "delay",
-          "delay": 10,
-          "after_delay": [
+          "effect": "melee",
+          "retainOnMiss": false,
+          "onHit": [
             {
               "effect": "damage",
-              "amount": 5,
+              "amount": 4,
               "damageType": "minecraft:player_attack"
             }
           ]
         },
         {
-          "effect": "delay",
-          "delay": 20,
-          "after_delay": [
-            {
-              "effect": "damage",
-              "amount": 5,
-              "damageType": "minecraft:player_attack"
-            }
-          ]
+          "effect": "push",
+          "magnitude": 0.2,
+          "pitch": 5,
+          "absolutePitch": true,
+          "applyKnockbackRes" : false
         }
       ]
+    },
+    {
+      "effect": "apply_status",
+      "type": "battlecards:armored",
+      "duration": 50,
+      "magnitude": 4
     }
   ]
 }

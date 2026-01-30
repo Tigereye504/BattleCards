@@ -4,22 +4,28 @@
     {
       "effect": "apply_status",
       "type": "battlecards:armored",
-      "duration": 100,
+      "duration": 200,
+      "magnitude": 0
+    },
+    {
+      "effect": "apply_status",
+      "type": "battlecards:reinforced",
+      "duration": 200,
       "magnitude": 0
     }
   ],
-  "cost": 3,
+  "cost": 5,
   "chargeEffects": [
     {
       "effect": "apply_status",
       "type": "battlecards:armored",
-      "duration": 100,
+      "duration": 300,
       "magnitude": 2
     },
     {
       "effect": "apply_status",
       "type": "battlecards:reinforced",
-      "duration": 100,
+      "duration": 300,
       "magnitude": 2
     }
   ]

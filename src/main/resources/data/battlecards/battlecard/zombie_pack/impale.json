@@ -1,5 +1,6 @@
 {
   "id": "battlecards:zombie_pack/impale",
+  "quickComment": "4 budget, 2 damage + 1 sweeping + 1 mana",
   "quickEffects": [
     {
       "effect": "melee",
@@ -17,6 +18,7 @@
     }
   ],
   "cost": 5,
+  "chargeComment": "8 budget, 6 damage + 2/2 status + 1 push",
   "chargeEffects": [
     {
       "effect": "throw_card",
@@ -24,8 +26,8 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 9,
-          "damageType": "minecraft:player_attack"
+          "amount": 13,
+          "damageType": "minecraft:arrow"
         },
         {
           "effect": "push",
@@ -36,7 +38,7 @@
           "effect": "apply_status",
           "type": "minecraft:slowness",
           "duration": 100,
-          "magnitude": 2
+          "magnitude": 3
         }
       ]
     }

@@ -5,7 +5,7 @@
     {
       "effect": "apply_status",
       "type": "minecraft:absorption",
-      "duration": 200,
+      "duration": 400,
       "magnitude": 0
     }
   ],

@@ -1,5 +1,6 @@
 {
   "id": "battlecards:zombie_pack/drag_down",
+  "quickComment": "4 budget, 1 damage + 1 sweeping + 2 mana",
   "quickEffects": [
     {
       "effect": "melee",
@@ -17,20 +18,39 @@
     }
   ],
   "cost": 3,
+  "chargeComment": "7 budget, 4 damage + (2 slowness)/2 + 1 spike + 1 sweeping",
   "chargeEffects": [
     {
       "effect": "melee",
       "onHit": [
         {
           "effect": "damage",
-          "amount": 7,
+          "amount": 9,
           "damageType": "minecraft:player_attack"
         },
         {
           "effect": "apply_status",
           "type": "minecraft:slowness",
-          "duration": 100,
+          "duration": 400,
           "magnitude": 1
+        },
+        {
+          "effect": "push",
+          "magnitude": 0.5,
+          "pitch": -90,
+          "absolutePitch": true
+        },
+        {
+          "effect": "target_user",
+          "effects": [
+            {
+              "effect": "push",
+              "magnitude": 0.1,
+              "pitch": -90,
+              "absolutePitch": true,
+              "applyKnockbackRes" : false
+            }
+          ]
         }
       ]
     }

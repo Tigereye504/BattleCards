@@ -1,0 +1,48 @@
+{
+  "id": "battlecards:illager_pack/conjuration/pummeling_spirit",
+  "quickComment": "4 budget, 2 damage + 1 sweeping + 1 mana",
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "repeat",
+          "delay": 10,
+          "count": 2,
+          "effects": [
+            {
+              "effect": "damage",
+              "amount": 2,
+              "damageType": "minecraft:magic"
+            }
+          ]
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 1
+        }
+      ]
+    }
+  ],
+  "cost": 8,
+  "chargeComment": "12 budget, 10 damage + 1 juggle + 1 sweeping",
+  "chargeEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "repeat",
+          "delay": 10,
+          "count": 3,
+          "effects": [
+            {
+              "effect": "damage",
+              "amount": 4.35,
+              "damageType": "minecraft:magic"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

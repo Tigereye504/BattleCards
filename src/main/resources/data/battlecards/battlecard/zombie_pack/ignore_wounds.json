@@ -1,5 +1,7 @@
 {
   "id": "battlecards:zombie_pack/ignore_wounds",
+  "quickComment": "1 budget, 1 healing",
+  "quickComment2": "a 20% missing health heal is estimated to be ~2 health on average",
   "quickEffects": [
     {
       "effect": "health_scalar",
@@ -7,14 +9,13 @@
       "effects": [
         {
           "effect": "modify_health",
-          "scalingAmount": 0.20,
-          "damageType": "minecraft:generic",
-          "comment": "I gave this a 1 point budget, as a self-targeting no drawback effect."
+          "scalingAmount": 0.20
         }
       ]
     }
   ],
   "cost": 4,
+  "chargeComment": "5 budget, 5 healing",
   "chargeEffects": [
     {
       "effect": "health_scalar",
@@ -22,10 +23,7 @@
       "effects": [
         {
           "effect": "modify_health",
-          "scalingAmount": 0.67,
-          "damageType": "minecraft:generic",
-          "comment": "I gave this a 5 point budget, 1 base as a self-targeting no drawback effect + 4 mana.",
-          "comment2": "1 - 0.8^5 = .67."
+          "scalingAmount": 0.6
         }
       ]
     }

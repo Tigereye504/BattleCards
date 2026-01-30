@@ -17,7 +17,9 @@
     "battlecards:zombie_pack/mighty_blow",
     "battlecards:zombie_pack/persistence",
     "battlecards:zombie_pack/pummel",
-    "battlecards:zombie_pack/undeath"
+    "battlecards:zombie_pack/undeath",
+    "battlecards:basic_cards/armored",
+    "battlecards:basic_cards/reinforced"
   ],
   "rareCount": 1,
   "rareCards": [

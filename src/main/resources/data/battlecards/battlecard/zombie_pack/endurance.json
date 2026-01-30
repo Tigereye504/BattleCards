@@ -4,7 +4,7 @@
     {
       "effect": "apply_status",
       "type": "battlecards:armored",
-      "duration": 200,
+      "duration": 400,
       "magnitude": 0
     }
   ],

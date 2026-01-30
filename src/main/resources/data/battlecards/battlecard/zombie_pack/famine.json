@@ -1,5 +1,6 @@
 {
   "id": "battlecards:zombie_pack/famine",
+  "quickComment": "4 budget, 1 damage + 1 sweeping + 3 mana - 1 self-hunger",
   "quickEffects": [
     {
       "effect": "melee",
@@ -19,7 +20,7 @@
             {
               "effect": "apply_status",
               "type": "minecraft:hunger",
-              "duration": 200,
+              "duration": 400,
               "magnitude": 0
             }
           ]
@@ -27,7 +28,9 @@
       ]
     }
   ],
-  "cost": 7,
+  "cost": 9,
+  "chargeComment": "16 budget (1 targeting+9 mana+6 disad), 8 status-damage + 6 hunger + 2 radius",
+  "chargeComment2": "-0 self instant damage (can be healing via Undeath status), -6 hunger self",
   "chargeEffects": [
     {
       "effect": "entities_in_radius",

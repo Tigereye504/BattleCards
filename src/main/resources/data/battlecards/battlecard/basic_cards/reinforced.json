@@ -1,10 +1,10 @@
 {
-  "id": "battlecards:basic_cards/dolphins_grace",
+  "id": "battlecards:basic_cards/reinforced",
   "quickKeywords": ["Status"],
   "quickEffects": [
     {
       "effect": "apply_status",
-      "type": "minecraft:dolphins_grace",
+      "type": "battlecards:reinforced",
       "duration": 400,
       "magnitude": 0
     }
@@ -14,9 +14,9 @@
   "chargeEffects": [
     {
       "effect": "apply_status",
-      "type": "minecraft:dolphins_grace",
-      "duration": 1400,
-      "magnitude": 0
+      "type": "battlecards:reinforced",
+      "duration": 600,
+      "magnitude": 1
     }
   ]
 }
