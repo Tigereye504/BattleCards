@@ -60,7 +60,7 @@
     {
       "effect": "apply_status",
       "type": "battlecards:armored",
-      "duration": 50,
+      "duration": 20,
       "magnitude": 4
     }
   ]

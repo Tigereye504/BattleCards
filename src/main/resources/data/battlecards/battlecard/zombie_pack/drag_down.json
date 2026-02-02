@@ -18,7 +18,7 @@
     }
   ],
   "cost": 3,
-  "chargeComment": "7 budget, 4 damage + (2 slowness)/2 + 1 spike + 1 sweeping",
+  "chargeComment": "7 budget, 4 damage + (2 slowness/2 split) + 1 spike + 1 sweeping",
   "chargeEffects": [
     {
       "effect": "melee",
@@ -31,7 +31,7 @@
         {
           "effect": "apply_status",
           "type": "minecraft:slowness",
-          "duration": 400,
+          "duration": 100,
           "magnitude": 1
         },
         {

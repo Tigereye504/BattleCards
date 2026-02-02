@@ -18,7 +18,7 @@
     {
       "effect": "apply_status",
       "type": "battlecards:undying",
-      "duration": 150,
+      "duration": 200,
       "magnitude": 4
     }
   ]

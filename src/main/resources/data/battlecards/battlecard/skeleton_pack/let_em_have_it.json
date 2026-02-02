@@ -1,5 +1,6 @@
 {
   "id": "battlecards:skeleton_pack/let_em_have_it",
+  "quickComment": "3 budget, 1 damage + 1 mana + 1 AoE",
   "quickKeywords": ["Attack","Projectile","Mana Generator"],
   "quickEffects": [
     {
@@ -14,11 +15,18 @@
             {
               "effect": "damage",
               "amount": 2,
-              "damageType": "minecraft:arrow"
-            },
-            {
-              "effect": "gain_mana",
-              "amount": 1
+              "damageType": "minecraft:arrow",
+              "afterDamage": [
+                {
+                  "effect": "if_scalar",
+                  "effects": [
+                    {
+                      "effect": "gain_mana",
+                      "amount": 1
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }
@@ -26,6 +34,8 @@
     }
   ],
   "cost": 7,
+  "chargedComment": "8 budget, 7 damage + 2 AoE - 1 self-slow",
+  "chargedComment2": "in gameplay targets consistently take 4 hits",
   "chargeKeywords": ["Attack","Projectile"],
   "chargeEffects": [
     {
@@ -40,7 +50,7 @@
           "onHit": [
             {
               "effect": "damage",
-              "amount": 5,
+              "amount": 3.75,
               "damageType": "minecraft:arrow"
             }
           ]
@@ -51,7 +61,7 @@
       "effect": "apply_status",
       "type": "minecraft:slowness",
       "duration": 40,
-      "magnitude": 2
+      "magnitude": 3
     }
   ]
 }

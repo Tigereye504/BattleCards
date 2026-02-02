@@ -1,7 +1,23 @@
 {
   "id": "battlecards:skeleton_pack/fighting_retreat",
-  "quickKeywords": ["Movement","Status"],
+  "quickComment": "3 budget, 1 damage, 1 mana, 1 dodge",
+  "quickKeywords": ["Movement","Status","Attack","Projectile"],
   "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 3,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 1
+        }
+      ]
+    },
     {
       "effect": "push",
       "magnitude": -1,
@@ -16,7 +32,8 @@
       "magnitude": 0
     }
   ],
-  "cost": 3,
+  "cost": 2,
+  "chargeComment": "5 budget, 3 damage, 1 punt, 1 dodge",
   "chargeKeywords": ["Movement","Status","Attack","Projectile"],
   "chargeEffects": [
     {
@@ -25,7 +42,7 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 4,
+          "amount": 7,
           "damageType": "minecraft:arrow"
         },
         {

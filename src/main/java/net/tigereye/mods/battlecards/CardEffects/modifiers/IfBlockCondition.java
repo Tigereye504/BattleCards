@@ -109,11 +109,11 @@ public class IfBlockCondition implements CardEffect, CardTooltipNester {
                         output.block.add(block);
                     }
                     else{
-                        Battlecards.LOGGER.error("cannot find block {} from list in {}!",string,id);
+                        Battlecards.LOGGER.error("cannot find block {} from list in {}!",string,id.toString());
                     }
                 }
                 catch(Exception e){
-                    Battlecards.LOGGER.error("error reading block {} from list in {}!",string,id);
+                    Battlecards.LOGGER.error("error reading block {} from list in {}!",string,id.toString());
                 }
             }
 

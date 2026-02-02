@@ -18,13 +18,13 @@ public class BCStatusEffects {
     public static StatusEffect UNDYING = new Undying();
     public static StatusEffect ARMORED = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 3402751)
                     .addAttributeModifier(EntityAttributes.GENERIC_ARMOR, "a2fb047c-a903-4763-9573-6626f33dd65c",
-                            4F, EntityAttributeModifier.Operation.ADDITION);
+                            2F, EntityAttributeModifier.Operation.ADDITION);
     public static StatusEffect REINFORCED = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 3402751)
             .addAttributeModifier(EntityAttributes.GENERIC_ARMOR_TOUGHNESS, "f5ff0ee8-28f2-4361-9d25-130bdf515375",
-                    2F, EntityAttributeModifier.Operation.ADDITION);
+                    1F, EntityAttributeModifier.Operation.ADDITION);
     public static StatusEffect SUNDERED = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 3402751)
             .addAttributeModifier(EntityAttributes.GENERIC_ARMOR, "ef9caf19-7ee1-4ee2-9ed9-76a13e3e56a9",
-                    -4F, EntityAttributeModifier.Operation.ADDITION);
+                    -2F, EntityAttributeModifier.Operation.ADDITION);
     public static StatusEffect EVADING = new Evading();
     public static StatusEffect HIGHSTEP = new HighStep();
     public static StatusEffect OVERDRAW = new Overdraw();

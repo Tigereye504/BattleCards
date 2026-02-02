@@ -1,6 +1,7 @@
 package net.tigereye.mods.battlecards.CardEffects.modifiers;
 
 import com.google.gson.JsonElement;
+import net.minecraft.block.Block;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -22,7 +23,7 @@ import java.util.List;
 
 public class IfStatusCondition implements CardEffect, CardTooltipNester {
 
-    StatusEffect type = null;
+    List<StatusEffect> type = new ArrayList<>();;
     List<CardEffect> effects = new ArrayList<>();
     List<CardEffect> falseEffects = new ArrayList<>();
     boolean targetElseUser = true;
@@ -40,7 +41,14 @@ public class IfStatusCondition implements CardEffect, CardTooltipNester {
     private void apply(PersistentCardEffectContext pContext, Entity target, CardEffectContext context) {
         Entity subject = targetElseUser ? target : pContext.user;
         if(subject instanceof LivingEntity livingEntity) {
-            if (type != null && livingEntity.hasStatusEffect(type)){
+            boolean match = false;
+            for(StatusEffect status : type){
+                if(livingEntity.hasStatusEffect(status)){
+                    match = true;
+                    break;
+                }
+            }
+            if (match){
                 for(CardEffect effect : effects) {
                     effect.apply(pContext,context);
                 }
@@ -55,11 +63,23 @@ public class IfStatusCondition implements CardEffect, CardTooltipNester {
 
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         if(type != null){
+            StringBuilder statusListText = new StringBuilder();
+            if(!effects.isEmpty() || !falseEffects.isEmpty()) {
+                boolean notFirst = false;
+                for (StatusEffect status : type) {
+                    if (notFirst) {
+                        statusListText.append(", ");
+                    } else {
+                        notFirst = true;
+                    }
+                    statusListText.append(status.getName().getString());
+                }
+            }
             if(!effects.isEmpty()) {
                 tooltip.add(Text.literal(" ".repeat(depth)).append(
                         Text.translatable("card.battlecards.tooltip.if_status",
                                 targetElseUser ? "target" : "user",
-                                type.getName())));
+                                statusListText.toString())));
                 for (CardEffect effect : effects) {
                     if (effect instanceof CardTooltipNester nester) {
                         nester.appendNestedTooltip(world, tooltip, tooltipContext, depth + 1);
@@ -70,7 +90,7 @@ public class IfStatusCondition implements CardEffect, CardTooltipNester {
                 tooltip.add(Text.literal(" ".repeat(depth)).append(
                         Text.translatable("card.battlecards.tooltip.if_status.false",
                                 targetElseUser ? "target" : "user",
-                                type.getName())));
+                                statusListText.toString())));
                 for (CardEffect effect : falseEffects) {
                     if (effect instanceof CardTooltipNester nester) {
                         nester.appendNestedTooltip(world, tooltip, tooltipContext, depth + 1);
@@ -85,10 +105,19 @@ public class IfStatusCondition implements CardEffect, CardTooltipNester {
         public IfStatusCondition readFromJson(Identifier id, JsonElement entry) {
             IfStatusCondition output = new IfStatusCondition();
 
-            Identifier statusEffectID = new Identifier(CardSerializer.readOrDefaultString(id,"type",entry,""));
-            output.type = Registries.STATUS_EFFECT.get(statusEffectID);
-            if(output.type == null) {
-                Battlecards.LOGGER.error("Could not find status effect {} in if_status in {}!", statusEffectID,id.toString());
+            for(String string : CardSerializer.readOrDefaultStringList(id,"type",entry,new ArrayList<>())){
+                try {
+                    StatusEffect effect = Registries.STATUS_EFFECT.get(Identifier.tryParse(string));
+                    if (effect != null) {
+                        output.type.add(effect);
+                    }
+                    else{
+                        Battlecards.LOGGER.error("cannot find status effect {} from list in {}!",string,id.toString());
+                    }
+                }
+                catch(Exception e){
+                    Battlecards.LOGGER.error("error reading status effect {} from list in {}!",string,id.toString());
+                }
             }
 
             output.effects = CardSerializer.readCardEffects(id, "effects",entry);

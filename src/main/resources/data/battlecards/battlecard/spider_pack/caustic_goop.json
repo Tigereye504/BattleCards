@@ -1,5 +1,7 @@
 {
   "id": "battlecards:spider_pack/caustic_goop",
+  "quickComment": "3 budget, 1 status-damage + 1 status + 1 mana",
+  "quickComment2": "8 AP damage over 5 seconds, 4 damage-value (1 MP)",
   "quickKeywords": ["Attack","Projectile","Mana Generator","Status"],
   "quickEffects": [
     {
@@ -8,7 +10,7 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 3,
+          "amount": 1,
           "damageType": "minecraft:arrow"
         },
         {
@@ -18,19 +20,21 @@
         {
           "effect": "apply_status",
           "type": "minecraft:slowness",
-          "duration": 60,
-          "magnitude": 0
+          "duration": 100,
+          "magnitude": 2
         },
         {
           "effect": "apply_status",
           "type": "minecraft:poison",
-          "duration": 60,
-          "magnitude": 0
+          "duration": 100,
+          "magnitude": 1
         }
       ]
     }
   ],
   "cost": 6,
+  "chargeComment": "9 budget, (2/2 split effect) damage + 4 status-damage + 4 status",
+  "chargeComment2": "37 AP damage over 22.5 seconds, 9.25 damage-value, (~4.5 MP)",
   "chargeKeywords": ["Attack","Projectile","Status"],
   "chargeEffects": [
     {
@@ -46,13 +50,13 @@
           "effect": "apply_status",
           "type": "minecraft:slowness",
           "duration": 400,
-          "magnitude": 0
+          "magnitude": 2
         },
         {
           "effect": "apply_status",
           "type": "minecraft:poison",
           "duration": 400,
-          "magnitude": 0
+          "magnitude": 1
         }
       ]
     }

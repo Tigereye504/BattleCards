@@ -3,32 +3,32 @@
   "quickKeywords": ["Movement","Status"],
   "quickEffects": [
     {
-      "effect": "push",
-      "magnitude": -1,
-      "pitch": 5,
-      "absolutePitch": true,
-      "applyKnockbackRes" : false
+      "effect": "apply_status",
+      "type": "minecraft:speed",
+      "duration": 200,
+      "magnitude": 0
     },
     {
       "effect": "apply_status",
-      "type": "battlecards:evading",
-      "duration": 10,
+      "type": "battlecards:highstep",
+      "duration": 200,
       "magnitude": 0
     }
   ],
   "cost": 2,
+  "chargeComment": "3 budget, 3 status",
   "chargeKeywords": ["Movement","Status"],
   "chargeEffects": [
       {
         "effect": "apply_status",
         "type": "minecraft:speed",
-        "duration": 60,
-        "magnitude": 4
+        "duration": 300,
+        "magnitude": 1
       },
       {
         "effect": "apply_status",
         "type": "battlecards:highstep",
-        "duration": 60,
+        "duration": 300,
         "magnitude": 1
       }
   ]

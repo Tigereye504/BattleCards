@@ -79,28 +79,37 @@ modify_health*      x2
 
 --Status Effects--
 
-Most Buffs and Debuffs can be applied for 400 ticks (20 seconds) at magnitude 0 for one mana point.
-Increasing the magnitude by 1 doubles the price. If a status effect gains nothing from increased magnitude, leave it at 0.
-Multiplying the duration multiplies the price accordingly.
-Dividing the duration divides the price accordingly, which is necessary to use high magnitude effects.
-Some status effects are more valuable than others. In such cases, treat them as having a bonus to effective magnitude.
+When applying status effects, sum together the duration of the effects to be applied.
+
+Increasing the magnitude by 1 doubles the duration-cost of that status effect.
+If a status effect gains nothing from increased magnitude, don't change the effective duration.
+Some status effects are more valuable than others.
+In such cases, treat them as having a bonus to effective magnitude and thus higher duration-cost.
 
 Status Effect       Magnitude Modifier
 Blindness           +4 (while largely useless against mobs, this is an utterly crippling status to players.)
-Evasion             +5 (this is outright invulnerability by means of removing the user's hitbox. It's intended for spot-dodging.)
+Evasion             +5 (this is outright invulnerability by means of removing the user's hitbox.)
 Levitation          +2 (this is a powerful CC effect, much nastier than slowness)
 
-For example, Evasion is equivalent a magnitude 5 lesser status effect.
+Duration-Cost       MP Cost
+100 ticks (5 sec)   1
+300                 2
+600                 3
+1200 (1 minute)     4
++1200               +1
 
 Status effects that exist to do damage (or healing) are instead calculated as advantaged or disadvantaged damage.
 Determine how much damage the status effect will do, then multiply to determine the cost accordingly.
 Damaging Status     Effective Damage Multiplier
-Poison I            x1/4
-Poison II+          x1/2
-Wither I            x1/6 (wither is very slow)
-Wither II           x1/3
-Wither III+         x2/3
+Poison I            x1/4 (does 1 AP per 25 ticks, can't kill)
+Poison II+          x1/2 (does 1 AP per 12 ticks, can't kill)
+Wither I            x1/6 (does 1 AP per 40 ticks)
+Wither II           x1/3 (does 1 AP per 20 ticks)
+Wither III+         x2/3 (does 1 AP per 10 ticks)
 Instant Harm        as 6 AP damage, x2 per magnitude
+
+Finally, Effects intended to provide *momentary* (10- ticks) super-defense always cost 1 MP
+This includes effects like Evasion or high magnitude Armored/Resistance.
 
 --Other Effects--
 

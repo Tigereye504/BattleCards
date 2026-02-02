@@ -1,5 +1,7 @@
 {
   "id": "battlecards:skeleton_pack/deliver_a_message",
+  "quickComment": "3 budget, 1 damage + ~2 mana",
+  "quickComment2": "16 blocks for 2 mana is the break-even point",
   "quickKeywords": ["Attack","Projectile","Mana Generator"],
   "quickEffects": [
     {
@@ -18,6 +20,8 @@
     }
   ],
   "cost": 3,
+  "chargeComment": "6 budget, ~6 damage",
+  "chargeComment2": "16 blocks for 13 damage is the break-even point",
   "chargeKeywords": ["Attack","Projectile"],
   "chargeEffects": [
     {
@@ -26,10 +30,10 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": {"effect": "addition_scalar", "a": 6, "b":
-          {"effect": "multiplication_scalar", "a": 0.25, "b":
+          "amount": {"effect": "addition_scalar", "a": 7, "b":
+          {"effect": "multiplication_scalar", "a": 0.375, "b":
           {"effect":"distance_to_target_scalar","userElseTrackedEntity":true}}},
-          "comment": "This inflicts 6 dmg + 1 per 4 blocks between user and target.",
+          "comment": "This inflicts 7 dmg + 3 per 8 blocks between user and target.",
           "damageType": "minecraft:arrow"
         }
       ]

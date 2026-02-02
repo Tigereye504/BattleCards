@@ -1,5 +1,6 @@
 {
   "id": "battlecards:zombie_pack/mighty_blow",
+  "quickComment": "4 budget, 2 damage + 1 lifesteal + 1 sweeping + 1 mana",
   "quickEffects": [
     {
       "effect": "melee",
@@ -11,7 +12,7 @@
         },
         {
           "effect": "gain_mana",
-          "amount": 2
+          "amount": 1
         }
       ]
     }

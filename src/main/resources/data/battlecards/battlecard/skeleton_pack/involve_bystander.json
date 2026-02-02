@@ -1,5 +1,6 @@
 {
   "id": "battlecards:skeleton_pack/involve_bystander",
+  "quickComment": "3 budget, 1 damage + 1 mana + 1 AoE",
   "quickKeywords": ["Attack","Projectile","Mana Generator"],
   "quickEffects": [
     {
@@ -15,22 +16,6 @@
         {
           "effect": "gain_mana",
           "amount": 1
-        }
-      ]
-    }
-  ],
-  "cost": 3,
-  "chargeKeywords": ["Attack","Projectile"],
-  "chargeEffects": [
-    {
-      "effect": "throw_card",
-      "piercing": 2,
-      "speed": 3,
-      "onHit": [
-        {
-          "effect": "damage",
-          "amount": 7,
-          "damageType": "minecraft:arrow"
         },
         {
           "effect": "target_nearest_entity",
@@ -42,7 +27,64 @@
                   "effect": "push",
                   "angleRelativeToUser": false,
                   "overrideVelocity": true,
-                  "magnitude": 4,
+                  "magnitude": 2,
+                  "pitch": {"effect": "target_tracked_entity", "effects":[{"effect":"pitch_to_target_scalar","userElseTrackedEntity":false}]},
+                  "yaw": {"effect": "target_tracked_entity", "effects":[{"effect":"yaw_to_target_scalar","userElseTrackedEntity":false}]}
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "chargeComment": "1 auto-aim + 3 mana, 3 damage + 1 AoE",
+  "chargeKeywords": ["Attack","Projectile"],
+  "chargeEffects": [
+    {
+      "effect": "throw_card",
+      "piercing": 2,
+      "speed": 2,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 7,
+          "damageType": "minecraft:arrow"
+        },
+        {
+        "effect": "target_nearest_entity",
+        "effects": [
+          {
+            "effect": "target_tracked_entity",
+            "effects": [
+              {
+                "effect": "push",
+                "angleRelativeToUser": false,
+                "overrideVelocity": true,
+                "magnitude": 2,
+                "pitch": {"effect": "target_tracked_entity", "effects":[{"effect":"pitch_to_target_scalar","userElseTrackedEntity":false}]},
+                "yaw": {"effect": "target_tracked_entity", "effects":[{"effect":"yaw_to_target_scalar","userElseTrackedEntity":false}]}
+              }
+            ]
+          }
+          ]
+          }
+      ],
+      "doCollisionEffectOnEntity": false,
+      "maxCollisionCount": 1,
+      "onCollision": [
+        {
+          "effect": "target_nearest_entity",
+          "effects": [
+            {
+              "effect": "target_tracked_entity",
+              "effects": [
+                {
+                  "effect": "push",
+                  "angleRelativeToUser": false,
+                  "overrideVelocity": true,
+                  "magnitude": 2,
                   "pitch": {"effect": "target_tracked_entity", "effects":[{"effect":"pitch_to_target_scalar","userElseTrackedEntity":false}]},
                   "yaw": {"effect": "target_tracked_entity", "effects":[{"effect":"yaw_to_target_scalar","userElseTrackedEntity":false}]}
                 }

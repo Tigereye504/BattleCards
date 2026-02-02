@@ -37,7 +37,7 @@
         {
           "effect": "apply_status",
           "type": "minecraft:slowness",
-          "duration": 100,
+          "duration": 80,
           "magnitude": 3
         }
       ]

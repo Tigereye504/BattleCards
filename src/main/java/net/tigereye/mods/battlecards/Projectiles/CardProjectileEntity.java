@@ -5,6 +5,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.world.World;
@@ -22,6 +23,9 @@ public class CardProjectileEntity extends PersistentProjectileEntity implements 
     PersistentCardEffectContext pContext;
     CardEffectContext context;
     List<CardEffect> onEntityHitEffects = new ArrayList<>();
+    public boolean doCollisionEffectOnEntity = true;
+    public int maxCollisionCount = 1;
+    private int collisionCount = 0;
     List<CardEffect> onCollisionEffects = new ArrayList<>();
     List<CardEffect> onTickEffects = new ArrayList<>();
     public float gravity = 0.05f;
@@ -83,6 +87,9 @@ public class CardProjectileEntity extends PersistentProjectileEntity implements 
         for(CardEffect effect : getEffectsOnEntityHit()){
             effect.apply(pContext, newContext);
         }
+        if(getPierceLevel() < 0){
+            this.discard();
+        }
     }
 
     @Override
@@ -93,11 +100,20 @@ public class CardProjectileEntity extends PersistentProjectileEntity implements 
     @Override
     protected void onCollision(HitResult hitResult) {
         super.onCollision(hitResult);
-        if(hitResult.getType() != HitResult.Type.MISS) {
-            for (CardEffect effect : getEffectsOnCollision()) {
-                CardEffectContext newContext = context.clone();
-                newContext.hitResult = hitResult;
-                effect.apply(pContext, newContext);
+        if(hitResult.getType() == HitResult.Type.BLOCK || (doCollisionEffectOnEntity && hitResult.getType() == HitResult.Type.ENTITY)) {
+            if(collisionCount < maxCollisionCount) {
+                collisionCount++;
+                for (CardEffect effect : getEffectsOnCollision()) {
+                    CardEffectContext newContext = context.clone();
+                    if (hitResult.getType() == HitResult.Type.ENTITY) {
+                        newContext.target = ((EntityHitResult) hitResult).getEntity();
+                    }
+                    if (hitResult.getType() == HitResult.Type.BLOCK) {
+                        newContext.blockPos = ((BlockHitResult) hitResult).getBlockPos();
+                    }
+                    newContext.hitResult = hitResult;
+                    effect.apply(pContext, newContext);
+                }
             }
         }
 

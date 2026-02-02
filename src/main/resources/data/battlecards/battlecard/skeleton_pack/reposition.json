@@ -1,5 +1,6 @@
 {
   "id": "battlecards:skeleton_pack/reposition",
+  "quickComment": "1 budget, 1 dodge",
   "quickKeywords": ["Movement","Status"],
   "quickEffects": [
     {
@@ -16,7 +17,8 @@
       "magnitude": 0
     }
   ],
-  "cost": 2,
+  "cost": 4,
+  "chargeComment": "5 budget, 4 status, 1 dodge",
   "chargeKeywords": ["Movement","Status"],
   "chargeEffects": [
       {
@@ -28,7 +30,7 @@
       {
         "effect": "apply_status",
         "type": "battlecards:evading",
-        "duration": 20,
+        "duration": 10,
         "magnitude": 0
       },
       {

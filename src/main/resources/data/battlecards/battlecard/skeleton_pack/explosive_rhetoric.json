@@ -1,5 +1,6 @@
 {
   "id": "battlecards:skeleton_pack/explosive_rhetoric",
+  "quickComment": "3 budget, 1 damage + 1 mana + 1 AoE",
   "quickKeywords": ["Attack","Projectile","Area Of Effect","Mana Generator"],
   "quickEffects": [
     {
@@ -31,6 +32,7 @@
     }
   ],
   "cost": 5,
+  "chargeComment": "8 budget, 5 damage + 3 AoE",
   "chargeKeywords": ["Attack","Projectile","Area Of Effect"],
   "chargeEffects": [
     {
@@ -39,17 +41,17 @@
       "onCollision": [
         {
           "effect": "entities_in_radius",
-          "radius": 5,
+          "radius": 8,
           "targetUser": true,
           "effects": [
             {
               "effect": "damage",
-              "amount": {"effect": "addition_scalar", "a": 17, "b":
-                {"effect": "multiplication_scalar", "a": -3, "b":
-                  {"effect": "bounding_scalar", "low": 2, "value":
+              "amount": {"effect": "addition_scalar", "a": 19, "b":
+                {"effect": "multiplication_scalar", "a": -2, "b":
+                  {"effect": "bounding_scalar", "low": 4, "value":
                       {"effect":"distance_to_target_scalar","userElseTrackedEntity":false}}}},
               "comment": "This is 'AoE damage with falloff' - an explosion.",
-              "comment2": "It deals 11 damage out to 2 blocks decaying to 2 damage at 5 blocks.",
+              "comment2": "It deals 11 damage out to 4 blocks decaying to 3 damage at 8 blocks.",
               "damageType": "minecraft:explosion"
             }
           ]

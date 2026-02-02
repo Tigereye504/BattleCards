@@ -12,7 +12,7 @@
           "afterDamage": [
             {
               "effect": "if_status",
-              "type": "minecraft:poison",
+              "type": ["minecraft:poison","minecraft:slowness"],
               "effects": [
                 {
                   "effect": "lifesteal",

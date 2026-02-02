@@ -4,17 +4,17 @@
     {
       "effect": "apply_status",
       "type": "battlecards:armored",
-      "duration": 400,
+      "duration": 100,
       "magnitude": 0
     }
   ],
-  "cost": 2,
+  "cost": 4,
   "chargeEffects": [
     {
       "effect": "apply_status",
       "type": "battlecards:armored",
       "duration": 1200,
-      "magnitude": 0
+      "magnitude": 1
     }
   ]
 }

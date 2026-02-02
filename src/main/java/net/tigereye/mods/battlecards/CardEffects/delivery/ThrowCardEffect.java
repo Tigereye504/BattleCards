@@ -24,6 +24,8 @@ import java.util.List;
 public class ThrowCardEffect implements CardEffect, CardTooltipNester {
 
     List<CardEffect> onEntityHitEffects = new ArrayList<>();
+    public boolean doCollisionEffectOnEntity = true;
+    public CardScalar maxCollisionCount;
     List<CardEffect> onCollisionEffects = new ArrayList<>();
     List<CardEffect> onTickEffects = new ArrayList<>();
     public Vec3d originOffset;
@@ -116,6 +118,8 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
                 angleRelativeToEntityElseAbsolute ? originEntity.getPitch() + this.pitch.getValue(pContext,context) : this.pitch.getValue(pContext,context),
                 angleRelativeToEntityElseAbsolute ? originEntity.getYaw() + this.yaw.getValue(pContext,context) : this.yaw.getValue(pContext,context), 0.0F,
                 speed.getValue(pContext,context), divergence.getValue(pContext,context));
+        cardProjectileEntity.maxCollisionCount = (int) maxCollisionCount.getValue(pContext,context);
+        cardProjectileEntity.doCollisionEffectOnEntity = doCollisionEffectOnEntity;
         cardProjectileEntity.addEffectsOnEntityHit(onEntityHitEffects);
         cardProjectileEntity.addEffectsOnCollision(onCollisionEffects);
         cardProjectileEntity.addEffectsOnTick(onTickEffects);
@@ -176,7 +180,9 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
             output.gravity = CardSerializer.readOrDefaultScalar(id, "gravity",entry,0.05F);
             output.piercing = CardSerializer.readOrDefaultScalar(id, "piercing",entry,0);
             output.divergence = CardSerializer.readOrDefaultScalar(id, "divergence",entry,0);
+            output.maxCollisionCount = CardSerializer.readOrDefaultScalar(id, "maxCollisionCount",entry,1);
 
+            output.doCollisionEffectOnEntity = CardSerializer.readOrDefaultBoolean(id, "doCollisionEffectOnEntity",entry,true);
             output.originRelativeToUserElseTarget = CardSerializer.readOrDefaultBoolean(id, "originRelativeToUser",entry,true);
             output.angleRelativeToEntityElseAbsolute = CardSerializer.readOrDefaultBoolean(id, "angleRelativeToEntity",entry,true);
             output.trackProjectile = CardSerializer.readOrDefaultBoolean(id, "trackProjectile",entry,true);
