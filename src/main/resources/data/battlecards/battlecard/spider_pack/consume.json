@@ -1,5 +1,7 @@
 {
   "id": "battlecards:spider_pack/consume",
+  "quickComment": "4 melee budget, 1 damage + 1 lifesteal + 2 mana",
+  "quickKeywords": ["Attack","Melee","Mana Generator","Healing"],
   "quickEffects": [
     {
       "effect": "melee",
@@ -16,7 +18,7 @@
               "effects": [
                 {
                   "effect": "lifesteal",
-                  "amount": 1
+                  "amount": 2
                 }
               ]
             }
@@ -29,7 +31,10 @@
       ]
     }
   ],
-  "cost": 3,
+  "cost": 2,
+  "chargeComment": "(4 melee + 3 mana) budget, 4 damage + 4 lifesteal",
+  "chargeComment2": "lifesteal is at half cost due to the status requirement",
+  "chargeKeywords": ["Attack","Melee","Healing"],
   "chargeEffects": [
     {
       "effect": "melee",
@@ -42,11 +47,11 @@
           "afterDamage": [
             {
               "effect": "if_status",
-              "type": "minecraft:poison",
+              "type": ["minecraft:poison","minecraft:slowness"],
               "effects": [
                 {
                   "effect": "lifesteal",
-                  "amount": 1
+                  "amount": 2
                 }
               ]
             }

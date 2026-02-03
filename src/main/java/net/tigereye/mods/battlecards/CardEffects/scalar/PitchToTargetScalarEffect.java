@@ -36,7 +36,7 @@ public class PitchToTargetScalarEffect implements CardEffect, CardScalar, CardTo
     @Override
     public float getValue(PersistentCardEffectContext pContext, CardEffectContext context) {
         Entity scalarEntity = userElseTrackedEntity ? pContext.user : context.trackedEntity;
-        if(context.target == null){
+        if(context.target == null || scalarEntity == null){
             return 0;
         }
         Vec3d relativizedPos = scalarEntity.getPos().relativize(new Vec3d(context.target.getX(), context.target.getBodyY(0.5), context.target.getZ()));

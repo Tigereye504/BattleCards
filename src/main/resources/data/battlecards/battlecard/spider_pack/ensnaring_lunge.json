@@ -1,5 +1,6 @@
 {
   "id": "battlecards:spider_pack/ensnaring_lunge",
+  "quickComment": "4 melee budget, 1 damage + 1 status + 2 mana",
   "quickKeywords": ["Attack","Melee","Mana Generator"],
   "quickEffects": [
     {
@@ -18,13 +19,14 @@
         {
           "effect": "apply_status",
           "type": "minecraft:slowness",
-          "duration": 80,
+          "duration": 100,
           "magnitude": 0
         }
       ]
     }
   ],
-  "cost": 3,
+  "cost": 4,
+  "chargeComment": "(4 melee + 4 mana) budget, 1 lunge + 4 damage + 3 webbing",
   "chargeKeywords": ["Attack","Melee","Movement"],
   "chargeEffects": [
     {
@@ -37,7 +39,7 @@
           "onHit": [
             {
               "effect": "damage",
-              "amount": 7,
+              "amount": 9,
               "damageType": "minecraft:player_attack"
             },
             {

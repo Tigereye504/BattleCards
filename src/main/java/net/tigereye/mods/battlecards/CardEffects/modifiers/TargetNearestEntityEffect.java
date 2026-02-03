@@ -23,7 +23,7 @@ import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TargetNearestEntityEffect implements CardEffect, CardTooltipNester {
+public class TargetNearestEntityEffect implements CardEffect, CardScalar, CardTooltipNester {
 
     List<CardEffect> effects = new ArrayList<>();
     boolean ignoreUser = true;
@@ -31,21 +31,12 @@ public class TargetNearestEntityEffect implements CardEffect, CardTooltipNester 
     boolean ignoreTrackedEntity = true;
     boolean ignoreCurrentTarget = true;
     boolean mustBeLiving = true;
+    boolean targetElseTrack = true;
     CardScalar range = new ConstantScalarEffect(16);
 
     @Override
     public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
-        CardEffectContext newContext = context.clone();
-        Vec3d origin;
-        if(context.target != null){
-            origin = context.target.getPos();
-        } else if (context.hitResult != null) {
-            origin = context.hitResult.getPos();
-        }
-        else {
-            origin = pContext.user.getPos();
-        }
-        newContext.target = getTarget(pContext,context,origin);
+        CardEffectContext newContext = makeNewContext(pContext, context);
         if(newContext.target != null) {
             for (CardEffect effect : effects) {
                 effect.apply(pContext, newContext);
@@ -85,10 +76,44 @@ public class TargetNearestEntityEffect implements CardEffect, CardTooltipNester 
         effects.add(effect);
     }
 
+    @Override
+    public float getValue(PersistentCardEffectContext pContext, CardEffectContext context) {
+        if(!effects.isEmpty()) {
+            if(effects.get(0) instanceof CardScalar scalar){
+                CardEffectContext newContext = makeNewContext(pContext,context);
+                if(newContext.target != null) {
+                    return scalar.getValue(pContext, newContext);
+                }
+            }
+        }
+        return 0;
+    }
+
+    private CardEffectContext makeNewContext(PersistentCardEffectContext pContext, CardEffectContext context){
+        Vec3d origin;
+        if(context.target != null){
+            origin = context.target.getPos();
+        } else if (context.hitResult != null) {
+            origin = context.hitResult.getPos();
+        }
+        else {
+            origin = pContext.user.getPos();
+        }
+        CardEffectContext newContext = context.clone();
+        if(targetElseTrack) {
+            newContext.target = getTarget(pContext, context, origin);
+        }
+        else{
+            newContext.trackedEntity = getTarget(pContext, context, origin);
+        }
+        return newContext;
+    }
+
+
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         if(!effects.isEmpty()){
             tooltip.add(Text.literal(" ".repeat(depth)).append(
-                    Text.translatable("card.battlecards.tooltip.target_projectile")));
+                    Text.translatable("card.battlecards.tooltip.target_nearest_entity")));
             for(CardEffect effect : effects){
                 if(effect instanceof CardTooltipNester nester){
                     nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);
@@ -109,6 +134,7 @@ public class TargetNearestEntityEffect implements CardEffect, CardTooltipNester 
             output.ignorePierced = CardSerializer.readOrDefaultBoolean(id, "ignorePierced",entry,true);
             output.ignoreTrackedEntity = CardSerializer.readOrDefaultBoolean(id, "ignoreProjectile",entry,true);
             output.ignoreCurrentTarget = CardSerializer.readOrDefaultBoolean(id, "ignoreCurrentTarget",entry,true);
+            output.targetElseTrack = CardSerializer.readOrDefaultBoolean(id, "targetElseTrack",entry,true);
             output.mustBeLiving = CardSerializer.readOrDefaultBoolean(id, "mustBeLiving",entry,true);
             return output;
         }

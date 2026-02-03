@@ -1,5 +1,6 @@
 {
   "id": "battlecards:spider_pack/toxic_fang",
+  "quickComment": "4 melee budget, 1 damage + 2 status + 1 mana",
   "quickKeywords": ["Attack","Melee","Mana Generator","Status"],
   "quickEffects": [
     {
@@ -13,18 +14,19 @@
         },
         {
           "effect": "gain_mana",
-          "amount": 2
+          "amount": 1
         },
         {
           "effect": "apply_status",
           "type": "minecraft:poison",
-          "duration": 25,
-          "magnitude": 1
+          "duration": 100,
+          "magnitude": 0
         }
       ]
     }
   ],
-  "cost": 6,
+  "cost": 5,
+  "chargeComment": "(4 melee + 5 mana) budget, (4/2 split) damage + 7 status",
   "chargeKeywords": ["Attack","Melee","Status"],
   "chargeEffects": [
     {
@@ -33,19 +35,19 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 7,
+          "amount": 9,
           "damageType": "minecraft:player_attack"
         },
         {
           "effect": "apply_status",
           "type": "minecraft:poison",
-          "duration": 150,
-          "magnitude": 3
+          "duration": 440,
+          "magnitude": 1
         },
         {
           "effect": "apply_status",
           "type": "minecraft:wither",
-          "duration": 170,
+          "duration": 440,
           "magnitude": 0
         }
       ]

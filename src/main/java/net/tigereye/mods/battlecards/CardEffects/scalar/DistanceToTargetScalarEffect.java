@@ -56,6 +56,10 @@ public class DistanceToTargetScalarEffect implements CardEffect, CardScalar, Car
         }
     }
 
+    public Text appendInlineTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        return Text.translatable("card.battlecards.tooltip.distance_to_target_scalar.inline");
+    }
+
     public static class Serializer implements CardEffectSerializer {
         @Override
         public DistanceToTargetScalarEffect readFromJson(Identifier id, JsonElement entry) {

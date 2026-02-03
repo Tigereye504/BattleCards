@@ -1,5 +1,7 @@
 {
   "id": "battlecards:spider_pack/devour",
+  "quickComment": "4 melee budget, 1 damage + 1 lifesteal + 2 mana",
+  "quickKeywords": ["Attack","Melee","Mana Generator","Healing"],
   "quickEffects": [
     {
       "effect": "melee",
@@ -12,11 +14,11 @@
           "afterDamage": [
             {
               "effect": "if_status",
-              "type": "minecraft:poison",
+              "type": ["minecraft:poison","minecraft:slowness"],
               "effects": [
                 {
                   "effect": "lifesteal",
-                  "amount": 1
+                  "amount": 2
                 }
               ]
             }
@@ -29,7 +31,10 @@
       ]
     }
   ],
-  "cost": 7,
+  "cost": 8,
+  "chargeKeywords": ["Attack","Melee","Healing"],
+  "chargeComment": "(4 melee + 8 cost) budget, 6 damage + 6 lifesteal",
+  "chargeComment2": "the lifesteal is at half cost due to the status requirement",
   "chargeEffects": [
     {
       "effect": "melee",
@@ -37,16 +42,16 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 14,
+          "amount": 13,
           "damageType": "minecraft:player_attack",
           "afterDamage": [
             {
               "effect": "if_status",
-              "type": "minecraft:poison",
+              "type": ["minecraft:poison","minecraft:slowness"],
               "effects": [
                 {
                   "effect": "lifesteal",
-                  "amount": 1
+                  "amount": 2
                 }
               ]
             }

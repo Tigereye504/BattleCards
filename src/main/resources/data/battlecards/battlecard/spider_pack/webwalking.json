@@ -4,7 +4,7 @@
     {
       "effect": "apply_status",
       "type": "battlecards:webwalking",
-      "duration": 200,
+      "duration": 100,
       "magnitude": 0
     }
   ],
@@ -13,7 +13,7 @@
     {
       "effect": "apply_status",
       "type": "battlecards:webwalking",
-      "duration": 1200,
+      "duration": 600,
       "magnitude": 0
     }
   ]

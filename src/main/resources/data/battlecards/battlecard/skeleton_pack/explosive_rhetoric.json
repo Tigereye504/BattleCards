@@ -56,7 +56,8 @@
             }
           ]
         }
-      ]
+      ],
+      "TODO": "Add explosion particle effect"
     }
   ]
 }

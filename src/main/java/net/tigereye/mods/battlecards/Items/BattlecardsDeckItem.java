@@ -159,6 +159,9 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
         if(curMana > 0) {
             nbt.putInt(MANA_STORAGE_NBTKEY, curMana);
         }
+        else{
+            nbt.remove(MANA_STORAGE_NBTKEY);
+        }
         if(storedMana > 0) {
             user.addStatusEffect(BCStatusEffect.buildGradualFalloffStatusEffectInstance(BCStatusEffects.MANA,
                     600, 200, storedMana - 1, false, false, false));

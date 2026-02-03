@@ -20,8 +20,8 @@
     },
     {
       "effect": "push",
-      "magnitude": -1,
-      "pitch": 5,
+      "magnitude": 0.2,
+      "pitch": -5,
       "absolutePitch": true,
       "applyKnockbackRes" : false
     },
@@ -32,8 +32,8 @@
       "magnitude": 0
     }
   ],
-  "cost": 2,
-  "chargeComment": "5 budget, 3 damage, 1 punt, 1 dodge",
+  "cost": 3,
+  "chargeComment": "5 budget, 3 damage, 1 punt, 1 self-punt, 1 dodge",
   "chargeKeywords": ["Movement","Status","Attack","Projectile"],
   "chargeEffects": [
     {
@@ -55,13 +55,14 @@
     {
       "effect": "apply_status",
       "type": "battlecards:evading",
-      "duration": 20,
+      "duration": 10,
       "magnitude": 0
     },
     {
       "effect": "push",
       "magnitude": -1,
       "pitch": -10,
+      "absolutePitch": true,
       "applyKnockbackRes" : false
     }
   ]

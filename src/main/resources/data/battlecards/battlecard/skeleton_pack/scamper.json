@@ -22,14 +22,14 @@
       {
         "effect": "apply_status",
         "type": "minecraft:speed",
-        "duration": 300,
+        "duration": 200,
         "magnitude": 1
       },
       {
         "effect": "apply_status",
         "type": "battlecards:highstep",
-        "duration": 300,
-        "magnitude": 1
+        "duration": 200,
+        "magnitude": 0
       }
   ]
 }

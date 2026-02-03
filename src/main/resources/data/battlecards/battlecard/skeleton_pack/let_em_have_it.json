@@ -33,8 +33,8 @@
       ]
     }
   ],
-  "cost": 7,
-  "chargedComment": "8 budget, 7 damage + 2 AoE - 1 self-slow",
+  "cost": 6,
+  "chargedComment": "(2 unusually easy aim + 6 mana) = 8 budget, 8 damage + 2 AoE - 2 self-slow",
   "chargedComment2": "in gameplay targets consistently take 4 hits",
   "chargeKeywords": ["Attack","Projectile"],
   "chargeEffects": [
@@ -50,7 +50,7 @@
           "onHit": [
             {
               "effect": "damage",
-              "amount": 3.75,
+              "amount": 4.25,
               "damageType": "minecraft:arrow"
             }
           ]

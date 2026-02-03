@@ -36,13 +36,13 @@
       {
         "effect": "apply_status",
         "type": "minecraft:speed",
-        "duration": 90,
-        "magnitude": 4
+        "duration": 120,
+        "magnitude": 3
       },
       {
         "effect": "apply_status",
         "type": "battlecards:highstep",
-        "duration": 90,
+        "duration": 120,
         "magnitude": 1
       }
   ]

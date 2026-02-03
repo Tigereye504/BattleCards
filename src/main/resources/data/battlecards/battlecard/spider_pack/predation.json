@@ -1,6 +1,7 @@
 {
   "id": "battlecards:spider_pack/predation",
-  "quickKeywords": ["Attack","Melee","Mana Generator"],
+  "quickComment": "4 melee budget, 1 damage + 1 lifesteal + 2 mana",
+  "quickKeywords": ["Attack","Melee","Mana Generator","Healing"],
   "quickEffects": [
     {
       "effect": "melee",
@@ -13,11 +14,11 @@
           "afterDamage": [
             {
               "effect": "if_status",
-              "type": "minecraft:poison",
+              "type": ["minecraft:poison","minecraft:slowness"],
               "effects": [
                 {
                   "effect": "lifesteal",
-                  "amount": 1
+                  "amount": 2
                 }
               ]
             }
@@ -25,13 +26,15 @@
         },
         {
           "effect": "gain_mana",
-          "amount": 1
+          "amount": 2
         }
       ]
     }
   ],
-  "cost": 6,
-  "chargeKeywords": ["Attack","Melee","Movement"],
+  "cost": 5,
+  "chargeComment": "(4 melee + 5 mana) budget, 1 lunge + 4 damage + 4 lifesteal",
+  "chargeComment2": "lifesteal is at half cost due to the status requirement",
+  "chargeKeywords": ["Attack","Melee","Movement","Healing"],
   "chargeEffects": [
     {
       "effect": "delay",
@@ -43,16 +46,16 @@
           "onHit": [
             {
               "effect": "damage",
-              "amount": 14,
+              "amount": 9,
               "damageType": "minecraft:player_attack",
               "afterDamage": [
                 {
                   "effect": "if_status",
-                  "type": "minecraft:poison",
+                  "type": ["minecraft:poison","minecraft:slowness"],
                   "effects": [
                     {
                       "effect": "lifesteal",
-                      "amount": 1
+                      "amount": 2
                     }
                   ]
                 }

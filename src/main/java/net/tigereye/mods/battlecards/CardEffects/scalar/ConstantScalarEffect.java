@@ -56,7 +56,8 @@ public class ConstantScalarEffect implements CardEffect, CardScalar, CardTooltip
     }
 
     public Text appendInlineTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        return Text.translatable("card.battlecards.tooltip.constant_scalar.inline",amount);
+        return Text.translatable("card.battlecards.tooltip.constant_scalar.inline",
+                amount == Float.MAX_VALUE ? "∞" : amount == Float.MIN_VALUE ? "-∞" : amount);
     }
 
     public static class Serializer implements CardEffectSerializer {

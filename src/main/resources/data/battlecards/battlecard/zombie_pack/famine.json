@@ -30,7 +30,7 @@
   ],
   "cost": 9,
   "chargeComment": "14 budget (1 targeting+9 mana+4 disad), 8 status-damage + 4 hunger + 2 radius",
-  "chargeComment2": "-0 self instant damage (can be healing via Undeath status), -4 hunger self",
+  "chargeComment2": "-0 self damage (likely to be healing via Undeath status), -4 hunger self",
   "chargeEffects": [
     {
       "effect": "entities_in_radius",

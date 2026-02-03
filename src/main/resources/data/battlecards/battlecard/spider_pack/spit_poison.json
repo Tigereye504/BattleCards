@@ -1,5 +1,6 @@
 {
   "id": "battlecards:spider_pack/spit_poison",
+  "quickComment": "3 projectile budget, 2 status + 1 mana",
   "quickKeywords": ["Attack","Projectile","Mana Generator","Status"],
   "quickEffects": [
     {
@@ -8,29 +9,29 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 3,
+          "amount": 1,
           "damageType": "minecraft:arrow"
         },
         {
           "effect": "gain_mana",
-          "amount": 2
+          "amount": 1
         },
         {
           "effect": "apply_status",
           "type": "minecraft:poison",
-          "duration": 110,
-          "magnitude": 0,
-          "comment": "This is intended to apply 4 times after I-frames. 1 damage-cost worth"
+          "duration": 80,
+          "magnitude": 0
         }
       ]
     }
   ],
   "cost": 4,
+  "chargeComment": "(3 melee + 4 mana) budget, (2/2 split) damage + 6 status",
   "chargeKeywords": ["Attack","Projectile","Status"],
   "chargeEffects": [
     {
       "effect": "throw_card",
-      "speed": 2,
+      "speed": 1.5,
       "onHit": [
         {
           "effect": "damage",
@@ -40,7 +41,7 @@
         {
           "effect": "apply_status",
           "type": "minecraft:poison",
-          "duration": 925,
+          "duration": 900,
           "magnitude": 0
         }
       ]

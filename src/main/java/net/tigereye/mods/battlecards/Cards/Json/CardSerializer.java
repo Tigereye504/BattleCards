@@ -3,18 +3,15 @@ package net.tigereye.mods.battlecards.Cards.Json;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Pair;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
-import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.GeneratedBattleCard;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.registration.BCItems;
@@ -25,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 
 public class CardSerializer {
-    private static final String DEFAULT_TEXTURE = "battlecards:item/battlecard";
     private static final Map<String, CardEffectSerializer> effectSerializers = new HashMap<>();
 
 
@@ -34,7 +30,6 @@ public class CardSerializer {
         output.battleCard = new GeneratedBattleCard();
 
         //set internal id
-        Identifier cardID;
         if (cardJson.id == null) {
             Battlecards.LOGGER.warn("Card {} is missing an id! Defaulting to directory path.", id);
             output.id = id;
@@ -198,7 +193,7 @@ public class CardSerializer {
                     if (effect instanceof CardScalar scalar) {
                         return scalar;
                     } else {
-                        Battlecards.LOGGER.error("Non scalar CardEffect used as scalar in entry {} in {}!", name, id);
+                        Battlecards.LOGGER.error("Non scalar CardEffect {} used as scalar in entry {} in {}!",((JsonObject)namedElement).get("effect").getAsString(), name, id);
                     }
                 } catch (Exception e) {
                     Battlecards.LOGGER.error("Error reading scalar in entry {} in {}!", name, id);

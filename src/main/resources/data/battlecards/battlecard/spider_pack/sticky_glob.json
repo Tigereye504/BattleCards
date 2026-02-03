@@ -1,5 +1,6 @@
 {
   "id": "battlecards:spider_pack/sticky_glob",
+  "quickComment": "3 projectile budget, 2 status + 1 mana",
   "quickKeywords": ["Attack","Projectile","Mana Generator","Status"],
   "quickEffects": [
     {
@@ -8,7 +9,7 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 3,
+          "amount": 1,
           "damageType": "minecraft:arrow"
         },
         {
@@ -25,6 +26,7 @@
     }
   ],
   "cost": 4,
+  "chargeComment": "(3 melee + 4 mana) budget, (2/2 split) damage + 6 status",
   "chargeKeywords": ["Attack","Projectile","Status"],
   "chargeEffects": [
     {
@@ -39,8 +41,8 @@
         {
           "effect": "apply_status",
           "type": "minecraft:slowness",
-          "duration": 400,
-          "magnitude": 0
+          "duration": 1800,
+          "magnitude": 1
         }
       ]
     }

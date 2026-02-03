@@ -1,5 +1,6 @@
 {
   "id": "battlecards:spider_pack/poison_fang",
+  "quickComment": "4 melee budget, 1 damage + 2 status + 1 mana",
   "quickKeywords": ["Attack","Melee","Mana Generator","Status"],
   "quickEffects": [
     {
@@ -13,19 +14,19 @@
         },
         {
           "effect": "gain_mana",
-          "amount": 2
+          "amount": 1
         },
         {
           "effect": "apply_status",
           "type": "minecraft:poison",
-          "duration": 110,
-          "magnitude": 0,
-          "comment": "This is intended to apply 4 times after I-frames. 1 damage-cost worth"
+          "duration": 100,
+          "magnitude": 0
         }
       ]
     }
   ],
-  "cost": 4,
+  "cost": 3,
+  "chargeComment": "(4 melee + 3 mana) budget, (4/2 split) damage + 5 status",
   "chargeKeywords": ["Attack","Melee","Status"],
   "chargeEffects": [
     {
@@ -34,13 +35,13 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 7,
+          "amount": 9,
           "damageType": "minecraft:player_attack"
         },
         {
           "effect": "apply_status",
           "type": "minecraft:poison",
-          "duration": 925,
+          "duration": 600,
           "magnitude": 0
         }
       ]

@@ -1,5 +1,6 @@
 {
   "id": "battlecards:spider_pack/necrotic_fang",
+  "quickComment": "4 melee budget, 1 damage + 1 status + 2 mana",
   "quickKeywords": ["Attack","Melee","Mana Generator"],
   "quickEffects": [
     {
@@ -12,20 +13,27 @@
           "damageType": "minecraft:player_attack"
         },
         {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:player_attack"
+        },
+        {
           "effect": "gain_mana",
           "amount": 2
         },
         {
           "effect": "apply_status",
           "type": "minecraft:poison",
-          "duration": 45,
-          "magnitude": 1,
-          "comment": "This is intended to apply 2 times after I-frames. 1 damage-cost worth"
+          "duration": 40,
+          "magnitude": 0,
+          "comment": "given ~10 extra ticks to account for I-Frames"
         }
       ]
     }
   ],
   "cost": 6,
+  "chargeComment": "(4 melee + 6 mana) budget, 2 damage? + 8 status-damage",
+  "chargeComment2": "the 15 damage mostly overlaps with the 12 AP, only 3 damage are in excess of it.",
   "chargeKeywords": ["Attack","Melee","Status"],
   "chargeEffects": [
     {
@@ -34,7 +42,7 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 14,
+          "amount": 15,
           "damageType": "minecraft:player_attack"
         },
         {
@@ -43,13 +51,6 @@
           "duration": 1,
           "magnitude": 1,
           "comment": "12 AP damage, overlapping with the above physical hit."
-        },
-        {
-          "effect": "apply_status",
-          "type": "minecraft:poison",
-          "duration": 50,
-          "magnitude": 1,
-          "comment": "This will hit 3 times, a bit more than one damage-cost worth."
         }
       ]
     }

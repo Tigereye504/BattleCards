@@ -1,17 +1,16 @@
 --Card Design: Point Buy--
 
 Quick and Charge actions are both fundamentally balanced around the same idea: they only have so many mana points to spend.
-A mana point, as the name implies, is worth 1 mana. The number of points a card has at base is determined by its delivery method:
+A mana point, as the name implies, is worth 1 mana. The starting budget a card has at base is determined by its delivery method:
 
-up to 1 mana point for cards with no or a trivial delivery method, such as self, block, or ally-targeting effects.
+1 mana point for cards with no or a trivial delivery method, such as self, block, auto-aiming, or ally-targeting effects.
 3 mana points for cards with a simple delivery method such as most projectiles
 4 mana points for cards with more difficult delivery, such as melee or cumbersome projectiles.
 Exceptionally troublesome delivery methods may be worth even more base points.
 
-Mana points can also come from drawbacks on a card. Drawbacks are the same as any other effect,
-except that the effect disadvantages the user instead of benefiting the user.
+Each mana spent on a card's charged action increases its budget by 1.
 
-Finally, any mana points in excess of the above determine the card's mana cost.
+If a card applies negative effects to the user, those effects add to that card's budget rather than the cost.
 
 --Quick Actions--
 
@@ -72,60 +71,69 @@ The below multipliers do not apply to self-harm, which generally should use modi
 Damage Type         Effective Damage Multiplier
 Armor Piercing      x1.5
 Protection Piercing x2
-AP & PP             x4
-modify_health*      x2
-*while not damage per se, it has the same end result. It is cheaper because it doesn't scale with sleeves.
+AP+PP               x4
+modify_health*      x2 (be it for healing or for harm)
+*while not damage per se, it has the same end result. It is cheaper than AP+PP because it doesn't scale with sleeves.
 *this applies
 
 --Status Effects--
 
-When applying status effects, sum together the duration of the effects to be applied.
+A status effect's cost is measured in terms of its duration modified by its magnitude.
 
-Increasing the magnitude by 1 doubles the duration-cost of that status effect.
+Increasing the magnitude by 1 doubles the duration-value of that status effect.
 If a status effect gains nothing from increased magnitude, don't change the effective duration.
-Some status effects are more valuable than others.
-In such cases, treat them as having a bonus to effective magnitude and thus higher duration-cost.
 
-Status Effect       Magnitude Modifier
-Blindness           +4 (while largely useless against mobs, this is an utterly crippling status to players.)
-Evasion             +5 (this is outright invulnerability by means of removing the user's hitbox.)
-Levitation          +2 (this is a powerful CC effect, much nastier than slowness)
+Some status effects are significantly more valuable than average.
+In such cases, apply a multiplier to their duration-value.
+Status Effect       Duration-Cost Modifier
+Blindness           x16 (While largely useless against mobs, this is an utterly crippling status to players.)
+Evasion             x32 (This is outright invulnerability by means of removing the user's hitbox.)
+Levitation          x12 if hostile, x1 on user (This is a powerful CC effect, much nastier than slowness.)
+Mining Fatigue      x2 (Low magnitudes aren't too bad, but high magnitudes effectively disable mining entirely.)
+Nausea              x8 (This is a frustrating interface screw, and disables sprinting.)
+Poison              x4 (Damage over time is potent stuff. We all hate cave spiders for a reason!)
+Regeneration        x3 (Slow healing, but indeed still healing.)
+Wither              x3 (Less than poison? Yep. Wither can kill, buts it's also very slow.)
 
-Duration-Cost       MP Cost
+When applying multiple status effects, sum together the duration of the effects to be applied.
+
+Finally, use the duration-cost to find the mana cost of the card's status effects.
+
+Duration-Value      MP Cost
 100 ticks (5 sec)   1
 300                 2
 600                 3
 1200 (1 minute)     4
 +1200               +1
 
-Status effects that exist to do damage (or healing) are instead calculated as advantaged or disadvantaged damage.
-Determine how much damage the status effect will do, then multiply to determine the cost accordingly.
+Status effects that do damage (or healing) very quickly are instead calculated as damage.
 Damaging Status     Effective Damage Multiplier
-Poison I            x1/4 (does 1 AP per 25 ticks, can't kill)
-Poison II+          x1/2 (does 1 AP per 12 ticks, can't kill)
-Wither I            x1/6 (does 1 AP per 40 ticks)
-Wither II           x1/3 (does 1 AP per 20 ticks)
-Wither III+         x2/3 (does 1 AP per 10 ticks)
-Instant Harm        as 6 AP damage, x2 per magnitude
+Instant Damage      9 damage-cost, x2 per magnitude
+Instant Healing     8 damage-cost, x2 per magnitude
 
-Finally, Effects intended to provide *momentary* (10- ticks) super-defense always cost 1 MP
+Finally, effects intended to provide *momentary* (10- ticks) super-defense always cost 1 MP
 This includes effects like Evasion or high magnitude Armored/Resistance.
+
+--Block Placement--
+
+<TBD>
+Likely similar to status effecting? Lacks sleeves, so should be more cost-efficient.
 
 --Other Effects--
 
-Healing is cheap in Minecraft. It is handled the same as damage via modify_health or damaging status effects.
-Lifesteal is healing that enjoys damage scaling but contents with defenses, and so is worth the same as the damage it is attached to.
-Absorption apart from the status effect is akin to healing if it doesn't stack with itself, twice as much if it does.
+Healing is handled the same as damage via modify_health; x2 healing amount as damage-cost.
+Lifesteal is healing that enjoys damage scaling but contends with defenses, and so is worth the same as the damage it is attached to.
+Absorption apart from the status effect is equal to healing if it doesn't stack with itself, twice as much if it does.
 
 Effects that restore hunger or saturation are priced x1/2 that of healing, as it is very easy to... just eat.
 
-Pushing is usually only worth a point or two, unless it is such you must account for falling damage (which is AP damage).
+Pushing is usually only worth a point , unless it is such you must account for falling damage (which is AP damage).
 
 
 --Other Considerations--
 
 If a card has conditions that must be met to have an effect, that effect is cheaper.
-For example, requiring the target to have a status effect generally halves the cost.
+For example, requiring the target to have a status effect (or one of a few status effects) generally halves the cost.
 More or less stringent conditions are worth more or less of a discount, respectively.
 
 If a card applies both damage and status effects, card sleeves (which roughly double card strength) will be less efficient at empowering it.
