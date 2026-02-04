@@ -9,7 +9,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.BoosterPacks.BoosterPackCardList;
-import net.tigereye.mods.battlecards.BoosterPacks.BoosterPackDropRates;
+import net.tigereye.mods.battlecards.BoosterPacks.BoosterPackDropRate;
 import net.tigereye.mods.battlecards.Cards.Json.CardManager;
 import net.tigereye.mods.battlecards.registration.BCItems;
 import net.tigereye.mods.battlecards.registration.BCStatusEffects;
@@ -21,16 +21,13 @@ import java.util.*;
 
 public class BoosterPackManager implements SimpleSynchronousResourceReloadListener {
 
-    //TODO: move chances to config
-    private static final float BASE_UPGRADE_CHANCE = 0.05f;
-    private static final float SCALING_UPGRADE_CHANCE = 0.05f;
     private static final String RESOURCE_LOCATION = "battlecard_booster";
     public static final String ID_NBTKEY = "booster_pack";
     public static BoosterPackManager INSTANCE = new BoosterPackManager();
     private final BoosterPackSerializer SERIALIZER = new BoosterPackSerializer();
     //the first String is the loot table that drops the booster pack, the list is the booster packs it can drop
     //The String would be an Identifier, but Maps don't properly compare them.
-    public static Map<String, List<BoosterPackDropRates>> lootTableInjections = new HashMap<>();
+    public static Map<String, List<BoosterPackDropRate>> lootTableInjections = new HashMap<>();
     //The String would be an Identifier, but Maps don't properly compare them.
     public static Map<String, BoosterPackCardList> boosterPackCardList = new HashMap<>();
     public static Map<String, ItemStack> boosterPackScrapValue = new HashMap<>();
@@ -51,12 +48,12 @@ public class BoosterPackManager implements SimpleSynchronousResourceReloadListen
                 Reader reader = new InputStreamReader(stream);
                 BoosterPackData boosterPackData = SERIALIZER.read(id,new Gson().fromJson(reader, BoosterPackJsonFormat.class));
                 boosterPacks.add(boosterPackData.id);
-                for(Identifier entity : boosterPackData.mobs) {
-                    String deIdentifiedEntity = entity.toString();
-                    List<BoosterPackDropRates> boosterList = lootTableInjections.getOrDefault(deIdentifiedEntity, new ArrayList<>());
-                    boosterList.add(boosterPackData.getDropRates());
+                boosterPackData.sourceLootTables.forEach((sourceID, dropRates) -> {
+                    String deIdentifiedEntity = sourceID.toString();
+                    List<BoosterPackDropRate> boosterList = lootTableInjections.getOrDefault(deIdentifiedEntity, new ArrayList<>());
+                    boosterList.add(dropRates);
                     lootTableInjections.put(deIdentifiedEntity, boosterList);
-                }
+                });
                 boosterPackCardList.put(boosterPackData.id.toString(),boosterPackData.getCardList());
                 boosterPackScrapValue.put(boosterPackData.id.toString(),boosterPackData.scrapValue);
 
@@ -68,11 +65,11 @@ public class BoosterPackManager implements SimpleSynchronousResourceReloadListen
     }
 
     public static boolean hasEntry(Identifier id){
-        return lootTableInjections.containsKey(id);
+        return lootTableInjections.containsKey(id.toString());
     }
 
-    public static List<BoosterPackDropRates> getEntry(Identifier id){
-        return lootTableInjections.getOrDefault(id,List.of());
+    public static List<BoosterPackDropRate> getEntry(Identifier id){
+        return lootTableInjections.getOrDefault(id.toString(),List.of());
     }
 
     public static ItemStack generateBoosterPackItemstack(Identifier id){
@@ -94,7 +91,8 @@ public class BoosterPackManager implements SimpleSynchronousResourceReloadListen
         if(cardList != null) {
             int upgrades = 0;
             for (int i = 0; i < cardList.commonCount; i++) {
-                if(random.nextFloat() < (BASE_UPGRADE_CHANCE + (SCALING_UPGRADE_CHANCE *luck))/(upgrades+1)){
+                if(random.nextFloat() < (Battlecards.CONFIG.BOOSTER_PACK_BASE_UPGRADE_CHANCE +
+                        (Battlecards.CONFIG.BOOSTER_PACK_LUCK_SCALING_UPGRADE_CHANCE *luck))/(upgrades+1)){
                     upgrades++;
                 }
             }

@@ -3,9 +3,9 @@
   "dropRate": 0.1,
   "dropRateLootingFactor": 0.035,
   "sourceLootTables": [
-    "minecraft:entities/zombie",
-    "minecraft:entities/husk",
-    "minecraft:entities/drowned"
+    {"id":"minecraft:entities/zombie","rate": 0.1,"lootingRate": 0.035},
+    {"id":"minecraft:entities/husk","rate": 0.1,"lootingRate": 0.035},
+    {"id":"minecraft:entities/drowned","rate": 0.1,"lootingRate": 0.035}
   ],
   "commonCount": 4,
   "commonCards": [
@@ -18,6 +18,7 @@
     "battlecards:zombie_pack/persistence",
     "battlecards:zombie_pack/pummel",
     "battlecards:zombie_pack/undeath",
+    "battlecards:basic_cards/strength",
     "battlecards:basic_cards/armored",
     "battlecards:basic_cards/reinforced"
   ],

@@ -1,6 +1,7 @@
 package net.tigereye.mods.battlecards.BoosterPacks.Json;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -8,8 +9,10 @@ import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.tigereye.mods.battlecards.Battlecards;
+import net.tigereye.mods.battlecards.BoosterPacks.BoosterPackDropRate;
 import net.tigereye.mods.battlecards.registration.BCItems;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 public class BoosterPackSerializer {
@@ -28,10 +31,8 @@ public class BoosterPackSerializer {
 
         Identifier boosterPackID = new Identifier(bpdJson.id);
         BoosterPackData boosterPackData = new BoosterPackData();
-        boosterPackData.mobs = new HashSet<>();
+        boosterPackData.sourceLootTables = new HashMap<>();
         boosterPackData.id = boosterPackID;
-        boosterPackData.dropRate = bpdJson.dropRate;
-        boosterPackData.dropRateLootingFactor = bpdJson.dropRateLootingFactor;
 
 
         int i = 0;
@@ -40,7 +41,15 @@ public class BoosterPackSerializer {
                     bpdJson.sourceLootTables) {
                 ++i;
                 try {
-                    boosterPackData.mobs.add(new Identifier(entry.getAsString()));
+                    JsonObject jObject = entry.getAsJsonObject();
+                    BoosterPackDropRate dropRate = new BoosterPackDropRate();
+                    dropRate.id = boosterPackData.id;
+                    dropRate.rate = jObject.get("rate").getAsFloat();
+                    dropRate.lootingRate = jObject.get("lootingRate").getAsFloat();
+                    if (dropRate.rate == 0 && dropRate.lootingRate == 0) {
+                        Battlecards.LOGGER.warn("Booster Pack {} has no chance to drop from{}", id, jObject.get("id").getAsString());
+                    }
+                    boosterPackData.sourceLootTables.put(new Identifier(jObject.get("id").getAsString()), dropRate);
                 } catch (Exception e) {
                     Battlecards.LOGGER.error("Error parsing mob identifier {} in {}'s entity list", i, id.toString());
                 }

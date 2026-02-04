@@ -1,0 +1,43 @@
+{
+  "id": "battlecards:basic_cards/light_shot",
+  "quickComment": "A standard weak-and-2-mana quick action.",
+  "quickKeywords": ["Attack","Projectile"],
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "throw_card",
+          "speed": 1,
+          "onHit": [
+            {
+              "effect": "damage",
+              "amount": 4,
+              "damageType": "minecraft:arrow"
+            }
+          ]
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 2
+        }
+      ]
+    }
+  ],
+  "cost": 1,
+  "chargedComment": "3+1 budget, 3 damage. This is deliberately underpowered.",
+  "chargedKeywords": ["Attack","Projectile"],
+  "chargeEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 2,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 7,
+          "damageType": "minecraft:arrow"
+        }
+      ]
+    }
+  ]
+}

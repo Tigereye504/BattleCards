@@ -207,6 +207,7 @@
   "card.battlecards.zombie_pack/worthless_flesh": "Worthless Flesh",
   "card.battlecards.zombie_pack/worthless_flesh.quick": "Gain Armored I for 5 seconds.",
   "card.battlecards.zombie_pack/worthless_flesh.charge": "Gain Armored III and Reinforced III for 15 seconds.",
+  "deck.battlecards.drowned": "Drag to the Depths",
 
   "boosterpack.battlecards.skeleton_pack/booster_pack": "Deadfellows",
   "card.battlecards.skeleton_pack/deliver_a_message": "Deliver a Message",
@@ -397,5 +398,7 @@
   "card.battlecards.illager_pack/johnny/yield_your_flesh.quick": "Moderate focused melee invites harm for 3 mana.",
   "card.battlecards.illager_pack/johnny/yield_your_flesh.charge": "Moderate to Catastrophic focused melee attack based on missing health.",
 
-  "boosterpack.battlecards.villager_pack/booster_pack": "Way of Sowing"
+  "boosterpack.battlecards.villager_pack/booster_pack": "Way of Sowing",
+  "text.autoconfig.battlecards.BOOSTER_PACK_BASE_UPGRADE_CHANCE": "Booster Pack Base Card Rarity Upgrade Chance",
+  "text.autoconfig.battlecards.BOOSTER_PACK_LUCK_SCALING_UPGRADE_CHANCE": "Booster Pack Luck Scaling Card Rarity Upgrade Chance"
 }

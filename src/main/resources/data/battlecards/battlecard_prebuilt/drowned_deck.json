@@ -1,0 +1,20 @@
+{
+  "id": "battlecards:drowned_deck",
+  "name": "deck.battlecards.drowned",
+  "color": "0x506a6e",
+  "cards": [
+    {"id": "battlecards:basic_cards/strength", "count": 4},
+    {"id": "battlecards:basic_cards/armored", "count": 4},
+    {"id": "battlecards:basic_cards/reinforced", "count": 4},
+    {"id": "battlecards:zombie_pack/undeath", "count": 8},
+    {"id": "battlecards:basic_cards/breathless", "count": 8},
+    {"id": "battlecards:zombie_pack/ignore_wounds", "sleeve": "battlecards:sleeve/gold", "count": 2},
+    {"id": "battlecards:zombie_pack/choke", "count": 16},
+    {"id": "battlecards:zombie_pack/drag_down", "count": 16},
+    {"id": "battlecards:zombie_pack/impale", "sleeve": "battlecards:sleeve/iron", "count": 2}
+  ],
+  "sourceLootTables": [
+    {"id": "minecraft:chests/shipwreck_treasure", "rate": 0.35},
+    {"id": "minecraft:chests/buried_treasure", "rate": 1}
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "battlecards:basic_cards/light_melee",
+  "quickComment": "A standard weak-and-2-mana quick action.",
+  "quickKeywords": ["Attack","Melee"],
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:player_attack"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 2
+        }
+      ]
+    }
+  ],
+  "cost": 1,
+  "chargedComment": "4+1 budget, 3 damage + 1 sweeping. This is deliberately underpowered.",
+  "chargedKeywords": ["Attack","Melee"],
+  "chargeEffects": [
+    {
+      "effect": "melee",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 7,
+          "damageType": "minecraft:player_attack"
+        }
+      ]
+    }
+  ]
+}

@@ -1,10 +1,8 @@
 {
   "id": "battlecards:illager_pack/johnny/booster_pack",
-  "dropRate": 0.1,
-  "dropRateLootingFactor": 0.035,
   "sourceLootTables": [
-    "minecraft:entities/vindicator",
-    "minecraft:entities/ravager"
+    {"id":"minecraft:entities/vindicator","rate": 0.1,"lootingRate": 0.035},
+    {"id":"minecraft:entities/ravager","rate": 0.1,"lootingRate": 0.035}
   ],
   "commonCount": 4,
   "commonCards": [

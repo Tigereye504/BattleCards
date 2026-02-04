@@ -2,8 +2,8 @@ package net.tigereye.mods.battlecards.BoosterPacks;
 
 import net.minecraft.util.Identifier;
 
-public class BoosterPackDropRates {
+public class BoosterPackDropRate {
     public Identifier id;
-    public float dropRate;
-    public float dropRateLootingFactor;
+    public float rate;
+    public float lootingRate;
 }
