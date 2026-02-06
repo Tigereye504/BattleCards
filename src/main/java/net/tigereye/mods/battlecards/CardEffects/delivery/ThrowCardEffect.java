@@ -4,6 +4,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ExperienceOrbEntity;
+import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
@@ -28,12 +30,14 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
     public CardScalar maxCollisionCount;
     List<CardEffect> onCollisionEffects = new ArrayList<>();
     List<CardEffect> onTickEffects = new ArrayList<>();
+    List<CardEffect> onSpawnEffects = new ArrayList<>();
     public Vec3d originOffset;
     public boolean originRelativeToUserElseTarget;
     public boolean trackProjectile;
     public CardScalar pitch;
     public CardScalar yaw;
     public boolean angleRelativeToEntityElseAbsolute;
+    public boolean velocityRelativeToEntityElseAbsolute;
     public CardScalar speed;
     public CardScalar gravity;
     public CardScalar piercing;
@@ -77,6 +81,13 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
         onTickEffects.addAll(effects);
     }
 
+    public void addEffectOnSpawn(CardEffect effect){
+        onSpawnEffects.add(effect);
+    }
+    public void addEffectsOnSpawn(List<CardEffect> effects){
+        onSpawnEffects.addAll(effects);
+    }
+
     @Override
     public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
         if (context.target != null) {
@@ -110,11 +121,13 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
         World world = pContext.user.getWorld();
         Vec3d rotatedOrigin = originOffset.rotateX(originEntity.getPitch()).rotateY(originEntity.getYaw());
 
-        CardProjectileEntity cardProjectileEntity = new CardProjectileEntity(pContext, context, world,
+        CardEffectContext newContext = context.clone();
+        CardProjectileEntity cardProjectileEntity = new CardProjectileEntity(pContext, newContext, world,
                 originEntity.getX() + rotatedOrigin.getX(),
                 originEntity.getEyeY() - 0.1F + rotatedOrigin.getY(),
                 originEntity.getZ() + rotatedOrigin.getZ());
-        cardProjectileEntity.setVelocity(originEntity,
+
+        cardProjectileEntity.setVelocity(velocityRelativeToEntityElseAbsolute ? originEntity : cardProjectileEntity,
                 angleRelativeToEntityElseAbsolute ? originEntity.getPitch() + this.pitch.getValue(pContext,context) : this.pitch.getValue(pContext,context),
                 angleRelativeToEntityElseAbsolute ? originEntity.getYaw() + this.yaw.getValue(pContext,context) : this.yaw.getValue(pContext,context), 0.0F,
                 speed.getValue(pContext,context), divergence.getValue(pContext,context));
@@ -123,9 +136,11 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
         cardProjectileEntity.addEffectsOnEntityHit(onEntityHitEffects);
         cardProjectileEntity.addEffectsOnCollision(onCollisionEffects);
         cardProjectileEntity.addEffectsOnTick(onTickEffects);
+        cardProjectileEntity.addEffectsOnSpawn(onSpawnEffects);
         cardProjectileEntity.gravity = gravity.getValue(pContext,context);
         cardProjectileEntity.setPierceLevel((byte) (piercing.getValue(pContext, context)-1));
-        context.trackedEntity = cardProjectileEntity;
+        newContext.target = null;
+        newContext.trackedEntity = cardProjectileEntity;
         return cardProjectileEntity;
     }
 
@@ -146,6 +161,15 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
             tooltip.add(Text.literal(" ".repeat(depth)).append(
                     Text.translatable("card.battlecards.tooltip.on_collision")));
             for(CardEffect effect : onCollisionEffects){
+                if(effect instanceof CardTooltipNester nester){
+                    nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);
+                }
+            }
+        }
+        if(!onSpawnEffects.isEmpty()){
+            tooltip.add(Text.literal(" ".repeat(depth)).append(
+                    Text.translatable("card.battlecards.tooltip.on_tick")));
+            for(CardEffect effect : onSpawnEffects){
                 if(effect instanceof CardTooltipNester nester){
                     nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);
                 }
@@ -185,11 +209,13 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
             output.doCollisionEffectOnEntity = CardSerializer.readOrDefaultBoolean(id, "doCollisionEffectOnEntity",entry,true);
             output.originRelativeToUserElseTarget = CardSerializer.readOrDefaultBoolean(id, "originRelativeToUser",entry,true);
             output.angleRelativeToEntityElseAbsolute = CardSerializer.readOrDefaultBoolean(id, "angleRelativeToEntity",entry,true);
+            output.velocityRelativeToEntityElseAbsolute = CardSerializer.readOrDefaultBoolean(id, "velocityRelativeToEntity",entry,true);
             output.trackProjectile = CardSerializer.readOrDefaultBoolean(id, "trackProjectile",entry,true);
 
             output.addEffectsOnEntityHit(CardSerializer.readCardEffects(id, "onHit",entry));
             output.addEffectsOnCollision(CardSerializer.readCardEffects(id, "onCollision",entry));
             output.addEffectsOnTick(CardSerializer.readCardEffects(id, "onTick",entry));
+            output.addEffectsOnSpawn(CardSerializer.readCardEffects(id, "onSpawn",entry));
 
             return output;
         }

@@ -1,0 +1,148 @@
+{
+  "id": "battlecards:skeleton_pack/frozen_assets2",
+  "quickComment": "3 budget, 1 damage + 1 mana + 1 AoE",
+  "quickKeywords": ["Attack","Projectile","Area Of Effect","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 1.5,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "apply_status",
+          "type": "minecraft:slowness",
+          "duration": 100,
+          "magnitude": 0
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 1
+        }
+      ]
+    }
+  ],
+  "cost": 10,
+  "chargeComment": "13 budget, 5 damage + 4? blocks + 3 AoE - 1 disad (easy to hit self by mistake)",
+  "chargeKeywords": ["Attack","Projectile","Area Of Effect"],
+  "chargeEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 1.5,
+      "gravity": 0.02,
+      "onSpawn": [
+        {
+          "effect": "delay",
+          "delay": 5,
+          "after_delay": [
+            {
+              "effect": "replace_block",
+              "block": "minecraft:ice",
+              "duration": 40
+            }
+          ]
+        },
+        {
+          "effect": "delay",
+          "delay": 45,
+          "after_delay": [
+            {
+              "effect": "target_tracked_entity",
+              "effects": [
+                {
+                  "effect": "repeat",
+                  "startingScalar": 0,
+                  "incrementScalar": {"effect":"addition_scalar","a":15,"b":{"effect":"x_scalar"}},
+                  "count": 24,
+                  "effects": [
+                    {
+                      "effect": "throw_card",
+                      "speed": {"effect": "random_scalar","minimum": -0.15,"maximum": 1},
+                      "pitch": {"effect": "random_scalar","minimum": 5,"maximum": 20},
+                      "yaw": {"effect":"x_scalar"},
+                      "originRelativeToUser": false,
+                      "angleRelativeToEntity": false,
+                      "velocityRelativeToEntity": false,
+                      "onHit": [
+                        {
+                          "effect": "damage",
+                          "amount": 9,
+                          "damageType": "minecraft:arrow"
+                        }
+                      ],
+                      "onCollision": [
+                        {
+                          "effect": "target_tracked_entity",
+                          "effects": [
+                            {
+                              "effect": "snap_block_pos_to_surface",
+                              "maxBackwardDistance": 3,
+                              "distanceFromSurface": 1,
+                              "effects": [
+                                {
+                                  "effect": "replace_block",
+                                  "block": "minecraft:ice",
+                                  "duration": {"effect": "random_scalar","minimum": 140,"maximum": 200}
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "effect": "repeat",
+                  "startingScalar": 0,
+                  "incrementScalar": {"effect":"addition_scalar","a":30,"b":{"effect":"x_scalar"}},
+                  "count": 12,
+                  "effects": [
+                    {
+                      "effect": "throw_card",
+                      "speed": {"effect": "random_scalar","minimum": -0.15,"maximum": 1},
+                      "pitch": {"effect": "random_scalar","minimum": 20,"maximum": 40},
+                      "yaw": {"effect":"x_scalar"},
+                      "originRelativeToUser": false,
+                      "angleRelativeToEntity": false,
+                      "velocityRelativeToEntity": false,
+                      "onHit": [
+                        {
+                          "effect": "damage",
+                          "amount": 13,
+                          "damageType": "minecraft:arrow"
+                        }
+                      ],
+                      "onCollision": [
+                        {
+                          "effect": "target_tracked_entity",
+                          "effects": [
+                            {
+                              "effect": "snap_block_pos_to_surface",
+                              "maxBackwardDistance": 3,
+                              "distanceFromSurface": 1,
+                              "effects": [
+                                {
+                                  "effect": "replace_block",
+                                  "block": "minecraft:ice",
+                                  "duration": {"effect": "random_scalar","minimum": 140,"maximum": 200}
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

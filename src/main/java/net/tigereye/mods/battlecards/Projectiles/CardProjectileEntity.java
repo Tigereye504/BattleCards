@@ -27,7 +27,10 @@ public class CardProjectileEntity extends PersistentProjectileEntity implements 
     public int maxCollisionCount = 1;
     private int collisionCount = 0;
     List<CardEffect> onCollisionEffects = new ArrayList<>();
+    public int tickUntilCollisionCount = 1;
     List<CardEffect> onTickEffects = new ArrayList<>();
+    private boolean hasDoneOnSpawnEffects = false;
+    List<CardEffect> onSpawnEffects = new ArrayList<>();
     public float gravity = 0.05f;
 
     //TODO: custom nbt data to save effects
@@ -77,6 +80,13 @@ public class CardProjectileEntity extends PersistentProjectileEntity implements 
         onTickEffects.addAll(effects);
     }
 
+    public List<CardEffect> getEffectsOnSpawn(){return onSpawnEffects;}
+    public void addEffectOnSpawn(CardEffect effect){
+        onSpawnEffects.add(effect);
+    }
+    public void addEffectsOnSpawn(List<CardEffect> effects){
+        onSpawnEffects.addAll(effects);
+    }
 
     @Override
     protected void onEntityHit(EntityHitResult entityHitResult) { // called on entity hit.
@@ -108,7 +118,7 @@ public class CardProjectileEntity extends PersistentProjectileEntity implements 
                     if (hitResult.getType() == HitResult.Type.ENTITY) {
                         newContext.target = ((EntityHitResult) hitResult).getEntity();
                     }
-                    if (hitResult.getType() == HitResult.Type.BLOCK) {
+                    else if (hitResult.getType() == HitResult.Type.BLOCK) {
                         newContext.blockPos = ((BlockHitResult) hitResult).getBlockPos();
                     }
                     newContext.hitResult = hitResult;
@@ -129,6 +139,14 @@ public class CardProjectileEntity extends PersistentProjectileEntity implements 
 
     @Override
     public void tick(){
+        if(!getEffectsOnSpawn().isEmpty() && !hasDoneOnSpawnEffects){
+            CardEffectContext context = this.context.clone();
+            context.target = this;
+            for(CardEffect effect : getEffectsOnSpawn()){
+                effect.apply(pContext,context);
+            }
+            hasDoneOnSpawnEffects = true;
+        }
         if(!getEffectsOnTick().isEmpty()){
             CardEffectContext context = this.context.clone();
             context.target = this;

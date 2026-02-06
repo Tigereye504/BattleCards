@@ -55,7 +55,7 @@ Cost targets for charge effects:
 'strong'          - 3 - an axe chop.    7 dmg       10.5 dmg    14 dmg      15.75 dmg
 'very strong'     - 4 - a trident stab. 9           13.5        18          *20.25* dmg
 'extremely strong'- 5 - critical axe.   11          16.5        *22*        24.75 dmg
-'deadly'          - 6 - crit str axe.   13          *20.5*      ~*26*~      ~*29.5*~ dmg
+'deadly'          - 6 - crit str axe.   13          19.5       ~*26*~      ~*29.5*~ dmg
 'very deadly'     - 7 - crit str II,axe 15          *22.5*      ~*30*~      ~*33.75*~ dmg
 'extremely deadly'- 8 -                 17          25.5        34          ~*38.25*~ dmg
 'catastrophic'    - 10 - iron golem     *20*        ~*30*~      **40**      **45** dmg

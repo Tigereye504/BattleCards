@@ -122,7 +122,7 @@ C   Make Your Bones (R) - Q: Shoot a weak arrow, 1 mana on hit, +2 on kill. A(6)
     Rattling Cold - slowing multishot
     Chilling Proposition - spread of slowing arrows
     Frigid Aside - arrow draws line of slowing damage, freeze water and lava in path
-    Frozen Assets - shoot an arrow that freezes into an ice block moments after firing, which then erupts into many murderous arrows
+ET  Frozen Assets - shoot an arrow that freezes into an ice block moments after firing, which then erupts into many murderous arrows
     Put 'em on Ice - encase target in ice on hit
 
 

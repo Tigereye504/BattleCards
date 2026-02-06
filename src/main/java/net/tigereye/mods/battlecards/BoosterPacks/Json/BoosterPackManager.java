@@ -2,6 +2,7 @@ package net.tigereye.mods.battlecards.BoosterPacks.Json;
 
 import com.google.gson.Gson;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.resource.ResourceManager;
@@ -78,9 +79,10 @@ public class BoosterPackManager implements SimpleSynchronousResourceReloadListen
         return stack;
     }
 
-    public static List<ItemStack> generateBoosterPackContents(Identifier id, PlayerEntity user){
-        float luck = user.getLuck() + (user.hasStatusEffect(BCStatusEffects.CARDFETTI_SACRIFICE) ?
-                user.getStatusEffect(BCStatusEffects.CARDFETTI_SACRIFICE).getAmplifier()+1 : 0);
+    public static List<ItemStack> generateBoosterPackContents(Identifier id, LivingEntity user){
+        float luck = ((user instanceof PlayerEntity pEntity) ? pEntity.getLuck() : 0)
+                + (user.hasStatusEffect(BCStatusEffects.CARDFETTI_SACRIFICE) ?
+                    user.getStatusEffect(BCStatusEffects.CARDFETTI_SACRIFICE).getAmplifier()+1 : 0);
         user.removeStatusEffect(BCStatusEffects.CARDFETTI_SACRIFICE);
         return generateBoosterPackContents(id,luck,user.getRandom());
     }

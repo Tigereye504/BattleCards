@@ -62,7 +62,6 @@ public class ReplaceBlockEffect implements CardEffect, CardTooltipNester {
     private void apply(PersistentCardEffectContext pContext, CardEffectContext context, BlockPos pos) {
         World world = pContext.user.getWorld();
         BlockState curBlock = world.getBlockState(pos);
-        AutomaticItemPlacementContext ipc = new AutomaticItemPlacementContext(world,pos,pContext.user.getHorizontalFacing(), block.getBlock().asItem().getDefaultStack(),pContext.user.getHorizontalFacing());
         if(curBlock.getBlock().getBlastResistance() <= maxBlastRes.getValue(pContext,context)) {
             world.setBlockState(pos, block, 3);
         }

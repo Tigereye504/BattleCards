@@ -2,6 +2,7 @@ package net.tigereye.mods.battlecards.Items;
 
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
@@ -18,6 +19,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.BoosterPacks.Json.BoosterPackManager;
 
@@ -28,6 +30,16 @@ public class BoosterPackItem extends Item {
 
     public BoosterPackItem(Settings settings) {
         super(settings);
+    }
+
+    @Override
+    public UseAction getUseAction(ItemStack stack) {
+        return UseAction.BOW;
+    }
+
+    @Override
+    public int getMaxUseTime(ItemStack stack) {
+        return 10;
     }
 
     @Override
@@ -43,7 +55,17 @@ public class BoosterPackItem extends Item {
     }
 
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        ItemStack stack = user.getStackInHand(hand);
+        user.setCurrentHand(hand);
+        return TypedActionResult.consume(user.getStackInHand(hand));
+    }
+
+    public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
+        openBoosterPack(stack, world, user);
+        stack.decrement(1);
+        return stack;
+    }
+
+    private void openBoosterPack(ItemStack stack, World world, LivingEntity user){
         //get id from nbt
         if(stack.hasNbt()) {
             String boosterPackIDString = stack.getNbt().getString(BoosterPackManager.ID_NBTKEY);
@@ -65,18 +87,24 @@ public class BoosterPackItem extends Item {
                         }
                     }
                     //drop loot into inventory, or on ground if can't
-                    PlayerInventory playerInventory = user.getInventory();
-                    for (ItemStack itemStack:
-                            list) {
-                        if(!playerInventory.insertStack(itemStack)){
-                            user.dropItem(itemStack,true,true);
+                    if(user instanceof PlayerEntity pEntity) {
+                        PlayerInventory playerInventory = pEntity.getInventory();
+                        for (ItemStack itemStack :
+                                list) {
+                            if (!playerInventory.insertStack(itemStack)) {
+                                pEntity.dropItem(itemStack, true, true);
+                            }
+                        }
+                    }
+                    else{
+                        for (ItemStack itemStack :
+                                list) {
+                            user.dropStack(itemStack);
                         }
                     }
                 }
             }
         }
-        stack.decrement(1);
-        return TypedActionResult.consume(stack);
     }
 
     public static String getBoosterPackID(ItemStack stack){
