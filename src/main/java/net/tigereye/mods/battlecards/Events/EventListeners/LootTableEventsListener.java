@@ -11,7 +11,7 @@ import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
-import net.tigereye.mods.battlecards.BoosterPacks.BoosterPackDropRate;
+import net.tigereye.mods.battlecards.BoosterPacks.DropRateData;
 import net.tigereye.mods.battlecards.BoosterPacks.Json.BoosterPackManager;
 import net.tigereye.mods.battlecards.registration.BCItems;
 
@@ -23,9 +23,9 @@ public class LootTableEventsListener {
         if(BoosterPackManager.lootTableInjections.isEmpty()){
             BoosterPackManager.INSTANCE.reload(resourceManager);
         }
-        List<BoosterPackDropRate> packDropRates = BoosterPackManager.lootTableInjections.get(id.toString());
+        List<DropRateData> packDropRates = BoosterPackManager.lootTableInjections.get(id.toString());
         if(packDropRates != null) {
-            for (BoosterPackDropRate data : packDropRates) {
+            for (DropRateData data : packDropRates) {
                 NbtCompound nbt = new NbtCompound();
                 nbt.putString(BoosterPackManager.ID_NBTKEY, data.id.toString());
                 LootPool.Builder poolBuilder = LootPool.builder()

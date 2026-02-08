@@ -1,7 +1,7 @@
 {
   "id": "battlecards:frozen_depths",
   "name": "deck.battlecards.frozen_depths",
-  "color": "0x506a6e",
+  "color": "506A6E",
   "cards": [
     {"id": "battlecards:basic_cards/armored", "count": 2},
     {"id": "battlecards:zombie_pack/undeath", "count": 2},

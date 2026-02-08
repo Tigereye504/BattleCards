@@ -9,7 +9,7 @@ import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.tigereye.mods.battlecards.Battlecards;
-import net.tigereye.mods.battlecards.BoosterPacks.BoosterPackDropRate;
+import net.tigereye.mods.battlecards.BoosterPacks.DropRateData;
 import net.tigereye.mods.battlecards.registration.BCItems;
 
 import java.util.HashMap;
@@ -39,8 +39,8 @@ public class BoosterPackSerializer {
                 ++i;
                 try {
                     JsonObject jObject = entry.getAsJsonObject();
-                    BoosterPackDropRate dropRate = new BoosterPackDropRate();
-                    dropRate.id = boosterPackData.id;
+                    DropRateData dropRate = new DropRateData();
+                    dropRate.id = boosterPackData.id.toString();
                     dropRate.rate = jObject.get("rate").getAsFloat();
                     dropRate.lootingRate = jObject.get("lootingRate").getAsFloat();
                     if (dropRate.rate == 0 && dropRate.lootingRate == 0) {

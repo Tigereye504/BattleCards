@@ -22,6 +22,7 @@ import net.tigereye.mods.battlecards.Items.CardfettiItem;
 import net.tigereye.mods.battlecards.Items.GeneratedCardItem;
 import net.tigereye.mods.battlecards.Items.sleeves.PennySleeveItem;
 import net.tigereye.mods.battlecards.Items.sleeves.SimpleCardSleeve;
+import net.tigereye.mods.battlecards.PrebuiltDecks.PrebuiltDeckManager;
 import net.tigereye.mods.battlecards.Recipes.PapercraftBoosterRecipe;
 import net.tigereye.mods.battlecards.Recipes.ShredCardsAndBoosterPacksRecipe;
 
@@ -71,6 +72,9 @@ public class BCItems {
                 });
                 BoosterPackManager.boosterPacks.stream().sorted().forEachOrdered((id) -> {
                     entries.add(BoosterPackManager.generateBoosterPackItemstack(id));
+                });
+                PrebuiltDeckManager.prebuiltDecks.forEach((id,deck) ->{
+                    entries.add(deck);
                 });
             }))
             .build();

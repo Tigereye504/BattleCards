@@ -2,8 +2,11 @@ package net.tigereye.mods.battlecards.Items.interfaces;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.Registries;
+import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.tigereye.mods.battlecards.StatusEffects.BCStatusEffect;
 import net.tigereye.mods.battlecards.registration.BCStatusEffects;
@@ -34,6 +37,12 @@ public interface BattleCardItem {
 
     default void setSleeve(ItemStack item, ItemStack sleeve){
         item.setSubNbt(SLEEVE_NBT, sleeve.writeNbt(new NbtCompound()));
+    }
+
+    default void setSleeve(ItemStack item, String sleeve){
+        Item sleeveItem = Registries.ITEM.get(Identifier.tryParse(sleeve));
+        item.setSubNbt(SLEEVE_NBT, sleeveItem.getDefaultStack().writeNbt(new NbtCompound()));
+        //TODO: this will need refactored to allow for data-driven sleeves.
     }
 
     default void gainMana(Entity user, ItemStack item, int amount){

@@ -10,7 +10,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.random.Random;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.BoosterPacks.BoosterPackCardList;
-import net.tigereye.mods.battlecards.BoosterPacks.BoosterPackDropRate;
+import net.tigereye.mods.battlecards.BoosterPacks.DropRateData;
 import net.tigereye.mods.battlecards.Cards.Json.CardManager;
 import net.tigereye.mods.battlecards.registration.BCItems;
 import net.tigereye.mods.battlecards.registration.BCStatusEffects;
@@ -28,7 +28,7 @@ public class BoosterPackManager implements SimpleSynchronousResourceReloadListen
     private final BoosterPackSerializer SERIALIZER = new BoosterPackSerializer();
     //the first String is the loot table that drops the booster pack, the list is the booster packs it can drop
     //The String would be an Identifier, but Maps don't properly compare them.
-    public static Map<String, List<BoosterPackDropRate>> lootTableInjections = new HashMap<>();
+    public static Map<String, List<DropRateData>> lootTableInjections = new HashMap<>();
     //The String would be an Identifier, but Maps don't properly compare them.
     public static Map<String, BoosterPackCardList> boosterPackCardList = new HashMap<>();
     public static Map<String, ItemStack> boosterPackScrapValue = new HashMap<>();
@@ -51,7 +51,7 @@ public class BoosterPackManager implements SimpleSynchronousResourceReloadListen
                 boosterPacks.add(boosterPackData.id);
                 boosterPackData.sourceLootTables.forEach((sourceID, dropRates) -> {
                     String deIdentifiedEntity = sourceID.toString();
-                    List<BoosterPackDropRate> boosterList = lootTableInjections.getOrDefault(deIdentifiedEntity, new ArrayList<>());
+                    List<DropRateData> boosterList = lootTableInjections.getOrDefault(deIdentifiedEntity, new ArrayList<>());
                     boosterList.add(dropRates);
                     lootTableInjections.put(deIdentifiedEntity, boosterList);
                 });
@@ -69,7 +69,7 @@ public class BoosterPackManager implements SimpleSynchronousResourceReloadListen
         return lootTableInjections.containsKey(id.toString());
     }
 
-    public static List<BoosterPackDropRate> getEntry(Identifier id){
+    public static List<DropRateData> getEntry(Identifier id){
         return lootTableInjections.getOrDefault(id.toString(),List.of());
     }
 

@@ -12,6 +12,7 @@ import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.Cards.BattleCard;
 import net.tigereye.mods.battlecards.Cards.BlankBattleCard;
 import net.tigereye.mods.battlecards.Cards.GeneratedBattleCard;
+import net.tigereye.mods.battlecards.PrebuiltDecks.PrebuiltDeckManager;
 import net.tigereye.mods.battlecards.registration.BCItems;
 
 import java.io.InputStream;
@@ -28,6 +29,7 @@ public class CardManager implements SimpleSynchronousResourceReloadListener {
     private static final String RESOURCE_LOCATION = "battlecard";
     public static final String ID_KEY = "battlecard";
     public static final String VARIANT_KEY = "battlecard_variant";
+    public static CardManager INSTANCE = new CardManager();
     private final CardSerializer SERIALIZER = new CardSerializer();
     public static Map<Identifier, BattleCard> GeneratedCards = new HashMap<>();
 
@@ -108,10 +110,12 @@ public class CardManager implements SimpleSynchronousResourceReloadListener {
     }
     public static ItemStack generateCardItemstack(Identifier id, Identifier varID){
         ItemStack stack = new ItemStack(BCItems.BATTLECARD);
-        NbtCompound nbt = stack.getOrCreateNbt();
-        nbt.putString(ID_KEY,id.toString());
-        if(varID != null) {
-            nbt.putString(VARIANT_KEY, varID.toString());
+        if(id != null) {
+            NbtCompound nbt = stack.getOrCreateNbt();
+            nbt.putString(ID_KEY, id.toString());
+            if (varID != null) {
+                nbt.putString(VARIANT_KEY, varID.toString());
+            }
         }
         return stack;
     }
