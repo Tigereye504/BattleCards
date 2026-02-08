@@ -8,8 +8,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
+import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalarCoordinates;
 import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.GeneratedBattleCard;
@@ -23,7 +25,6 @@ import java.util.Map;
 
 public class CardSerializer {
     private static final Map<String, CardEffectSerializer> effectSerializers = new HashMap<>();
-
 
     public CardSerializerOutput read(Identifier id, CardJsonFormat cardJson) {
         CardSerializerOutput output = new CardSerializerOutput();
@@ -181,23 +182,12 @@ public class CardSerializer {
         JsonObject obj = entry.getAsJsonObject();
         if (obj.has(name)) {
             JsonElement namedElement = obj.get(name);
-            if (namedElement.isJsonPrimitive()) {
-                try {
-                    return new ConstantScalarEffect(namedElement.getAsFloat());
-                } catch (Exception e) {
-                    Battlecards.LOGGER.error("Error reading primitive scalar in entry {} in {}!", name, id);
-                }
-            } else {
-                try {
-                    CardEffect effect = readCardEffect(namedElement, id);
-                    if (effect instanceof CardScalar scalar) {
-                        return scalar;
-                    } else {
-                        Battlecards.LOGGER.error("Non scalar CardEffect {} used as scalar in entry {} in {}!",((JsonObject)namedElement).get("effect").getAsString(), name, id);
-                    }
-                } catch (Exception e) {
-                    Battlecards.LOGGER.error("Error reading scalar in entry {} in {}!", name, id);
-                }
+            CardScalar output = readScalar(id, namedElement);
+            if (output != null) {
+                return output;
+            }
+            else{
+                Battlecards.LOGGER.error("Failed to read scalar {} in {}!",name, id);
             }
         }
         return defaultScalar;
@@ -205,6 +195,28 @@ public class CardSerializer {
 
     public static CardScalar readOrDefaultScalar(Identifier id, String name, JsonElement entry, float defaultValue) {
         return readOrDefaultScalar(id,name,entry,new ConstantScalarEffect(defaultValue));
+    }
+
+    private static CardScalar readScalar(Identifier id, JsonElement namedElement) {
+        if (namedElement.isJsonPrimitive()) {
+            try {
+                return new ConstantScalarEffect(namedElement.getAsFloat());
+            } catch (Exception e) {
+                Battlecards.LOGGER.error("Error reading primitive scalar in {}!", id);
+            }
+        } else {
+            try {
+                CardEffect effect = readCardEffect(namedElement, id);
+                if (effect instanceof CardScalar scalar) {
+                    return scalar;
+                } else {
+                    Battlecards.LOGGER.error("Non scalar CardEffect {} used as scalar in {}!",((JsonObject)namedElement).get("effect").getAsString(), id);
+                }
+            } catch (Exception e) {
+                Battlecards.LOGGER.error("Error reading scalar in {}!", id);
+            }
+        }
+        return null;
     }
 
     public static int readOrDefaultInt(Identifier id, String name, JsonElement entry, int defaultValue) {
@@ -287,6 +299,63 @@ public class CardSerializer {
             }
         }
         return defaultList;
+    }
+
+    public static List<CardScalarCoordinates> readOrDefaultCoordinatesList(Identifier id, String name, JsonElement element, ArrayList<CardScalarCoordinates> defaultList) {
+        try {
+            JsonObject obj = element.getAsJsonObject();
+            if (obj.has(name)){
+                JsonArray jsonArray = obj.get(name).getAsJsonArray();
+                ArrayList<CardScalarCoordinates> posList = new ArrayList<>();
+                int i = 0;
+                for (JsonElement entry:
+                        jsonArray) {
+                    i++;
+                    CardScalarCoordinates newCoord = readCoordinates(id,entry);
+                    if(newCoord != null) {
+                        posList.add(readCoordinates(id, entry));
+                    }
+                    else{
+                        Battlecards.LOGGER.error("Error reading block position entry {} in {} in {}",i,name,id);
+                    }
+                }
+                return posList;
+            }
+        } catch (Exception e) {
+            Battlecards.LOGGER.error("Error reading block position list {} in {}",name,id);
+        }
+        return defaultList;
+    }
+
+    private static CardScalarCoordinates readCoordinates(Identifier id, JsonElement entry) {
+        try {
+            boolean err = false;
+            JsonArray coords = entry.getAsJsonArray();
+            CardScalarCoordinates output = new CardScalarCoordinates();
+            output.x = readScalar(id,coords.get(0));
+            output.y = readScalar(id,coords.get(1));
+            output.z = readScalar(id,coords.get(2));
+            if(output.x == null){
+                Battlecards.LOGGER.error("Failed to read x coordinate in {}!", id);
+                err = true;
+            }
+            if(output.y == null){
+                Battlecards.LOGGER.error("Failed to read y coordinate in {}!", id);
+                err = true;
+            }
+            if(output.z == null){
+                Battlecards.LOGGER.error("Failed to read z coordinate in {}!", id);
+                err = true;
+            }
+            if(err){
+                return null;
+            }
+            return output;
+        }
+        catch (Exception e){
+            Battlecards.LOGGER.error("Error reading block position {}",id);
+        }
+        return null;
     }
 
     public static void registerCardEffectSerializer(String id, CardEffectSerializer serializer){

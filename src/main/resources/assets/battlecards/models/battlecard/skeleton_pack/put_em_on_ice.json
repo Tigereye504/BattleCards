@@ -1,0 +1,8 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer2": "battlecards:item/card_icons/block_projectile",
+        "layer1": "battlecards:item/skeleton_pack/put_em_on_ice",
+        "layer0": "battlecards:item/skeleton_pack/background"
+    }
+}

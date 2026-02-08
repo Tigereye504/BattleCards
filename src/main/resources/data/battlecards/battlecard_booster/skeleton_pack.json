@@ -12,7 +12,10 @@
     "battlecards:skeleton_pack/rattle_em",
     "battlecards:skeleton_pack/scamper",
     "battlecards:basic_cards/speed",
-    "battlecards:basic_cards/highstep"
+    "battlecards:basic_cards/highstep",
+    "battlecards:skeleton_pack/rattling_cold",
+    "battlecards:skeleton_pack/chilling_proposition",
+    "battlecards:skeleton_pack/put_em_on_ice"
   ],
   "rareCount": 1,
   "rareCards": [
@@ -20,6 +23,8 @@
     "battlecards:skeleton_pack/fighting_retreat",
     "battlecards:skeleton_pack/let_em_have_it",
     "battlecards:skeleton_pack/reposition",
-    "battlecards:skeleton_pack/make_your_bones"
+    "battlecards:skeleton_pack/make_your_bones",
+    "battlecards:skeleton_pack/frozen_assets",
+    "battlecards:skeleton_pack/frigid_aside"
   ]
 }

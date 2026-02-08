@@ -55,7 +55,7 @@ public class RepeatEffect implements CardEffect, CardTooltipNester {
 
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         tooltip.add(Text.literal(" ".repeat(depth)).append(
-                Text.translatable("card.battlecards.tooltip.repeat",delay.appendInlineTooltip(world, tooltip, tooltipContext))));
+                Text.translatable("card.battlecards.tooltip.repeat",count.appendInlineTooltip(world, tooltip, tooltipContext))));
         if(!effects.isEmpty()){
             for(CardEffect effect : effects){
                 if(effect instanceof CardTooltipNester nester){

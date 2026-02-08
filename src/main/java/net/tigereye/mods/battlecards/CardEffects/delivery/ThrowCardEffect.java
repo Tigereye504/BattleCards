@@ -168,7 +168,7 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
         }
         if(!onSpawnEffects.isEmpty()){
             tooltip.add(Text.literal(" ".repeat(depth)).append(
-                    Text.translatable("card.battlecards.tooltip.on_tick")));
+                    Text.translatable("card.battlecards.tooltip.on_spawn")));
             for(CardEffect effect : onSpawnEffects){
                 if(effect instanceof CardTooltipNester nester){
                     nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);
@@ -178,7 +178,7 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
         if(!onTickEffects.isEmpty()){
             tooltip.add(Text.literal(" ".repeat(depth)).append(
                     Text.translatable("card.battlecards.tooltip.on_tick")));
-            for(CardEffect effect : onEntityHitEffects){
+            for(CardEffect effect : onTickEffects){
                 if(effect instanceof CardTooltipNester nester){
                     nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);
                 }

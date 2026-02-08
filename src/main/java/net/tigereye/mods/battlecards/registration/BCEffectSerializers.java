@@ -2,6 +2,7 @@ package net.tigereye.mods.battlecards.registration;
 
 import net.tigereye.mods.battlecards.CardEffects.*;
 import net.tigereye.mods.battlecards.CardEffects.blockEffects.BlocksInDiskEffect;
+import net.tigereye.mods.battlecards.CardEffects.blockEffects.BlocksInListEffect;
 import net.tigereye.mods.battlecards.CardEffects.blockEffects.ReplaceBlockEffect;
 import net.tigereye.mods.battlecards.CardEffects.blockEffects.SnapBlockPosToSurface;
 import net.tigereye.mods.battlecards.CardEffects.delivery.EntitiesInRadiusEffect;
@@ -62,7 +63,9 @@ public class BCEffectSerializers {
         //block effects
         CardSerializer.registerCardEffectSerializer("replace_block",new ReplaceBlockEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("blocks_in_disk",new BlocksInDiskEffect.Serializer());
+        CardSerializer.registerCardEffectSerializer("blocks_in_list",new BlocksInListEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("snap_block_pos_to_surface",new SnapBlockPosToSurface.Serializer());
+        CardSerializer.registerCardEffectSerializer("despawn_card_projectile", new DespawnCardProjectileEffect.Serializer());
 
 
     }

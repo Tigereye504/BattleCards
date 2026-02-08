@@ -1,0 +1,67 @@
+{
+  "id": "battlecards:skeleton_pack/rattling_cold",
+  "quickKeywords": ["Attack","Projectile","Mana Generator"],
+  "quickComment": "3 budget, 1 damage + + 1 mana + 1 AoE",
+  "quickEffects": [
+    {
+      "effect": "repeat",
+      "delay": 5,
+      "count": 3,
+      "effects": [
+        {
+          "effect": "throw_card",
+          "speed": 3,
+          "onHit": [
+            {
+              "effect": "damage",
+              "amount": 2,
+              "damageType": "minecraft:arrow",
+              "afterDamage": [
+                {
+                  "effect": "if_scalar",
+                  "effects": [
+                    {
+                      "effect": "gain_mana",
+                      "amount": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cost": 5,
+  "chargeKeywords": ["Attack","Projectile","Status"],
+  "chargedComment": "6 budget, 5 damage + (4/2 split) status + 1 AoE",
+  "chargedComment2": "in gameplay targets consistently take 2 hits",
+  "chargeEffects": [
+    {
+      "effect": "repeat",
+      "delay": 2,
+      "count": 7,
+      "effects": [
+        {
+          "effect": "throw_card",
+          "speed": 3,
+          "divergence": 10,
+          "onHit": [
+            {
+              "effect": "damage",
+              "amount": 5.5,
+              "damageType": "minecraft:arrow"
+            },
+            {
+              "effect": "apply_status",
+              "type": "minecraft:slowness",
+              "duration": 600,
+              "magnitude": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -25,9 +25,6 @@ public class BoosterPackSerializer {
         if (bpdJson.sourceLootTables == null) {
             Battlecards.LOGGER.warn("Booster Pack " + id + " has no sourceLootTable entry");
         }
-        if (bpdJson.dropRate == 0 && bpdJson.dropRateLootingFactor == 0) {
-            Battlecards.LOGGER.warn("Booster Pack " + id + " has no chance to drop");
-        }
 
         Identifier boosterPackID = new Identifier(bpdJson.id);
         BoosterPackData boosterPackData = new BoosterPackData();
@@ -47,7 +44,7 @@ public class BoosterPackSerializer {
                     dropRate.rate = jObject.get("rate").getAsFloat();
                     dropRate.lootingRate = jObject.get("lootingRate").getAsFloat();
                     if (dropRate.rate == 0 && dropRate.lootingRate == 0) {
-                        Battlecards.LOGGER.warn("Booster Pack {} has no chance to drop from{}", id, jObject.get("id").getAsString());
+                        Battlecards.LOGGER.warn("Booster Pack {} has no chance to drop from {}", id, jObject.get("id").getAsString());
                     }
                     boosterPackData.sourceLootTables.put(new Identifier(jObject.get("id").getAsString()), dropRate);
                 } catch (Exception e) {

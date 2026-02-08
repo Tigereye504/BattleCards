@@ -1,0 +1,75 @@
+{
+  "id": "battlecards:skeleton_pack/frigid_aside",
+  "quickComment": "3 budget, 1 damage + 1 mana + 1 AoE",
+  "quickKeywords": ["Attack","Projectile","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 2,
+      "onTick": [
+        {
+          "effect": "entities_in_radius",
+          "radius": 2,
+          "targetUser": false,
+          "effects": [
+            {
+              "effect": "damage",
+              "amount": 3,
+              "damageType": "minecraft:freeze",
+              "afterDamage": [
+                {
+                  "effect": "if_scalar",
+                  "effects": [
+                    {
+                      "effect": "gain_mana",
+                      "amount": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "onCollision": [
+        {
+          "effect": "despawn_card_projectile"
+        }
+      ]
+    }
+  ],
+  "cost": 6,
+  "chargeComment": "9 budget, (4/2 split) damage + 4 status + 3 AoE",
+  "chargeKeywords": ["Attack","Projectile","Status","Area Of Effect"],
+  "chargeEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 3,
+      "onTick": [
+        {
+          "effect": "entities_in_radius",
+          "radius": 4,
+          "targetUser": false,
+          "effects": [
+            {
+              "effect": "damage",
+              "amount": 7,
+              "damageType": "minecraft:freeze"
+            },
+            {
+              "effect": "apply_status",
+              "type": "minecraft:slowness",
+              "duration": 600,
+              "magnitude": 1
+            }
+          ]
+        }
+      ],
+      "onCollision": [
+        {
+          "effect": "despawn_card_projectile"
+        }
+      ]
+    }
+  ]
+}

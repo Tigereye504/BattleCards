@@ -1,0 +1,72 @@
+{
+  "id": "battlecards:skeleton_pack/put_em_on_ice",
+  "quickComment": "3 budget, 1 damage + 1 mana + 1 AoE",
+  "quickKeywords": ["Attack","Projectile","Area Of Effect","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 2,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "apply_status",
+          "type": "minecraft:mining_fatigue",
+          "duration": 100,
+          "magnitude": 0
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 1
+        }
+      ]
+    }
+  ],
+  "cost": 4,
+  "chargeComment": "9 budget, 5 damage + 3? blocks + (2/2 split) effect",
+  "chargeKeywords": ["Attack","Projectile","World Editing"],
+  "chargeEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 2,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 7,
+          "damageType": "minecraft:freeze"
+        },
+        {
+          "effect": "blocks_in_list",
+          "blocklist": [
+            [-1,-1,-1],[-1,-1,0],[-1,-1,1],[-1,0,-1],[-1,0,0],[-1,0,1],[-1,1,-1],[-1,1,0],[-1,1,1],[-1,2,-1],[-1,2,0],[-1,2,1],
+            [0,-1,-1],[0,-1,0],[0,-1,1],[0,0,-1]        ,[0,0,1],[0,1,-1]        ,[0,1,1],[0,2,-1],[0,2,0],[0,2,1],
+            [1,-1,-1],[1,-1,0],[1,-1,1],[1,0,-1],[1,0,0],[1,0,1],[1,1,-1],[1,1,0],[1,1,1],[1,2,-1],[1,2,0],[1,2,1]
+          ],
+          "effects": [
+            {
+              "effect": "replace_block",
+              "block": "minecraft:ice",
+              "duration": {"effect": "random_scalar","minimum": 80,"maximum": 120}
+            }
+          ]
+        },
+        {
+          "effect": "push",
+          "magnitude": 0.3,
+          "pitch": 0,
+          "overrideVelocity": true,
+          "comment": "this serves to push the target into the box as they will likely be clipped into the wall otherwise"
+        },
+        {
+          "effect": "apply_status",
+          "type": "minecraft:mining_fatigue",
+          "duration": 120,
+          "magnitude": 0
+        }
+      ]
+    }
+  ]
+}

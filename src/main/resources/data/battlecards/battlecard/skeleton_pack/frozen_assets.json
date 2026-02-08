@@ -1,11 +1,24 @@
 {
-  "id": "battlecards:skeleton_pack/frozen_assets2",
-  "quickComment": "3 budget, 1 damage + 1 mana + 1 AoE",
-  "quickKeywords": ["Attack","Projectile","Area Of Effect","Mana Generator"],
+  "id": "battlecards:skeleton_pack/frozen_assets",
+  "quickComment": "5 budget (troublesome targeting for a direct attack), 1 damage + 3 mana + 1 clock",
+  "quickKeywords": ["Attack","Projectile","Mana Generator","World Editing"],
   "quickEffects": [
     {
       "effect": "throw_card",
       "speed": 1.5,
+      "onSpawn": [
+        {
+          "effect": "delay",
+          "delay": 5,
+          "after_delay": [
+            {
+              "effect": "replace_block",
+              "block": "minecraft:ice",
+              "duration": 40
+            }
+          ]
+        }
+      ],
       "onHit": [
         {
           "effect": "damage",
@@ -13,21 +26,15 @@
           "damageType": "minecraft:arrow"
         },
         {
-          "effect": "apply_status",
-          "type": "minecraft:slowness",
-          "duration": 100,
-          "magnitude": 0
-        },
-        {
           "effect": "gain_mana",
-          "amount": 1
+          "amount": 3
         }
       ]
     }
   ],
   "cost": 10,
-  "chargeComment": "13 budget, 5 damage + 4? blocks + 3 AoE - 1 disad (easy to hit self by mistake)",
-  "chargeKeywords": ["Attack","Projectile","Area Of Effect"],
+  "chargeComment": "13 budget, 8 damage + 3? blocks + 3 AoE - 1 disad (easy to hit self by mistake)",
+  "chargeKeywords": ["Attack","Projectile","Area Of Effect","World Editing"],
   "chargeEffects": [
     {
       "effect": "throw_card",
@@ -66,11 +73,20 @@
                       "originRelativeToUser": false,
                       "angleRelativeToEntity": false,
                       "velocityRelativeToEntity": false,
+                      "onSpawn": [
+                        {
+                          "effect": "delay",
+                          "delay": 20,
+                          "after_delay": [{
+                            "effect": "despawn_card_projectile"
+                          }]
+                        }
+                      ],
                       "onHit": [
                         {
                           "effect": "damage",
-                          "amount": 9,
-                          "damageType": "minecraft:arrow"
+                          "amount": 11,
+                          "damageType": "minecraft:freeze"
                         }
                       ],
                       "onCollision": [
@@ -80,6 +96,7 @@
                             {
                               "effect": "snap_block_pos_to_surface",
                               "maxBackwardDistance": 3,
+                              "maxDistance": 1,
                               "distanceFromSurface": 1,
                               "effects": [
                                 {
@@ -109,11 +126,20 @@
                       "originRelativeToUser": false,
                       "angleRelativeToEntity": false,
                       "velocityRelativeToEntity": false,
+                      "onSpawn": [
+                        {
+                          "effect": "delay",
+                          "delay": 20,
+                          "after_delay": [{
+                            "effect": "despawn_card_projectile"
+                          }]
+                        }
+                      ],
                       "onHit": [
                         {
                           "effect": "damage",
                           "amount": 13,
-                          "damageType": "minecraft:arrow"
+                          "damageType": "minecraft:freeze"
                         }
                       ],
                       "onCollision": [
@@ -123,6 +149,7 @@
                             {
                               "effect": "snap_block_pos_to_surface",
                               "maxBackwardDistance": 3,
+                              "maxDistance": 1,
                               "distanceFromSurface": 1,
                               "effects": [
                                 {
@@ -137,6 +164,9 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "effect": "despawn_card_projectile"
                 }
               ]
             }

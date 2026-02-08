@@ -119,31 +119,13 @@ C   Speed - Q: Gain Speed for 5 seconds. Gain 1 mana if you lacked Speed. A(2): 
 C   Fighting Retreat (R) - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. - A(3): Hop far back. Gain Invulnerable for .5 second. Shoot an arrow with punch 2.
 C   Reposition (R) - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. A(5): Hop back, gain Invulnerable for .5 second and Speed 3 / Step Assist for 5 seconds.
 C   Make Your Bones (R) - Q: Shoot a weak arrow, 1 mana on hit, +2 on kill. A(6): Shoot a strong arrow. On kill, Refund 4 and gain Speed 3 and Step Assist for 30 seconds.
-    Rattling Cold - slowing multishot
-    Chilling Proposition - spread of slowing arrows
-    Frigid Aside - arrow draws line of slowing damage, freeze water and lava in path
-ET  Frozen Assets - shoot an arrow that freezes into an ice block moments after firing, which then erupts into many murderous arrows
-    Put 'em on Ice - encase target in ice on hit
+E   Rattling Cold - slowing multishot
+E   Chilling Proposition - spread of slowing arrows
+ET  Frigid Aside (R) - arrow draws line of slowing damage, freeze water and lava in path
+ET  Frozen Assets (R) - shoot an arrow that freezes into an ice block moments after firing, which then erupts into many murderous arrows
+ET  Put 'em on Ice - encase target in ice on hit
 
-
- ??? (Spiders, Cave Spiders, maybe other bugs like silverfish)
- -Poison and poison interactions
-C   Poison Fang: low cost strong melee attack with poison
-C   Toxic Fang (R): moderate cost (6?), strong melee attack with deadly poison (Poison III long enough for 15 damage?)
-C   Necrotic Fang (R): deadly melee attack inflicts Instant Damage II (essentially, does the better of 14-28 melee or 12 AP damage to the target)
-C   Poison Spit: moderate projectile inflicts long poison
-C   Sticky Glob: moderate projectile inflicts long slow
-C   Caustic Goop: moderate projectile inflicts long slow and poison
-C   Spit Web: projectile creates web on hit
-C   Consume: very strong melee attack has full lifesteal if target is poisoned
-C   Devour (R): deadly melee attack has full lifesteal if target is poisoned
-C   Venomous Lunge - Q: weak melee, 2 mana - A(3): Strong, focused strike inflicts poison after lunging.
-C   Ensnaring Lunge - Q: weak melee, 2 mana - A(5): Very strong, focused strike creates web on hit after lunging.
-C   Predation (R) - Q: weak melee, 2 mana - A(8): Deadly, focused strike has full lifesteal if target is poisoned.
-  Spider Lair (R): place carpet of webs on nearby ground
-C   Jump Boost: gain jump boost
-C   Webwalking: gain Webwalking (ignore slow from webs)
-C   Spider Aspect (R): gain Speed, Webwalking, Jump Boost
+C Venom and Fang (Spiders, Cave Spiders, maybe other bugs like silverfish)
 
 TODO: design Wither and Wither Skeleton cards
 Dark Triad (Wither Skeletons, Wither)

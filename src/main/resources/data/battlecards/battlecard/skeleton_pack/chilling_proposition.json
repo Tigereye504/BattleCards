@@ -1,0 +1,62 @@
+{
+  "id": "battlecards:skeleton_pack/chilling_proposition",
+  "quickComment": "3 budget, 1 damage + 1 mana + 1 AoE",
+  "quickKeywords": ["Attack","Projectile","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "repeat",
+      "startingScalar": -15,
+      "incrementScalar": {"effect":"addition_scalar","a":15,"b":{"effect":"x_scalar"}},
+      "count": 3,
+      "effects": [
+        {
+          "effect": "throw_card",
+          "speed": 3,
+          "yaw": {"effect":"x_scalar"},
+          "onHit": [
+            {
+              "effect": "damage",
+              "amount": 4,
+              "damageType": "minecraft:arrow"
+            },
+            {
+              "effect": "gain_mana",
+              "amount": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cost": 5,
+  "chargedComment": "8 budget, 4 damage + (4/2 split) status + 2 AoE",
+  "chargeKeywords": ["Attack","Projectile","Status"],
+  "chargeEffects": [
+    {
+      "effect": "repeat",
+      "startingScalar": -20,
+      "incrementScalar": {"effect":"addition_scalar","a":10,"b":{"effect":"x_scalar"}},
+      "count": 5,
+      "effects": [
+        {
+          "effect": "throw_card",
+          "speed": 3,
+          "yaw": {"effect":"x_scalar"},
+          "onHit": [
+            {
+              "effect": "damage",
+              "amount": 9,
+              "damageType": "minecraft:arrow"
+            },
+            {
+              "effect": "apply_status",
+              "type": "minecraft:slowness",
+              "duration": 600,
+              "magnitude": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

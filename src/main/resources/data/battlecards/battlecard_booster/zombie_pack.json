@@ -1,7 +1,5 @@
 {
   "id": "battlecards:zombie_pack/booster_pack",
-  "dropRate": 0.1,
-  "dropRateLootingFactor": 0.035,
   "sourceLootTables": [
     {"id":"minecraft:entities/zombie","rate": 0.1,"lootingRate": 0.035},
     {"id":"minecraft:entities/husk","rate": 0.1,"lootingRate": 0.035},

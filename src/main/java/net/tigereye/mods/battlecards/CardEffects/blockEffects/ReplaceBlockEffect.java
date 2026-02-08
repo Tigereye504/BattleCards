@@ -5,7 +5,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.AutomaticItemPlacementContext;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -21,13 +20,14 @@ import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
-import net.tigereye.mods.battlecards.Util.DelayedAction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReplaceBlockEffect implements CardEffect, CardTooltipNester {
 
     CardScalar maxBlastRes = new ConstantScalarEffect(0);
+    boolean alwaysReplaceFluids = true;
     BlockState block = Blocks.DIRT.getDefaultState();
     CardScalar duration = new ConstantScalarEffect(0);
 
@@ -62,17 +62,17 @@ public class ReplaceBlockEffect implements CardEffect, CardTooltipNester {
     private void apply(PersistentCardEffectContext pContext, CardEffectContext context, BlockPos pos) {
         World world = pContext.user.getWorld();
         BlockState curBlock = world.getBlockState(pos);
-        if(curBlock.getBlock().getBlastResistance() <= maxBlastRes.getValue(pContext,context)) {
+        if(curBlock.getBlock().getBlastResistance() <= maxBlastRes.getValue(pContext,context) || (alwaysReplaceFluids && !curBlock.getFluidState().isEmpty())) {
             world.setBlockState(pos, block, 3);
-        }
-        if(duration.getValue(pContext,context) > 0){
-            CardEffectContext newContext = new CardEffectContext();
-            newContext.blockPos = pos;
-            ReplaceBlockEffect replaceBlockEffect = new ReplaceBlockEffect(
-                    new ConstantScalarEffect(block.getBlock().getBlastResistance()),curBlock,new ConstantScalarEffect(0));
-            IfBlockCondition ifBlockCondition = new IfBlockCondition(List.of(block.getBlock()),List.of(replaceBlockEffect),List.of());
-            DelayedEffect delay = new DelayedEffect(duration,List.of(ifBlockCondition));
-            delay.apply(pContext,newContext);
+            if(duration.getValue(pContext,context) > 0){
+                CardEffectContext newContext = new CardEffectContext();
+                newContext.blockPos = pos;
+                ReplaceBlockEffect replaceBlockEffect = new ReplaceBlockEffect(
+                        new ConstantScalarEffect(block.getBlock().getBlastResistance()),curBlock,new ConstantScalarEffect(0));
+                IfBlockCondition ifBlockCondition = new IfBlockCondition(List.of(block.getBlock()),List.of(replaceBlockEffect),List.of());
+                DelayedEffect delay = new DelayedEffect(duration,List.of(ifBlockCondition));
+                delay.apply(pContext,newContext);
+            }
         }
     }
 
@@ -93,6 +93,7 @@ public class ReplaceBlockEffect implements CardEffect, CardTooltipNester {
                     CardSerializer.readOrDefaultString(id, "block",entry,"minecraft:dirt")))
                     .getDefaultState();
             output.duration = CardSerializer.readOrDefaultScalar(id,"duration",entry,0);
+            output.alwaysReplaceFluids = CardSerializer.readOrDefaultBoolean(id,"alwaysReplaceFluids",entry,true);
             return output;
         }
     }

@@ -1,0 +1,9 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer3": "battlecards:item/rarity_mark",
+        "layer2": "battlecards:item/card_icons/projectile",
+        "layer1": "battlecards:item/skeleton_pack/frigid_aside",
+        "layer0": "battlecards:item/skeleton_pack/background"
+    }
+}

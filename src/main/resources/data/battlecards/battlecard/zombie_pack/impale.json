@@ -27,7 +27,7 @@
         {
           "effect": "damage",
           "amount": 13,
-          "damageType": "minecraft:arrow"
+          "damageType": "minecraft:trident"
         },
         {
           "effect": "push",
