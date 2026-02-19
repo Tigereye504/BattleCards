@@ -18,11 +18,13 @@
       ]
     }
   ],
-  "cost": 5,
+  "cost": 2,
+  "chargeComment": "4 melee + 2 mana budget, (4+8)/2 damage",
   "chargeKeywords": ["Attack","Melee"],
   "chargeEffects": [
     {
       "effect": "melee",
+      "isSweep": "false",
       "onHit": [
         {
           "effect": "recent_damage_scalar",
@@ -31,7 +33,7 @@
             "effect": "if_scalar",
             "effects": [{
               "effect": "damage",
-              "amount": 14,
+              "amount": 17,
               "damageType": "minecraft:player_attack"
             }],
             "falseEffects": [{

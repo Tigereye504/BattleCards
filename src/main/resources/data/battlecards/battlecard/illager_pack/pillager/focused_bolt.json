@@ -18,7 +18,8 @@
       ]
     }
   ],
-  "cost": 7,
+  "cost": 5,
+  "chargeComment": "3 + 4 self-debuff + 5 mana = 12 budget, 10 damage + (4/2 split) status",
   "chargeKeywords": ["Attack","Projectile","Status"],
   "chargeEffects": [
     {
@@ -27,6 +28,8 @@
       "count": 7,
       "startingScalar": 2,
       "incrementScalar": {"effect":"addition_scalar","a":1,"b":{"effect":"x_scalar"}},
+      "comment": "Starts at Slowness III and ramps up to Slowness IX. Slowness's effect caps at VII.",
+      "comment2": "((4+8+16+32+64+64)*5)+(64*10) = 1580 duration-cost.",
       "effects": [
         {
           "effect": "apply_status",
@@ -53,7 +56,7 @@
               "effect": "apply_status",
               "type": "battlecards:sundered",
               "magnitude": 1,
-              "duration": 200
+              "duration": 600
             }
           ]
         }

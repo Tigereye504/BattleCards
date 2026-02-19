@@ -26,7 +26,7 @@
     }
   ],
   "cost": 3,
-  "chargeComment": "(3 ranged + 5 mana) budget, 3 damage + 3 webbing",
+  "chargeComment": "(3 ranged + 3 mana) budget, 3 damage + 3 webbing",
   "chargeKeywords": ["Attack","Projectile","World Editing"],
   "chargeEffects": [
     {
@@ -51,9 +51,15 @@
           "effect": "target_tracked_entity",
           "effects": [
             {
-              "effect": "replace_block",
-              "block": "minecraft:cobweb",
-              "duration": 100
+              "effect": "blocks_in_disk",
+              "blocks": 5,
+              "effects": [
+                {
+                  "effect": "replace_block",
+                  "block": "minecraft:cobweb",
+                  "duration": {"effect": "random_scalar","minimum": 100,"maximum": 110}
+                }
+              ]
             }
           ]
         }

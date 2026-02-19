@@ -1,0 +1,147 @@
+{
+  "id": "battlecards:illager_pack/pillager/explosive_trap",
+  "quickComment": "4 (troublesome targeting) budget, 1 damage + 2 mana + 1 AoE",
+  "quickKeywords": ["Projectile","Mana Generator","World Editing"],
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 1.5,
+      "gravity": 0.01,
+      "onSpawn": [
+        {
+          "effect": "delay",
+          "delay": 3,
+          "after_delay": [
+            {
+              "effect": "target_tracked_entity",
+              "effects": [
+                {
+                  "effect": "push",
+                  "magnitude": 0,
+                  "pitch": 0,
+                  "overrideVelocity": true,
+                  "comment": "the card stalls in midair."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "effect": "delay",
+          "delay": 600,
+          "after_delay": [
+            {
+              "effect": "despawn_card_projectile"
+            }
+          ]
+        }
+      ],
+      "onTick": [
+        {
+          "effect": "entities_in_radius",
+          "radius": 1.5,
+          "targetUser": false,
+          "singularEffects": [
+            {
+              "effect": "entities_in_radius",
+              "radius": 3,
+              "targetUser": true,
+              "effects": [
+                {
+                  "effect": "damage",
+                  "amount": {"effect": "addition_scalar", "a": 10, "b":
+                  {"effect": "multiplication_scalar", "a": -3, "b":
+                  {"effect": "bounding_scalar", "low": 2, "value":
+                  {"effect":"distance_to_target_scalar","userElseTrackedEntity":false}}}},
+                  "comment": "This is 'AoE damage with falloff' - an explosion.",
+                  "comment2": "It deals 4 damage out to 2 blocks decaying to 1 damage at 3 blocks.",
+                  "damageType": "minecraft:explosion"
+                },
+                {
+                  "effect": "gain_mana",
+                  "amount": 2
+                }
+              ]
+            },
+            {
+              "effect": "despawn_card_projectile"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cost": 4,
+  "chargeComment": "4 (troublesome targeting) + 1 self-harm risk + 4 mana = 9 budget, 6 damage + 3 AoE",
+  "chargeKeywords": ["Projectile","World Editing","Status"],
+  "chargeEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 1.5,
+      "gravity": 0.01,
+      "onSpawn": [
+        {
+          "effect": "delay",
+          "delay": 3,
+          "after_delay": [
+            {
+              "effect": "target_tracked_entity",
+              "effects": [
+                {
+                  "effect": "push",
+                  "magnitude": 0,
+                  "pitch": 0,
+                  "overrideVelocity": true,
+                  "comment": "the card stalls in midair."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "effect": "delay",
+          "delay": 600,
+          "after_delay": [
+            {
+              "effect": "despawn_card_projectile"
+            }
+          ]
+        }
+      ],
+      "onTick": [
+        {
+          "comment": "This is a mine. The first 'entity in radius' check is the 'trigger', the second is the 'blast radius'",
+          "effect": "entities_in_radius",
+          "radius": 1.5,
+          "targetUser": false,
+          "singularEffects": [
+            {
+              "effect": "entities_in_radius",
+              "radius": 8,
+              "targetUser": true,
+              "effects": [
+                {
+                  "effect": "damage",
+                  "amount": {"effect": "addition_scalar", "a": 23, "b":
+                  {"effect": "multiplication_scalar", "a": -2.5, "b":
+                  {"effect": "bounding_scalar", "low": 4, "value":
+                  {"effect":"distance_to_target_scalar","userElseTrackedEntity":false}}}},
+                  "comment": "This is 'AoE damage with falloff' - an explosion.",
+                  "comment2": "It deals 13 damage out to 4 blocks decaying to 3 damage at 8 blocks.",
+                  "damageType": "minecraft:explosion"
+                }
+              ]
+            },
+            {
+              "effect": "despawn_card_projectile"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TODO": "add particle effects indicating trigger radius",
+  "TODO2": "add particle effects for explosion",
+  "TODO3": "need raycasting for entities_in_radius"
+}
+

@@ -19,6 +19,7 @@
     }
   ],
   "cost": 3,
+  "chargeComment": "6 budget, 5 damage + (2/2 split) status",
   "chargeKeywords": ["Attack","Projectile","Status"],
   "chargeEffects": [
     {
@@ -27,13 +28,13 @@
       "onHit": [
         {
           "effect": "damage",
-          "amount": 9,
+          "amount": 11,
           "damageType": "minecraft:arrow"
         },
         {
           "effect": "apply_status",
           "type": "battlecards:sundered",
-          "duration": 100
+          "duration": 300
         }
       ]
     }

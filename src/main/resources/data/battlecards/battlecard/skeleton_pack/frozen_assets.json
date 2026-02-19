@@ -33,7 +33,7 @@
     }
   ],
   "cost": 10,
-  "chargeComment": "13 budget, 8 damage + 3? blocks + 3 AoE - 1 disad (easy to hit self by mistake)",
+  "chargeComment": "3 targeting + 1 risk + 10 = 14 budget, 8 damage + 3? blocks + 3 AoE",
   "chargeKeywords": ["Attack","Projectile","Area Of Effect","World Editing"],
   "chargeEffects": [
     {

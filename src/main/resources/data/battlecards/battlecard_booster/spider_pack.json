@@ -14,6 +14,8 @@
     "battlecards:spider_pack/consume",
     "battlecards:spider_pack/venomous_lunge",
     "battlecards:spider_pack/ensnaring_lunge",
+    "battlecards:spider_pack/webwalking",
+    "battlecards:spider_pack/lay_snare",
     "battlecards:basic_cards/jump_boost",
     "battlecards:basic_cards/speed",
     "battlecards:basic_cards/night_vision"
@@ -25,6 +27,7 @@
     "battlecards:spider_pack/devour",
     "battlecards:spider_pack/predation",
     "battlecards:spider_pack/spider_lair",
-    "battlecards:spider_pack/spider_aspect"
+    "battlecards:spider_pack/spider_aspect",
+    "battlecards:spider_pack/ambush"
   ]
 }

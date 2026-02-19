@@ -14,6 +14,8 @@ This mod is problably just going to be the mechanics and projectiles and such. C
 If stuff starts acting strange, consider:
 Make CardEffects and BattleCardProjectiles NBT serializable.
 
+TODO: increase card cooldown a bit (to a half second?) and make attack speed modifiers apply to the cooldown time
+
 TODO: implement leather and copper card sleeves
 
     Leather: +25% damage, shuffled into draw pile twice when added to draw pile
@@ -132,6 +134,7 @@ Dark Triad (Wither Skeletons, Wither)
  --names come from gang-related (especially asian gang) and 'dark triad' mental trait related terms/phrases.
 ET  Rough 'em up - Q: Weak non-sweeping Melee Attack, 1 Mana on hit, inflict Slowness 1 for 5 seconds. - A(2): Weak Non-Sweeping melee attack inflicts escalating Weakness and Slowness for 5 seconds. Retain.
 
+TODO: rebalance Way of Reaping I
 The Way of Reaping I (Vindicators and Ravagers)
  --Axe pillagers use aggressive movement, trade blows, and seek revenge
  -Lunging Combo Attacks
@@ -161,13 +164,15 @@ ET  Desperation (R) - Q: Weak focused melee, mana scales with missing health - A
     Rend (R) - Q: Moderate focused melee, 2 mana - A(5): Very Strong focused melee is Catastrophic against low health targets.
 
 
+TODO: rebalance Way of Reaping II
 The Way of Reaping II (Pillagers, Witches, and Evokers)
- --Crossbow pillagers use simple, high damage crossbow bolts that shatter defenses
-Focused Bolt
-Overdraw
-Overpenetration
-Staggering Bolt
-Sundering Bolt
+ --Pillagers like to bunker down and perforate foes from a bunker
+ -low mobility, high damage bolts that shatter defenses
+    Overdraw: escalating damage buff
+    Staggering Bolt:
+    Sundering Bolt: hard hitting and shreds armor.
+ -lay traps to disrupt melee attackers
+     Explosive Trap - mine that
  --Witches..?
 XX  Overrun (see above)
 

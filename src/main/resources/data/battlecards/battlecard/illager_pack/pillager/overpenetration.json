@@ -18,7 +18,8 @@
       ]
     }
   ],
-  "cost": 7,
+  "cost": 6,
+  "chargeComment": "3 + 6 mana = 9 budget, 6 damage + (2/2 split) status + 1 AoE",
   "chargeKeywords": ["Attack","Projectile","Status"],
   "chargeEffects": [
     {
@@ -30,11 +31,11 @@
           "effect": "apply_status",
           "type": "battlecards:sundered",
           "magnitude": 1,
-          "duration": 200
+          "duration": 150
         },
         {
           "effect": "damage",
-          "amount": 14,
+          "amount": 15,
           "damageType": "minecraft:arrow"
         }
       ]

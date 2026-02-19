@@ -1,0 +1,82 @@
+{
+  "id": "battlecards:spider_pack/ambush",
+  "quickComment": "4 melee budget, (1+3)/2 damage + (1+3)/2 mana",
+  "quickKeywords": ["Attack","Melee","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "isSweep": false,
+      "onHit": [
+        {
+          "effect": "health_scalar",
+          "userElseTarget": false,
+          "absoluteElseRatio" : true,
+          "missingElseCurrent": true,
+          "effects": [
+            {
+              "effect": "if_scalar",
+              "effects": [
+                {
+                  "effect": "damage",
+                  "amount": 4,
+                  "damageType": "minecraft:player_attack"
+                },
+                {
+                  "effect": "gain_mana",
+                  "amount": 1
+                }
+              ],
+              "falseEffects": [
+                {
+                  "effect": "damage",
+                  "amount": 7,
+                  "damageType": "minecraft:player_attack"
+                },
+                {
+                  "effect": "gain_mana",
+                  "amount": 3
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "chargeKeywords": ["Attack","Melee"],
+  "chargeComment": "4 melee + 3 mana = 9 budget, ((4+10)/2) damage",
+  "chargeEffects": [
+    {
+      "effect": "melee",
+      "isSweep": false,
+      "onHit": [
+        {
+          "effect": "health_scalar",
+          "userElseTarget": false,
+          "absoluteElseRatio" : true,
+          "missingElseCurrent": true,
+          "effects": [
+            {
+              "effect": "if_scalar",
+              "effects": [
+                {
+                  "effect": "damage",
+                  "amount": 9,
+                  "damageType": "minecraft:player_attack"
+                }
+              ],
+              "falseEffects": [
+                {
+                  "effect": "damage",
+                  "amount": 20,
+                  "damageType": "minecraft:player_attack"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

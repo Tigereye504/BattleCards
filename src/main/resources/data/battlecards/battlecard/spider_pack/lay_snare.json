@@ -1,0 +1,161 @@
+{
+  "id": "battlecards:spider_pack/lay_snare",
+  "quickComment": "4 (troublesome targeting) budget, 3 web + 1 mana + 0 AoE (very unlikely to get secondary targets)",
+  "quickKeywords": ["Projectile","Mana Generator","World Editing"],
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 1.5,
+      "gravity": 0.01,
+      "onSpawn": [
+        {
+          "effect": "delay",
+          "delay": 3,
+          "after_delay": [
+            {
+              "effect": "target_tracked_entity",
+              "effects": [
+                {
+                  "effect": "push",
+                  "magnitude": 0,
+                  "pitch": 0,
+                  "overrideVelocity": true,
+                  "comment": "the card stalls in midair."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "effect": "delay",
+          "delay": 600,
+          "after_delay": [
+            {
+              "effect": "despawn_card_projectile"
+            }
+          ]
+        }
+      ],
+      "onTick": [
+        {
+          "effect": "entities_in_radius",
+          "radius": 1.5,
+          "targetUser": false,
+          "singularEffects": [
+            {
+              "effect": "gain_mana",
+              "amount": 1
+            },
+            {
+              "effect": "target_tracked_entity",
+              "effects": [
+                {
+                  "effect": "blocks_in_disk",
+                  "blocks": 5,
+                  "effects": [
+                    {
+                      "effect": "replace_block",
+                      "block": "minecraft:cobweb",
+                      "duration": {"effect": "random_scalar","minimum": 60,"maximum": 70}
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "effect": "despawn_card_projectile"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "chargeComment": "4 (troublesome targeting) + 1 self-harm risk + 3 mana = 8 budget, 2 status + 5 webbing + 1 AoE",
+  "chargeKeywords": ["Projectile","World Editing","Status"],
+  "chargeEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 1.5,
+      "gravity": 0.01,
+      "onSpawn": [
+        {
+          "effect": "delay",
+          "delay": 3,
+          "after_delay": [
+            {
+              "effect": "target_tracked_entity",
+              "effects": [
+                {
+                  "effect": "push",
+                  "magnitude": 0,
+                  "pitch": 0,
+                  "overrideVelocity": true,
+                  "comment": "the card stalls in midair."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "effect": "delay",
+          "delay": 600,
+          "after_delay": [
+            {
+              "effect": "despawn_card_projectile"
+            }
+          ]
+        }
+      ],
+      "onTick": [
+        {
+          "comment": "This is a mine. The first 'entity in radius' check is the 'trigger', the second is the 'blast radius'",
+          "effect": "entities_in_radius",
+          "radius": 1.5,
+          "targetUser": false,
+          "singularEffects": [
+            {
+              "effect": "entities_in_radius",
+              "radius": 2.5,
+              "effects": [
+                {
+                  "effect": "apply_status",
+                  "type": "minecraft:mining_fatigue",
+                  "duration": 100,
+                  "magnitude": 0
+                },
+                {
+                  "effect": "apply_status",
+                  "type": "minecraft:slowness",
+                  "duration": 100,
+                  "magnitude": 0
+                }
+              ]
+            },
+            {
+              "effect": "target_tracked_entity",
+              "effects": [
+                {
+                  "effect": "blocks_in_disk",
+                  "blocks": 13,
+                  "effects": [
+                    {
+                      "effect": "replace_block",
+                      "block": "minecraft:cobweb",
+                      "duration": {"effect": "random_scalar","minimum": 100,"maximum": 120}
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "effect": "despawn_card_projectile"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TODO": "add particle effects indicating trigger radius"
+}
+

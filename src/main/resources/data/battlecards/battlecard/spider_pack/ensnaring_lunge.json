@@ -1,7 +1,7 @@
 {
   "id": "battlecards:spider_pack/ensnaring_lunge",
   "quickComment": "4 melee budget, 1 damage + 1 status + 2 mana",
-  "quickKeywords": ["Attack","Melee","Mana Generator"],
+  "quickKeywords": ["Attack","Melee","Status","Mana Generator"],
   "quickEffects": [
     {
       "effect": "melee",
@@ -26,8 +26,8 @@
     }
   ],
   "cost": 4,
-  "chargeComment": "(4 melee + 4 mana) budget, 1 lunge + 4 damage + 3 webbing",
-  "chargeKeywords": ["Attack","Melee","Movement"],
+  "chargeComment": "(4 melee + 4 mana) budget, 1 lunge + 4 damage + (2/2 split) status + 2 webbing",
+  "chargeKeywords": ["Attack","Melee","Status","Movement"],
   "chargeEffects": [
     {
       "effect": "delay",
@@ -43,9 +43,22 @@
               "damageType": "minecraft:player_attack"
             },
             {
+              "effect": "apply_status",
+              "type": "minecraft:slowness",
+              "duration": 300,
+              "magnitude": 0
+            },
+            {
               "effect": "replace_block",
               "block": "minecraft:cobweb",
               "duration": 100
+            },
+            {
+              "effect": "push",
+              "magnitude": -0.3,
+              "pitch": 0,
+              "overrideVelocity": true,
+              "comment": "this serves to pull the target a bit into the new web, as they will likely be free of it otherwise"
             }
           ]
         }

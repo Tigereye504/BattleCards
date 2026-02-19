@@ -15,6 +15,7 @@ import net.tigereye.mods.battlecards.CardEffects.RetainCardEffect;
 import net.tigereye.mods.battlecards.Items.interfaces.BattleCardItem;
 import net.tigereye.mods.battlecards.Items.interfaces.CardOwningItem;
 import net.tigereye.mods.battlecards.StatusEffects.BCStatusEffect;
+import net.tigereye.mods.battlecards.registration.BCItems;
 import net.tigereye.mods.battlecards.registration.BCStatusEffects;
 
 import java.util.ArrayList;
@@ -97,7 +98,8 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
 
     private void activateDeck(PlayerEntity user, ItemStack deck) {
         //become active with brief cooldown (to avoid deactivating by mistake)
-        user.getItemCooldownManager().set(deck.getItem(),20);
+        user.getItemCooldownManager().set(deck.getItem(),10);
+        user.getItemCooldownManager().set(BCItems.BATTLECARD,10);
         NbtCompound nbt = deck.getOrCreateNbt();
         UUID deck_UUID = getOrCreateUUID(deck);
         //stash items from hotbar
@@ -154,20 +156,22 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
         NbtCompound nbt = deck.getOrCreateNbt();
         int curMana = user.hasStatusEffect(BCStatusEffects.MANA) ?
                 user.getStatusEffect(BCStatusEffects.MANA).getAmplifier()+1 : 0;
-        int storedMana = nbt.getInt(MANA_STORAGE_NBTKEY);
-        user.removeStatusEffect(BCStatusEffects.MANA);
+        releaseMana(user,deck);
         if(curMana > 0) {
             nbt.putInt(MANA_STORAGE_NBTKEY, curMana);
         }
-        else{
-            nbt.remove(MANA_STORAGE_NBTKEY);
-        }
+    }
+
+    private void releaseMana(PlayerEntity user, ItemStack deck){
+        NbtCompound nbt = deck.getOrCreateNbt();
+        int storedMana = nbt.getInt(MANA_STORAGE_NBTKEY);
+        user.removeStatusEffect(BCStatusEffects.MANA);
         if(storedMana > 0) {
             user.addStatusEffect(BCStatusEffect.buildGradualFalloffStatusEffectInstance(BCStatusEffects.MANA,
                     600, 200, storedMana - 1, false, false, false));
         }
+        nbt.remove(MANA_STORAGE_NBTKEY);
     }
-
     private void deactivateDeck(PlayerEntity user, ItemStack deck) {
         NbtCompound nbt = deck.getOrCreateNbt();
         //destroy all deck-owned BattleCardItems
@@ -187,9 +191,10 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
         nbt.remove(DECK_DRAWPILE_NBTKEY);
         //go on a long cooldown
         user.getItemCooldownManager().set(deck.getItem(),200);
+        user.getItemCooldownManager().set(BCItems.BATTLECARD,200);
         //release items from hotbar storage and swap mana, if active rather than paused
         if(nbt.contains(HOTBAR_STORAGE_NBTKEY)) {
-            swapMana(user,deck);
+            releaseMana(user,deck);
             releaseHotbar(user, deck);
         }
         //if paused rather than active, just forfeit the stored mana
@@ -202,7 +207,7 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
         PlayerInventory inventory = user.getInventory();
         NbtCompound nbt = deck.getOrCreateNbt();
         int oldDeckPosition = nbt.getInt(HOTBAR_POSITION_NBTKEY);
-        int deckPosition = inventory.indexOf(deck);
+        int deckPosition = inventory.getSlotWithStack(deck);
         if(oldDeckPosition >= 0 && oldDeckPosition < 9 && deckPosition >= 0 && deckPosition < 9){
             inventory.removeStack(deckPosition);
         }
@@ -232,6 +237,8 @@ public class BattlecardsDeckItem extends BattlecardBundleItem implements Dyeable
     }
 
     private void pauseDeck(PlayerEntity user, ItemStack deck) {
+        user.getItemCooldownManager().set(deck.getItem(),10);
+        user.getItemCooldownManager().set(BCItems.BATTLECARD,10);
         //to pause a deck, we must find our owned cards and put them back on top of the deck to redraw
         NbtCompound nbt = deck.getOrCreateNbt();
         PlayerInventory inv = user.getInventory();

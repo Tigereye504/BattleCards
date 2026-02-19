@@ -1,0 +1,25 @@
+{
+  "id": "battlecards:midnight_assault",
+  "name": "deck.battlecards.midnight_assault",
+  "color": "7A687F",
+  "comment": "This deck uses cards primarily from Pillagers and Spiders. It has large and conditional attacks.",
+  "cards": [
+    {"id": "battlecards:basic_cards/jump_boost", "count": 2},
+    {"id": "battlecards:spider_pack/webwalking", "count": 2},
+    {"id": "battlecards:basic_cards/night_vision", "count": 2},
+    {"id": "battlecards:spider_pack/spider_aspect", "sleeve": "battlecards:sleeve/redstone", "count": 1},
+    {"id": "battlecards:spider_pack/venomous_lunge", "count": 2},
+    {"id": "battlecards:illager_pack/johnny/revenge", "count": 2},
+    {"id": "battlecards:spider_pack/consume", "count": 2},
+    {"id": "battlecards:spider_pack/ambush", "sleeve": "battlecards:sleeve/iron", "count": 1},
+    {"id": "battlecards:illager_pack/shrapnel_mine", "count": 2},
+    {"id": "battlecards:illager_pack/pillager/overdraw", "count": 2},
+    {"id": "battlecards:spider_pack/lay_snare", "count": 2},
+    {"id": "battlecards:illager_pack/pillager/focused_bolt", "sleeve": "battlecards:sleeve/iron", "count": 1}
+  ],
+  "sourceLootTables": [
+    {"id": "minecraft:chests/simple_dungeon", "rate": 0.5},
+    {"id": "minecraft:chests/pillager_outpost", "rate": 1},
+    {"id": "minecraft:chests/abandoned_mineshaft", "rate": 0.5}
+  ]
+}

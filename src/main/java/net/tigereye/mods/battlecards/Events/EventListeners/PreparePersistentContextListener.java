@@ -2,6 +2,7 @@ package net.tigereye.mods.battlecards.Events.EventListeners;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
@@ -11,6 +12,7 @@ import net.tigereye.mods.battlecards.Items.interfaces.CardSleeve;
 import net.tigereye.mods.battlecards.StatusEffects.BCStatusEffect;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class PreparePersistentContextListener {
@@ -34,6 +36,14 @@ public class PreparePersistentContextListener {
             if(sleeveStack.getItem() instanceof CardSleeve sleeve){
                 sleeve.preparePersistentContext(pContext,user,sleeveStack,quickElseCharge);
             }
+        }
+    }
+
+    public static void applyAttackDamageAttribute(PersistentCardEffectContext pContext, Entity user, boolean quickElseCharge) {
+        Collection<String> keywords = quickElseCharge ? pContext.card.getQuickKeywords() : pContext.card.getChargeKeywords();
+        if(user instanceof LivingEntity lEntity && keywords.contains("Attack")){
+            pContext.modifyDamageCallbacks.add((pContext2, target2, context, amount)
+                    -> (float) (amount + lEntity.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE)));
         }
     }
 }

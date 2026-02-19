@@ -75,6 +75,7 @@
   "card.battlecards.tooltip.if_block.false": "If block is not %s:",
   "card.battlecards.tooltip.if_scalar": "If X is %s %d:",
   "card.battlecards.tooltip.radius": "Entities within a %d block radius %s:",
+  "card.battlecards.tooltip.radius.singular": "If entity within a %d block radius %s:",
   "card.battlecards.tooltip.retain": "Retain this card",
   "card.battlecards.tooltip.repeat": "Repeat %s Times:",
   "card.battlecards.tooltip.target_projectile": "Projectile:",
@@ -210,7 +211,6 @@
   "card.battlecards.zombie_pack/worthless_flesh": "Worthless Flesh",
   "card.battlecards.zombie_pack/worthless_flesh.quick": "Gain Armored I for 5 seconds.",
   "card.battlecards.zombie_pack/worthless_flesh.charge": "Gain Armored III and Reinforced III for 15 seconds.",
-  "deck.battlecards.frozen_depths": "Frozen Depths",
 
   "boosterpack.battlecards.skeleton_pack/booster_pack": "Deadfellows",
   "card.battlecards.skeleton_pack/chilling_proposition": "Chilling Proposition",
@@ -260,6 +260,9 @@
   "card.battlecards.skeleton_pack/scamper.charge": "Gain Speed II and Highstep I for 10 seconds.",
 
   "boosterpack.battlecards.spider_pack/booster_pack": "Venom and Silk",
+  "card.battlecards.spider_pack/ambush": "Ambush",
+  "card.battlecards.spider_pack/ambush.quick": "Weak focused melee for 1 mana, Strong for 3 mana if target is full health.",
+  "card.battlecards.spider_pack/ambush.charge": "Very Strong focused melee weakens target and self, Catastrophic vs full health.",
   "card.battlecards.spider_pack/caustic_goop": "Caustic Goop",
   "card.battlecards.spider_pack/caustic_goop.quick": "Projectile grants 1 mana, Briefly slows and poisons.",
   "card.battlecards.spider_pack/caustic_goop.charge": "Moderate projectile applies Slow II and Poison for 30 seconds.",
@@ -272,6 +275,9 @@
   "card.battlecards.spider_pack/ensnaring_lunge": "Ensnaring Lunge",
   "card.battlecards.spider_pack/ensnaring_lunge.quick": "Weak focused melee grants 2 mana and slows target.",
   "card.battlecards.spider_pack/ensnaring_lunge.charge": "Very Strong, focused, lunging melee ensnares target in cobwebs.",
+  "card.battlecards.spider_pack/lay_snare": "Lay Snare",
+  "card.battlecards.spider_pack/lay_snare.quick": "Set snare that produces a short lived small web and 1 mana.",
+  "card.battlecards.spider_pack/lay_snare.charge": "Set snare that produces a large web.",
   "card.battlecards.spider_pack/necrotic_fang": "Necrotic Fang",
   "card.battlecards.spider_pack/necrotic_fang.quick": "Weak focused melee grants 2 mana, briefly poisons target.",
   "card.battlecards.spider_pack/necrotic_fang.charge": "Very Deadly focused melee inflicts Instant Damage II.",
@@ -286,7 +292,7 @@
   "card.battlecards.spider_pack/spider_aspect.charge": "Gain Webwalking, Jump Boost, and Speed for 60 seconds.",
   "card.battlecards.spider_pack/spider_lair": "The Spider's Net",
   "card.battlecards.spider_pack/spider_lair.quick": "Create a single cobweb on self.",
-  "card.battlecards.spider_pack/spider_lair.charge": "Create a large, temporary web centered on self.",
+  "card.battlecards.spider_pack/spider_lair.charge": "Create a huge web centered on self.",
   "card.battlecards.spider_pack/spit_poison": "Spit Poison",
   "card.battlecards.spider_pack/spit_poison.quick": "Projectile grants 1 mana and poisons.",
   "card.battlecards.spider_pack/spit_poison.charge": "Moderate projectile poisons target for 45 seconds.",
@@ -374,6 +380,9 @@
   "card.battlecards.skeleton_pack/rough_em_up.charge": "Weak non-sweeping melee, inflict escalating Weakness and Slowness for 5 seconds. Retain.",
 
   "boosterpack.battlecards.illager_pack/pillager/booster_pack": "Way of Reaping II",
+  "card.battlecards.illager_pack/pillager/explosive_trap": "Explosive Trap",
+  "card.battlecards.illager_pack/pillager/explosive_trap.quick": "Weak explosive trap generates 2 mana.",
+  "card.battlecards.illager_pack/pillager/explosive_trap.charge": "Deadly, eight block radius explosive trap.",
   "card.battlecards.illager_pack/pillager/focused_bolt": "Focused Bolt",
   "card.battlecards.illager_pack/pillager/focused_bolt.quick": "Moderate projectile generates 1 mana.",
   "card.battlecards.illager_pack/pillager/focused_bolt.charge": "aim for two seconds, then fire projectile which causes catastrophic harm.",
@@ -383,12 +392,15 @@
   "card.battlecards.illager_pack/pillager/overpenetration": "Overpenetration",
   "card.battlecards.illager_pack/pillager/overpenetration.quick": "Moderate projectile generates 1 mana.",
   "card.battlecards.illager_pack/pillager/overpenetration.charge": "Deadly projectile penetrates, first inflicting Sundered 2 for 10 seconds.",
+  "card.battlecards.illager_pack/pillager/shrapnel_mine": "Shrapnel Mine",
+  "card.battlecards.illager_pack/pillager/shrapnel_mine.quick": "Trap sprays Weak bolts which generate 2 mana.",
+  "card.battlecards.illager_pack/pillager/shrapnel_mine.charge": "Trap sprays many Very Strong, Sundering bolts.",
   "card.battlecards.illager_pack/pillager/staggering_bolt": "Staggering Bolt",
   "card.battlecards.illager_pack/pillager/staggering_bolt.quick": "Moderate projectile generates 1 mana.",
-  "card.battlecards.illager_pack/pillager/staggering_bolt.charge": "Very strong projectile staggers target.",
+  "card.battlecards.illager_pack/pillager/staggering_bolt.charge": "Strong projectile staggers target.",
   "card.battlecards.illager_pack/pillager/sundering_bolt": "Sundering Bolt",
   "card.battlecards.illager_pack/pillager/sundering_bolt.quick": "Moderate projectile generates 1 mana.",
-  "card.battlecards.illager_pack/pillager/sundering_bolt.charge": "Very strong projectile inflicts Sundered 1 for 5 seconds.",
+  "card.battlecards.illager_pack/pillager/sundering_bolt.charge": "Extremely strong projectile inflicts Sundered for 15 seconds.",
 
   "boosterpack.battlecards.illager_pack/johnny/booster_pack": "Way of Reaping I",
   "card.battlecards.illager_pack/johnny/blood_for_blood": "Blood for Blood",
@@ -418,5 +430,8 @@
 
   "boosterpack.battlecards.villager_pack/booster_pack": "Way of Sowing",
   "text.autoconfig.battlecards.BOOSTER_PACK_BASE_UPGRADE_CHANCE": "Booster Pack Base Card Rarity Upgrade Chance",
-  "text.autoconfig.battlecards.BOOSTER_PACK_LUCK_SCALING_UPGRADE_CHANCE": "Booster Pack Luck Scaling Card Rarity Upgrade Chance"
+  "text.autoconfig.battlecards.BOOSTER_PACK_LUCK_SCALING_UPGRADE_CHANCE": "Booster Pack Luck Scaling Card Rarity Upgrade Chance",
+
+  "deck.battlecards.frozen_depths": "Frozen Depths",
+  "deck.battlecards.midnight_assault": "Midnight Assault"
 }

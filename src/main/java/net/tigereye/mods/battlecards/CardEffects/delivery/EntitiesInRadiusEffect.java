@@ -25,6 +25,7 @@ import java.util.List;
 public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
 
     List<CardEffect> effects = new ArrayList<>();
+    List<CardEffect> singularEffects = new ArrayList<>();
     CardScalar radius = new ConstantScalarEffect(1);
     boolean targetUser = false;
     boolean sphereElseCylinder = false;
@@ -34,6 +35,9 @@ public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
     }
     public void addEffectsOnEntityInRange(List<CardEffect> effects){
         this.effects.addAll(effects);
+    }
+    public void addSingularEffects(List<CardEffect> effects){
+        this.singularEffects.addAll(effects);
     }
 
     @Override
@@ -59,6 +63,7 @@ public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
         List<LivingEntity> entityList = pContext.user.getWorld().getNonSpectatingEntities(LivingEntity.class,
                 box);
         double radiusSquared = radius*radius;
+        boolean atLeastOneHit = false;
         for(LivingEntity entity: entityList){
             if(!targetUser && entity == pContext.user){
                 continue;
@@ -73,6 +78,7 @@ public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
                 inRange = (diffX*diffX)+(diffY*diffY) < radiusSquared;
             }
             if(inRange){
+                atLeastOneHit = true;
                 CardEffectContext newContext = context.clone();
                 newContext.target = entity;
                 for (CardEffect effect : effects) {
@@ -80,14 +86,30 @@ public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
                 }
             }
         }
+        if(atLeastOneHit){
+            CardEffectContext newContext = context.clone();
+            for (CardEffect effect : singularEffects) {
+                effect.apply(pContext, newContext);
+            }
+        }
     }
 
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
-        tooltip.add(Text.literal(" ".repeat(depth)).append(
+        if(!effects.isEmpty()){
+            tooltip.add(Text.literal(" ".repeat(depth)).append(
                 Text.translatable("card.battlecards.tooltip.radius",radius.appendInlineTooltip(world,tooltip,tooltipContext),
                         sphereElseCylinder ? "sphere" : "cylinder")));
-        if(!effects.isEmpty()){
             for(CardEffect effect : effects){
+                if(effect instanceof CardTooltipNester nester){
+                    nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);
+                }
+            }
+        }
+        if(!singularEffects.isEmpty()){
+            tooltip.add(Text.literal(" ".repeat(depth)).append(
+                    Text.translatable("card.battlecards.tooltip.radius.singular",radius.appendInlineTooltip(world,tooltip,tooltipContext),
+                            sphereElseCylinder ? "sphere" : "cylinder")));
+            for(CardEffect effect : singularEffects){
                 if(effect instanceof CardTooltipNester nester){
                     nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);
                 }
@@ -101,10 +123,11 @@ public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
             EntitiesInRadiusEffect output = new EntitiesInRadiusEffect();
             output.radius = CardSerializer.readOrDefaultScalar(id,"radius",entry,1f);
             output.targetUser = CardSerializer.readOrDefaultBoolean(id,"targetUser",entry,false);
-            output.sphereElseCylinder = CardSerializer.readOrDefaultBoolean(id,"sphereElseCylinder",entry,false);
+            output.sphereElseCylinder = CardSerializer.readOrDefaultBoolean(id,"sphereElseCylinder",entry,true);
             output.addEffectsOnEntityInRange(CardSerializer.readCardEffects(id, "effects",entry));
-            if (output.effects.isEmpty()) {
-                Battlecards.LOGGER.error("no effects on entities in radius in {}!",id);
+            output.addSingularEffects(CardSerializer.readCardEffects(id, "singularEffects",entry));
+            if (output.effects.isEmpty() && output.singularEffects.isEmpty()) {
+                Battlecards.LOGGER.error("no effects for entities in radius effect in {}!",id);
             }
             return output;
         }

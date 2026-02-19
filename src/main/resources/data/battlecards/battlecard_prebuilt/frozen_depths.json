@@ -2,10 +2,11 @@
   "id": "battlecards:frozen_depths",
   "name": "deck.battlecards.frozen_depths",
   "color": "506A6E",
+  "comment": "This deck uses cards primarily from Drowned and Strays. It has slowing and placing ice as themes.",
   "cards": [
     {"id": "battlecards:basic_cards/armored", "count": 2},
-    {"id": "battlecards:zombie_pack/undeath", "count": 2},
-    {"id": "battlecards:basic_cards/breathless", "count": 2},
+    {"id": "battlecards:zombie_pack/persistence", "count": 2},
+    {"id": "battlecards:zombie_pack/breathless", "count": 2},
     {"id": "battlecards:zombie_pack/ignore_wounds", "sleeve": "battlecards:sleeve/gold", "count": 1},
     {"id": "battlecards:zombie_pack/choke", "count": 2},
     {"id": "battlecards:zombie_pack/drag_down", "count": 2},
@@ -14,7 +15,7 @@
     {"id": "battlecards:skeleton_pack/put_em_on_ice", "count": 2},
     {"id": "battlecards:skeleton_pack/chilling_proposition", "count": 2},
     {"id": "battlecards:skeleton_pack/rattling_cold", "count": 2},
-    {"id": "battlecards:skeleton_pack/frigid_aside", "sleeve": "battlecards:sleeve/iron", "count": 1}
+    {"id": "battlecards:spider_pack/ambush", "sleeve": "battlecards:sleeve/iron", "count": 1}
   ],
   "sourceLootTables": [
     {"id": "minecraft:chests/shipwreck_treasure", "rate": 0.35},

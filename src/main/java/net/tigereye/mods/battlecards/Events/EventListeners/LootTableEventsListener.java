@@ -13,6 +13,7 @@ import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.tigereye.mods.battlecards.BoosterPacks.DropRateData;
 import net.tigereye.mods.battlecards.BoosterPacks.Json.BoosterPackManager;
+import net.tigereye.mods.battlecards.PrebuiltDecks.PrebuiltDeckManager;
 import net.tigereye.mods.battlecards.registration.BCItems;
 
 import java.util.List;
@@ -33,6 +34,24 @@ public class LootTableEventsListener {
                         .rolls(ConstantLootNumberProvider.create(1))
                         .with(ItemEntry.builder(BCItems.BOOSTER_PACK)
                                 .apply(SetNbtLootFunction.builder(nbt)));
+
+                supplier.pool(poolBuilder);
+            }
+        }
+    }
+
+    public static void injectPrebuiltDecks(ResourceManager resourceManager, LootManager lootManager, Identifier id, LootTable.Builder supplier, LootTableSource setter){
+        if(PrebuiltDeckManager.lootTableInjections.isEmpty()){
+            PrebuiltDeckManager.INSTANCE.reload(resourceManager);
+        }
+        List<DropRateData> packDropRates = PrebuiltDeckManager.lootTableInjections.get(id.toString());
+        if(packDropRates != null) {
+            for (DropRateData data : packDropRates) {
+                LootPool.Builder poolBuilder = LootPool.builder()
+                        .conditionally(RandomChanceWithLootingLootCondition.builder(data.rate, data.lootingRate))
+                        .rolls(ConstantLootNumberProvider.create(1))
+                        .with(ItemEntry.builder(BCItems.DECK)
+                                .apply(SetNbtLootFunction.builder(PrebuiltDeckManager.prebuiltDecks.get(data.id).getNbt())));
 
                 supplier.pool(poolBuilder);
             }

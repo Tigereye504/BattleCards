@@ -9,9 +9,11 @@ public class BCListeners {
     public static void register(){
         ServerLivingEntityEvents.ALLOW_DEATH.register(OnDeathListener::checkStatusEffectsAllowDeath);
         LootTableEvents.MODIFY.register(LootTableEventsListener::injectBoosterPacks);
+        LootTableEvents.MODIFY.register(LootTableEventsListener::injectPrebuiltDecks);
 
         PreparePersistentContextCallback.EVENT.register(PreparePersistentContextListener::applySleeve);
         PreparePersistentContextCallback.EVENT.register(PreparePersistentContextListener::applyStatusEffects);
+        PreparePersistentContextCallback.EVENT.register(PreparePersistentContextListener::applyAttackDamageAttribute);
 
         DamageCardEffectCallback.EVENT.register(DamageCardEffectListener::applyPersistentContext);
         StatusEffectCardEffectCallback.EVENT.register(StatusEffectCardEffectListener::applyPersistentContext);

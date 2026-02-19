@@ -58,11 +58,12 @@ Cost targets for charge effects:
 'deadly'          - 6 - crit str axe.   13          19.5       ~*26*~      ~*29.5*~ dmg
 'very deadly'     - 7 - crit str II,axe 15          *22.5*      ~*30*~      ~*33.75*~ dmg
 'extremely deadly'- 8 -                 17          25.5        34          ~*38.25*~ dmg
-'catastrophic'    - 10 - iron golem     *20*        ~*30*~      **40**      **45** dmg
-**                  +1                  +2          +3          +4          +4.5 dmg
+'catastrophic'**  - 10 - iron golem     *20*        ~*30*~      **40**      **45** dmg
+***                 +1                  +2          +3          +4          +4.5 dmg
 *'light' and 'very weak' damage should only be for special cases, like multi-hits, 'pinpricks', or advantaged damage types
-** cards should not hit this hard without extreme conditions.
-** These values are mostly for determining the cost of advantaged damage types.
+** cards should not hit this card without meeting significant conditions first.
+*** cards should not hit this hard without extreme conditions.
+*** These values are for determining the cost of advantaged damage types.
 
 When inflicting a variable amount, use the average expected result.
 If a card does damage to the same target multiple times, sum the damage instances together to determine the mana point value.

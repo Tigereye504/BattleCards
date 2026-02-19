@@ -19,12 +19,12 @@
     }
   ],
   "cost": 3,
+  "chargeComment": "3 + 3 mana = 6 budget, (3/2 split) damage + 3.5 status + 1 push",
   "chargeKeywords": ["Attack","Projectile","Status"],
   "chargeEffects": [
     {
       "effect": "throw_card",
       "speed": 3,
-      "piercing": 4,
       "onHit": [
         {
           "effect": "damage",
@@ -35,12 +35,12 @@
           "effect": "apply_status",
           "type": "minecraft:slowness",
           "magnitude": 3,
-          "duration": 10
+          "duration": 40
         },
         {
           "effect": "apply_status",
           "type": "minecraft:blindness",
-          "duration": 10
+          "duration": 40
         },
         {
           "effect": "push",
