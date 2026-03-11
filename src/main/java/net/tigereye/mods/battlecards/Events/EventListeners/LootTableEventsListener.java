@@ -28,13 +28,12 @@ public class LootTableEventsListener {
         if(packDropRates != null) {
             for (DropRateData data : packDropRates) {
                 NbtCompound nbt = new NbtCompound();
-                nbt.putString(BoosterPackManager.ID_NBTKEY, data.id.toString());
+                nbt.putString(BoosterPackManager.ID_NBTKEY, data.id);
                 LootPool.Builder poolBuilder = LootPool.builder()
-                        .conditionally(RandomChanceWithLootingLootCondition.builder(data.rate, data.lootingRate))
-                        .rolls(ConstantLootNumberProvider.create(1))
+                        .rolls(ConstantLootNumberProvider.create(data.rolls))
                         .with(ItemEntry.builder(BCItems.BOOSTER_PACK)
+                                .conditionally(RandomChanceWithLootingLootCondition.builder(data.rate, data.lootingRate))
                                 .apply(SetNbtLootFunction.builder(nbt)));
-
                 supplier.pool(poolBuilder);
             }
         }
@@ -48,11 +47,10 @@ public class LootTableEventsListener {
         if(packDropRates != null) {
             for (DropRateData data : packDropRates) {
                 LootPool.Builder poolBuilder = LootPool.builder()
-                        .conditionally(RandomChanceWithLootingLootCondition.builder(data.rate, data.lootingRate))
-                        .rolls(ConstantLootNumberProvider.create(1))
+                        .rolls(ConstantLootNumberProvider.create(data.rolls))
                         .with(ItemEntry.builder(BCItems.DECK)
+                                .conditionally(RandomChanceWithLootingLootCondition.builder(data.rate, data.lootingRate))
                                 .apply(SetNbtLootFunction.builder(PrebuiltDeckManager.prebuiltDecks.get(data.id).getNbt())));
-
                 supplier.pool(poolBuilder);
             }
         }

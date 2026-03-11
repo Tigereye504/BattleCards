@@ -1,0 +1,46 @@
+{
+  "id": "battlecards:illager_pack/johnny/catch_breath",
+  "quickKeywords": ["Healing"],
+  "quickEffects": [
+    {
+      "effect": "absorption_scalar",
+      "effects": [
+        {
+          "effect": "if_scalar",
+          "amount": 2,
+          "greaterElseLesser": false,
+          "effects": [
+            {
+              "effect": "modify_absorption",
+              "modifyElseSet": false,
+              "amount": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "chargeComment": "1 self-targeting + 3 mana = 4 budget, 4 absorption",
+  "chargeKeywords": ["Healing"],
+  "chargeEffects": [
+
+    {
+      "effect": "absorption_scalar",
+      "effects": [
+        {
+          "effect": "if_scalar",
+          "amount": 8,
+          "greaterElseLesser": false,
+          "effects": [
+            {
+              "effect": "modify_absorption",
+              "modifyElseSet": false,
+              "amount": 8
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "id": "battlecards:illager_pack/johnny/reckless_strike",
+  "quickComment": "4 melee budget, 1 damage + 2 status + 1 mana",
+  "quickKeywords": ["Attack","Melee","Mana Generator","Status"],
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "isSweep": "false",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 5,
+          "damageType": "minecraft:player_attack"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 2
+        }
+      ]
+    }
+  ],
+  "cost": 5,
+  "chargeComment": "4 melee + 5 mana + 1 (likely gets self hurt) = 10 budget, 5 damage + 2 Refund + 1 Retain + 1 lunge",
+  "chargeKeywords": ["Attack","Melee","Movement"],
+  "chargeEffects": [
+    {
+      "effect": "target_user",
+      "effects": [
+        {
+          "effect": "push",
+          "magnitude": 1.2,
+          "pitch": 10,
+          "absolutePitch": true,
+          "overrideVelocity": true,
+          "applyKnockbackRes" : false
+        }
+      ]
+    },
+    {
+      "effect": "delay",
+      "delay": 8,
+      "after_delay": [
+        {
+          "effect": "melee",
+          "isSweep": false,
+          "onHit": [
+            {
+              "effect": "damage",
+              "amount": 13,
+              "damageType": "minecraft:player_attack"
+            },
+            {
+              "effect": "gain_mana",
+              "amount": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "effect": "retain"
+    }
+  ]
+}

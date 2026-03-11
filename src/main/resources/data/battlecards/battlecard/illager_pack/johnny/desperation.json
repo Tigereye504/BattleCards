@@ -31,6 +31,7 @@
     }
   ],
   "cost": 8,
+  "chargeComment": "4 + 1 self-harm + 8 mana = 13 budget, 9 damage + (6/2 split) status",
   "chargeKeywords": ["Attack","Melee","Status"],
   "chargeEffects": [
     {

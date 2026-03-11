@@ -2,21 +2,22 @@
   "id": "battlecards:illager_pack/johnny/booster_pack",
   "sourceLootTables": [
     {"id":"minecraft:entities/vindicator","rate": 0.1,"lootingRate": 0.035},
-    {"id":"minecraft:entities/ravager","rate": 0.1,"lootingRate": 0.035}
+    {"id":"minecraft:entities/ravager","rate": 0.3,"lootingRate": 0.1},
+    {"id": "minecraft:chests/pillager_outpost", "rate": 0.125, "rolls": 16}
   ],
   "commonCount": 4,
   "commonCards": [
     "battlecards:illager_pack/johnny/blood_for_blood",
     "battlecards:illager_pack/johnny/catch_breath",
-    "battlecards:illager_pack/johnny/crush",
+    "battlecards:illager_pack/johnny/crushing_iron",
+    "battlecards:illager_pack/johnny/split",
     "battlecards:illager_pack/johnny/follow_up",
-    "battlecards:illager_pack/johnny/guarded_strike",
+    "battlecards:illager_pack/johnny/tenacity",
     "battlecards:illager_pack/johnny/reckless_strike",
-    "battlecards:illager_pack/johnny/rend",
     "battlecards:illager_pack/johnny/revenge",
     "battlecards:illager_pack/johnny/shoulder_check",
-    "battlecards:illager_pack/johnny/stability",
-    "battlecards:illager_pack/johnny/uppercut"
+    "battlecards:illager_pack/johnny/uppercut",
+    "battlecards:basic_cards/stability"
   ],
   "rareCount": 1,
   "rareCards": [
@@ -24,6 +25,7 @@
     "battlecards:illager_pack/johnny/fearlessness",
     "battlecards:illager_pack/johnny/longsword",
     "battlecards:illager_pack/johnny/overrun",
+    "battlecards:illager_pack/johnny/rend_in_twain",
     "battlecards:illager_pack/johnny/yield_your_flesh"
   ]
 }

@@ -1,0 +1,20 @@
+{
+  "id": "battlecards:illager_pack/pillager/booster_pack",
+  "sourceLootTables": [
+    {"id":"minecraft:entities/pillager","rate": 0.1,"lootingRate": 0.035},
+    {"id": "minecraft:chests/pillager_outpost", "rate": 0.125, "rolls": 16}
+  ],
+  "commonCount": 4,
+  "commonCards": [
+    "battlecards:illager_pack/pillager/overdraw",
+    "battlecards:illager_pack/pillager/overpenetration",
+    "battlecards:illager_pack/pillager/shrapnel_mine",
+    "battlecards:illager_pack/pillager/staggering_bolt",
+    "battlecards:illager_pack/pillager/sundering_bolt"
+  ],
+  "rareCount": 1,
+  "rareCards": [
+    "battlecards:illager_pack/pillager/focused_bolt",
+    "battlecards:illager_pack/pillager/explosive_trap"
+  ]
+}

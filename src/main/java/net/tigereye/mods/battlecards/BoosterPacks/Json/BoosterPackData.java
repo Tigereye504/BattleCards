@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class BoosterPackData {
     public Identifier id;
-    public Map<Identifier, DropRateData> sourceLootTables;
+    public Map<String, DropRateData> sourceLootTables;
     public ItemStack scrapValue;
     public int commonCount;
     public int rareCount;

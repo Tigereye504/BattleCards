@@ -1,0 +1,22 @@
+{
+  "id": "battlecards:basic_cards/stability",
+  "quickKeywords": ["Status"],
+  "quickEffects": [
+    {
+      "effect": "apply_status",
+      "type": "battlecards:stability",
+      "duration": 100,
+      "magnitude": 0
+    }
+  ],
+  "cost": 2,
+  "chargedKeywords": ["Status"],
+  "chargeEffects": [
+    {
+      "effect": "apply_status",
+      "type": "battlecards:stability",
+      "duration": 600,
+      "magnitude": 0
+    }
+  ]
+}

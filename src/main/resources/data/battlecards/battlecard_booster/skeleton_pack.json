@@ -2,7 +2,11 @@
   "id": "battlecards:skeleton_pack/booster_pack",
   "sourceLootTables": [
     {"id":"minecraft:entities/skeleton","rate": 0.1,"lootingRate": 0.035},
-    {"id":"minecraft:entities/stray","rate": 0.1,"lootingRate": 0.035}
+    {"id":"minecraft:entities/stray","rate": 0.1,"lootingRate": 0.035},
+    {"id": "minecraft:chests/simple_dungeon", "rate": 0.125, "rolls": 12},
+    {"id": "minecraft:chests/abandoned_mineshaft", "rate": 0.125, "rolls": 8},
+    {"id": "minecraft:chests/desert_pyramid", "rate": 0.125, "rolls": 8},
+    {"id": "minecraft:chests/igloo_treasure", "rate": 0.125, "rolls": 16}
   ],
   "commonCount": 4,
   "commonCards": [

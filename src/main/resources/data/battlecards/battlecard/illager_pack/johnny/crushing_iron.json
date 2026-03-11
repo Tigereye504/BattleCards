@@ -1,0 +1,54 @@
+{
+  "id": "battlecards:illager_pack/johnny/crushing_iron",
+  "quickKeywords": ["Attack","Melee","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "isSweep": "false",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:player_attack"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 2
+        }
+      ]
+    }
+  ],
+  "cost": 8,
+  "chargeComment": "4 + 8 mana = 12 budget, 7 damage + 5 healing",
+  "chargeKeywords": ["Attack","Melee","Healing"],
+  "chargeEffects": [
+    {
+      "effect": "melee",
+      "isSweep": "false",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 15,
+          "damageType": "minecraft:player_attack"
+        },
+        {
+          "effect": "target_user",
+          "effects": [
+            {
+              "effect": "if_scalar",
+              "amount": 10,
+              "greaterElseLesser": false,
+              "effects": [
+                {
+                  "effect": "modify_absorption",
+                  "modifyElseSet": false,
+                  "amount": 10
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

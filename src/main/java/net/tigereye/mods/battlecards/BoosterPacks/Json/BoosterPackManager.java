@@ -50,10 +50,9 @@ public class BoosterPackManager implements SimpleSynchronousResourceReloadListen
                 BoosterPackData boosterPackData = SERIALIZER.read(id,new Gson().fromJson(reader, BoosterPackJsonFormat.class));
                 boosterPacks.add(boosterPackData.id);
                 boosterPackData.sourceLootTables.forEach((sourceID, dropRates) -> {
-                    String deIdentifiedEntity = sourceID.toString();
-                    List<DropRateData> boosterList = lootTableInjections.getOrDefault(deIdentifiedEntity, new ArrayList<>());
+                    List<DropRateData> boosterList = lootTableInjections.getOrDefault(sourceID, new ArrayList<>());
                     boosterList.add(dropRates);
-                    lootTableInjections.put(deIdentifiedEntity, boosterList);
+                    lootTableInjections.put(sourceID, boosterList);
                 });
                 boosterPackCardList.put(boosterPackData.id.toString(),boosterPackData.getCardList());
                 boosterPackScrapValue.put(boosterPackData.id.toString(),boosterPackData.scrapValue);

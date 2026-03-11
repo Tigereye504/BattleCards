@@ -45,7 +45,7 @@
   ],
   "cost": 3,
   "chargeKeywords": ["Attack","Melee"],
-  "chargeComment": "4 melee + 3 mana = 9 budget, ((4+10)/2) damage",
+  "chargeComment": "4 melee + 3 mana = 7 budget, 4 damage + (5-2) damage",
   "chargeEffects": [
     {
       "effect": "melee",
@@ -69,7 +69,7 @@
               "falseEffects": [
                 {
                   "effect": "damage",
-                  "amount": 20,
+                  "amount": 17,
                   "damageType": "minecraft:player_attack"
                 }
               ]

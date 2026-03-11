@@ -1,0 +1,72 @@
+{
+  "id": "battlecards:illager_pack/johnny/overrun",
+  "quickKeywords": ["Attack","Melee","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "isSweep": "false",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:player_attack"
+        },{
+          "effect": "push",
+          "magnitude": 0.6,
+          "pitch": 10
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 2
+        }
+      ]
+    }
+  ],
+  "cost": 7,
+  "chargeComment": "3 simple targeting + 7 mana budget, 5 damage + 1 spot-stagger + 1 Push + 3 AoE",
+  "chargeKeywords": ["Attack","Melee","Movement","Status"],
+  "chargeEffects": [
+    {
+      "effect": "apply_status",
+      "type": "battlecards:highstep",
+      "duration": 40,
+      "magnitude": 1
+    },
+    {
+      "effect": "repeat",
+      "delay": 1,
+      "count": 40,
+      "effects": [
+        {
+          "effect": "push",
+          "magnitude": 1.5,
+          "pitch": -15,
+          "overrideVelocity": true,
+          "applyKnockback": false
+        },
+        {
+          "effect": "melee",
+          "isSweep": "false",
+          "onHit": [
+            {
+              "effect": "damage",
+              "amount": 11,
+              "damageType": "minecraft:player_attack"
+            },
+            {
+              "effect": "apply_status",
+              "type": "minecraft:weakness",
+              "duration": 10,
+              "magnitude": 4
+            },
+            {
+              "effect": "push",
+              "magnitude": 1.5,
+              "pitch": -90
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -68,6 +68,14 @@ public class HealthScalarEffect implements CardEffect, CardScalar, CardTooltipNe
         }
     }
 
+    public Text appendInlineTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        return Text.translatable("card.battlecards.tooltip.health_scalar.inline",
+                replaceElseAdd ? "" : "X + ",
+                userElseTarget ? "User's" : "Target's",
+                absoluteElseRatio ? "" : "% ",
+                missingElseCurrent ? "missing" : "current");
+    }
+
     public static class Serializer implements CardEffectSerializer {
         @Override
         public HealthScalarEffect readFromJson(Identifier id, JsonElement entry) {

@@ -2,21 +2,11 @@ package net.tigereye.mods.battlecards.PrebuiltDecks;
 
 import com.google.gson.Gson;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.random.Random;
 import net.tigereye.mods.battlecards.Battlecards;
-import net.tigereye.mods.battlecards.BoosterPacks.BoosterPackCardList;
 import net.tigereye.mods.battlecards.BoosterPacks.DropRateData;
-import net.tigereye.mods.battlecards.BoosterPacks.Json.BoosterPackData;
-import net.tigereye.mods.battlecards.BoosterPacks.Json.BoosterPackJsonFormat;
-import net.tigereye.mods.battlecards.BoosterPacks.Json.BoosterPackSerializer;
-import net.tigereye.mods.battlecards.Cards.Json.CardManager;
-import net.tigereye.mods.battlecards.registration.BCItems;
-import net.tigereye.mods.battlecards.registration.BCStatusEffects;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -49,9 +39,9 @@ public class PrebuiltDeckManager implements SimpleSynchronousResourceReloadListe
                 PrebuiltDeckData prebuiltDeckData = SERIALIZER.read(id,new Gson().fromJson(reader, PrebuiltDeckJsonFormat.class));
                 prebuiltDecks.put(prebuiltDeckData.id,prebuiltDeckData.deck);
                 prebuiltDeckData.sourceLootTables.forEach((sourceID, dropRates) -> {
-                    List<DropRateData> boosterList = lootTableInjections.getOrDefault(sourceID, new ArrayList<>());
-                    boosterList.add(dropRates);
-                    lootTableInjections.put(sourceID, boosterList);
+                    List<DropRateData> deckList = lootTableInjections.getOrDefault(sourceID, new ArrayList<>());
+                    deckList.add(dropRates);
+                    lootTableInjections.put(sourceID, deckList);
                 });
 
             } catch(Exception e) {

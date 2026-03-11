@@ -35,6 +35,8 @@
     }
   ],
   "cost": 3,
+  "chargeComment": "4 + 1 self-harm + 3 mana = 8 budget, 3+5? damage",
+  "chargeComment2": "for pricing, I'm estimating the player is at ~half health.",
   "chargeKeywords": ["Attack","Melee"],
   "chargeEffects": [
     {
@@ -48,8 +50,8 @@
           "effects": [
             {
               "effect": "damage",
-              "amount": 5,
-              "scalingAmount": 0.75,
+              "amount": 7,
+              "scalingAmount": 1,
               "damageType": "minecraft:player_attack"
             }
           ]

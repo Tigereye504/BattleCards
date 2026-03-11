@@ -114,7 +114,7 @@ Instant Damage      9 damage-cost, x2 per magnitude
 Instant Healing     8 damage-cost, x2 per magnitude
 
 Finally, effects intended to provide *momentary* (10- ticks) super-defense always cost 1 MP
-This includes effects like Evasion or high magnitude Armored/Resistance.
+This includes effects like Evasion, high magnitude Armored/Resistance, or high magnitude weakness on enemies.
 
 --Block Placement--
 
@@ -125,17 +125,18 @@ Likely similar to status effecting? Lacks sleeves, so should be more cost-effici
 
 Healing is handled the same as damage via modify_health; x2 healing amount as damage-cost.
 Lifesteal is healing that enjoys damage scaling but contends with defenses, and so is worth the same as the damage it is attached to.
-Absorption apart from the status effect is equal to healing if it doesn't stack with itself, twice as much if it does.
+Absorption apart from the status effect is worth 2 points per mana-cost if it doesn't stack with itself, twice as much if it does.
 
 Effects that restore hunger or saturation are priced x1/2 that of healing, as it is very easy to... just eat.
 
-Pushing is usually only worth a point , unless it is such you must account for falling damage (which is AP damage).
+Pushing is usually only worth a point, unless it is such you must account for falling damage (which is AP damage).
 
 
 --Other Considerations--
 
 If a card has conditions that must be met to have an effect, that effect is cheaper.
 For example, requiring the target to have a status effect (or one of a few status effects) generally halves the cost.
+Conditions cannot reduce the cost by more than the divisor (e.g. if the cost is halved by a status requirement, it cannot discount the card by more than 2)
 More or less stringent conditions are worth more or less of a discount, respectively.
 
 If a card applies both damage and status effects, card sleeves (which roughly double card strength) will be less efficient at empowering it.

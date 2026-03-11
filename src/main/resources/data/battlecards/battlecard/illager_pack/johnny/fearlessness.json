@@ -1,0 +1,46 @@
+{
+  "id": "battlecards:illager_pack/johnny/fearlessness",
+  "quickKeywords": ["Healing"],
+  "quickEffects": [
+    {
+      "effect": "absorption_scalar",
+      "effects": [
+        {
+          "effect": "if_scalar",
+          "amount": 2,
+          "greaterElseLesser": false,
+          "effects": [
+            {
+              "effect": "modify_absorption",
+              "modifyElseSet": false,
+              "amount": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cost": 9,
+  "chargeComment": "1 self-targeting + 9 mana = 10 budget, 10 absorption",
+  "chargeKeywords": ["Healing"],
+  "chargeEffects": [
+
+    {
+      "effect": "absorption_scalar",
+      "effects": [
+        {
+          "effect": "if_scalar",
+          "amount": 20,
+          "greaterElseLesser": false,
+          "effects": [
+            {
+              "effect": "modify_absorption",
+              "modifyElseSet": false,
+              "amount": 20
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

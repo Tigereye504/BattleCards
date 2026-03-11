@@ -1,0 +1,8 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer2": "battlecards:item/card_icons/melee",
+        "layer1": "battlecards:item/illager_pack/johnny/tenacity",
+        "layer0": "battlecards:item/illager_pack/background"
+    }
+}

@@ -23,7 +23,8 @@
     }
   ],
   "cost": 4,
-  "chargeKeywords": ["Attack","Melee","Movement"],
+  "chargeComment": "3 simple targeting + 4 mana budget, 3 damage + 1 spot-stagger + 1 Push + 2 AoE",
+  "chargeKeywords": ["Attack","Melee","Movement","Status"],
   "chargeEffects": [
     {
       "effect": "repeat",
@@ -43,14 +44,13 @@
               "effect": "apply_status",
               "type": "minecraft:weakness",
               "duration": 10,
-              "magnitude": 2
+              "magnitude": 4
             },
             {
               "effect": "push",
               "magnitude": 1.5,
               "pitch": 0,
-              "overrideVelocity": true,
-              "applyKnockback": false
+              "overrideVelocity": true
             }
           ]
         },
@@ -59,7 +59,7 @@
           "magnitude": 1,
           "pitch": 0,
           "overrideVelocity": true,
-          "applyKnockback": false
+          "applyKnockbackRes": false
         }
       ]
     }

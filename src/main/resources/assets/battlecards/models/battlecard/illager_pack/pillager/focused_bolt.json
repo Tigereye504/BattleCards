@@ -1,0 +1,8 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer2": "battlecards:item/card_icons/projectile",
+        "layer1": "battlecards:item/illager_pack/pillager/focused_bolt",
+        "layer0": "battlecards:item/illager_pack/background"
+    }
+}

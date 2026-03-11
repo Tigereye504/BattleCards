@@ -67,6 +67,13 @@ public class AbsorptionScalarEffect implements CardEffect, CardScalar, CardToolt
         }
     }
 
+    public Text appendInlineTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        return Text.translatable("card.battlecards.tooltip.absorption_scalar.inline",
+                        replaceElseAdd ? "" : "X + ",
+                        userElseTarget ? "User's" : "Target's",
+                        absoluteElseRatio ? "" : "% ");
+    }
+
     public static class Serializer implements CardEffectSerializer {
         @Override
         public AbsorptionScalarEffect readFromJson(Identifier id, JsonElement entry) {

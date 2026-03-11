@@ -1,0 +1,9 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer3": "battlecards:item/rarity_mark",
+        "layer2": "battlecards:item/card_icons/healing",
+        "layer1": "battlecards:item/illager_pack/johnny/fearlessness",
+        "layer0": "battlecards:item/illager_pack/background"
+    }
+}

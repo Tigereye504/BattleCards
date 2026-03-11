@@ -1,0 +1,54 @@
+{
+  "id": "battlecards:illager_pack/johnny/tenacity",
+  "quickKeywords": ["Attack","Melee","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "melee",
+      "isSweep": "false",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:player_attack"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 2
+        }
+      ]
+    }
+  ],
+  "cost": 5,
+  "chargeComment": "4 + 5 mana = 9 budget, 5 damage + 4 healing",
+  "chargeKeywords": ["Attack","Melee","Healing"],
+  "chargeEffects": [
+    {
+      "effect": "melee",
+      "isSweep": "false",
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 11,
+          "damageType": "minecraft:player_attack"
+        },
+        {
+          "effect": "target_user",
+          "effects": [
+            {
+              "effect": "if_scalar",
+              "amount": 8,
+              "greaterElseLesser": false,
+              "effects": [
+                {
+                  "effect": "modify_absorption",
+                  "modifyElseSet": false,
+                  "amount": 8
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -25,6 +25,9 @@ public class BCStatusEffects {
     public static StatusEffect SUNDERED = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 3402751)
             .addAttributeModifier(EntityAttributes.GENERIC_ARMOR, "ef9caf19-7ee1-4ee2-9ed9-76a13e3e56a9",
                     -2F, EntityAttributeModifier.Operation.ADDITION);
+    public static StatusEffect STABILITY = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 0xEAE6CA)
+            .addAttributeModifier(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, "29f8d35f-60cd-43d7-aa1e-955a5934b167",
+                    2, EntityAttributeModifier.Operation.ADDITION);
     public static StatusEffect EVADING = new Evading();
     public static StatusEffect HIGHSTEP = new HighStep();
     public static StatusEffect OVERDRAW = new Overdraw();
@@ -40,6 +43,7 @@ public class BCStatusEffects {
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "evading"), EVADING);
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "highstep"), HIGHSTEP);
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "sundered"), SUNDERED);
+        Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "stability"), STABILITY);
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "overdraw"), OVERDRAW);
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "webwalking"), WEBWALKING);
     }

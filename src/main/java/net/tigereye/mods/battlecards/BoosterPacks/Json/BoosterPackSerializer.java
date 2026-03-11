@@ -12,7 +12,6 @@ import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.BoosterPacks.DropRateData;
 import net.tigereye.mods.battlecards.registration.BCItems;
 
-import java.util.HashMap;
 import java.util.HashSet;
 
 public class BoosterPackSerializer {
@@ -28,9 +27,9 @@ public class BoosterPackSerializer {
 
         Identifier boosterPackID = new Identifier(bpdJson.id);
         BoosterPackData boosterPackData = new BoosterPackData();
-        boosterPackData.sourceLootTables = new HashMap<>();
         boosterPackData.id = boosterPackID;
 
+        boosterPackData.sourceLootTables = DropRateData.readSourceLootTablesFromJson(bpdJson.sourceLootTables,boosterPackID.toString(),id.toString());
 
         int i = 0;
         if(bpdJson.sourceLootTables != null) {
@@ -41,12 +40,13 @@ public class BoosterPackSerializer {
                     JsonObject jObject = entry.getAsJsonObject();
                     DropRateData dropRate = new DropRateData();
                     dropRate.id = boosterPackData.id.toString();
-                    dropRate.rate = jObject.get("rate").getAsFloat();
-                    dropRate.lootingRate = jObject.get("lootingRate").getAsFloat();
+                    dropRate.rate = jObject.has("rate") ? jObject.get("rate").getAsFloat() : 0;
+                    dropRate.lootingRate = jObject.has("lootingRate") ? jObject.get("lootingRate").getAsFloat() : 0;
+                    dropRate.rolls = jObject.has("rolls") ? jObject.get("rolls").getAsInt() : 1;
                     if (dropRate.rate == 0 && dropRate.lootingRate == 0) {
                         Battlecards.LOGGER.warn("Booster Pack {} has no chance to drop from {}", id, jObject.get("id").getAsString());
                     }
-                    boosterPackData.sourceLootTables.put(new Identifier(jObject.get("id").getAsString()), dropRate);
+                    boosterPackData.sourceLootTables.put(jObject.get("id").getAsString(), dropRate);
                 } catch (Exception e) {
                     Battlecards.LOGGER.error("Error parsing mob identifier {} in {}'s entity list", i, id.toString());
                 }

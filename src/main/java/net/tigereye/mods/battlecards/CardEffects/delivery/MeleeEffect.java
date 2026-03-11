@@ -29,7 +29,7 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
     CardScalar reach = new ConstantScalarEffect(3.5f);
     CardScalar maxAngle = new ConstantScalarEffect(30);
     boolean isSweep = true;
-    boolean retainOnMiss = true;
+    boolean retainOnMiss = false;
 
     public void addEffectOnEntityHit(CardEffect effect){
         onEntityHitEffects.add(effect);
@@ -76,13 +76,7 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
                 targetsInCone.sort((entity1, entity2) -> {
                     double dis1 = entity1.squaredDistanceTo(pContext.user);
                     double dis2 = entity2.squaredDistanceTo(pContext.user);
-                    if(dis1 > dis2){
-                        return 1;
-                    }
-                    if(dis1 < dis2){
-                        return -1;
-                    }
-                    return 0;
+                    return Double.compare(dis1, dis2);
                 });
                 Entity closest = targetsInCone.get(0);
                 targetsInCone.clear();
@@ -120,8 +114,7 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
         if(isPointInCone(origin,new Vec3d(boundingBox.minX,boundingBox.maxY,boundingBox.maxZ),yaw,pitch,coneWidth)){return true;}
         if(isPointInCone(origin,new Vec3d(boundingBox.minX,boundingBox.maxY,boundingBox.minZ),yaw,pitch,coneWidth)){return true;}
         if(isPointInCone(origin,new Vec3d(boundingBox.minX,boundingBox.minY,boundingBox.maxZ),yaw,pitch,coneWidth)){return true;}
-        if(isPointInCone(origin,new Vec3d(boundingBox.minX,boundingBox.minY,boundingBox.minZ),yaw,pitch,coneWidth)){return true;}
-        return false;
+        return isPointInCone(origin, new Vec3d(boundingBox.minX, boundingBox.minY, boundingBox.minZ), yaw, pitch, coneWidth);
     }
 
     private boolean isPointInCone(Vec3d origin, Vec3d target, float yaw, float pitch, double coneWidth){
@@ -155,7 +148,7 @@ public class MeleeEffect implements CardEffect, CardTooltipNester {
             output.reach = CardSerializer.readOrDefaultScalar(id,"reach",entry,3.5f);
             output.maxAngle = CardSerializer.readOrDefaultScalar(id,"maxAngle",entry,30);
             output.isSweep = CardSerializer.readOrDefaultBoolean(id,"isSweep",entry,true);
-            output.retainOnMiss = CardSerializer.readOrDefaultBoolean(id,"retainOnMiss",entry,true);
+            output.retainOnMiss = CardSerializer.readOrDefaultBoolean(id,"retainOnMiss",entry,false);
             output.addEffectsOnEntityHit(CardSerializer.readCardEffects(id, "onHit",entry));
             output.addEffectsOnMiss(CardSerializer.readCardEffects(id, "onMiss",entry));
             return output;

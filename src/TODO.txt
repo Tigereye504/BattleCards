@@ -14,10 +14,8 @@ This mod is problably just going to be the mechanics and projectiles and such. C
 If stuff starts acting strange, consider:
 Make CardEffects and BattleCardProjectiles NBT serializable.
 
-TODO: increase card cooldown a bit (to a half second?) and make attack speed modifiers apply to the cooldown time
-
-TODO: implement leather and copper card sleeves
-
+TODO: make attack speed modifiers apply to the cooldown time
+TODO: implement unique card sleeves
     Leather: +25% damage, shuffled into draw pile twice when added to draw pile
     Copper: +25% damage, Inherent (drawn first in game start)
 C   Gold: half mana cost (round up)
@@ -59,8 +57,7 @@ some cards are trash even among trash. Specifically, the Passable Papercraft set
 so to 3 paper is must return. Otherwise, it would let you turn a sugar cane farm into infinite cardfetti
 
 --World Integration--
-TODO: Prebuilt decks (also needed for TCG villager)
-TODO: card packs and prebuilts in chest loot tables
+
 ----Cards----
 E - effect implemented
 T - effect successfully tested
@@ -121,11 +118,11 @@ C   Speed - Q: Gain Speed for 5 seconds. Gain 1 mana if you lacked Speed. A(2): 
 C   Fighting Retreat (R) - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. - A(3): Hop far back. Gain Invulnerable for .5 second. Shoot an arrow with punch 2.
 C   Reposition (R) - Q: Hop back, gain Invulnerable for .5 second. Gain 1 mana. A(5): Hop back, gain Invulnerable for .5 second and Speed 3 / Step Assist for 5 seconds.
 C   Make Your Bones (R) - Q: Shoot a weak arrow, 1 mana on hit, +2 on kill. A(6): Shoot a strong arrow. On kill, Refund 4 and gain Speed 3 and Step Assist for 30 seconds.
-E   Rattling Cold - slowing multishot
-E   Chilling Proposition - spread of slowing arrows
-ET  Frigid Aside (R) - arrow draws line of slowing damage, freeze water and lava in path
-ET  Frozen Assets (R) - shoot an arrow that freezes into an ice block moments after firing, which then erupts into many murderous arrows
-ET  Put 'em on Ice - encase target in ice on hit
+C   Rattling Cold - slowing multishot
+C   Chilling Proposition - spread of slowing arrows
+C   Frigid Aside (R) - arrow draws line of slowing damage, freeze water and lava in path
+C   Frozen Assets (R) - shoot an arrow that freezes into an ice block moments after firing, which then erupts into many murderous arrows
+C   Put 'em on Ice - encase target in ice on hit
 
 C Venom and Fang (Spiders, Cave Spiders, maybe other bugs like silverfish)
 
@@ -138,30 +135,30 @@ TODO: rebalance Way of Reaping I
 The Way of Reaping I (Vindicators and Ravagers)
  --Axe pillagers use aggressive movement, trade blows, and seek revenge
  -Lunging Combo Attacks
-ET  Longsword (R) - Q: Weak melee, 2 mana - A(3): Strong lunging strike throws targets. Refund 2 and Retain on miss.
-ET  Uppercut - Q: Weak focused melee generates 2 mana and pops target up. - A(3): Strong rising strike throws target skyward.
-ET  Shoulder Check - Q: Weak focused melee, 2 mana and knockback. - A(4): Charge forward, inflicting Strong damage, stunning, and dragging all along path.
-    Follow-up - Q: Moderate focused melee, 2 mana - A(2): Moderate focused melee is Very Strong if target was recently injured.
+C   Longsword (R) - Q: Weak melee, 2 mana - A(3): Strong lunging strike throws targets. Refund 2 and Retain on miss.
+C   Uppercut - Q: Weak focused melee generates 2 mana and pops target up. - A(3): Strong rising strike throws target skyward.
+C   Shoulder Check - Q: Weak focused melee, 2 mana and knockback. - A(4): Charge forward, inflicting Strong damage, stunning, and dragging all along path.
+C   Follow-up - Q: Moderate focused melee, 2 mana - A(2): Moderate focused melee is Very Strong if target was recently injured.
  -Trading Attacks (hit expecting to be hit, sometimes inflict momentary weakness 'stunning' as mitigation)
 XX  Shoulder Check (see above)
 XX  Yield Your Flesh (see below)
 XX  Overrun (see above)
-    Reckless Strike - Q: Moderate focused melee, 1 mana - A(5): Extremely Strong, focused strike after lunging. Refund 2 and Retain on hit.
+C   Reckless Strike - Q: Moderate focused melee, 1 mana - A(5): Extremely Strong, focused strike after lunging. Refund 2 on hit, Retain.
  -Low Health Scalars / Retaliation
-ET  Yield Your Flesh (R) - Q: Moderate focused melee invites harm for 3 mana - A(3): Moderate to Deadly focused melee attack based on missing health.
+C   Yield Your Flesh (R) - Q: Moderate focused melee invites harm for 3 mana - A(3): Moderate to Deadly focused melee attack based on missing health.
 XX  Desperation (see below)
-    Revenge - Q: Moderate focused melee, 2 mana - A(4): Very Strong focused melee is Deadly if recently injured.
-ET  Blood for Blood - Q: Moderate focused melee, 2 mana - A(5): Strong focused melee, returns damage and lifesteals when retaliating to immediate harm.
+C   Revenge - Q: Moderate focused melee, 2 mana - A(4): Very Strong focused melee is Deadly if recently injured.
+C   Blood for Blood - Q: Moderate focused melee, 2 mana - A(5): Strong focused melee, returns damage and lifesteals when retaliating to immediate harm.
  -Absorption Hearts
-ET  Desperation (R) - Q: Weak focused melee, mana scales with missing health - A(8): Very Deadly, focused melee attack bleeds self and grants Absorption V briefly (20 absorption, 10 seconds).
-    Guarded Strike - Q: Moderate focused melee, 2 mana - Q(5): Extremely Strong focused melee grants up to 8 Absorption on hit
-    Catch Breath - Q: Gain up to 2 Absorption - A(3): Gain up to 8 Absorption
-    Fearlessness (R) - Q: Gain up to 2 Absorption - A(9): Gain up to 20 Absorption
+C   Desperation (R) - Q: Weak focused melee, mana scales with missing health - A(8): Very Deadly, focused melee attack bleeds self and grants Absorption V briefly (20 absorption, 10 seconds).
+C   Tenacity - Q: Moderate focused melee, 2 mana - Q(5): Extremely Strong focused melee grants up to 8 Absorption on hit
+C   Catch Breath - Q: Gain up to 2 Absorption - A(3): Gain up to 8 Absorption
+C   Fearlessness (R) - Q: Gain up to 2 Absorption - A(9): Gain up to 20 Absorption
  --Ravagers use extremely high mana, high impact melee and bullheaded bulk to close the gap
-    Overrun (R) - Q: Moderate focused melee, 1 mana and knockback. - A(7): Charge forward a long time, inflicting Extremely Strong damage and stunning all along path.
-    Stability - Q: Gain Stability for 10 seconds. - A(2): Gain Stability for 30 seconds.
-    Crush - Q: Moderate focused melee, 2 mana - A(8): Very Deadly focused melee grants up to 6 Absorption on hit.
-    Rend (R) - Q: Moderate focused melee, 2 mana - A(5): Very Strong focused melee is Catastrophic against low health targets.
+C   Overrun (R) - Q: Moderate focused melee, 1 mana and knockback. - A(7): Charge forward a long time, inflicting Extremely Strong damage and stunning all along path.
+C   Stability - Q: Gain Stability for 10 seconds. - A(2): Gain Stability for 30 seconds.
+C   Crushing Iron - Q: Moderate focused melee, 2 mana - A(8): Very Deadly focused melee grants up to 10 Absorption on hit.
+C   Rend In Twain (R) - Q: Moderate focused melee, 2 mana - A(4): Deadly focused melee is Catastrophic against low health targets.
 
 
 TODO: rebalance Way of Reaping II

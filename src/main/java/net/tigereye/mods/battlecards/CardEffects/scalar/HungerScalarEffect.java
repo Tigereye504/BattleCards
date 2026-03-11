@@ -70,6 +70,13 @@ public class HungerScalarEffect implements CardEffect, CardScalar, CardTooltipNe
         }
     }
 
+    public Text appendInlineTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext) {
+        return Text.translatable("card.battlecards.tooltip.hunger_scalar.inline",
+                replaceElseAdd ? "" : "X + ",
+                userElseTarget ? "User's" : "Target's",
+                missingElseCurrent ? "Missing" : "Current");
+    }
+
     public static class Serializer implements CardEffectSerializer {
         @Override
         public HungerScalarEffect readFromJson(Identifier id, JsonElement entry) {
