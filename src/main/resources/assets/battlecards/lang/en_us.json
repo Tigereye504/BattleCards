@@ -268,7 +268,7 @@
   "boosterpack.battlecards.spider_pack/booster_pack": "Venom and Silk",
   "card.battlecards.spider_pack/ambush": "Ambush",
   "card.battlecards.spider_pack/ambush.quick": "Weak focused melee for 1 mana, Strong for 3 mana if target is full health.",
-  "card.battlecards.spider_pack/ambush.charge": "Very Strong focused melee weakens target and self, Extremely Deadly vs full health.",
+  "card.battlecards.spider_pack/ambush.charge": "Strong focused melee, Very Deadly vs full health.",
   "card.battlecards.spider_pack/caustic_goop": "Caustic Goop",
   "card.battlecards.spider_pack/caustic_goop.quick": "Projectile grants 1 mana, Briefly slows and poisons.",
   "card.battlecards.spider_pack/caustic_goop.charge": "Moderate projectile applies Slow II and Poison for 30 seconds.",
