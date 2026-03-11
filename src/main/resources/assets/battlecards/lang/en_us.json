@@ -385,7 +385,7 @@
   "card.battlecards.skeleton_pack/rough_em_up.quick": "Weak non-sweeping melee, inflict Slowness for 5 seconds. 1 mana on hit.",
   "card.battlecards.skeleton_pack/rough_em_up.charge": "Weak non-sweeping melee, inflict escalating Weakness and Slowness for 5 seconds. Retain.",
 
-  "boosterpack.battlecards.illager_pack/johnny/booster_pack": "Way of Reaping I",
+  "boosterpack.battlecards.illager_pack/johnny/booster_pack": "Way of Reaping II",
   "card.battlecards.illager_pack/johnny/blood_for_blood": "Blood for Blood",
   "card.battlecards.illager_pack/johnny/blood_for_blood.quick": "Moderate focused melee attack generates 2 mana.",
   "card.battlecards.illager_pack/johnny/blood_for_blood.charge": "Strong focused melee, returns damage and lifesteals when retaliating to immediate harm.",
@@ -432,7 +432,7 @@
   "card.battlecards.illager_pack/johnny/yield_your_flesh.quick": "Moderate focused melee invites harm for 3 mana.",
   "card.battlecards.illager_pack/johnny/yield_your_flesh.charge": "Strong to Catastrophic focused melee attack based on missing health.",
 
-  "boosterpack.battlecards.illager_pack/pillager/booster_pack": "Way of Reaping II",
+  "boosterpack.battlecards.illager_pack/pillager/booster_pack": "Way of Reaping I",
   "card.battlecards.illager_pack/pillager/explosive_trap": "Explosive Trap",
   "card.battlecards.illager_pack/pillager/explosive_trap.quick": "Weak explosive trap generates 2 mana.",
   "card.battlecards.illager_pack/pillager/explosive_trap.charge": "Deadly, eight block radius explosive trap.",
