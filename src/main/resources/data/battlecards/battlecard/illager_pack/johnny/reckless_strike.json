@@ -19,8 +19,8 @@
       ]
     }
   ],
-  "cost": 5,
-  "chargeComment": "4 melee + 5 mana + 1 (likely gets self hurt) = 10 budget, 5 damage + 2 Refund + 1 Retain + 1 lunge",
+  "cost": 4,
+  "chargeComment": "4 melee + 4 mana + 1 (likely gets self hurt) = 9 budget, 6 damage + 1 Refund + 1 Retain + 1 lunge",
   "chargeKeywords": ["Attack","Melee","Movement"],
   "chargeEffects": [
     {

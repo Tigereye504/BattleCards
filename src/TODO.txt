@@ -131,7 +131,6 @@ Dark Triad (Wither Skeletons, Wither)
  --names come from gang-related (especially asian gang) and 'dark triad' mental trait related terms/phrases.
 ET  Rough 'em up - Q: Weak non-sweeping Melee Attack, 1 Mana on hit, inflict Slowness 1 for 5 seconds. - A(2): Weak Non-Sweeping melee attack inflicts escalating Weakness and Slowness for 5 seconds. Retain.
 
-TODO: rebalance Way of Reaping I
 The Way of Reaping I (Vindicators and Ravagers)
  --Axe pillagers use aggressive movement, trade blows, and seek revenge
  -Lunging Combo Attacks
@@ -143,7 +142,7 @@ C   Follow-up - Q: Moderate focused melee, 2 mana - A(2): Moderate focused melee
 XX  Shoulder Check (see above)
 XX  Yield Your Flesh (see below)
 XX  Overrun (see above)
-C   Reckless Strike - Q: Moderate focused melee, 1 mana - A(5): Extremely Strong, focused strike after lunging. Refund 2 on hit, Retain.
+C   Reckless Strike - Q: Moderate focused melee, 2 mana - A(5): Extremely Strong, focused strike after lunging. Refund 2 on hit, Retain.
  -Low Health Scalars / Retaliation
 C   Yield Your Flesh (R) - Q: Moderate focused melee invites harm for 3 mana - A(3): Moderate to Deadly focused melee attack based on missing health.
 XX  Desperation (see below)
@@ -160,8 +159,6 @@ C   Stability - Q: Gain Stability for 10 seconds. - A(2): Gain Stability for 30 
 C   Crushing Iron - Q: Moderate focused melee, 2 mana - A(8): Very Deadly focused melee grants up to 10 Absorption on hit.
 C   Rend In Twain (R) - Q: Moderate focused melee, 2 mana - A(4): Deadly focused melee is Catastrophic against low health targets.
 
-
-TODO: rebalance Way of Reaping II
 The Way of Reaping II (Pillagers, Witches, and Evokers)
  --Pillagers like to bunker down and perforate foes from a bunker
  -low mobility, high damage bolts that shatter defenses
