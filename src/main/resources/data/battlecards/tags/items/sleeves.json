@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "battlecards:sleeve/penny",
+    "battlecards:sleeve/iron",
+    "battlecards:sleeve/diamond",
+    "battlecards:sleeve/netherite",
+    "battlecards:sleeve/glowstone",
+    "battlecards:sleeve/redstone",
+    "battlecards:sleeve/gold",
+    "battlecards:sleeve/emerald"
+  ]
+}

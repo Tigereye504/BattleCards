@@ -1,0 +1,37 @@
+{
+  "parent": "battlecards:root",
+  "criteria": {
+    "use_booster_pack": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "battlecards:booster_pack"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:using_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "text": "Use a booster pack.\n\nCards primarily come from booster packs, which can be found by exploration or violence."
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "battlecards:booster_pack"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "The Source"
+    }
+  },
+  "requirements": [
+    [
+      "use_booster_pack"
+    ]
+  ]
+}

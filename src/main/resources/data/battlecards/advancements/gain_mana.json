@@ -1,0 +1,34 @@
+{
+  "parent": "battlecards:root",
+  "criteria": {
+    "gain_mana": {
+      "conditions": {
+        "effects": {
+            "battlecards:mana": {}
+        }
+      },
+      "trigger": "minecraft:effects_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "description": {
+      "text": "Acquire mana by using a card's quick effect.\n\nYou can then spend it on a card's charged effect."
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "battlecards:battlecard"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "The Fuel"
+    }
+  },
+  "requirements": [
+    [
+      "gain_mana"
+    ]
+  ]
+}

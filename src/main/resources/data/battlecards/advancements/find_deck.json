@@ -1,0 +1,37 @@
+{
+  "parent": "battlecards:root",
+  "criteria": {
+    "find_deck": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "battlecards:deck"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Find or craft a Deck.\n\nCards outside of a deck can be used, but have long cooldowns and high mana costs."
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "battlecards:deck"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "The Vessel"
+    }
+  },
+  "requirements": [
+    [
+      "find_deck"
+    ]
+  ]
+}

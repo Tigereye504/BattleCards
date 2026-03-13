@@ -1,0 +1,30 @@
+{
+  "criteria": {
+    "got_deck": {
+      "conditions": {
+      },
+      "trigger": "minecraft:tick"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "description": {
+      "text": "Fight with the power of a card game!"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "battlecards:battlecard"
+    },
+    "show_toast": false,
+    "title": {
+      "text": "BattleCards"
+    }
+  },
+  "requirements": [
+    [
+      "got_deck"
+    ]
+  ]
+}

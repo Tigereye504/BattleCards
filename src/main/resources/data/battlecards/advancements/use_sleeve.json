@@ -1,0 +1,37 @@
+{
+  "parent": "battlecards:root",
+  "criteria": {
+    "use_sleeve": {
+      "conditions": {
+        "items": [
+          {
+            "tag": [
+              "battlecards:sleeves"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:using_item"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "description": {
+      "text": "Use a card sleeve on a card. This is best done with the sleeve in the main hand and card in the off hand.\n\nSleeves make cards much more powerful."
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "battlecards:sleeve/iron"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "The Power"
+    }
+  },
+  "requirements": [
+    [
+      "use_sleeve"
+    ]
+  ]
+}

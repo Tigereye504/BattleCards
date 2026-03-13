@@ -1,0 +1,37 @@
+{
+  "parent": "battlecards:root",
+  "criteria": {
+    "find_cardfetti": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "battlecards:cardfetti"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "text": "Rip apart an unwanted card.\n\nDestroyed cards can be used as fuel for furnaces or directly as occult sacrifices."
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "battlecards:cardfetti"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "The Sacrifice"
+    }
+  },
+  "requirements": [
+    [
+      "find_cardfetti"
+    ]
+  ]
+}
