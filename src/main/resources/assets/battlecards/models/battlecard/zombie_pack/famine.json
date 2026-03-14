@@ -2,7 +2,7 @@
     "parent": "item/handheld",
     "textures": {
         "layer3": "battlecards:item/rarity_mark",
-        "layer2": "battlecards:item/card_icons/melee",
+        "layer2": "battlecards:item/card_icons/exotic",
         "layer1": "battlecards:item/zombie_pack/famine",
         "layer0": "battlecards:item/zombie_pack/background"
     }
