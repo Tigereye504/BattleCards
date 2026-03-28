@@ -122,6 +122,7 @@ public class CardProjectileEntity extends PersistentProjectileEntity implements 
                         newContext.blockPos = ((BlockHitResult) hitResult).getBlockPos();
                     }
                     newContext.hitResult = hitResult;
+                    newContext.trackedEntity = this; //TODO: test old cards, I suspect this could have consequences.
                     effect.apply(pContext, newContext);
                 }
             }

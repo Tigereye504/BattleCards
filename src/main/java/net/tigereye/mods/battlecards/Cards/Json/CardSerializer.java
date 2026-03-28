@@ -9,6 +9,7 @@ import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalarCoordinates;
@@ -299,6 +300,23 @@ public class CardSerializer {
             }
         }
         return defaultList;
+    }
+
+    public static Direction readOrDefaultDirection(Identifier id, String name, JsonElement entry, Direction defaultDirection) {
+        String direction = CardSerializer.readOrDefaultString(id,name,entry,"");
+        return switch (direction) {
+            case "" -> defaultDirection;
+            case "up","above" -> Direction.UP;
+            case "down","below" -> Direction.DOWN;
+            case "north","front","forward" -> Direction.NORTH;
+            case "south","back","backward" -> Direction.SOUTH;
+            case "east","right" -> Direction.EAST;
+            case "west","left" -> Direction.WEST;
+            default -> {
+                Battlecards.LOGGER.error("Unknown direction in {}!", id);
+                yield defaultDirection;
+            }
+        };
     }
 
     public static List<CardScalarCoordinates> readOrDefaultCoordinatesList(Identifier id, String name, JsonElement element, ArrayList<CardScalarCoordinates> defaultList) {

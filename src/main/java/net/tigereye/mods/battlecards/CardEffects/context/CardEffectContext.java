@@ -4,11 +4,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
+import org.joml.Vector3f;
 
 public class CardEffectContext {
     public Entity target;
     public BlockPos blockPos;
-    public Direction direction;
+    public Vec3d direction;
     public float scalar;
     public HitResult hitResult;
     public Entity trackedEntity;

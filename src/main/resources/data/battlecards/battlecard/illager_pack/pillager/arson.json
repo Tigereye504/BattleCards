@@ -1,0 +1,77 @@
+{
+  "id": "battlecards:illager_pack/pillager/arson",
+  "quickKeywords": ["Attack","Projectile","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 3,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:on_fire"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 1
+        }
+      ]
+    }
+  ],
+  "cost": 9,
+  "chargeComment": "3 + 9 mana = 12 budget, 8 damage + 4? block placement",
+  "chargeComment2": "This card does either projectile or fire damage, a sort of advanced AP damage.",
+  "chargeKeywords": ["Attack","Projectile","World Editing"],
+  "chargeEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 3,
+      "doCollisionEffectOnEntity": true,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 11,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "damage",
+          "amount": 11,
+          "damageType": "minecraft:on_fire"
+        }
+      ],
+      "onCollision": [
+        {
+          "effect": "target_tracked_entity",
+          "effects": [
+            {
+              "effect": "blocks_in_disk",
+              "blocks": 13,
+              "directionRelativeToEntity": true,
+              "effects": [
+                {
+                  "effect": "snap_block_pos_to_surface",
+                  "maxDistance": 2,
+                  "maxBackwardDistance": 1,
+                  "distanceFromSurface": 1,
+                  "directionRelativeToEntity": true,
+                  "abortWithoutSurface": true,
+                  "effects": [
+                    {
+                      "effect": "replace_block",
+                      "block": "minecraft:fire"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

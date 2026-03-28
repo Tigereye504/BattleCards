@@ -4,8 +4,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
@@ -119,13 +117,13 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
         }
         Entity originEntity = originRelativeToUserElseTarget ? pContext.user : target;
         World world = pContext.user.getWorld();
-        Vec3d rotatedOrigin = originOffset.rotateX(originEntity.getPitch()).rotateY(originEntity.getYaw());
+        Vec3d rotatedOriginOffset = originOffset.rotateX(originEntity.getPitch()).rotateY(originEntity.getYaw());
 
         CardEffectContext newContext = context.clone();
         CardProjectileEntity cardProjectileEntity = new CardProjectileEntity(pContext, newContext, world,
-                originEntity.getX() + rotatedOrigin.getX(),
-                originEntity.getEyeY() - 0.1F + rotatedOrigin.getY(),
-                originEntity.getZ() + rotatedOrigin.getZ());
+                originEntity.getX() + rotatedOriginOffset.getX(),
+                originEntity.getEyeY() - 0.1F + rotatedOriginOffset.getY(),
+                originEntity.getZ() + rotatedOriginOffset.getZ());
 
         cardProjectileEntity.setVelocity(velocityRelativeToEntityElseAbsolute ? originEntity : cardProjectileEntity,
                 angleRelativeToEntityElseAbsolute ? originEntity.getPitch() + this.pitch.getValue(pContext,context) : this.pitch.getValue(pContext,context),
@@ -191,7 +189,6 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
         @Override
         public ThrowCardEffect readFromJson(Identifier id, JsonElement entry) {
             ThrowCardEffect output = new ThrowCardEffect();
-            JsonObject obj = entry.getAsJsonObject();
             float x = CardSerializer.readOrDefaultFloat(id, "originOffsetX",entry,0);
             float y = CardSerializer.readOrDefaultFloat(id, "originOffsetY",entry,0);
             float z = CardSerializer.readOrDefaultFloat(id, "originOffsetZ",entry,0);

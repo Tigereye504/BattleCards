@@ -1,0 +1,149 @@
+{
+  "id": "battlecards:illager_pack/pillager/caltrops",
+  "quickComment": "4 (troublesome targeting) budget, 1 damage + 2 mana + 1 AoE",
+  "quickKeywords": ["Projectile","Mana Generator","World Editing"],
+  "quickEffects": [
+    {
+      "effect": "repeat",
+      "count": 3,
+      "effects": [
+        {
+          "effect": "throw_card",
+          "speed": 1.5,
+          "gravity": 0.02,
+          "divergence": 45,
+          "onSpawn": [
+            {
+              "effect": "delay",
+              "delay": 3,
+              "after_delay": [
+                {
+                  "effect": "target_tracked_entity",
+                  "effects": [
+                    {
+                      "effect": "push",
+                      "magnitude": 0,
+                      "pitch": 0,
+                      "overrideVelocity": true,
+                      "comment": "the card stalls in midair."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "effect": "delay",
+              "delay": 600,
+              "after_delay": [
+                {
+                  "effect": "despawn_card_projectile"
+                }
+              ]
+            }
+          ],
+          "onTick": [
+            {
+              "effect": "entities_in_radius",
+              "radius": 1.5,
+              "targetUser": false,
+              "singularEffects": [
+                {
+                  "effect": "damage",
+                  "amount": 4,
+                  "damageType": "minecraft:arrow",
+                  "afterDamage": [
+                    {
+                      "effect": "if_scalar",
+                      "effects": [
+                        {
+                          "effect": "gain_mana",
+                          "amount": 2
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "effect": "despawn_card_projectile"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "chargeComment": "4 (troublesome targeting) + 3 mana = 7 budget, 3 damage + (2/2 split) status + 3 AoE",
+  "chargeKeywords": ["Projectile","World Editing","Status"],
+  "chargeEffects": [
+    {
+      "effect": "repeat",
+      "count": 6,
+      "effects": [
+        {
+          "effect": "throw_card",
+          "speed": 1.5,
+          "gravity": 0.02,
+          "divergence": 45,
+          "onSpawn": [
+            {
+              "effect": "delay",
+              "delay": 3,
+              "after_delay": [
+                {
+                  "effect": "target_tracked_entity",
+                  "effects": [
+                    {
+                      "effect": "push",
+                      "magnitude": 0,
+                      "pitch": 0,
+                      "overrideVelocity": true,
+                      "comment": "the card stalls in midair."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "effect": "delay",
+              "delay": 600,
+              "after_delay": [
+                {
+                  "effect": "despawn_card_projectile"
+                }
+              ]
+            }
+          ],
+          "onTick": [
+            {
+              "effect": "entities_in_radius",
+              "radius": 1.5,
+              "targetUser": false,
+              "singularEffects": [
+                {
+                  "effect": "damage",
+                  "amount": 7,
+                  "damageType": "minecraft:arrow"
+                },
+                {
+                  "effect": "apply_status",
+                  "type": "minecraft:slowness",
+                  "duration": 80,
+                  "amplifier": 2
+                },
+                {
+                  "effect": "despawn_card_projectile"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "TODO": "add particle effects indicating trigger radius",
+  "TODO2": "add particle effects for explosion",
+  "TODO3": "need raycasting for entities_in_radius"
+}
+

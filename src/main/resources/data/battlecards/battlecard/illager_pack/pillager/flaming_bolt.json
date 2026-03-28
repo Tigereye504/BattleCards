@@ -1,0 +1,54 @@
+{
+  "id": "battlecards:illager_pack/pillager/flaming_bolt",
+  "quickKeywords": ["Attack","Projectile","Mana Generator"],
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 3,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:on_fire"
+        },
+        {
+          "effect": "gain_mana",
+          "amount": 1
+        }
+      ]
+    }
+  ],
+  "cost": 5,
+  "chargeComment": "3 + 5 mana = 8 budget, ~7 damage + 1(?) block placement",
+  "chargeComment2": "This card does the better of projectile or fire damage, a sort of advanced AP damage.",
+  "chargeKeywords": ["Attack","Projectile","World Editing"],
+  "chargeEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 3,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 9,
+          "damageType": "minecraft:arrow"
+        },
+        {
+          "effect": "damage",
+          "amount": 9,
+          "damageType": "minecraft:on_fire"
+        }
+      ],
+      "onCollision": [
+        {
+          "effect": "replace_block",
+          "block": "minecraft:fire"
+        }
+      ]
+    }
+  ]
+}

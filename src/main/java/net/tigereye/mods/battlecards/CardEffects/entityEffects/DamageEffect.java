@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.registry.RegistryKey;
@@ -44,16 +45,23 @@ public class DamageEffect implements CardEffect, CardTooltipNester {
     private void apply(PersistentCardEffectContext pContext, Entity target, CardEffectContext context) {
         if(target != null) {
             if(damageType == null){
-                Battlecards.LOGGER.warn("Missing damage type on {} damage effect. Replacing null with 'generic' damage type.",pContext.cardItem.getName());
+                Battlecards.LOGGER.warn("Missing damage type on {} damage effect. Replacing null with 'generic' damage type.",pContext.cardItem.getName().getString());
                 damageType = DamageTypes.GENERIC;
             }
             if(target instanceof LivingEntity lEntity) {
+                DamageSource source;
+                try{
+                    source = target.getDamageSources().create(damageType, pContext.user);
+                }
+                catch (Exception e){
+                    Battlecards.LOGGER.warn("Failed to create damage source for {} damage effect. Using generic damage type.",pContext.cardItem.getName().getString());
+                    source = target.getDamageSources().create(DamageTypes.GENERIC, pContext.user);
+                }
                 float targetHealth = lEntity.getHealth() + lEntity.getAbsorptionAmount();
                 float modifiedDamage = DamageCardEffectCallback.EVENT.invoker()
                         .modifyDamage(pContext,target,context,damage.getValue(pContext,context)+(scalingDamage*context.scalar));
-                target.damage(target.getDamageSources().create(damageType, pContext.user), modifiedDamage);
+                target.damage(source, modifiedDamage);
                 float damageDealt = targetHealth - (lEntity.getHealth() + lEntity.getAbsorptionAmount());
-                //TODO: call post damage event
                 CardEffectContext postDamageContext = new CardEffectContext();
                 postDamageContext.target = target;
                 postDamageContext.scalar = damageDealt;

@@ -6,14 +6,17 @@
   ],
   "commonCount": 4,
   "commonCards": [
+    "battlecards:illager_pack/pillager/flaming_bolt",
     "battlecards:illager_pack/pillager/overdraw",
     "battlecards:illager_pack/pillager/overpenetration",
-    "battlecards:illager_pack/pillager/shrapnel_mine",
     "battlecards:illager_pack/pillager/staggering_bolt",
-    "battlecards:illager_pack/pillager/sundering_bolt"
+    "battlecards:illager_pack/pillager/caltrops",
+    "battlecards:illager_pack/pillager/fire_trap",
+    "battlecards:illager_pack/pillager/shrapnel_mine"
   ],
   "rareCount": 1,
   "rareCards": [
+    "battlecards:illager_pack/pillager/arson",
     "battlecards:illager_pack/pillager/focused_bolt",
     "battlecards:illager_pack/pillager/explosive_trap"
   ]

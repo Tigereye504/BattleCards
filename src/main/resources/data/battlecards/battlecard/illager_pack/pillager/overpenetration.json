@@ -24,7 +24,7 @@
   "chargeEffects": [
     {
       "effect": "throw_card",
-      "speed": 4,
+      "speed": 3,
       "piercing": 4,
       "onHit": [
         {

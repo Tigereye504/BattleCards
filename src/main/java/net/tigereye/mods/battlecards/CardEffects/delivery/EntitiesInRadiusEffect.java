@@ -63,7 +63,7 @@ public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
         List<LivingEntity> entityList = pContext.user.getWorld().getNonSpectatingEntities(LivingEntity.class,
                 box);
         double radiusSquared = radius*radius;
-        boolean atLeastOneHit = false;
+        Entity firstHit = null;
         for(LivingEntity entity: entityList){
             if(!targetUser && entity == pContext.user){
                 continue;
@@ -78,7 +78,7 @@ public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
                 inRange = (diffX*diffX)+(diffY*diffY) < radiusSquared;
             }
             if(inRange){
-                atLeastOneHit = true;
+                if(firstHit == null){firstHit = entity;}
                 CardEffectContext newContext = context.clone();
                 newContext.target = entity;
                 for (CardEffect effect : effects) {
@@ -86,8 +86,9 @@ public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
                 }
             }
         }
-        if(atLeastOneHit){
+        if(firstHit != null){
             CardEffectContext newContext = context.clone();
+            newContext.target = firstHit;
             for (CardEffect effect : singularEffects) {
                 effect.apply(pContext, newContext);
             }

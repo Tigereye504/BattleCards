@@ -17,6 +17,7 @@ import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
+import net.tigereye.mods.battlecards.Util.DirectionUtil;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -25,31 +26,48 @@ import java.util.Set;
 
 public class BlocksInDiskEffect implements CardEffect, CardTooltipNester {
 
+    private static final Direction DEFAULT_DIRECTION = Direction.DOWN;
+    private static final Direction DEFAULT_DIRECTION_WHEN_RELATIVE = Direction.NORTH;
+
     CardScalar blocks = new ConstantScalarEffect(1);
+    boolean directionRelativeToEntity = false;
+    Direction direction;
     List<CardEffect> effects = new ArrayList<>();
 
     @Override
     public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
+        Entity entity;
         if (context.target != null) {
-            apply(pContext, context, context.target);
+            entity = context.target;
         }
-        else if(context.blockPos != null){
-            apply(pContext, context, context.blockPos);
+        else{
+            entity = pContext.user;
+        }
+
+        BlockPos pos;
+        if(context.blockPos != null){
+            pos = context.blockPos;
         }
         else if(context.hitResult != null){
-            apply(pContext, context, BlockPos.ofFloored(context.hitResult.getPos()));
+            pos = BlockPos.ofFloored(context.hitResult.getPos());
         }
-        else {
-            apply(pContext, context, pContext.user);
+        else{
+            pos = entity.getBlockPos();
         }
+
+        apply(pContext, context, entity, pos);
     }
 
-    private void apply(PersistentCardEffectContext pContext, CardEffectContext context, Entity target) {
-        apply(pContext, context, target.getBlockPos());
-    }
+    private void apply(PersistentCardEffectContext pContext, CardEffectContext context, Entity target, BlockPos pos) {
+        Direction usedDirection = this.direction;
+        if(directionRelativeToEntity && target != null){
+            usedDirection = DirectionUtil.deriveDirectionFromPolarAndRotationDirection(target.getPitch(),target.getYaw(),direction != null ? direction : DEFAULT_DIRECTION_WHEN_RELATIVE);
+        }
+        if(usedDirection == null){
+            usedDirection = DEFAULT_DIRECTION;
+        }
 
-    private void apply(PersistentCardEffectContext pContext, CardEffectContext context, BlockPos pos) {
-        Set<BlockPos> blocklist = findBlocksInRange(pos,Direction.DOWN,(int)blocks.getValue(pContext, context));
+        Set<BlockPos> blocklist = findBlocksInRange(pos,usedDirection,(int)blocks.getValue(pContext, context));
         for(CardEffect effect : effects){
             blocklist.forEach((listPos) -> {
                 CardEffectContext newContext = context.clone();
@@ -64,18 +82,20 @@ public class BlocksInDiskEffect implements CardEffect, CardTooltipNester {
         Set<BlockPos> positions = new HashSet<>();
         positions.add(pos);
         Vec3i x;
-        Vec3i z = switch (dir) {
+        Vec3i z;
+
+        switch (dir) {
             case UP, DOWN -> {
                 x = Direction.NORTH.getVector();
-                yield Direction.EAST.getVector();
+                z = Direction.EAST.getVector();
             }
             case EAST, WEST -> {
                 x = Direction.NORTH.getVector();
-                yield Direction.UP.getVector();
+                z = Direction.UP.getVector();
             }
             default -> {
                 x = Direction.UP.getVector();
-                yield Direction.EAST.getVector();
+                z = Direction.EAST.getVector();
             }
         };
         int radius = 1;
@@ -135,8 +155,10 @@ public class BlocksInDiskEffect implements CardEffect, CardTooltipNester {
         public CardEffect readFromJson(Identifier id, JsonElement entry) {
 
             BlocksInDiskEffect output = new BlocksInDiskEffect();
+            output.direction = CardSerializer.readOrDefaultDirection(id,"direction",entry,null);
             output.blocks = CardSerializer.readOrDefaultScalar(id,"blocks",entry,0);
             output.effects = CardSerializer.readCardEffects(id, "effects",entry);
+            output.directionRelativeToEntity = CardSerializer.readOrDefaultBoolean(id,"directionRelativeToEntity",entry,false);
             return output;
         }
     }
