@@ -2,6 +2,6 @@
 
 BattleCards adds combat-ready trading cards to minecraft. Find booster packs and prebuilt decks by exploring the world and killing mobs. Open booster packs to find trading cards which can be used to fight and for utility. Construct and customize decks of your favorite cards, and apply sleeves to enhance your cards with increased damage, greater status effects, and lower costs. Rip apart unwanted cards to fuel your furnaces or as offerings to the random number generator in pursuit of rare and variant cards.
 
-BattleCards comes with 114 cards, 6 booster packs, 2 preconstructed decks, and 7 card sleeves. Additional content comes in the form of expansion packs made by myself or others; all the mod's content is data driven but sleeves (and those will be soon!) so anyone who can scribble some card art and navigate a datapack can make their own cards, card packs, and prebuilt decks.
+BattleCards comes with 118 cards, 6 booster packs, 2 preconstructed decks, and 7 card sleeves. Additional content comes in the form of expansion packs made by myself or others; all the mod's content is data driven but sleeves (and those will be soon!) so anyone who can scribble some card art and navigate a datapack can make their own cards, card packs, and prebuilt decks.
 
 Requires Minecraft 1.20.1, Fabric API, and Cloth Config.
