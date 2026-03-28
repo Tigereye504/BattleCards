@@ -1,9 +1,8 @@
 {
     "parent": "item/handheld",
     "textures": {
-        "layer3": "battlecards:item/rarity_mark",
         "layer2": "battlecards:item/card_icons/projectile",
-        "layer1": "battlecards:item/illager_pack/pillager/explosive_trap",
+        "layer1": "battlecards:item/illager_pack/pillager/caltrops",
         "layer0": "battlecards:item/illager_pack/background"
     }
 }
