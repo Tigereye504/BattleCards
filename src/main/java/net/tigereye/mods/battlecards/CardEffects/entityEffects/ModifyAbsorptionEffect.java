@@ -64,6 +64,7 @@ public class ModifyAbsorptionEffect implements CardEffect, CardTooltipNester {
             ModifyAbsorptionEffect output = new ModifyAbsorptionEffect();
             output.amount = CardSerializer.readOrDefaultScalar(id, "amount",entry,0);
             output.scalingAmount = CardSerializer.readOrDefaultScalar(id, "scalingAmount",entry,0);
+            output.modifyElseSet = CardSerializer.readOrDefaultBoolean(id,"modifyElseSet",entry,true);
             return output;
         }
     }

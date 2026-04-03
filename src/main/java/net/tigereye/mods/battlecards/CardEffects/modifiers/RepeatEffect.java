@@ -23,7 +23,7 @@ import java.util.List;
 public class RepeatEffect implements CardEffect, CardTooltipNester {
 
     CardScalar startingScalar = new XScalarEffect();
-    CardScalar incrementScalar = new XScalarEffect();
+    CardScalar incrementScalar = new ConstantScalarEffect(0);
     CardScalar count = new ConstantScalarEffect(1);
     CardScalar delay = new ConstantScalarEffect(0);
     List<CardEffect> effects = new ArrayList<>();
@@ -34,6 +34,7 @@ public class RepeatEffect implements CardEffect, CardTooltipNester {
         int countValue = (int)(Math.floor(count.getValue(pContext,context)));
         int delayValue = (int)(Math.floor(delay.getValue(pContext,context)));
         context.scalar = startingScalar.getValue(pContext, context);
+        float incrementValue = incrementScalar.getValue(pContext, context);
         for (int i = 0; i < countValue; i++) {
             if(delayValue > 0 && i > 0 && pContext.user instanceof DelayedActionTaker dat) {
                 int finalI = i;
@@ -45,7 +46,7 @@ public class RepeatEffect implements CardEffect, CardTooltipNester {
                 effects.forEach((effect) ->
                         effect.apply(pContext, context.clone()));
             }
-            context.scalar = incrementScalar.getValue(pContext, context);
+            context.scalar += incrementValue;
         }
     }
 
@@ -76,7 +77,7 @@ public class RepeatEffect implements CardEffect, CardTooltipNester {
             }
 
             output.startingScalar = CardSerializer.readOrDefaultScalar(id, "startingScalar", entry, new XScalarEffect());
-            output.incrementScalar = CardSerializer.readOrDefaultScalar(id, "incrementScalar", entry, new XScalarEffect());
+            output.incrementScalar = CardSerializer.readOrDefaultScalar(id, "incrementScalar", entry, 0);
             output.count = CardSerializer.readOrDefaultScalar(id, "count", entry, 1);
             output.delay = CardSerializer.readOrDefaultScalar(id, "delay", entry, 0);
 

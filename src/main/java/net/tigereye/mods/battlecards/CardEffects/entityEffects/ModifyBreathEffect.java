@@ -2,6 +2,7 @@ package net.tigereye.mods.battlecards.CardEffects.entityEffects;
 
 import com.google.gson.JsonElement;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.Entity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
@@ -18,20 +19,24 @@ import java.util.List;
 public class ModifyBreathEffect implements CardEffect, CardTooltipNester {
 
     CardScalar amount;
+    boolean modifyElseSet;
 
     @Override
     public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
+        Entity entity;
         if(context.target != null){
-            context.target.setAir(context.target.getAir()+((int)amount.getValue(pContext, context)));
+            entity = context.target;
         }
         else {
-            pContext.user.setAir(pContext.user.getAir()+((int)amount.getValue(pContext, context)));
+            entity = pContext.user;
         }
+        entity.setAir((modifyElseSet ? pContext.user.getAir() : 0)+((int)amount.getValue(pContext, context)));
     }
 
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         tooltip.add(Text.literal(" ".repeat(depth)).append(
-                Text.translatable("card.battlecards.tooltip.breath",amount.appendInlineTooltip(world, tooltip, tooltipContext).getString())));
+                Text.translatable(modifyElseSet ? "card.battlecards.tooltip.modify_breath" : "card.battlecards.tooltip.modify_breath.set",
+                        amount.appendInlineTooltip(world, tooltip, tooltipContext).getString())));
     }
 
     public static class Serializer implements CardEffectSerializer {
@@ -39,6 +44,7 @@ public class ModifyBreathEffect implements CardEffect, CardTooltipNester {
         public CardEffect readFromJson(Identifier id, JsonElement entry) {
             ModifyBreathEffect output = new ModifyBreathEffect();
             output.amount = CardSerializer.readOrDefaultScalar(id,"amount",entry,0);
+            output.modifyElseSet = CardSerializer.readOrDefaultBoolean(id,"modifyElseSet",entry,true);
             return output;
         }
     }

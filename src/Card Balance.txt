@@ -94,6 +94,7 @@ Levitation          x12 if hostile, x1 on user (This is a powerful CC effect, mu
 Mining Fatigue      x2 (Low magnitudes aren't too bad, but high magnitudes effectively disable mining entirely.)
 Nausea              x8 (This is a frustrating interface screw, and disables sprinting.)
 Poison              x4 (Damage over time is potent stuff. We all hate cave spiders for a reason!)
+On Fire             x3 (Like poison that is visually obstructive and can kill, but easily countered with water or potions.)
 Regeneration        x3 (Slow healing, but indeed still healing.)
 Wither              x3 (Less than poison? Yep. Wither can kill, buts it's also very slow.)
 

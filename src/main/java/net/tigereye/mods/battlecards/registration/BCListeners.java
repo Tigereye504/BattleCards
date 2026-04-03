@@ -18,6 +18,7 @@ public class BCListeners {
         DamageCardEffectCallback.EVENT.register(DamageCardEffectListener::applyPersistentContext);
         StatusEffectCardEffectCallback.EVENT.register(StatusEffectCardEffectListener::applyPersistentContext);
         ManaGainCardEffectCallback.EVENT.register(ManaGainCardEffectListener::applyPersistentContext);
+        ThrowCardEffectCallback.EVENT.register(ThrowCardEffectListener::applyPersistentContext);
 
         CardManaCostCallback.EVENT.register(CardManaCostListener::applyCardOwnership);
         CardManaCostCallback.EVENT.register(CardManaCostListener::applySleeve);

@@ -22,7 +22,7 @@ import java.util.List;
 public class HungerScalarEffect implements CardEffect, CardScalar, CardTooltipNester {
 
     List<CardEffect> effects = new ArrayList<>();
-    int nonPlayerHungerPerEffectLevel = 3;
+    CardScalar nonPlayerHungerPerEffectLevel = new ConstantScalarEffect(3);
     boolean userElseTarget = true;
     boolean missingElseCurrent = true;
     boolean replaceElseAdd = true;
@@ -44,8 +44,8 @@ public class HungerScalarEffect implements CardEffect, CardScalar, CardTooltipNe
             hungerlevel = playerEntity.getHungerManager().getFoodLevel();
         }
         else if(scalarEntity instanceof LivingEntity livingEntity){
-            hungerlevel = Math.max(0,
-                    20 - (nonPlayerHungerPerEffectLevel*(livingEntity.getStatusEffect(StatusEffects.HUNGER).getAmplifier()+1)));
+            hungerlevel = (int)Math.max(0,
+                    20 - (nonPlayerHungerPerEffectLevel.getValue(pContext, context)*(livingEntity.getStatusEffect(StatusEffects.HUNGER).getAmplifier()+1)));
         }
         return (replaceElseAdd ? 0 : context.scalar) +
                 (missingElseCurrent ? 20 - hungerlevel : hungerlevel);
@@ -82,7 +82,7 @@ public class HungerScalarEffect implements CardEffect, CardScalar, CardTooltipNe
         public HungerScalarEffect readFromJson(Identifier id, JsonElement entry) {
             HungerScalarEffect output = new HungerScalarEffect();
             output.effects = CardSerializer.readCardEffects(id, "effects",entry);
-            output.nonPlayerHungerPerEffectLevel = CardSerializer.readOrDefaultInt(id,"nonPlayerHungerPerEffectLevel",entry,3);
+            output.nonPlayerHungerPerEffectLevel = CardSerializer.readOrDefaultScalar(id,"nonPlayerHungerPerEffectLevel",entry,3);
             output.userElseTarget = CardSerializer.readOrDefaultBoolean(id,"userElseTarget",entry,true);
             output.missingElseCurrent = CardSerializer.readOrDefaultBoolean(id,"missingElseCurrent",entry,true);
             output.replaceElseAdd = CardSerializer.readOrDefaultBoolean(id,"replaceElseAdd",entry,true);

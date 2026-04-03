@@ -306,11 +306,11 @@ public class CardSerializer {
         String direction = CardSerializer.readOrDefaultString(id,name,entry,"");
         return switch (direction) {
             case "" -> defaultDirection;
-            case "up","above" -> Direction.UP;
+            case "up","above","y" -> Direction.UP;
             case "down","below" -> Direction.DOWN;
             case "north","front","forward" -> Direction.NORTH;
-            case "south","back","backward" -> Direction.SOUTH;
-            case "east","right" -> Direction.EAST;
+            case "south","back","backward","z" -> Direction.SOUTH;
+            case "east","right","x" -> Direction.EAST;
             case "west","left" -> Direction.WEST;
             default -> {
                 Battlecards.LOGGER.error("Unknown direction in {}!", id);

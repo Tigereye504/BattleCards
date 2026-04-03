@@ -36,7 +36,7 @@ public class LifestealEffect implements CardEffect, CardTooltipNester {
         @Override
         public CardEffect readFromJson(Identifier id, JsonElement entry) {
             LifestealEffect output = new LifestealEffect();
-            output.ratio = CardSerializer.readOrDefaultScalar(id, "amount",entry,0);
+            output.ratio = CardSerializer.readOrDefaultScalar(id, "amount",entry,1);
             return output;
         }
     }

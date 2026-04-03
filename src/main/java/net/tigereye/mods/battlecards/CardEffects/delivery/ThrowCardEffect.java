@@ -1,22 +1,27 @@
 package net.tigereye.mods.battlecards.CardEffects.delivery;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.tigereye.mods.battlecards.Battlecards;
 import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
+import net.tigereye.mods.battlecards.CardEffects.modifiers.DelayedEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
+import net.tigereye.mods.battlecards.Events.DamageCardEffectCallback;
+import net.tigereye.mods.battlecards.Events.ThrowCardEffectCallback;
 import net.tigereye.mods.battlecards.Projectiles.CardProjectileEntity;
+import net.tigereye.mods.battlecards.Util.DelayedAction;
+import net.tigereye.mods.battlecards.Util.DelayedActionTaker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +39,9 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
     public boolean trackProjectile;
     public CardScalar pitch;
     public CardScalar yaw;
-    public boolean angleRelativeToEntityElseAbsolute;
-    public boolean velocityRelativeToEntityElseAbsolute;
+    public boolean pitchRelativeToOrigin;
+    public boolean yawRelativeToOrigin;
+    public boolean velocityRelativeToOrigin;
     public CardScalar speed;
     public CardScalar gravity;
     public CardScalar piercing;
@@ -49,10 +55,11 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
         trackProjectile = true;
         pitch = new ConstantScalarEffect(0);
         yaw = new ConstantScalarEffect(0);
-        angleRelativeToEntityElseAbsolute = true;
+        pitchRelativeToOrigin = true;
+        yawRelativeToOrigin = true;
         speed = new ConstantScalarEffect(1.5f);
         copies = new ConstantScalarEffect(1);
-        copyDelay = new ConstantScalarEffect(1);
+        copyDelay = new ConstantScalarEffect(0);
         gravity = new ConstantScalarEffect(0.05F);
         piercing = new ConstantScalarEffect(0);
         divergence = new ConstantScalarEffect(0);
@@ -98,20 +105,37 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
     private void apply(PersistentCardEffectContext pContext, CardEffectContext context, Entity target) {
         World world = pContext.user.getWorld();
         if (!world.isClient()) {
-            float copiesValue = copies.getValue(pContext,context);
-            for (int i = 1; i <= copiesValue; i++) {
-                CardProjectileEntity cardProjectileEntity = createProjectile(pContext,context,target);
-                if(cardProjectileEntity != null) {
+            Parameters params = new Parameters(this, pContext, context);
+            ThrowCardEffectCallback.EVENT.invoker()
+                    .modifyThrowCardEffect(pContext,target,context,params);
+            if(params.copyDelay == 0) {
+                for (int i = 0; i < params.copies; i++) {
+                    CardProjectileEntity cardProjectileEntity = createProjectile(pContext, context, target, params);
+                    if (cardProjectileEntity != null) {
+                        world.spawnEntity(cardProjectileEntity);
+                    }
+                }
+            }
+            else{
+                CardProjectileEntity cardProjectileEntity = createProjectile(pContext, context, target, params);
+                if (cardProjectileEntity != null) {
                     world.spawnEntity(cardProjectileEntity);
+                }
+                if(pContext.user instanceof DelayedActionTaker dat) {
+                    for (int i = 1; i < params.copies; i++) {
+                        int totalDelay = params.copyDelay*i;
+                        dat.battleCards$addDelayedAction(new ThrowCardEffect.DelayedCardThrow(
+                                pContext, context.clone(), target, params, this, totalDelay));
+                    }
                 }
             }
         }
     }
 
     public CardProjectileEntity createProjectile(PersistentCardEffectContext pContext, CardEffectContext context) {
-        return createProjectile(pContext,context,pContext.user);
+        return createProjectile(pContext,context,pContext.user, null);//TODO: delete this
     }
-    public CardProjectileEntity createProjectile(PersistentCardEffectContext pContext, CardEffectContext context, Entity target) {
+    public CardProjectileEntity createProjectile(PersistentCardEffectContext pContext, CardEffectContext context, Entity target, Parameters params) {
         if(pContext.user == null ||((!originRelativeToUserElseTarget)&&(target == null))){
             return null;
         }
@@ -125,18 +149,18 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
                 originEntity.getEyeY() - 0.1F + rotatedOriginOffset.getY(),
                 originEntity.getZ() + rotatedOriginOffset.getZ());
 
-        cardProjectileEntity.setVelocity(velocityRelativeToEntityElseAbsolute ? originEntity : cardProjectileEntity,
-                angleRelativeToEntityElseAbsolute ? originEntity.getPitch() + this.pitch.getValue(pContext,context) : this.pitch.getValue(pContext,context),
-                angleRelativeToEntityElseAbsolute ? originEntity.getYaw() + this.yaw.getValue(pContext,context) : this.yaw.getValue(pContext,context), 0.0F,
-                speed.getValue(pContext,context), divergence.getValue(pContext,context));
+        cardProjectileEntity.setVelocity(velocityRelativeToOrigin ? originEntity : cardProjectileEntity,
+                pitchRelativeToOrigin ? originEntity.getPitch() + this.pitch.getValue(pContext,context) : this.pitch.getValue(pContext,context),
+                yawRelativeToOrigin ? originEntity.getYaw() + this.yaw.getValue(pContext,context) : this.yaw.getValue(pContext,context), 0.0F,
+                params.speed, params.divergence);
         cardProjectileEntity.maxCollisionCount = (int) maxCollisionCount.getValue(pContext,context);
         cardProjectileEntity.doCollisionEffectOnEntity = doCollisionEffectOnEntity;
         cardProjectileEntity.addEffectsOnEntityHit(onEntityHitEffects);
         cardProjectileEntity.addEffectsOnCollision(onCollisionEffects);
         cardProjectileEntity.addEffectsOnTick(onTickEffects);
         cardProjectileEntity.addEffectsOnSpawn(onSpawnEffects);
-        cardProjectileEntity.gravity = gravity.getValue(pContext,context);
-        cardProjectileEntity.setPierceLevel((byte) (piercing.getValue(pContext, context)-1));
+        cardProjectileEntity.gravity = params.gravity;
+        cardProjectileEntity.setPierceLevel((byte) params.piercing);
         newContext.target = null;
         newContext.trackedEntity = cardProjectileEntity;
         return cardProjectileEntity;
@@ -185,6 +209,49 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
 
     }
 
+    public static class DelayedCardThrow extends DelayedAction {
+
+        PersistentCardEffectContext pContext;
+        Entity target;
+        CardEffectContext context;
+        ThrowCardEffect.Parameters params;
+        ThrowCardEffect effect;
+
+
+        DelayedCardThrow(PersistentCardEffectContext pContext, CardEffectContext context, Entity target, ThrowCardEffect.Parameters params, ThrowCardEffect effect, int delay){
+            this.pContext = pContext;
+            this.context = context;
+            this.target = target;
+            this.params = params;
+            this.effect = effect;
+            setTicks(delay);
+        }
+
+        @Override
+        public void act() {
+            CardProjectileEntity projectile = effect.createProjectile(pContext,context,target,params);
+            pContext.user.getWorld().spawnEntity(projectile);
+        }
+    }
+
+    public static class Parameters {
+        public float speed;
+        public int copies;
+        public int copyDelay;
+        public float gravity;
+        public int piercing;
+        public float divergence;
+
+        public Parameters(ThrowCardEffect throwCardEffect, PersistentCardEffectContext pContext, CardEffectContext context) {
+            speed = throwCardEffect.speed.getValue(pContext,context);
+            copies = (int) throwCardEffect.copies.getValue(pContext,context);
+            copyDelay = (int) throwCardEffect.copyDelay.getValue(pContext,context);
+            gravity = throwCardEffect.gravity.getValue(pContext,context);
+            piercing = (int) throwCardEffect.piercing.getValue(pContext,context);
+            divergence = (int) throwCardEffect.divergence.getValue(pContext,context);
+        }
+    }
+
     public static class Serializer implements CardEffectSerializer {
         @Override
         public ThrowCardEffect readFromJson(Identifier id, JsonElement entry) {
@@ -197,7 +264,8 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
             output.pitch = CardSerializer.readOrDefaultScalar(id, "pitch",entry,0);
             output.yaw = CardSerializer.readOrDefaultScalar(id, "yaw",entry,0);
             output.speed = CardSerializer.readOrDefaultScalar(id, "speed",entry,1.5f);
-            output.copies = CardSerializer.readOrDefaultScalar(id, "copies",entry,1);
+            output.copies = CardSerializer.readOrDefaultScalar(id, "count",entry,1);
+            output.copyDelay = CardSerializer.readOrDefaultScalar(id, "countDelay",entry,0);
             output.gravity = CardSerializer.readOrDefaultScalar(id, "gravity",entry,0.05F);
             output.piercing = CardSerializer.readOrDefaultScalar(id, "piercing",entry,0);
             output.divergence = CardSerializer.readOrDefaultScalar(id, "divergence",entry,0);
@@ -205,8 +273,10 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
 
             output.doCollisionEffectOnEntity = CardSerializer.readOrDefaultBoolean(id, "doCollisionEffectOnEntity",entry,true);
             output.originRelativeToUserElseTarget = CardSerializer.readOrDefaultBoolean(id, "originRelativeToUser",entry,true);
-            output.angleRelativeToEntityElseAbsolute = CardSerializer.readOrDefaultBoolean(id, "angleRelativeToEntity",entry,true);
-            output.velocityRelativeToEntityElseAbsolute = CardSerializer.readOrDefaultBoolean(id, "velocityRelativeToEntity",entry,true);
+            output.pitchRelativeToOrigin = CardSerializer.readOrDefaultBoolean(id, "pitchRelativeToOrigin", entry, true);
+            output.yawRelativeToOrigin = CardSerializer.readOrDefaultBoolean(id, "yawRelativeToOrigin", entry, true);
+
+            output.velocityRelativeToOrigin = CardSerializer.readOrDefaultBoolean(id, "velocityRelativeToOrigin", entry, true);
             output.trackProjectile = CardSerializer.readOrDefaultBoolean(id, "trackProjectile",entry,true);
 
             output.addEffectsOnEntityHit(CardSerializer.readCardEffects(id, "onHit",entry));
@@ -214,7 +284,20 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
             output.addEffectsOnTick(CardSerializer.readCardEffects(id, "onTick",entry));
             output.addEffectsOnSpawn(CardSerializer.readCardEffects(id, "onSpawn",entry));
 
+            checkDeprecated(id,entry);
+
             return output;
+        }
+
+        private void checkDeprecated(Identifier id, JsonElement entry){
+            boolean angleRelativeToEntityElseAbsolute = CardSerializer.readOrDefaultBoolean(id, "angleRelativeToEntity",entry,false);
+            if(angleRelativeToEntityElseAbsolute){
+                Battlecards.LOGGER.warn("AngleRelativeToEntity is deprecated in {}. Use pitch/yawRelativeToOrigin instead",id);
+            }
+            boolean velocityRelativeToEntity = CardSerializer.readOrDefaultBoolean(id, "velocityRelativeToEntity",entry,false);
+            if(velocityRelativeToEntity){
+                Battlecards.LOGGER.warn("velocityRelativeToEntity is deprecated in {}. Use velocityRelativeToOrigin instead",id);
+            }
         }
     }
 }

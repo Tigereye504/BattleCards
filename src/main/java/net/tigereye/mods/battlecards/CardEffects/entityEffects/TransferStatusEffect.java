@@ -37,10 +37,10 @@ public class TransferStatusEffect implements CardEffect, CardTooltipNester {
             target = context.target;
         }
         else {
-            target = pContext.user;
+            return;
         }
         Entity donor = userToTarget ? pContext.user : target;
-        Entity reciever = userToTarget ? target : pContext.user;
+        Entity receiver = userToTarget ? target : pContext.user;
         if(donor instanceof LivingEntity leDonor) {
             List<StatusEffectInstance> toMove = new ArrayList<>();
             if (type != null && leDonor.hasStatusEffect(type)){
@@ -78,7 +78,7 @@ public class TransferStatusEffect implements CardEffect, CardTooltipNester {
             }
             for(StatusEffectInstance instance : toMove){
                 leDonor.removeStatusEffect(instance.getEffectType());
-                if(reciever instanceof LivingEntity leReciever){
+                if(receiver instanceof LivingEntity leReciever){
                     leReciever.addStatusEffect(instance);
                 }
             }

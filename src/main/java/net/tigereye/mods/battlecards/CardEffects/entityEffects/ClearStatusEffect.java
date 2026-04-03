@@ -26,7 +26,7 @@ import java.util.List;
 public class ClearStatusEffect implements CardEffect, CardTooltipNester {
 
     StatusEffect type = null;
-    CardScalar count = new ConstantScalarEffect(0);
+    CardScalar count = new ConstantScalarEffect(-1);
     boolean targetPositive = true;
     boolean targetNegative = true;
 
@@ -50,7 +50,7 @@ public class ClearStatusEffect implements CardEffect, CardTooltipNester {
                 int amountToClear = 0;
                 List<StatusEffect> toClear = new ArrayList<>();
                 for(StatusEffectInstance instance : livingEntity.getStatusEffects()){
-                    if(amountToClear >= count){
+                    if(count >= 0 && amountToClear >= count){
                         break;
                     }
                     if((instance.getEffectType().isBeneficial() && targetPositive)
@@ -91,7 +91,7 @@ public class ClearStatusEffect implements CardEffect, CardTooltipNester {
                 }
             }
 
-            output.count = CardSerializer.readOrDefaultScalar(id,"count",entry,0);
+            output.count = CardSerializer.readOrDefaultScalar(id,"count",entry,-1);
             output.targetPositive = CardSerializer.readOrDefaultBoolean(id,"targetPositive",entry,true);
             output.targetNegative = CardSerializer.readOrDefaultBoolean(id,"targetNegative",entry,true);
 

@@ -20,7 +20,7 @@ import java.util.List;
 public class RecentDamageScalarEffect implements CardEffect, CardScalar, CardTooltipNester {
 
     List<CardEffect> effects = new ArrayList<>();
-    int maxTicks = 20;
+    CardScalar maxTicks = new ConstantScalarEffect(20);
     boolean userElseTarget = true;
 
     @Override
@@ -35,7 +35,7 @@ public class RecentDamageScalarEffect implements CardEffect, CardScalar, CardToo
     @Override
     public float getValue(PersistentCardEffectContext pContext, CardEffectContext context) {
         Entity scalarEntity = userElseTarget ? pContext.user : context.target;
-        if(scalarEntity instanceof LivingEntity livingEntity && maxTicks >= livingEntity.getDamageTracker().getTimeSinceLastAttack()){
+        if(scalarEntity instanceof LivingEntity livingEntity && maxTicks.getValue(pContext, context) >= livingEntity.getDamageTracker().getTimeSinceLastAttack()){
             return livingEntity.lastDamageTaken;
         }
         return 0;
@@ -50,7 +50,7 @@ public class RecentDamageScalarEffect implements CardEffect, CardScalar, CardToo
             tooltip.add(Text.literal(" ".repeat(depth)).append(
                 Text.translatable("card.battlecards.tooltip.recent_damage_scalar",
                         userElseTarget ? "User's" : "Target's",
-                        maxTicks)));
+                        maxTicks.appendInlineTooltip(world, tooltip, tooltipContext))));
             for(CardEffect effect : effects){
                 if(effect instanceof CardTooltipNester nester){
                     nester.appendNestedTooltip(world, tooltip, tooltipContext, depth+1);
@@ -71,7 +71,7 @@ public class RecentDamageScalarEffect implements CardEffect, CardScalar, CardToo
         public RecentDamageScalarEffect readFromJson(Identifier id, JsonElement entry) {
             RecentDamageScalarEffect output = new RecentDamageScalarEffect();
             output.effects = CardSerializer.readCardEffects(id, "effects",entry);
-            output.maxTicks = CardSerializer.readOrDefaultInt(id,"maxTicks",entry,20);
+            output.maxTicks = CardSerializer.readOrDefaultScalar(id,"maxTicks",entry,20);
             output.userElseTarget = CardSerializer.readOrDefaultBoolean(id,"userElseTarget",entry,true);
             return output;
         }

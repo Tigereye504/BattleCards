@@ -21,7 +21,7 @@ public class HealthScalarEffect implements CardEffect, CardScalar, CardTooltipNe
 
     List<CardEffect> effects = new ArrayList<>();
     boolean userElseTarget = true;
-    boolean missingElseCurrent = true;
+    boolean missingElseCurrent = false;
     boolean replaceElseAdd = true;
     boolean absoluteElseRatio = true;
 

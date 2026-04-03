@@ -58,13 +58,14 @@ public class BCEffectSerializers {
         CardSerializer.registerCardEffectSerializer("modify_health",new ModifyHealthEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("modify_hunger",new ModifyHungerEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("push",new PushEffect.Serializer());
-        CardSerializer.registerCardEffectSerializer("retain",new RetainCardEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("transfer_status",new TransferStatusEffect.Serializer());
         //block effects
         CardSerializer.registerCardEffectSerializer("replace_block",new ReplaceBlockEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("blocks_in_disk",new BlocksInDiskEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("blocks_in_list",new BlocksInListEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("snap_block_pos_to_surface",new SnapBlockPosToSurface.Serializer());
+
+        CardSerializer.registerCardEffectSerializer("retain",new RetainCardEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("despawn_card_projectile", new DespawnCardProjectileEffect.Serializer());
 
 

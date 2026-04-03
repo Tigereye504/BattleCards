@@ -26,12 +26,12 @@ public class Battlecards implements ModInitializer {
 
         BCEntities.register();
         BCEffectSerializers.register();
+        BCItems.register();
+        BCStatusEffects.register();
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(CardManager.INSTANCE);
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(BoosterPackManager.INSTANCE);
         ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(PrebuiltDeckManager.INSTANCE);
-        BCItems.register();
         BCListeners.register();
-        BCStatusEffects.register();
     }
 }
 

@@ -32,7 +32,7 @@ public class PrebuiltDeckManager implements SimpleSynchronousResourceReloadListe
     @Override
     public void reload(ResourceManager manager) {
         lootTableInjections.clear();
-        Battlecards.LOGGER.info("Loading booster packs.");
+        Battlecards.LOGGER.info("Loading decks.");
         manager.findResources(RESOURCE_LOCATION, path -> path.getPath().endsWith(".json")).forEach((id,resource) -> {
             try(InputStream stream = resource.getInputStream()) {
                 Reader reader = new InputStreamReader(stream);

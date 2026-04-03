@@ -18,6 +18,7 @@ import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectCon
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
+import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 import net.tigereye.mods.battlecards.Events.DamageCardEffectCallback;
@@ -27,7 +28,7 @@ import java.util.List;
 
 public class DamageEffect implements CardEffect, CardTooltipNester {
 
-    float scalingDamage = 0;
+    CardScalar scalingDamage = new ConstantScalarEffect(0);
     CardScalar damage;
     RegistryKey<DamageType> damageType;
     List<CardEffect> afterDamageEffects = new ArrayList<>();
@@ -59,11 +60,10 @@ public class DamageEffect implements CardEffect, CardTooltipNester {
                 }
                 float targetHealth = lEntity.getHealth() + lEntity.getAbsorptionAmount();
                 float modifiedDamage = DamageCardEffectCallback.EVENT.invoker()
-                        .modifyDamage(pContext,target,context,damage.getValue(pContext,context)+(scalingDamage*context.scalar));
+                        .modifyDamage(pContext,target,context,damage.getValue(pContext,context)+(scalingDamage.getValue(pContext, context)*context.scalar));
                 target.damage(source, modifiedDamage);
                 float damageDealt = targetHealth - (lEntity.getHealth() + lEntity.getAbsorptionAmount());
-                CardEffectContext postDamageContext = new CardEffectContext();
-                postDamageContext.target = target;
+                CardEffectContext postDamageContext = context.clone();
                 postDamageContext.scalar = damageDealt;
                 for(CardEffect effect : afterDamageEffects){
                     effect.apply(pContext,postDamageContext);
@@ -75,7 +75,7 @@ public class DamageEffect implements CardEffect, CardTooltipNester {
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
         tooltip.add(Text.literal(" ".repeat(depth)).append(
                 Text.translatable("card.battlecards.tooltip.damage",damage.appendInlineTooltip(world,tooltip,tooltipContext).getString(),
-                        scalingDamage == 0 ? "" : (" + "+scalingDamage+"X"))));
+                        (scalingDamage.equals(ConstantScalarEffect.ZERO)  ? "" : (" + "+scalingDamage+"X")))));
         if(!afterDamageEffects.isEmpty()){
             tooltip.add(Text.literal(" ".repeat(depth)).append(
                     Text.translatable("card.battlecards.tooltip.after_damage")));
@@ -103,7 +103,7 @@ public class DamageEffect implements CardEffect, CardTooltipNester {
         public CardEffect readFromJson(Identifier id, JsonElement entry) {
 
             DamageEffect output = new DamageEffect();
-            output.scalingDamage = CardSerializer.readOrDefaultFloat(id,"scalingAmount",entry,0);
+            output.scalingDamage = CardSerializer.readOrDefaultScalar(id,"scalingAmount",entry,0);
             output.damage = CardSerializer.readOrDefaultScalar(id,"amount",entry,0);
             output.damageType = RegistryKey.of(RegistryKeys.DAMAGE_TYPE,new Identifier(
                     CardSerializer.readOrDefaultString(id,"damageType",entry,"")));

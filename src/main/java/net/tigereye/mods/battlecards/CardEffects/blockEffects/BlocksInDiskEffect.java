@@ -29,7 +29,7 @@ public class BlocksInDiskEffect implements CardEffect, CardTooltipNester {
     private static final Direction DEFAULT_DIRECTION = Direction.DOWN;
     private static final Direction DEFAULT_DIRECTION_WHEN_RELATIVE = Direction.NORTH;
 
-    CardScalar blocks = new ConstantScalarEffect(1);
+    CardScalar blocks = new ConstantScalarEffect(5);
     boolean directionRelativeToEntity = false;
     Direction direction;
     List<CardEffect> effects = new ArrayList<>();
@@ -156,7 +156,7 @@ public class BlocksInDiskEffect implements CardEffect, CardTooltipNester {
 
             BlocksInDiskEffect output = new BlocksInDiskEffect();
             output.direction = CardSerializer.readOrDefaultDirection(id,"direction",entry,null);
-            output.blocks = CardSerializer.readOrDefaultScalar(id,"blocks",entry,0);
+            output.blocks = CardSerializer.readOrDefaultScalar(id,"blocks",entry,5);
             output.effects = CardSerializer.readCardEffects(id, "effects",entry);
             output.directionRelativeToEntity = CardSerializer.readOrDefaultBoolean(id,"directionRelativeToEntity",entry,false);
             return output;

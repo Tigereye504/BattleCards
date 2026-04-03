@@ -17,6 +17,7 @@ import java.util.List;
 
 public class ConstantScalarEffect implements CardEffect, CardScalar, CardTooltipNester {
 
+    public static final ConstantScalarEffect ZERO = new ConstantScalarEffect(0);
     List<CardEffect> effects = new ArrayList<>();
     float amount = 0;
 
@@ -58,6 +59,14 @@ public class ConstantScalarEffect implements CardEffect, CardScalar, CardTooltip
     public Text appendInlineTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext) {
         return Text.translatable("card.battlecards.tooltip.constant_scalar.inline",
                 amount == Float.MAX_VALUE ? "∞" : amount == Float.MIN_VALUE ? "-∞" : amount);
+    }
+
+    @Override
+    public boolean equals(Object obj){
+        if(obj instanceof ConstantScalarEffect cse){
+            return this.amount == cse.amount;
+        }
+        return false;
     }
 
     public static class Serializer implements CardEffectSerializer {

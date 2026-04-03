@@ -22,6 +22,7 @@ public class ModifyHungerEffect implements CardEffect, CardTooltipNester {
 
     CardScalar hunger;
     CardScalar saturation;
+    boolean modifyElseSet;
 
     @Override
     public void apply(PersistentCardEffectContext pContext, CardEffectContext context) {
@@ -34,16 +35,24 @@ public class ModifyHungerEffect implements CardEffect, CardTooltipNester {
         }
         if(target instanceof PlayerEntity pEntity){
             HungerManager manager = pEntity.getHungerManager();
-            manager.setFoodLevel(manager.getFoodLevel()+((int)hunger.getValue(pContext, context)));
-            manager.setSaturationLevel(manager.getSaturationLevel()+saturation.getValue(pContext, context));
+            manager.setFoodLevel((modifyElseSet ? manager.getFoodLevel() : 0)+((int)hunger.getValue(pContext, context)));
+            manager.setSaturationLevel((modifyElseSet ? manager.getSaturationLevel() : 0)+saturation.getValue(pContext, context));
         }
     }
 
     public void appendNestedTooltip(World world, List<Text> tooltip, TooltipContext tooltipContext, int depth) {
-        tooltip.add(Text.literal(" ".repeat(depth)).append(
-                Text.translatable("card.battlecards.tooltip.hunger",
-                        hunger.appendInlineTooltip(world, tooltip, tooltipContext).getString(),
-                        saturation.appendInlineTooltip(world, tooltip, tooltipContext).getString())));
+        if(modifyElseSet) {
+            tooltip.add(Text.literal(" ".repeat(depth)).append(
+                    Text.translatable("card.battlecards.tooltip.modify_hunger",
+                            hunger.appendInlineTooltip(world, tooltip, tooltipContext).getString(),
+                            saturation.appendInlineTooltip(world, tooltip, tooltipContext).getString())));
+        }
+        else{
+            tooltip.add(Text.literal(" ".repeat(depth)).append(
+                    Text.translatable("card.battlecards.tooltip.modify_hunger.set",
+                            hunger.appendInlineTooltip(world, tooltip, tooltipContext).getString(),
+                            saturation.appendInlineTooltip(world, tooltip, tooltipContext).getString())));
+        }
     }
 
     public static class Serializer implements CardEffectSerializer {
@@ -52,6 +61,7 @@ public class ModifyHungerEffect implements CardEffect, CardTooltipNester {
             ModifyHungerEffect output = new ModifyHungerEffect();
             output.hunger = CardSerializer.readOrDefaultScalar(id, "hunger",entry,0);
             output.saturation = CardSerializer.readOrDefaultScalar(id, "saturation",entry,0);
+            output.modifyElseSet = CardSerializer.readOrDefaultBoolean(id,"modifyElseSet",entry,true);
             return output;
         }
     }

@@ -1,7 +1,7 @@
 {
   "id": "battlecards:skeleton_pack/put_em_on_ice",
-  "quickComment": "3 budget, 1 damage + 1 mana + 1 AoE",
-  "quickKeywords": ["Attack","Projectile","Area Of Effect","Mana Generator"],
+  "quickComment": "3 budget, 1 damage + 1 mana + 1 status",
+  "quickKeywords": ["Attack","Projectile","Status","Mana Generator"],
   "quickEffects": [
     {
       "effect": "throw_card",

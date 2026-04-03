@@ -10,7 +10,6 @@ import org.joml.Vector3f;
 public class CardEffectContext {
     public Entity target;
     public BlockPos blockPos;
-    public Vec3d direction;
     public float scalar;
     public HitResult hitResult;
     public Entity trackedEntity;

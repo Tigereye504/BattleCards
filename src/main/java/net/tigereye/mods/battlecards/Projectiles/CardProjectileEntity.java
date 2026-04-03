@@ -116,7 +116,7 @@ public class CardProjectileEntity extends PersistentProjectileEntity implements 
                 for (CardEffect effect : getEffectsOnCollision()) {
                     CardEffectContext newContext = context.clone();
                     if (hitResult.getType() == HitResult.Type.ENTITY) {
-                        newContext.target = ((EntityHitResult) hitResult).getEntity();
+                        newContext.blockPos = ((EntityHitResult) hitResult).getEntity().getBlockPos();
                     }
                     else if (hitResult.getType() == HitResult.Type.BLOCK) {
                         newContext.blockPos = ((BlockHitResult) hitResult).getBlockPos();

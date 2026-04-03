@@ -63,22 +63,29 @@ public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
         List<LivingEntity> entityList = pContext.user.getWorld().getNonSpectatingEntities(LivingEntity.class,
                 box);
         double radiusSquared = radius*radius;
-        Entity firstHit = null;
+        Entity closestHit = null;
+        double bestDistance = Double.MAX_VALUE;
         for(LivingEntity entity: entityList){
             if(!targetUser && entity == pContext.user){
                 continue;
             }
             boolean inRange = false;
-            if(sphereElseCylinder && entity.squaredDistanceTo(center) < radiusSquared){
-                inRange = true;
+            double distance;
+            if(sphereElseCylinder){
+                distance = entity.squaredDistanceTo(center);
+                inRange = distance < radiusSquared;
             }
-            else if(!sphereElseCylinder){
+            else{
                 double diffX = entity.getX()-center.getX();
                 double diffY = entity.getY()-center.getY();
-                inRange = (diffX*diffX)+(diffY*diffY) < radiusSquared;
+                distance = (diffX*diffX)+(diffY*diffY);
+                inRange = distance < radiusSquared;
             }
             if(inRange){
-                if(firstHit == null){firstHit = entity;}
+                if(distance < bestDistance){
+                    closestHit = entity;
+                    bestDistance = distance;
+                }
                 CardEffectContext newContext = context.clone();
                 newContext.target = entity;
                 for (CardEffect effect : effects) {
@@ -86,9 +93,9 @@ public class EntitiesInRadiusEffect implements CardEffect, CardTooltipNester {
                 }
             }
         }
-        if(firstHit != null){
+        if(closestHit != null){
             CardEffectContext newContext = context.clone();
-            newContext.target = firstHit;
+            newContext.target = closestHit;
             for (CardEffect effect : singularEffects) {
                 effect.apply(pContext, newContext);
             }
