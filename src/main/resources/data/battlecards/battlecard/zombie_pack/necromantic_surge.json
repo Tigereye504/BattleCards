@@ -1,5 +1,6 @@
 {
   "id": "battlecards:zombie_pack/necromantic_surge",
+  "quickKeywords": ["Healing"],
   "quickEffects": [
     {
       "effect": "health_scalar",
@@ -14,6 +15,7 @@
     }
   ],
   "cost": 5,
+  "chargeKeywords": ["Status"],
   "chargeEffects": [
     {
       "effect": "apply_status",

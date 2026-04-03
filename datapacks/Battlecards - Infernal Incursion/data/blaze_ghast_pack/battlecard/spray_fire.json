@@ -1,0 +1,63 @@
+{
+  "id": "battlecards_nether_box:blaze_ghast_pack/spray_fire",
+  "quickKeywords": ["Attack","Projectile","Status","Mana Generator"],
+  "quickComment": "4 budget (3 + 1 miss chance), 1 damage + 1 status + 2 mana",
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 2,
+      "gravity": 0,
+      "divergence": 15,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:on_fire",
+          "afterDamage": [
+            {
+              "effect": "if_scalar",
+              "effects": [
+                {
+                  "effect": "gain_mana",
+                  "amount": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "effect": "apply_status",
+          "type": "battlecards:on_fire",
+          "duration": 30
+        }
+      ]
+    }
+  ],
+  "cost": 2,
+  "chargeKeywords": ["Attack","Status","Projectile"],
+  "chargedComment": "3 + 2 mana, 3 damage + (2/2) status + 1 AoE",
+  "chargedComment2": "Due to divergence, only 1 hit is expected.",
+  "chargedComment3": "Fire is an odd damage type. Its AP, but also 100% shut down by fire immunity. Tentatively 1x cost?",
+  "chargeEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 1.5,
+      "divergence": 10,
+      "count": 3,
+      "countDelay": 5,
+      "gravity": 0.01,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 7,
+          "damageType": "minecraft:on_fire"
+        },
+        {
+          "effect": "apply_status",
+          "type": "battlecards:on_fire",
+          "duration": 100
+        }
+      ]
+    }
+  ]
+}

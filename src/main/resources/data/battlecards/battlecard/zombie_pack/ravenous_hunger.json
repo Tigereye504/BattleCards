@@ -1,5 +1,6 @@
 {
   "id": "battlecards:zombie_pack/ravenous_hunger",
+  "quickKeywords": ["Attack","Melee","Mana Generator","Status"],
   "quickComment": "4 budget, 1 damage + 1 sweeping + 3 mana - 1 self-hunger",
   "quickEffects": [
     {
@@ -29,6 +30,7 @@
     }
   ],
   "cost": 3,
+  "chargeKeywords": ["Attack","Melee"],
   "chargedComment": "6 budget, 4 damage + 1 sweeping + 1 hunger restoration",
   "chargedComment2": "Does 7 + 0to10 damage. that averages 12 damage... but starving yourself is rough.",
   "chargedComment3": "I'm going to tentatively call it a x1/2 disadvantage. (7+5/2 dmg, V.Strong, 4 pts)",

@@ -1,0 +1,36 @@
+{
+  "id": "battlecards:blaze_ghast_pack/rising_power",
+  "quickKeywords": ["Status"],
+  "quickComment": "Short duration levitate in isolation has some utility",
+  "quickEffects": [
+    {
+      "effect": "apply_status",
+      "type": "minecraft:levitation",
+      "duration": 100
+    }
+  ],
+  "cost": 3,
+  "chargeKeywords": ["Status"],
+  "chargedComment": "1 + 3 mana, 3? status + 1 retain",
+  "chargedComment2": "No points for levitate, it's a slight malus here.",
+  "chargedComment3": "It will be hard to use this more than twice, and mana for payoff dries up if overused.",
+  "chargeEffects": [
+    {
+      "effect": "apply_status",
+      "type": "minecraft:levitation",
+      "duration": 100
+    },
+    {
+      "effect": "apply_status",
+      "type": "battlecards:multishot",
+      "duration": 100,
+      "magnitude": {
+        "effect": "status_magnitude_scalar",
+        "type": "battlecards:multishot"
+      }
+    },
+    {
+      "effect": "retain"
+    }
+  ]
+}

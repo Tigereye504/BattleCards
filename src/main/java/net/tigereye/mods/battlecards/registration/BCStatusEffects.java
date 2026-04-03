@@ -14,8 +14,7 @@ public class BCStatusEffects {
 
     public static StatusEffect CARDFETTI_SACRIFICE = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 0x802000);
     public static StatusEffect MANA = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 0x008080);
-    public static StatusEffect UNDEATH = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 0xAAAAAA);
-    public static StatusEffect UNDYING = new Undying();
+
     public static StatusEffect ARMORED = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 3402751)
                     .addAttributeModifier(EntityAttributes.GENERIC_ARMOR, "a2fb047c-a903-4763-9573-6626f33dd65c",
                             2F, EntityAttributeModifier.Operation.ADDITION);
@@ -28,10 +27,14 @@ public class BCStatusEffects {
     public static StatusEffect STABILITY = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 0xEAE6CA)
             .addAttributeModifier(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, "29f8d35f-60cd-43d7-aa1e-955a5934b167",
                     2, EntityAttributeModifier.Operation.ADDITION);
+
     public static StatusEffect EVADING = new Evading();
     public static StatusEffect HIGHSTEP = new HighStep();
+    public static StatusEffect MULTISHOT = new Multishot();
     public static StatusEffect ON_FIRE = new OnFire();
     public static StatusEffect OVERDRAW = new Overdraw();
+    public static StatusEffect UNDEATH = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 0xAAAAAA);
+    public static StatusEffect UNDYING = new Undying();
     public static StatusEffect WEBWALKING = new BCStatusEffect(StatusEffectCategory.BENEFICIAL, 0xDDDDDD);
 
     public static void register(){
@@ -43,6 +46,7 @@ public class BCStatusEffects {
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "reinforced"), REINFORCED);
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "evading"), EVADING);
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "highstep"), HIGHSTEP);
+        Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "multishot"), MULTISHOT);
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "sundered"), SUNDERED);
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "stability"), STABILITY);
         Registry.register(Registries.STATUS_EFFECT, new Identifier(Battlecards.MODID, "on_fire"), ON_FIRE);

@@ -6,7 +6,7 @@
     {
       "effect": "repeat",
       "startingScalar": -15,
-      "incrementScalar": {"effect":"addition_scalar","a":15,"b":{"effect":"x_scalar"}},
+      "incrementScalar": 15,
       "count": 3,
       "effects": [
         {
@@ -35,7 +35,7 @@
     {
       "effect": "repeat",
       "startingScalar": -20,
-      "incrementScalar": {"effect":"addition_scalar","a":10,"b":{"effect":"x_scalar"}},
+      "incrementScalar": 10,
       "count": 5,
       "effects": [
         {

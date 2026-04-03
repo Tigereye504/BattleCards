@@ -1,5 +1,6 @@
 {
   "id": "battlecards:zombie_pack/persistence",
+  "quickKeywords": ["Status"],
   "quickEffects": [
     {
       "effect": "health_scalar",
@@ -14,6 +15,7 @@
     }
   ],
   "cost": 2,
+  "chargeKeywords": ["Status"],
   "chargeEffects": [
     {
       "effect": "apply_status",

@@ -1,5 +1,6 @@
 {
   "id": "battlecards:zombie_pack/undeath",
+  "quickKeywords": ["Status"],
   "quickEffects": [
     {
       "effect": "apply_status",
@@ -9,6 +10,7 @@
     }
   ],
   "cost": 2,
+  "chargeKeywords": ["Status"],
   "chargeEffects": [
     {
       "effect": "apply_status",

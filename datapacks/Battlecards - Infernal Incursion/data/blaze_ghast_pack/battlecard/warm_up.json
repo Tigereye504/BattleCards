@@ -1,0 +1,64 @@
+{
+  "id": "battlecards_nether_box:blaze_ghast_pack/warm_up",
+  "quickKeywords": ["Attack","Projectile","Status","Mana Generator"],
+  "quickComment": "4 budget (3 + 1 miss chance), 1 damage + 1 status + 2 mana",
+  "quickEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 2,
+      "gravity": 0,
+      "divergence": 15,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 4,
+          "damageType": "minecraft:on_fire",
+          "afterDamage": [
+            {
+              "effect": "if_scalar",
+              "effects": [
+                {
+                  "effect": "gain_mana",
+                  "amount": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "effect": "apply_status",
+          "type": "battlecards:on_fire",
+          "duration": 80
+        }
+      ]
+    }
+  ],
+  "cost": 3,
+  "chargeKeywords": ["Attack","Status","Projectile"],
+  "chargedComment": "3 + 1 miss chance + 3 mana = 7 budget, 4/2 damage + 5 status (2 fire, 3 multishot)",
+  "chargeEffects": [
+    {
+      "effect": "throw_card",
+      "speed": 1.5,
+      "divergence": 10,
+      "gravity": 0.01,
+      "onHit": [
+        {
+          "effect": "damage",
+          "amount": 9,
+          "damageType": "minecraft:on_fire"
+        },
+        {
+          "effect": "apply_status",
+          "type": "battlecards:on_fire",
+          "duration": 100
+        }
+      ]
+    },
+    {
+      "effect": "apply_status",
+      "type": "battlecards:multishot",
+      "duration": 100
+    }
+  ]
+}

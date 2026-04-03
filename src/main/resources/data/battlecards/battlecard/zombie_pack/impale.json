@@ -1,5 +1,6 @@
 {
   "id": "battlecards:zombie_pack/impale",
+  "quickKeywords": ["Attack","Melee","Mana Generator"],
   "quickComment": "4 budget, 2 damage + 1 sweeping + 1 mana",
   "quickEffects": [
     {
@@ -18,6 +19,7 @@
     }
   ],
   "cost": 5,
+  "chargeKeywords": ["Attack","Projectile","Status","Movement"],
   "chargeComment": "8 budget, 6 damage + 2/2 status + 1 push",
   "chargeEffects": [
     {

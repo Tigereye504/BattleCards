@@ -1,5 +1,6 @@
 {
   "id": "battlecards:zombie_pack/mighty_blow",
+  "quickKeywords": ["Attack","Melee","Mana Generator"],
   "quickComment": "4 budget, 2 damage + 1 lifesteal + 1 sweeping + 1 mana",
   "quickEffects": [
     {
@@ -18,6 +19,7 @@
     }
   ],
   "cost": 6,
+  "chargeKeywords": ["Attack","Melee","Movement"],
   "chargeComment": "10 budget, 8 damage + 1 push + 1 sweeping",
   "chargeComment2": "This is high end direct violence. Higher cost cards need to instead diversify effects.",
   "chargeEffects": [

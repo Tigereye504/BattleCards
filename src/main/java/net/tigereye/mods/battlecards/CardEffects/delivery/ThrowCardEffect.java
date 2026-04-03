@@ -12,12 +12,10 @@ import net.tigereye.mods.battlecards.CardEffects.context.CardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.context.PersistentCardEffectContext;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardEffect;
 import net.tigereye.mods.battlecards.CardEffects.interfaces.CardTooltipNester;
-import net.tigereye.mods.battlecards.CardEffects.modifiers.DelayedEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.ConstantScalarEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.CardScalar;
 import net.tigereye.mods.battlecards.Cards.Json.CardEffectSerializers.CardEffectSerializer;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
-import net.tigereye.mods.battlecards.Events.DamageCardEffectCallback;
 import net.tigereye.mods.battlecards.Events.ThrowCardEffectCallback;
 import net.tigereye.mods.battlecards.Projectiles.CardProjectileEntity;
 import net.tigereye.mods.battlecards.Util.DelayedAction;
@@ -132,9 +130,6 @@ public class ThrowCardEffect implements CardEffect, CardTooltipNester {
         }
     }
 
-    public CardProjectileEntity createProjectile(PersistentCardEffectContext pContext, CardEffectContext context) {
-        return createProjectile(pContext,context,pContext.user, null);//TODO: delete this
-    }
     public CardProjectileEntity createProjectile(PersistentCardEffectContext pContext, CardEffectContext context, Entity target, Parameters params) {
         if(pContext.user == null ||((!originRelativeToUserElseTarget)&&(target == null))){
             return null;

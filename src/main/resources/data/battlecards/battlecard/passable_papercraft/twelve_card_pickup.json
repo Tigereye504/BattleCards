@@ -1,5 +1,6 @@
 {
   "id": "battlecards:passable_papercraft/twelve_card_pickup",
+  "quickKeywords": ["Attack","Projectile","Mana Generator"],
   "quickEffects": [
     {
       "effect": "throw_card",
@@ -18,20 +19,16 @@
     }
   ],
   "cost": 3,
+  "chargeKeywords": ["Attack","Projectile"],
   "chargeEffects": [
     {
-
-      "effect": "throw_cards",
-      "projectiles": [
-        {
-          "effect": "throw_card",
-          "yaw": {"effect": "random_scalar", "minimum": -16, "maximum": 16},
-          "pitch": {"effect": "random_scalar", "minimum": -16, "maximum": 2},
-          "speed": {"effect": "random_scalar", "minimum": 0.2, "maximum": 0.4},
-          "gravity": 0.005,
-          "copies": 12
-        }
-      ],
+      "effect": "throw_card",
+      "yaw": {"effect": "random_scalar", "minimum": -16, "maximum": 16},
+      "pitch": {"effect": "random_scalar", "minimum": -16, "maximum": 2},
+      "speed": {"effect": "random_scalar", "minimum": 0.2, "maximum": 0.4},
+      "gravity": 0.005,
+      "count": 12,
+      "countDelay": 1,
       "onHit": [
         {
           "effect": "damage",

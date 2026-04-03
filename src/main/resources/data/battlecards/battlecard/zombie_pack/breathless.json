@@ -1,5 +1,6 @@
 {
   "id": "battlecards:zombie_pack/breathless",
+  "quickKeywords": [],
   "quickEffects": [
     {
       "effect": "modify_breath",
@@ -7,6 +8,7 @@
     }
   ],
   "cost": 4,
+  "chargeKeywords": ["Status"],
   "chargeEffects": [
     {
       "effect": "apply_status",

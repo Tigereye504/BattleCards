@@ -1,5 +1,6 @@
 {
   "id": "battlecards:passable_papercraft/five_ply",
+  "quickKeywords": ["Attack","Projectile","Mana Generator"],
   "quickEffects": [
     {
       "effect": "throw_card",
@@ -18,40 +19,25 @@
     }
   ],
   "cost": 5,
+  "chargeKeywords": ["Attack","Projectile"],
   "chargeEffects": [
     {
-      "effect": "throw_cards",
-      "projectiles": [
+      "effect": "repeat",
+      "count": 5,
+      "startingScalar": -24,
+      "incrementScalar": 12,
+      "effects": [
         {
           "effect": "throw_card",
-          "yaw": 24,
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "yaw": 12,
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "yaw": -12,
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "yaw": -24,
-          "speed": 1
-        }
-      ],
-      "onHit": [
-        {
-          "effect": "damage",
-          "amount": 9,
-          "damageType": "minecraft:arrow"
+          "yaw": {"effect": "x_scalar"},
+          "speed": 1,
+          "onHit": [
+            {
+              "effect": "damage",
+              "amount": 9,
+              "damageType": "minecraft:arrow"
+            }
+          ]
         }
       ]
     }

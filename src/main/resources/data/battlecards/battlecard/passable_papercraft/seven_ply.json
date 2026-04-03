@@ -1,5 +1,6 @@
 {
   "id": "battlecards:passable_papercraft/seven_ply",
+  "quickKeywords": ["Attack","Projectile","Mana Generator"],
   "quickEffects": [
     {
       "effect": "throw_card",
@@ -18,50 +19,25 @@
     }
   ],
   "cost": 7,
+  "chargeKeywords": ["Attack","Projectile"],
   "chargeEffects": [
     {
-      "effect": "throw_cards",
-      "projectiles": [
+      "effect": "repeat",
+      "count": 7,
+      "startingScalar": -30,
+      "incrementScalar": 10,
+      "effects": [
         {
           "effect": "throw_card",
-          "yaw": 30,
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "yaw": 20,
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "yaw": 10,
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "yaw": -10,
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "yaw": -20,
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "yaw": -30,
-          "speed": 1
-        }
-      ],
-      "onHit": [
-        {
-          "effect": "damage",
-          "amount": 11,
-          "damageType": "minecraft:arrow"
+          "yaw": {"effect": "x_scalar"},
+          "speed": 1,
+          "onHit": [
+            {
+              "effect": "damage",
+              "amount": 11,
+              "damageType": "minecraft:arrow"
+            }
+          ]
         }
       ]
     }

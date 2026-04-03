@@ -1,5 +1,6 @@
 {
   "id": "battlecards:zombie_pack/infectious_blow",
+  "quickKeywords": ["Attack","Melee","Status","Mana Generator"],
   "quickComment": "4 budget, 1 damage + 1 sweeping + 3 mana - 1 self-hunger",
   "quickEffects": [
     {
@@ -29,6 +30,7 @@
     }
   ],
   "cost": 3,
+  "chargeKeywords": ["Attack","Melee","Status"],
   "chargeComment": "7 budget, 3 damage + 3 status transfers + 1 sweeping",
   "chargeComment2": "Transfer Status is hard to judge, as it can apply long and devastating effects... if the user is suffering them first",
   "chargeEffects": [

@@ -1,5 +1,6 @@
 {
   "id": "battlecards:passable_papercraft/six_ply",
+  "quickKeywords": ["Attack","Projectile","Mana Generator"],
   "quickEffects": [
     {
       "effect": "throw_card",
@@ -18,47 +19,25 @@
     }
   ],
   "cost": 6,
+  "chargeKeywords": ["Attack","Projectile"],
   "chargeEffects": [
     {
-
-      "effect": "throw_cards",
-      "projectiles": [
+      "effect": "repeat",
+      "count": 6,
+      "startingScalar": -27.5,
+      "incrementScalar": 11,
+      "effects": [
         {
           "effect": "throw_card",
-          "yaw": 6,
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "yaw": 17,
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "yaw": 28,
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "yaw": -6,
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "yaw": -17,
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "yaw": -28,
-          "speed": 1
-        }
-      ],
-      "onHit": [
-        {
-          "effect": "damage",
-          "amount": 11,
-          "damageType": "minecraft:arrow"
+          "yaw": {"effect": "x_scalar"},
+          "speed": 1,
+          "onHit": [
+            {
+              "effect": "damage",
+              "amount": 11,
+              "damageType": "minecraft:arrow"
+            }
+          ]
         }
       ]
     }

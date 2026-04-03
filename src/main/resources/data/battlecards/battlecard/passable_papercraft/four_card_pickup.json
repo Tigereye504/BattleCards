@@ -18,20 +18,16 @@
     }
   ],
   "cost": 1,
+  "chargeKeywords": ["Attack","Projectile"],
   "chargeEffects": [
     {
-
-      "effect": "throw_cards",
-      "projectiles": [
-        {
-          "effect": "throw_card",
-          "yaw": {"effect": "random_scalar", "minimum": -12, "maximum": 12},
-          "pitch": {"effect": "random_scalar", "minimum": -12, "maximum": 2},
-          "speed": {"effect": "random_scalar", "minimum": 0.2, "maximum": 0.4},
-          "gravity": 0.005,
-          "copies": 4
-        }
-      ],
+      "effect": "throw_card",
+      "yaw": {"effect": "random_scalar", "minimum": -12, "maximum": 12},
+      "pitch": {"effect": "random_scalar", "minimum": -12, "maximum": 2},
+      "speed": {"effect": "random_scalar", "minimum": 0.2, "maximum": 0.4},
+      "gravity": 0.005,
+      "count": 4,
+      "countDelay": 1,
       "onHit": [
         {
           "effect": "damage",

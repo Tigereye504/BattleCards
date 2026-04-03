@@ -10,7 +10,6 @@ import net.tigereye.mods.battlecards.CardEffects.delivery.MeleeEffect;
 import net.tigereye.mods.battlecards.CardEffects.delivery.ThrowCardEffect;
 import net.tigereye.mods.battlecards.CardEffects.entityEffects.*;
 import net.tigereye.mods.battlecards.CardEffects.modifiers.*;
-import net.tigereye.mods.battlecards.CardEffects.delivery.ThrowCardsEffect;
 import net.tigereye.mods.battlecards.CardEffects.scalar.*;
 import net.tigereye.mods.battlecards.Cards.Json.CardSerializer;
 
@@ -20,7 +19,6 @@ public class BCEffectSerializers {
         //delivery methods
         CardSerializer.registerCardEffectSerializer("melee",new MeleeEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("throw_card",new ThrowCardEffect.Serializer());
-        CardSerializer.registerCardEffectSerializer("throw_cards",new ThrowCardsEffect.Serializer());
         CardSerializer.registerCardEffectSerializer("entities_in_radius",new EntitiesInRadiusEffect.Serializer());
         //modifiers
         CardSerializer.registerCardEffectSerializer("if_grounded",new IfGroundedCondition.Serializer());

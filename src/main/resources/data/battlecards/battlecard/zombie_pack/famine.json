@@ -1,5 +1,6 @@
 {
   "id": "battlecards:zombie_pack/famine",
+  "quickKeywords": ["Attack","Melee","Mana Generator","Status"],
   "quickComment": "4 budget, 1 damage + 1 sweeping + 3 mana - 1 self-hunger",
   "quickEffects": [
     {
@@ -29,6 +30,7 @@
     }
   ],
   "cost": 9,
+  "chargeKeywords": ["Status"],
   "chargeComment": "14 budget (1 targeting+9 mana+4 disad), 8 status-damage + 4 hunger + 2 radius",
   "chargeComment2": "-0 self damage (likely to be healing via Undeath status), -4 hunger self",
   "chargeEffects": [

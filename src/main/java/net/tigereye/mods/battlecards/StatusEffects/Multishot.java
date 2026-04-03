@@ -28,7 +28,7 @@ public class Multishot extends BCStatusEffect{
         Collection<String> keywords = quickElseCharge ? pContext.card.getQuickKeywords() : pContext.card.getChargeKeywords();
         if(keywords.contains("Projectile")){
             pContext.throwCardCallbacks.add((pContext2, target2, context, params) -> {
-                params.copies *= (int) (EXTRA_SHOTS_PER_LEVEL*(instance.getAmplifier()+1));
+                params.copies *= (int) (EXTRA_SHOTS_PER_LEVEL*(instance.getAmplifier()+2));
                 if(params.copyDelay == 0){
                     params.copyDelay = 5;
                 }

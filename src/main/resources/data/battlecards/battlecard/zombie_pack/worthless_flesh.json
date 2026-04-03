@@ -1,5 +1,6 @@
 {
   "id": "battlecards:zombie_pack/worthless_flesh",
+  "quickKeywords": ["Status"],
   "quickEffects": [
     {
       "effect": "apply_status",
@@ -9,6 +10,7 @@
     }
   ],
   "cost": 4,
+  "chargeKeywords": ["Status"],
   "chargeEffects": [
     {
       "effect": "apply_status",

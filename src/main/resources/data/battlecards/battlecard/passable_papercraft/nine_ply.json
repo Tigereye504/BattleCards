@@ -1,5 +1,6 @@
 {
   "id": "battlecards:passable_papercraft/nine_ply",
+  "quickKeywords": ["Attack","Projectile","Mana Generator"],
   "quickEffects": [
     {
       "effect": "throw_card",
@@ -18,60 +19,25 @@
     }
   ],
   "cost": 9,
+  "chargeKeywords": ["Attack","Projectile"],
   "chargeEffects": [
     {
-      "effect": "throw_cards",
-      "projectiles": [
+      "effect": "repeat",
+      "count": 9,
+      "startingScalar": -34,
+      "incrementScalar": 8.5,
+      "effects": [
         {
           "effect": "throw_card",
-          "yaw": 34,
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "yaw": 25.5,
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "yaw": 17,
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "yaw": 8.5,
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "yaw": -8.5,
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "yaw": -17,
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "yaw": -25.5,
-          "speed": 1
-        },
-        {
-          "effect": "throw_card",
-          "yaw": -34,
-          "speed": 1
-        }
-      ],
-      "onHit": [
-        {
-          "effect": "damage",
-          "amount": 14,
-          "damageType": "minecraft:arrow"
+          "yaw": {"effect": "x_scalar"},
+          "speed": 1,
+          "onHit": [
+            {
+              "effect": "damage",
+              "amount": 14,
+              "damageType": "minecraft:arrow"
+            }
+          ]
         }
       ]
     }

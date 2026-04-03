@@ -1,5 +1,6 @@
 {
   "id": "battlecards:zombie_pack/pummel",
+  "quickKeywords": ["Attack","Melee","Mana Generator"],
   "quickEffects": [
     {
       "effect": "repeat",
@@ -25,6 +26,7 @@
     }
   ],
   "cost": 4,
+  "chargeKeywords": ["Attack","Melee","Status","Movement"],
   "chargeComment": "Melee delivery = 4 base. Has Sweeping (1 pt)",
   "chargeComment2": "does 12 damage over 3 hits. somewhat worse than 12 in one hit, due to innate armor piercing",
   "chargeComment4": "That leaves it somewhere between 'very' and 'extremely' strong in damage-value. (6 pts?)",

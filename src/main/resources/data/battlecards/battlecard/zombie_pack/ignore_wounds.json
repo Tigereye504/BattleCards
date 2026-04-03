@@ -1,5 +1,6 @@
 {
   "id": "battlecards:zombie_pack/ignore_wounds",
+  "quickKeywords": ["Healing"],
   "quickComment": "1 budget, 1 healing",
   "quickComment2": "a 20% missing health heal is estimated to be ~2 health on average",
   "quickEffects": [
@@ -15,6 +16,7 @@
     }
   ],
   "cost": 4,
+  "chargeKeywords": ["Healing"],
   "chargeComment": "5 budget, 5 healing",
   "chargeEffects": [
     {
