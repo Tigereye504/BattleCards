@@ -14,13 +14,13 @@ If a card applies negative effects to the user, those effects add to that card's
 
 --Quick Actions--
 
-A quick action never costs mana, and so only have access to base and drawback mana points.
+Quick actions never costs mana, and so only have access to base and drawback mana points.
 The primary purpose of a quick action is generally to produce mana, though some eschew that to just have a moderate effect.
 Mana is taken, not generated. Card *must* harm, drain, or destroy something to pay out mana.
 Something like Life Tap: lose life, gain mana could be acceptable. Mana Tap: melee, just gain mana would not.
 
 Quick actions generally should produce at least 1 mana if they cause harm.
-Quick actions generally should be of the same nature as its charged action, but exceptions exist.
+Quick actions generally should be of the same nature as their charged actions, but exceptions exist.
 
 --Charge Actions--
 
@@ -35,7 +35,7 @@ Cost targets for charge effects:
     These charge actions should generally do 'strong' or greater damage to finish the target off.
 5-6 cost:
     Charge actions intended to be used after killing a mob with 3 diamond quick actions.
-    These charge actions should generally do 'extremely strong' or greater damage to kill a second target.
+    These charge actions should generally do 'great' or greater damage to kill a second target.
 7-8 cost:
     Charge actions intended to be used after killing a mob with 4 iron quick actions.
     These charge actions should generally do 'deadly' or greater damage to kill a second target.
@@ -60,7 +60,7 @@ Cost targets for charge effects:
 'extremely deadly'- 8 -                 17          25.5        34          ~*38.25*~ dmg
 'catastrophic'**  - 10 - iron golem     *20*        ~*30*~      **40**      **45** dmg
 ***                 +1                  +2          +3          +4          +4.5 dmg
-*'light' and 'very weak' damage should only be for special cases, like multi-hits, 'pinpricks', or advantaged damage types
+*'light' and 'very weak' damage should only be for special cases, like multi-hits, 'pinpricks' that deliver something smore significant, or advantaged damage types
 ** cards should not hit this card without meeting significant conditions first.
 *** cards should not hit this hard without extreme conditions.
 *** These values are for determining the cost of advantaged damage types.
@@ -76,7 +76,6 @@ Protection Piercing x2
 AP+PP               x4
 modify_health*      x2 (be it for healing or for harm)
 *while not damage per se, it has the same end result. It is cheaper than AP+PP because it doesn't scale with sleeves.
-*this applies
 
 --Status Effects--
 
@@ -90,13 +89,16 @@ In such cases, apply a multiplier to their duration-value.
 Status Effect       Duration-Cost Modifier
 Blindness           x16 (While largely useless against mobs, this is an utterly crippling status to players.)
 Evasion             x32 (This is outright invulnerability by means of removing the user's hitbox.)
-Levitation          x12 if hostile, x1 on user (This is a powerful CC effect, much nastier than slowness.)
+Levitation          x12 if hostile, x1 on user (This is a powerful CC effect, much nastier than slowness. On the user, however, its controlled and so a mild utility.)
 Mining Fatigue      x2 (Low magnitudes aren't too bad, but high magnitudes effectively disable mining entirely.)
+Multishot           x6 (Firing twice is powerful, but with only one stack I-Frames are likely to get involved. Two stacks is where this gets really spicy.)
 Nausea              x8 (This is a frustrating interface screw, and disables sprinting.)
-Poison              x4 (Damage over time is potent stuff. We all hate cave spiders for a reason!)
 On Fire             x3 (Like poison that is visually obstructive and can kill, but easily countered with water or potions.)
+Poison              x4 (Damage over time is potent stuff. We all hate cave spiders for a reason!)
 Regeneration        x3 (Slow healing, but indeed still healing.)
 Wither              x3 (Less than poison? Yep. Wither can kill, buts it's also very slow.)
+
+
 
 When applying multiple status effects, sum together the duration of the effects to be applied.
 
@@ -126,7 +128,7 @@ Likely similar to status effecting? Lacks sleeves, so should be more cost-effici
 
 Healing is handled the same as damage via modify_health; x2 healing amount as damage-cost.
 Lifesteal is healing that enjoys damage scaling but contends with defenses, and so is worth the same as the damage it is attached to.
-Absorption apart from the status effect is worth 2 points per mana-cost if it doesn't stack with itself, twice as much if it does.
+Absorption apart from the status effect is worth 2 absorption per MP if it doesn't stack with itself, twice as much if it does.
 
 Effects that restore hunger or saturation are priced x1/2 that of healing, as it is very easy to... just eat.
 
@@ -140,7 +142,7 @@ For example, requiring the target to have a status effect (or one of a few statu
 Conditions cannot reduce the cost by more than the divisor (e.g. if the cost is halved by a status requirement, it cannot discount the card by more than 2)
 More or less stringent conditions are worth more or less of a discount, respectively.
 
-If a card applies both damage and status effects, card sleeves (which roughly double card strength) will be less efficient at empowering it.
+If a card applies both damage and status effects, card sleeves (which roughly double card effects) will be less efficient at empowering it.
 Determine the mana points spent on damage and status effects (including damaging status effects).
 Discount the less expensive category by 50%. If they are equal, just pick one to be the 'most expensive'.
 
